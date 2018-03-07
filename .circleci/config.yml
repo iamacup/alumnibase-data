@@ -26,7 +26,7 @@ jobs:
           - v1-dependencies-
 
       # install the package dependencies #& use a frozen lockfile as recommended here: https://yarnpkg.com/lang/en/docs/cli/install/
-      - run: yarn install #--frozen-lockfile 
+      - run: yarn install --production=false #--frozen-lockfile 
 
       # save this stuff so we can speed up things next run if no changes
       - save_cache:
