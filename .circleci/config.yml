@@ -26,7 +26,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      # install the package dependencies & use a frozen lockfile as recommended here: https://yarnpkg.com/lang/en/docs/cli/install/
+      # install the package dependencies #& use a frozen lockfile as recommended here: https://yarnpkg.com/lang/en/docs/cli/install/
       - run: yarn install #--frozen-lockfile 
 
       # save this stuff so we can speed up things next run if no changes
@@ -34,9 +34,13 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      
+
+      # setup an environment variable for the build name
+      - run: BUILD_NAME=$([ "$CIRCLE_BRANCH" == "master" ] && echo "prod" || echo "dev")
+      - run: echo $BUILD_NAME
+
       # build the thing
-      - run: yarn build:prod  
+      - run: yarn build:prod
 
       # download google cloud sdk
       - run: wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
@@ -51,3 +55,6 @@ jobs:
 
       # deploy the project
       - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
+
+      # update the dispatch file if it exists
+      - run: [ -f ./dispatch.yaml ] && (sudo ./google-cloud-sdk/bin/gcloud app deploy dispatch.yaml) || echo "No dispatch file found"
