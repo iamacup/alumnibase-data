@@ -26,14 +26,20 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install
+      # install the package dependencies for dev (i.e. deps and devDeps) - use a frozen lockfile as recommended here: https://yarnpkg.com/lang/en/docs/cli/install/
+      - run: yarn install #--frozen-lockfile --production=false
 
+      # save this stuff so we can speed up things next run if no changes
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
-      # run tests!
-      - run: yarn test
+      
+      # build the thing
+      - run: yarn build:prod  
 
-
+      # authenticate with google cloud
+      - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+      - run: sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
+      - run: sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+      - run: sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT

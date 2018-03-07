@@ -27,6 +27,9 @@ import { port, host } from '../foundation/config';
 
 const app = express();
 
+// we use this command to allow the proxying of ssl etc through the google app engine load balancer: https://cloud.google.com/appengine/docs/flexible/nodejs/runtime
+app.set('trust proxy', true);
+
 // Using helmet to secure Express with various HTTP headers
 app.use(helmet());
 // Prevent HTTP parameter pollution.
