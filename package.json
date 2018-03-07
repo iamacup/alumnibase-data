@@ -28,6 +28,7 @@
   },
   "homepage": "https://www.sliips.com/",
   "scripts": {
+    "prestart": "yarn install --production=false",
     "start": "google-app-angine-start-command",
     "start-gce-dev": "yarn start:dev",
     "start-gce-prod": "yarn start:prod",
