@@ -44,6 +44,7 @@ jobs:
       - run: tar -zxf google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
       - run: rm google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
       - run: ./google-cloud-sdk/bin/gcloud components install kubectl
+      - run: pwd
       - run: cd ~/repo
 
       # authenticate with google cloud
