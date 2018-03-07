@@ -36,7 +36,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # setup an environment variable for the build name
-      - run: BUILD_NAME=$([ "$CIRCLE_BRANCH" == "master" ] && echo "prod" || echo "dev")
+      - run: export BUILD_NAME=$([ "$CIRCLE_BRANCH" == "master" ] && echo "prod" || echo "dev")
       - run: echo $BUILD_NAME
 
       # build the thing
