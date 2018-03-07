@@ -35,13 +35,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # setup an environment variable for the build name
-      - run: export BUILD_NAME=$([ "$CIRCLE_BRANCH" == "master" ] && echo "prod" || echo "dev")
-      - run: echo $BUILD_NAME
-      - run: echo "$BUILD_NAME"
-
       # build the thing
-      - run: yarn build:prod
+      - run: "[ \"$CIRCLE_BRANCH\" == "master" ] && yarn build:prod || yarn build:dev"
 
       # download google cloud sdk
       - run: wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
@@ -53,6 +48,10 @@ jobs:
       - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
       - run: sudo ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
       - run: sudo ./google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
+
+      # rewrite the app.yaml to start prod or dev as needed
+      - run: "[ \"$CIRCLE_BRANCH\" == "master" ] && echo "Do nothing" || sed -i "s/data-prod/data-dev/g" ./app.yaml"
+      - run: cat app.yaml
 
       # deploy the project
       - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
