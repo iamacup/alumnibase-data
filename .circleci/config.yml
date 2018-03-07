@@ -50,4 +50,4 @@ jobs:
       - run: sudo ./google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
 
       # deploy the project
-      - run: ./google-cloud-sdk/bin/gcloud app deploy
+      - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
