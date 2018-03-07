@@ -38,9 +38,15 @@ jobs:
       # build the thing
       # - run: yarn build:prod  
 
+      # download google cloud sdk
+      - run: pushd /opt/
+      - run: wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
+      - run: tar -zxf google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
+      - run: rm google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
+      - run: ./google-cloud-sdk/bin/gcloud components install kubectl
+      - run: popd
+
       # authenticate with google cloud
       - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
-      - run: find / -name gcloud  2>&1 | grep -v "Permission denied"
-      - run: sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
       - run: sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
       - run: sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
