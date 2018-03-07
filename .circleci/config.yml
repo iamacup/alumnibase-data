@@ -39,12 +39,12 @@ jobs:
       # - run: yarn build:prod  
 
       # download google cloud sdk
-      - run: pushd /opt/
+      - run: cd /opt/
       - run: wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
       - run: tar -zxf google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
       - run: rm google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
       - run: ./google-cloud-sdk/bin/gcloud components install kubectl
-      - run: popd
+      - run: cd ~/repo
 
       # authenticate with google cloud
       - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
