@@ -57,7 +57,6 @@ jobs:
       - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn install --production=false & yarn start:prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn install --production=false && yarn start:dev/g\" ./package.json"
       # then we replace the search string with the ampersand      
       - run: sed -i "s/google-app-angine-start-command/\&/g" ./package.json
-      - run: cat ./package.json
 
       # deploy the project
       - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
