@@ -1,3 +1,5 @@
 dispatch:
   - url: "data.alumnibaseapp.com/*"
     service: data-prod
+  - url: "beta-data.alumnibaseapp.com/*"
+    service: data-dev
