@@ -64,8 +64,8 @@
       "command": "node ./index.js",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "production",
-        "BABEL_ENV": "production",
+        "NODE_ENV": "development",
+        "BABEL_ENV": "development",
         "API_ENDPOINT": "2"
       }
     },
