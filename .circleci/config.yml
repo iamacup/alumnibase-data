@@ -38,6 +38,7 @@ jobs:
       # setup an environment variable for the build name
       - run: export BUILD_NAME=$([ "$CIRCLE_BRANCH" == "master" ] && echo "prod" || echo "dev")
       - run: echo $BUILD_NAME
+      - run: echo "$BUILD_NAME"
 
       # build the thing
       - run: yarn build:prod
