@@ -53,7 +53,7 @@ jobs:
       - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && echo \"Do nothing\" || sed -i \"s/data-prod/data-dev/g\" ./app.yaml"
 
       # rewrite the package.json to start prod or dev as needed
-      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn install --production=false \\&\\& yarn start:prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn install --production=false && yarn start:dev/g\" ./package.json"
+      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn install --production=false \\\&\\\& yarn start:prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn install --production=false && yarn start:dev/g\" ./package.json"
       - run: cat ./package.json
 
       # deploy the project
