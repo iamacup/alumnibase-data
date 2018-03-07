@@ -40,6 +40,7 @@ jobs:
 
       # authenticate with google cloud
       - run: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
-      - run: sudo gcloud --quiet components update
-      - run: sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-      - run: sudo gcloud config set project $GCLOUD_PROJECT
+      - run: (cd /opt && ls)
+      - run: sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
+      - run: sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+      - run: sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
