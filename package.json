@@ -28,10 +28,9 @@
   },
   "homepage": "https://www.sliips.com/",
   "scripts": {
-    "bundle": "yarn install --production=false && yarn build:dev",
-    "start": "yarn start:dev",
-    "start-gce-dev": "yarn start:dev",
-    "start-gce-prod": "yarn start:prod",
+    "start": "google-app-angine-start-command",
+    "start-gce-dev": "yarn install --production=false && yarn start:prod",
+    "start-gce-prod": "yarn install --production=false && yarn start:prod",
     "start:local": "yarn better-npm-run start:local",
     "start:dev": "yarn better-npm-run start:dev",
     "start:prod": "yarn better-npm-run start:prod",
@@ -65,8 +64,8 @@
       "command": "node ./index.js",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "development",
-        "BABEL_ENV": "development",
+        "NODE_ENV": "production",
+        "BABEL_ENV": "production",
         "API_ENDPOINT": "2"
       }
     },

@@ -35,7 +35,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # build the thing
-      # - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && yarn build:prod || yarn build:dev"
+      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && yarn build:prod || yarn build:dev"
 
       # download google cloud sdk
       - run: wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
@@ -54,8 +54,8 @@ jobs:
       - run: cat ./app.yaml
 
       # rewrite the package.json to start prod or dev as needed  
-      # - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn start-gce-prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn start-gce-dev/g\" ./package.json"
-      # - run: cat ./package.json
+      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn start-gce-prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn start-gce-dev/g\" ./package.json"
+      - run: cat ./package.json
 
       # deploy the project
       - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
