@@ -35,7 +35,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # build the thing
-      # - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && yarn build:prod || yarn build:dev"
+      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && yarn build:prod || yarn build:dev"
 
       # download google cloud sdk
       - run: wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-191.0.0-linux-x86_64.tar.gz
