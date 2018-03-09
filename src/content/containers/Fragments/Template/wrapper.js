@@ -48,7 +48,7 @@ class Wrapper extends React.PureComponent {
           <div id="content-container">
             <div id="page-head">
               <div className="pad-all text-center" style={{ paddingBottom: '0' }}>
-                <h3 style={{ marginTop: '0' }}>Boomtown University</h3>
+                <h3 style={{ marginTop: '0' }}>Boomtown University - TU - LATEST</h3>
                 <p>{this.props.pageData.pageTitle}</p>
               </div>
 
