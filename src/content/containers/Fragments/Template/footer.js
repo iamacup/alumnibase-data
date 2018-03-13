@@ -26,7 +26,7 @@ class Page extends React.PureComponent {
         {/*  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> */}
         {/*  <!-- Remove the class "show-fixed" and "hide-fixed" to make the content always appears. --> */}
         {/*  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> */}
-        <p className="pad-lft">&#0169; 2018 UniLytics</p>
+        <p className="pad-lft">&#0169; 2018 AlumniBase</p>
 
       </footer>
     );

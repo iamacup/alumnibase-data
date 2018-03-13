@@ -52,7 +52,7 @@ class Page extends React.PureComponent {
             <a href="index.html" className="navbar-brand">
               <img src={require('../../../../content/theme/custom/images/top-left-logo.png')} alt="Global Logo" className="brand-icon" />
               <div className="brand-title">
-                <span className="brand-text">UniLytics</span>
+                <span className="brand-text">AlumniBase</span>
               </div>
             </a>
           </div>
