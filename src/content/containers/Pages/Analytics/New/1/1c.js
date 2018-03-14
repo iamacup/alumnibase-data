@@ -11,6 +11,7 @@ import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/cus
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import Section5Graph from '../../../../../../content/containers/Fragments/Graphs/section5Graph';
+import Section5Graph2 from '../../../../../../content/containers/Fragments/Graphs/section5Graph2';
 
 import SubNav from './subNav';
 
@@ -62,18 +63,22 @@ class Page extends React.PureComponent {
         />
 
         <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <Section5Graph
-              title="To what extent do you believe undertaking professional qualifications will advance your career"
-              globalID="new-1-8"
-            />
+          <div className="col-md-10 col-md-push-1">
+            <div className="panel">
+              <div className="panel-body" style={{ paddingBottom: '15px' }}>
+                Data from section 5 of the respondent survey is collated here. For ease of access this data is split into three areas: <br /><br />
+                <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life, <br />
+                <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the respondent and; <br />
+                <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <Section5Graph
-              title="To what extent do you believe undertaking professional qualifications will advance your career? "
+              title="To what extent do you believe undertaking professional qualifications will advance your career?"
               globalID="new-1-9"
             />
           </div>

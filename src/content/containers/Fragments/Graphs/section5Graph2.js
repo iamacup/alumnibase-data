@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawNewBarChart } from '../../../../content/scripts/custom/echarts/generators';
+import { drawLineChart } from '../../../../content/scripts/custom/echarts/generators';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -24,17 +24,33 @@ class Graph extends React.PureComponent {
 
   componentDidMount() {
     $(() => {
-      const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-      const dataSeries = [
-        { name: 'Strongly agree', data: [20, 16, 14, 12, 10] },
-        { name: 'Agree', data: [20, 16, 14, 12, 10] },
-        { name: 'Neither agree or disagree', data: [40, 44, 44, 44, 40] },
-        { name: 'Disagree', data: [10, 12, 14, 16, 20] },
-        { name: 'Strongly disagree', data: [10, 12, 14, 16, 20] },
-      ];
+      const age = [];
+      const plotted = [];
 
+      const start = 9.1;
+      const end = 5.6;
 
-      const option = drawNewBarChart(axisData, dataSeries);
+      const firstAge = 21;
+      const lastAge = 61;
+
+      let current = start;
+      const increment = (start - end) / (lastAge - firstAge);
+
+      for (let a = firstAge; a < lastAge; a++) {
+        age.push(a);
+        plotted.push(Number(current.toPrecision(2)));
+
+        current -= increment;
+
+        console.log(increment);
+      }
+
+      const data = {
+        age,
+        plotted,
+      };
+
+      const option = drawLineChart(data, 'Age', 'Average Response');
 
       renderChartToTarget(this.graphTarget1, option);
     });
@@ -71,15 +87,21 @@ class Graph extends React.PureComponent {
       return r;
     };
 
-    const rands = generate(100, 5);
+    const rands = generate(100, 11);
 
     const obj = (
       <div>
-        {this.getPercentRow('Strongly agree', rands[0])}
-        {this.getPercentRow('Agree', rands[1])}
-        {this.getPercentRow('Neither agree or disagree', rands[2])}
-        {this.getPercentRow('Disagree', rands[3])}
-        {this.getPercentRow('Strongly disagree', rands[4], false)}
+        {this.getPercentRow('10', rands[0])}
+        {this.getPercentRow('9', rands[1])}
+        {this.getPercentRow('8', rands[2])}
+        {this.getPercentRow('7', rands[3])}
+        {this.getPercentRow('6', rands[4])}
+        {this.getPercentRow('5', rands[5])}
+        {this.getPercentRow('4', rands[6])}
+        {this.getPercentRow('3', rands[7])}
+        {this.getPercentRow('2', rands[8])}
+        {this.getPercentRow('1', rands[9])}
+        {this.getPercentRow('0', rands[10], false)}
       </div>
     );
 
@@ -95,7 +117,7 @@ class Graph extends React.PureComponent {
 
     const obj = (
       <div className="row">
-        <div className="col-sm-4">
+        <div className="col-sm-2">
           <div className="text-left visible-xs-block">
             <h6 style={{ marginTop: '0' }}>{title}</h6>
           </div>
@@ -103,7 +125,7 @@ class Graph extends React.PureComponent {
             <h6 style={{ marginTop: '0' }}>{title}</h6>
           </div>
         </div>
-        <div className="col-sm-8">
+        <div className="col-sm-10">
           <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{percentage}%</h6>
           <div className="progress" style={barStyle}>
             <div
@@ -164,7 +186,6 @@ class Graph extends React.PureComponent {
         <div className="collapse">
           <div className="panel-body" style={{ paddingBottom: '0', paddingTop: '0' }}>
 
-
             <div className="panel">
               <div className="panel-heading">
                 <div className="panel-control">
@@ -197,12 +218,18 @@ class Graph extends React.PureComponent {
               <hr style={{ margin: 0 }} />
 
               <div className="panel-body" style={{ paddingBottom: '0' }}>
+
                 <div className="tab-content">
                   <div id={this.state.panel1ID} className="tab-pane fade in active">
                     {this.getPercentageBlock()}
                   </div>
                   <div id={this.state.panel2ID} className="tab-pane fade">
                     <div className="pad-all">
+
+                      <h5>
+                          Trends averaged for each age group with responses, plotted below
+                      </h5>
+
                       <div
                         className="echarts-graph"
                         style={{ width: '100%', height: '360px' }}
@@ -215,20 +242,22 @@ class Graph extends React.PureComponent {
                 <div className="text-right" style={{ marginTop: '26px' }}>
                   <h5>
                     <small>
-                      Percentage values when all responses are aggregated
+                      Percentage values when all responses are aggregated, ranging from:<br /><br />
+              0 meaning respondent did not feel impacted for question asked <br />
+              10 meaning respondent felt most possible impact for question asked
                     </small>
                   </h5>
                 </div>
+
               </div>
+
 
               <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
             </div>
 
-
           </div>
         </div>
       </div>
-
     );
   }
 }

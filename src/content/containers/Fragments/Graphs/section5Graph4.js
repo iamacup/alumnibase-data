@@ -26,11 +26,11 @@ class Graph extends React.PureComponent {
     $(() => {
       const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
       const dataSeries = [
-        { name: 'Strongly agree', data: [20, 16, 14, 12, 10] },
-        { name: 'Agree', data: [20, 16, 14, 12, 10] },
-        { name: 'Neither agree or disagree', data: [40, 44, 44, 44, 40] },
-        { name: 'Disagree', data: [10, 12, 14, 16, 20] },
-        { name: 'Strongly disagree', data: [10, 12, 14, 16, 20] },
+        { name: 'A great extent', data: [20, 16, 14, 12, 10] },
+        { name: 'Some extent', data: [20, 16, 14, 12, 10] },
+        { name: 'Not at all', data: [40, 44, 44, 44, 40] },
+        { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
+        { name: 'Have not worked since finishing course', data: [10, 12, 14, 16, 20] },
       ];
 
 
@@ -75,11 +75,11 @@ class Graph extends React.PureComponent {
 
     const obj = (
       <div>
-        {this.getPercentRow('Strongly agree', rands[0])}
-        {this.getPercentRow('Agree', rands[1])}
-        {this.getPercentRow('Neither agree or disagree', rands[2])}
-        {this.getPercentRow('Disagree', rands[3])}
-        {this.getPercentRow('Strongly disagree', rands[4], false)}
+        {this.getPercentRow('A great extent', rands[0])}
+        {this.getPercentRow('Some extent', rands[1])}
+        {this.getPercentRow('Not at all', rands[2])}
+        {this.getPercentRow('Don\'t know', rands[3])}
+        {this.getPercentRow('Have not worked since finishing course', rands[4], false)}
       </div>
     );
 
@@ -152,81 +152,65 @@ class Graph extends React.PureComponent {
   render() {
     return (
 
+
       <div className="panel">
 
         <div className="panel-heading">
           <div className="panel-control">
-            <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
-          </div>
-          <h3 className="panel-title">{this.props.title}</h3>
-        </div>
-
-        <div className="collapse">
-          <div className="panel-body" style={{ paddingBottom: '0', paddingTop: '0' }}>
-
-
-            <div className="panel">
-              <div className="panel-heading">
-                <div className="panel-control">
-                  <ul className="nav nav-tabs">
-                    <li className="active">
-                      <a data-toggle="tab" href={'#' + this.state.panel1ID}>
+            <ul className="nav nav-tabs">
+              <li className="active">
+                <a data-toggle="tab" href={'#' + this.state.panel1ID}>
                   Overall
-                      </a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
+                </a>
+              </li>
+              <li>
+                <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
                   Trends
-                      </a>
-                    </li>
-                  </ul>
-                  <div className="btn-group dropdown">
-                    <button data-toggle="dropdown" className="dropdown-toggle btn btn-default btn-active-primary">
-                      <i className="caret" />
-                    </button>
-                    <ul className="dropdown-menu dropdown-menu-right">
-                      <li><a href="#" onClick={(e) => { this.download(e); }} ><i className="far fa-download" /> Download Image</a></li>
-                      <li><a href="#"><i className="far fa-table" /> See Underlying Data</a></li>
-                      <li><a href="#" onClick={(e) => { this.pin(e); }}><i className="fas fa-thumbtack" /> Pin Graph</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <h3 className="panel-title"><strong /></h3>
-              </div>
-
-              <hr style={{ margin: 0 }} />
-
-              <div className="panel-body" style={{ paddingBottom: '0' }}>
-                <div className="tab-content">
-                  <div id={this.state.panel1ID} className="tab-pane fade in active">
-                    {this.getPercentageBlock()}
-                  </div>
-                  <div id={this.state.panel2ID} className="tab-pane fade">
-                    <div className="pad-all">
-                      <div
-                        className="echarts-graph"
-                        style={{ width: '100%', height: '360px' }}
-                        ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
-                      Percentage values when all responses are aggregated
-                    </small>
-                  </h5>
-                </div>
-              </div>
-
-              <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+                </a>
+              </li>
+            </ul>
+            <div className="btn-group dropdown">
+              <button data-toggle="dropdown" className="dropdown-toggle btn btn-default btn-active-primary">
+                <i className="caret" />
+              </button>
+              <ul className="dropdown-menu dropdown-menu-right">
+                <li><a href="#" onClick={(e) => { this.download(e); }} ><i className="far fa-download" /> Download Image</a></li>
+                <li><a href="#"><i className="far fa-table" /> See Underlying Data</a></li>
+                <li><a href="#" onClick={(e) => { this.pin(e); }}><i className="fas fa-thumbtack" /> Pin Graph</a></li>
+              </ul>
             </div>
+          </div>
+          <h3 className="panel-title"><strong> {this.props.title}</strong></h3>
+        </div>
 
+        <hr style={{ margin: 0 }} />
 
+        <div className="panel-body" style={{ paddingBottom: '0' }}>
+          <div className="tab-content">
+            <div id={this.state.panel1ID} className="tab-pane fade in active">
+              {this.getPercentageBlock()}
+            </div>
+            <div id={this.state.panel2ID} className="tab-pane fade">
+              <div className="pad-all">
+                <div
+                  className="echarts-graph"
+                  style={{ width: '100%', height: '360px' }}
+                  ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="text-right" style={{ marginTop: '26px' }}>
+            <h5>
+              <small>
+                      Percentage values when all responses are aggregated
+              </small>
+            </h5>
           </div>
         </div>
+
+        <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
       </div>
 
     );
