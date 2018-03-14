@@ -109,6 +109,29 @@ class Page extends React.PureComponent {
                   <li className="list-divider" />
 
                   {/*  <!--Category name--> */}
+                  <li className="list-header">Analytics</li>
+
+
+                  {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/new', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">New</span>
+                      <i className="arrow" />
+                    </a>
+
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/new', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/new/1', 'active-link')}>
+                        <Link href="/analytics/new/1" to="/analytics/new/1">Section 5 Agregation</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+
+                  <li className="list-divider" />
+
+                  {/*  <!--Category name--> */}
                   <li className="list-header">Regulatory Analytics</li>
 
 

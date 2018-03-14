@@ -2,6 +2,45 @@
 
 import { isNumeric, nFormatter } from '../../../../content/scripts/custom/utilities';
 
+const barChartColourScheme = ['#11293b', '#235175', '#2f6d9d', '#3a88c4', '#62a0d0', '#88b7dc', '#93bedf', '#b0d0e8', '#d7e7f3', '#ebf3f9'];
+
+export function drawNewBarChart(axisData, dataArray) {
+  // axisData sould be in the form {x: [1, 2, 3], y: '%'}
+  // dataArray sould be in the form [{name: 'string', data: []}]
+  const options = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+      },
+    },
+    legend: {
+      data: dataArray.map(data => data.name),
+    },
+    xAxis: {
+      type: 'value',
+      axisLabel: {
+        formatter: '{value}' + axisData.x,
+      },
+    },
+    yAxis: {
+      data: axisData.y,
+    },
+    series: dataArray.map((data, i) => ({
+      name: data.name,
+      type: 'bar',
+      itemStyle: {
+        normal: {
+          color: barChartColourScheme[i],
+        },
+      },
+      stack: 'the amount',
+      data: data.data,
+    })),
+  };
+  return options;
+}
+
 function getColourScheme() {
   return [
     '#944a9c',

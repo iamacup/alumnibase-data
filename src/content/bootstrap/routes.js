@@ -12,18 +12,41 @@ import DHLE8Page from '../../content/containers/Pages/Analytics/DHLE/8';
 import DHLE9Page from '../../content/containers/Pages/Analytics/DHLE/9';
 import DHLE11Page from '../../content/containers/Pages/Analytics/DHLE/11';
 
+import New1PageA from '../../content/containers/Pages/Analytics/New/1/1a';
+import New1PageB from '../../content/containers/Pages/Analytics/New/1/1b';
+import New1PageC from '../../content/containers/Pages/Analytics/New/1/1c';
+
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
 import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
 
 import WPBMEEPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-Economic';
 import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-POLAR3';
 
-
 export default [
   {
     path: '/',
     exact: true,
     component: CampaignOverviewPage,
+  },
+  {
+    path: '/analytics/new/1',
+    exact: true,
+    component: New1PageA,
+  },
+  {
+    path: '/analytics/new/1/direct-university-impact',
+    exact: true,
+    component: New1PageA,
+  },
+  {
+    path: '/analytics/new/1/overall-life',
+    exact: true,
+    component: New1PageB,
+  },
+  {
+    path: '/analytics/new/1/views-on-education',
+    exact: true,
+    component: New1PageC,
   },
   {
     path: '/campaign/overview',
