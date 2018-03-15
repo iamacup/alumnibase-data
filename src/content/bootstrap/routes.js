@@ -14,7 +14,8 @@ import DHLE11Page from '../../content/containers/Pages/Analytics/DHLE/11';
 
 import New1PageA from '../../content/containers/Pages/Analytics/New/1/1a';
 import New1PageB from '../../content/containers/Pages/Analytics/New/1/1b';
-import New1PageC from '../../content/containers/Pages/Analytics/New/1/1c';
+
+import New2Page from '../../content/containers/Pages/Analytics/New/2';
 
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
 import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
@@ -39,14 +40,14 @@ export default [
     component: New1PageA,
   },
   {
-    path: '/analytics/new/1/overall-life',
+    path: '/analytics/new/1/views-on-education',
     exact: true,
     component: New1PageB,
   },
   {
-    path: '/analytics/new/1/views-on-education',
+    path: '/analytics/new/2',
     exact: true,
-    component: New1PageC,
+    component: New2Page,
   },
   {
     path: '/campaign/overview',

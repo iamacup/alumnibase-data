@@ -161,7 +161,7 @@ class Graph extends React.PureComponent {
           <h3 className="panel-title">{this.props.title}</h3>
         </div>
 
-        <div className="collapse">
+        <div className="collapse in">
           <div className="panel-body" style={{ paddingBottom: '0', paddingTop: '0' }}>
 
 

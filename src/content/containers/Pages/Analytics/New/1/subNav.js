@@ -11,8 +11,7 @@ class Page extends React.PureComponent {
       <div className="text-center" style={{ marginBottom: '20px' }}>
         <div className="btn-group">
           <Link to="/analytics/new/1/direct-university-impact" href="/analytics/new/1/direct-university-impact" className={active === '1' ? 'btn btn-primary' : 'btn btn-default'}><strong>Direct University Impact</strong></Link>
-          <Link to="/analytics/new/1/overall-life" href="/analytics/new/1/overall-life" className={active === '2' ? 'btn btn-primary' : 'btn btn-default'}><strong>Overall Life</strong></Link>
-          <Link to="/analytics/new/1/views-on-education" href="/analytics/new/1/views-on-education" className={active === '3' ? 'btn btn-primary' : 'btn btn-default'}><strong>Views on Education</strong></Link>
+          <Link to="/analytics/new/1/views-on-education" href="/analytics/new/1/views-on-education" className={active === '2' ? 'btn btn-primary' : 'btn btn-default'}><strong>Views on Education</strong></Link>
         </div>
       </div>
     );

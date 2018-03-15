@@ -57,7 +57,7 @@ class Page extends React.PureComponent {
                         <i className="dropdown-caret" />
                       </span>
                       <p className="mnp-name">Patrick McConnell</p>
-                      <span className="mnp-desc">p.mcconnell@boomtown.ac.uk</span>
+                      <span className="mnp-desc">patrick@alumnibaseapp.com</span>
                     </a>
                   </div>
                   <div id="profile-nav" className="collapse list-group bg-trans">
@@ -123,7 +123,12 @@ class Page extends React.PureComponent {
                     {/*  <!--Submenu--> */}
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/new', 'in')} >
                       <li className={this.classNameBasedOnLocation('/analytics/new/1', 'active-link')}>
-                        <Link href="/analytics/new/1" to="/analytics/new/1">Section 5 Agregation</Link>
+                        <Link href="/analytics/new/1" to="/analytics/new/1">Views on Education Impact</Link>
+                      </li>
+                    </ul>
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/new', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/new/2', 'active-link')}>
+                        <Link href="/analytics/new/2" to="/analytics/new/2">Views on Overall Happiness</Link>
                       </li>
                     </ul>
                   </li>

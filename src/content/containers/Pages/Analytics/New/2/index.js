@@ -13,12 +13,10 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import Section5Graph from '../../../../../../content/containers/Fragments/Graphs/section5Graph';
 import Section5Graph2 from '../../../../../../content/containers/Fragments/Graphs/section5Graph2';
 
-import SubNav from './subNav';
-
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'Section 5 Agregation',
+      pageTitle: 'Views on Overall Happiness',
       breadcrumbs: [
         {
           name: 'Analytics',
@@ -29,12 +27,8 @@ class Page extends React.PureComponent {
           link: '/analytics/new',
         },
         {
-          name: 'Section 5 Agregation',
-          link: '/analytics/new/1',
-        },
-        {
-          name: 'Views on Education',
-          link: '/analytics/new/1/views-on-education',
+          name: 'Views on Overall Happiness',
+          link: '/analytics/new/2',
         }],
     });
 
@@ -58,18 +52,11 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-        <SubNav
-          active="3"
-        />
-
         <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. For ease of access this data is split into three areas: <br /><br />
-                <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life, <br />
-                <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the respondent and; <br />
-                <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
+                Data from section 5 of the respondent survey is collated here. <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the survey respondents
               </div>
             </div>
           </div>
@@ -78,8 +65,53 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <Section5Graph
-              title="To what extent do you believe undertaking professional qualifications will advance your career?"
+              title="My current work fits with my future plans"
+              globalID="new-1-5"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph
+              title="My current work is meaningful and important to me"
+              globalID="new-1-6"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph2
+              title="Overall, how satisfied are you with your life now"
+              globalID="new-1-7"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph2
+              title="Overall, to what extent do you feel the things you do in your life are worthwhile"
+              globalID="new-1-8"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph2
+              title="Overall, how happy did you feel yesterday"
               globalID="new-1-9"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph2
+              title="Overall, how anxious did you feel yesterday"
+              globalID="new-1-10"
             />
           </div>
         </div>

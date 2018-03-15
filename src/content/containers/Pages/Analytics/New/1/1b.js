@@ -18,7 +18,7 @@ import SubNav from './subNav';
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'Section 5 Agregation',
+      pageTitle: 'Views on Education Impact',
       breadcrumbs: [
         {
           name: 'Analytics',
@@ -29,12 +29,12 @@ class Page extends React.PureComponent {
           link: '/analytics/new',
         },
         {
-          name: 'Section 5 Agregation',
+          name: 'Views on Education Impact',
           link: '/analytics/new/1',
         },
         {
-          name: 'Overall Life',
-          link: '/analytics/new/1/overall-life',
+          name: 'Views on Education',
+          link: '/analytics/new/1/views-on-education',
         }],
     });
 
@@ -78,53 +78,8 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <Section5Graph
-              title="My current work fits with my future plans"
-              globalID="new-1-5"
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <Section5Graph
-              title="My current work is meaningful and important to me"
-              globalID="new-1-6"
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <Section5Graph2
-              title="Overall, how satisfied are you with your life now"
-              globalID="new-1-7"
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <Section5Graph2
-              title="Overall, to what extent do you feel the things you do in your life are worthwhile"
-              globalID="new-1-8"
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <Section5Graph2
-              title="Overall, how happy did you feel yesterday"
+              title="To what extent do you believe undertaking professional qualifications will advance your career?"
               globalID="new-1-9"
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <Section5Graph2
-              title="Overall, how anxious did you feel yesterday"
-              globalID="new-1-10"
             />
           </div>
         </div>

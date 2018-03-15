@@ -20,7 +20,7 @@ import SubNav from './subNav';
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'Section 5 Agregation',
+      pageTitle: 'Views on Education Impact',
       breadcrumbs: [
         {
           name: 'Analytics',
@@ -31,7 +31,7 @@ class Page extends React.PureComponent {
           link: '/analytics/new',
         },
         {
-          name: 'Section 5 Agregation',
+          name: 'Views on Education Impact',
           link: '/analytics/new/1',
         },
         {
@@ -68,9 +68,8 @@ class Page extends React.PureComponent {
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. For ease of access this data is split into three areas: <br /><br />
-                <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life, <br />
-                <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the respondent and; <br />
+                Data relating directly to your institution from section 5 of the respondent survey is collated here. For clarity this data is split into two areas: <br /><br />
+                <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life and; <br />
                 <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
               </div>
             </div>
