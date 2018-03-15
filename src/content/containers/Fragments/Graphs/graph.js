@@ -2,14 +2,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawComparisonChart } from '../../../../content/scripts/custom/echarts/generators';
-
+import { drawNewBarChart } from '../../../../content/scripts/custom/echarts/generators';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
 class Graph extends React.PureComponent {
@@ -23,13 +20,39 @@ class Graph extends React.PureComponent {
   }
 
   componentDidMount() {
-    const option1 = drawComparisonChart(this.props.titles, this.props.set1Name, this.props.set2Name, this.props.set1, this.props.set2, true);
+    const axisData = { y: this.props.titles, x: '' };
+    const dataSeries = [
+      { name: this.props.set1Name, data: this.props.set1 },
+      { name: this.props.set2Name, data: this.props.set2 },
+    ];
 
-    renderChartToTarget(this.graphTarget1, option1);
+    const preFinalSet1 = [];
+    const preFinalSet2 = [];
 
-    const option2 = drawComparisonChart(this.props.titles, this.props.set1Name, this.props.set2Name, this.props.set1, this.props.set2, false);
+    const { set1, set2 } = this.props;
 
-    renderChartToTarget(this.graphTarget2, option2);
+    for (let a = 0; a < set1.length; a++) {
+      const total = set1[a] + set2[a];
+
+      preFinalSet1.push(Math.round((set1[a] / total) * 100));
+      preFinalSet2.push(Math.round((set2[a] / total) * 100));
+    }
+
+    const axisDataPercentage = { y: this.props.titles, x: '%' };
+    const dataSeriesPercentage = [
+      { name: this.props.set1Name, data: preFinalSet1 },
+      { name: this.props.set2Name, data: preFinalSet2 },
+    ];
+    // this is the absolute numbers
+    const options = drawNewBarChart(axisData, dataSeries);
+
+    renderChartToTarget(this.graphTarget2, options);
+
+
+    // this is the percentage numbers
+    const optionPercentage = drawNewBarChart(axisDataPercentage, dataSeriesPercentage);
+
+    renderChartToTarget(this.graphTarget1, optionPercentage);
   }
 
   getImageDataForActiveGraph() {
