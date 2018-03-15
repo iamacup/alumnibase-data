@@ -23,12 +23,12 @@ class Page extends React.PureComponent {
           link: '/analytics',
         },
         {
-          name: 'New',
-          link: '/analytics/new',
+          name: 'Views',
+          link: '/analytics/views',
         },
         {
           name: 'Views on Overall Happiness',
-          link: '/analytics/new/2',
+          link: '/analytics/views/2',
         }],
     });
 

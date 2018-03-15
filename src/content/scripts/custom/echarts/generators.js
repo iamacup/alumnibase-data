@@ -1,6 +1,139 @@
 // import { currencyFormatter } from './utilities';
 
 import { isNumeric, nFormatter } from '../../../../content/scripts/custom/utilities';
+import prepareBoxplotData from './dataTool';
+
+function getColourScheme() {
+  return [
+    '#944a9c',
+    '#c5bdee',
+    '#bd94b4',
+    '#735a8b',
+    '#d5a4de',
+    '#392939',
+    '#ff9494',
+  ];
+}
+
+const barChartColourScheme = ['#11293b', '#235175', '#2f6d9d', '#3a88c4', '#62a0d0', '#88b7dc', '#93bedf', '#b0d0e8', '#d7e7f3', '#ebf3f9'];
+
+const worldColours = {
+  northAmerica: '#a7a737', southAmerica: '#86a965', africa: '#de4c4f', europe: '#d8854f', asia: '#eea638', oceania: '#8aabb0',
+};
+
+export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
+  // example data for the inputs - note that indata can contain arrays of any length, the boxplot calculation is performed on the data
+  /* const inData = [
+    [20, 300, 300, 200, 100],
+    [30, 400],
+    [40, 500],
+    [900, 1000],
+  ];
+
+  const cats = ['female', 'male', 'other', 'other']; */
+
+  // the valueGapMaxMin is a value that will be added to the maximum and minimum values to provide spacing above and below the box plots
+
+  if (inData.length !== cats.length) {
+    console.log('warning - number of categories is not the same as number of data items in drawBoxplotChart');
+  }
+
+  let max = 0;
+  let min = -1;
+  // get the 'max' and 'min' values of the input data
+
+  for (let a = 0; a < inData.length; a++) {
+    const maybeMax = Math.max(...inData[a]);
+    const maybeMin = Math.min(...inData[a]);
+
+    max = maybeMax > max ? maybeMax : max;
+    min = maybeMin < min ? maybeMin : min;
+
+    if (min < 0) {
+      min = maybeMin;
+    }
+  }
+
+  max += valueGapMaxMin;
+  min -= valueGapMaxMin;
+
+  // make the formatted data
+  const data = [];
+
+  for (let a = 0; a < inData.length; a++) {
+    data.push(prepareBoxplotData([inData[a]]));
+  }
+
+  // make the series data
+  const series = [];
+
+  for (let a = 0; a < cats.length; a++) {
+    const formatter = param =>
+      [cats[a] + ': ',
+        'upper: ' + param.data[5],
+        'Q3: ' + param.data[4],
+        'median: ' + param.data[3],
+        'Q1: ' + param.data[2],
+        'lower: ' + param.data[1],
+      ].join('<br/>');
+
+
+    series.push(
+      {
+        name: cats[a],
+        type: 'boxplot',
+        data: data[a].boxData,
+        tooltip: { formatter },
+      },
+    );
+  }
+
+  const option = {
+    legend: {
+      y: '10%',
+      data: cats,
+    },
+    tooltip: {
+      trigger: 'item',
+      axisPointer: {
+        type: 'shadow',
+      },
+    },
+    color: getColourScheme(),
+    grid: {
+      left: '10%',
+      top: '20%',
+      right: '10%',
+      bottom: '15%',
+    },
+    xAxis: {
+      type: 'category',
+      data: data[0].axisData,
+      boundaryGap: true,
+      nameGap: 30,
+      splitArea: {
+        show: true,
+      },
+      axisLabel: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+    },
+    yAxis: {
+      type: 'value',
+      min,
+      max,
+      splitArea: {
+        show: false,
+      },
+    },
+    series,
+  };
+
+  return option;
+}
 
 export function drawAreaChart(areaData) {
   const xlabel = [];
@@ -154,10 +287,6 @@ export function drawNewPieChart(data, label, chart, toggle) {
   return options;
 }
 
-
-const worldColours = {
-  northAmerica: '#a7a737', southAmerica: '#86a965', africa: '#de4c4f', europe: '#d8854f', asia: '#eea638', oceania: '#8aabb0',
-};
 export function drawWorldChart(mapData) {
   // mapData = the spots on the map.
   // mapData should be in the form  [{code: 'AF', name: 'Afghanistan', value: 32358260, color: 'asia'}]
@@ -484,8 +613,6 @@ export function drawWorldChart(mapData) {
   return options;
 }
 
-const barChartColourScheme = ['#11293b', '#235175', '#2f6d9d', '#3a88c4', '#62a0d0', '#88b7dc', '#93bedf', '#b0d0e8', '#d7e7f3', '#ebf3f9'];
-
 export function drawLineChart(data, xLabel, yLabel) {
   const colours = [{ gt: 0, lte: 2, color: '#88b7dc' }, { gt: 2, lte: 4, color: '#62a0d0' }, { gt: 4, lte: 6, color: '#3a88c4' }, { gt: 6, lte: 8, color: '#2f6d9d' }, { gt: 8, lte: 10, color: '#235175' }];
   const options = {
@@ -604,19 +731,6 @@ export function drawNewBarChart(axisData, dataArray) {
   };
   return options;
 }
-
-function getColourScheme() {
-  return [
-    '#944a9c',
-    '#c5bdee',
-    '#bd94b4',
-    '#735a8b',
-    '#d5a4de',
-    '#392939',
-    '#ff9494',
-  ];
-}
-
 
 // -------------------------------------------------------------------------------------------------
 
@@ -938,7 +1052,6 @@ export function drawComparisonChart(titles, set1Name, set2Name, set1, set2, perc
 
   return option;
 }
-
 
 // data array should be in the form
 /*

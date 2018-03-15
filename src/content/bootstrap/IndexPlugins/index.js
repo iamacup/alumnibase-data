@@ -27,6 +27,12 @@ result.headTop.push(<link key="25" href="https://cdnjs.cloudflare.com/ajax/libs/
 // Slider Stylesheets
 result.headTop.push(<link key="9" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/css/bootstrap-slider.min.css" rel="stylesheet" />);
 
+
+result.headTop.push(<link key="nn9" href="https://storage.googleapis.com/files.sliips.com/nifty-v2.9/demo/plugins/switchery/switchery.min.css" rel="stylesheet" />);
+
+
+
+
 /*
   HEAD BOTTOM SCRIPTS
 */
@@ -59,6 +65,13 @@ result.bodyBottom.push(<script key="24" src="https://cdnjs.cloudflare.com/ajax/l
 // Slider JS
 result.bodyBottom.push(<script key="19" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.min.js" />);
 
+// google charts JS
+result.bodyBottom.push(<script key ="new" type="text/javascript" src="https://www.gstatic.com/charts/loader.js" />);
+
+
+//this does not work properly with the webpack config
+//result.bodyBottom.push(<script key ="new2" type="text/javascript" src="https://files.alumnibaseapp.com/assets/dataTool.min.js" />);
+
 
 
 result.bodyBottom.push(<script key="18" src="https://storage.googleapis.com/files.sliips.com/nifty-v2.9/get-started/js/nifty.min.js" />);
@@ -68,5 +81,14 @@ result.bodyBottom.push(<script key="21" src="https://storage.googleapis.com/file
 result.bodyBottom.push(<script key="22" src="https://storage.googleapis.com/files.sliips.com/nifty-v2.9/demo/plugins/flot-charts/jquery.flot.tooltip.min.js" />);
 
 result.bodyBottom.push(<script key="23" src="https://storage.googleapis.com/files.sliips.com/nifty-v2.9/demo/plugins/sparkline/jquery.sparkline.min.js" />);
+
+result.bodyBottom.push(<script key="nn23" src="https://storage.googleapis.com/files.sliips.com/nifty-v2.9/demo/plugins/switchery/switchery.min.js" />);
+
+
+//result.bodyBottom.push(<script key="nn223" src="https://storage.googleapis.com/files.alumnibaseapp.com/assets/echarts.min.js" />);
+
+result.bodyBottom.push(<script key ="new2" type="text/javascript" src="https://files.alumnibaseapp.com/assets/echarts-uk-map-data.js" />);
+
+
 
 export default result;

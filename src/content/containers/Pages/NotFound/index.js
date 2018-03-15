@@ -10,7 +10,7 @@ import * as storeAction from '../../../../foundation/redux/globals/DataStoreSing
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'Page Not Found',
+      pageTitle: 'Page Under Construction',
       breadcrumbs: [
       ],
     });
@@ -30,9 +30,9 @@ class Page extends React.PureComponent {
             <div className="panel">
               <div className="panel-body">
                 <div className="pad-all text-center">
-                  <h2>We could not find that page!</h2>
+                  <h2>We are still working on that page!</h2>
                   <i className="far fa-exclamation fa-8x" style={{ marginTop: '30px', marginBottom: '26px' }} />
-                  <h4>Sorry about that....</h4>
+                  <h4>It will be ready soon...</h4>
                 </div>
               </div>
 

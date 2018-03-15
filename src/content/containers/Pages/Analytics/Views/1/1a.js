@@ -27,16 +27,16 @@ class Page extends React.PureComponent {
           link: '/analytics',
         },
         {
-          name: 'New',
-          link: '/analytics/new',
+          name: 'Views',
+          link: '/analytics/views',
         },
         {
           name: 'Views on Education Impact',
-          link: '/analytics/new/1',
+          link: '/analytics/views/1',
         },
         {
           name: 'Direct University Impact',
-          link: '/analytics/new/1/direct-university-impact',
+          link: '/analytics/views/1/direct-university-impact',
         }],
     });
 
