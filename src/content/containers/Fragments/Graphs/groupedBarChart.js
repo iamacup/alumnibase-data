@@ -1,16 +1,14 @@
-
-/* eslint-disable jsx-a11y/anchor-is-valid, no-undef */
-
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { renderChartToTarget, redrawCharts, updateChartOptions } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawBoxplotChart } from '../../../../content/scripts/custom/echarts/generators';
+import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
+import { drawGroupedBarChart } from '../../../../content/scripts/custom/echarts/generators';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
-class Graph extends React.Component {
+class GroupedBarChart extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -20,22 +18,9 @@ class Graph extends React.Component {
   }
 
   componentDidMount() {
-    $(() => {
-      const { data } = this.props;
+    const option1 = drawGroupedBarChart(this.props.titles, this.props.data, this.props.direction, this.props.value);
 
-      const option1 = drawBoxplotChart(data.values, data.categories, 10000);
-
-      renderChartToTarget(this.graphTarget1, option1);
-    });
-  }
-
-  // we have to do this again here because of the 'national average' button
-  componentDidUpdate() {
-    const { data } = this.props;
-
-    const option1 = drawBoxplotChart(data.values, data.categories, 10000);
-
-    updateChartOptions(this.graphTarget1, option1);
+    renderChartToTarget(this.graphTarget1, option1);
   }
 
   getImageDataForActiveGraph() {
@@ -107,14 +92,17 @@ class Graph extends React.Component {
   }
 }
 
-Graph.propTypes = {
+GroupedBarChart.propTypes = {
   title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  titles: PropTypes.array.isRequired,
+  direction: PropTypes.string.isRequired,
   data: PropTypes.any.isRequired,
   globalID: PropTypes.string.isRequired,
   reduxAction_doUpdate: PropTypes.func,
 };
 
-Graph.defaultProps = {
+GroupedBarChart.defaultProps = {
   reduxAction_doUpdate: () => {},
 };
 
@@ -124,5 +112,4 @@ const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (mainID, subID, data) => dispatch(storeAction.doUpdate(mainID, subID, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Graph);
-
+export default connect(mapStateToProps, mapDispatchToProps)(GroupedBarChart);

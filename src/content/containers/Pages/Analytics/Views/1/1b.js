@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,7 +10,6 @@ import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/cus
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import Section5Graph from '../../../../../../content/containers/Fragments/Graphs/section5Graph';
-import Section5Graph2 from '../../../../../../content/containers/Fragments/Graphs/section5Graph2';
 
 import SubNav from './subNav';
 

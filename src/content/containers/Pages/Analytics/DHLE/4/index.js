@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -10,7 +9,6 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import AreaChart from '../../../../../../content/containers/Fragments/Graphs/areaChart';
-import Graph from '../../../../../../content/containers/Fragments/Graphs/graph';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 class Page extends React.PureComponent {

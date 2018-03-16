@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -11,8 +10,6 @@ import Footer from '../../../../content/containers/Fragments/Template/footer';
 import NavBar from '../../../../content/containers/Fragments/Template/navbar';
 import SideBar from '../../../../content/containers/Fragments/Template/sidebar';
 import Aside from '../../../../content/containers/Fragments/Template/aside';
-
-import { dNc } from '../../../../content/scripts/custom/utilities';
 
 class Wrapper extends React.PureComponent {
   getBreadcrumbs() {

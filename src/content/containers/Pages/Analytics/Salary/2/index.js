@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import echarts from 'echarts';
@@ -58,7 +57,6 @@ class Page extends React.PureComponent {
       // make the checkbox look nice with switchery
       const elem = document.querySelector('#switchery-switch');
       // eslint-disable-next-line no-undef
-      const init = new Switchery(elem);
 
       elem.onchange = () => {
         this.clickShowNationalAverage();

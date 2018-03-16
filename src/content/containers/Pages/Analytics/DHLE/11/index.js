@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -9,7 +8,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
-import Graph from '../../../../../../content/containers/Fragments/Graphs/graph';
+import GroupedBarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 class Page extends React.PureComponent {
@@ -53,19 +52,20 @@ class Page extends React.PureComponent {
 
 
         <div className="row">
-          <div className="col-md-8 col-md-push-2">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
-              </div>
-            </div>
-
+          <div className="col-md-10 col-md-push-1">
+            <GroupedBarChart
+              title="Male /Female Earning by Salary Band"
+              direction="vertical"
+              value=""
+              globalID="grouperdBar-7"
+              titles={['Less than £15,000', '£15,000-£19,999', '£20,000-£24,999', '£25,000-£29,999', '£30,000-£34,999', '£35,000-£39,999', '£40,000+', 'Unkown']}
+              data={[
+                    { name: 'Other', data: [0, 0, 0, 0, 0, 0, 0, 5] },
+                    { name: 'Male', data: [3590, 9885, 10975, 7725, 3640, 1060, 1100, 14920] },
+                    { name: 'Female', data: [6390, 16445, 21145, 7000, 2910, 580, 480, 21425] },
+                ]}
+            />
           </div>
-
         </div>
 
 

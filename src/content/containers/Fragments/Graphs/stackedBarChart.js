@@ -5,8 +5,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { renderChartToTarget, redrawCharts, updateChartOptions } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawBoxplotChart } from '../../../../content/scripts/custom/echarts/generators';
+import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
+import { drawNewBarChart } from '../../../../content/scripts/custom/echarts/generators';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -22,20 +22,13 @@ class Graph extends React.Component {
   componentDidMount() {
     $(() => {
       const { data } = this.props;
+      const axisData = { y: this.props.titles, x: '%' };
 
-      const option1 = drawBoxplotChart(data.values, data.categories, 10000);
+      const option1 = drawNewBarChart(axisData, data);
+
 
       renderChartToTarget(this.graphTarget1, option1);
     });
-  }
-
-  // we have to do this again here because of the 'national average' button
-  componentDidUpdate() {
-    const { data } = this.props;
-
-    const option1 = drawBoxplotChart(data.values, data.categories, 10000);
-
-    updateChartOptions(this.graphTarget1, option1);
   }
 
   getImageDataForActiveGraph() {
@@ -109,6 +102,7 @@ class Graph extends React.Component {
 
 Graph.propTypes = {
   title: PropTypes.string.isRequired,
+  titles: PropTypes.array.isRequired,
   data: PropTypes.any.isRequired,
   globalID: PropTypes.string.isRequired,
   reduxAction_doUpdate: PropTypes.func,
@@ -125,4 +119,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Graph);
-

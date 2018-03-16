@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -10,8 +9,6 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import Section5Graph from '../../../../../../content/containers/Fragments/Graphs/section5Graph';
-import Section5Graph2 from '../../../../../../content/containers/Fragments/Graphs/section5Graph2';
 import Boxplot from '../../../../../../content/containers/Fragments/Graphs/simpleBoxplot';
 
 class Page extends React.PureComponent {
@@ -56,7 +53,6 @@ class Page extends React.PureComponent {
       // make the checkbox look nice with switchery
       const elem = document.querySelector('#switchery-switch');
       // eslint-disable-next-line no-undef
-      const init = new Switchery(elem);
 
       elem.onchange = () => {
         this.clickShowNationalAverage();

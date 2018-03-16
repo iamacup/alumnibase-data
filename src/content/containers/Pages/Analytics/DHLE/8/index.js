@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -9,7 +8,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
-import Graph from '../../../../../../content/containers/Fragments/Graphs/graph';
+import GroupedBarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 class Page extends React.PureComponent {
@@ -52,17 +51,20 @@ class Page extends React.PureComponent {
         <StandardFilters />
 
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-10">
 
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
-              </div>
-            </div>
-
+            <GroupedBarChart
+              title="First Degree Graduates from the UK in work, by type of work and gender"
+              direction="horizontal"
+              value=""
+              globalID="grouperdBar-6"
+              titles={['Self-employed', 'Starting up own business', 'On a permanent or open-ended contract', 'On a fixed-term contract lasting 12 months or longer', 'On a fixed-term contract lasting less than 12 months', 'Voluntary work', 'On an internship', 'Developing a professional portfolio', 'Temping (including supply teaching', 'On a zero hours contract', 'Other', 'Unknown']}
+              data={[
+                    { name: 'Other', data: [0, 0, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0] },
+                    { name: 'Male', data: [3990, 580, 39450, 10460, 5255, 725, 1980, 460, 1460, 2785, 1135, 540] },
+                    { name: 'Female', data: [3530, 415, 59720, 15675, 7985, 1165, 2915, 500, 2520, 3665, 1575, 890] },
+                ]}
+            />
           </div>
           <div className="col-md-6">
 

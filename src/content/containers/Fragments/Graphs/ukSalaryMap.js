@@ -2,13 +2,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, no-undef */
 
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import { renderChartToTarget, redrawCharts, updateChartOptions } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawBoxplotChart } from '../../../../content/scripts/custom/echarts/generators';
+import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -3524,7 +3521,6 @@ class Graph extends React.Component {
 
 Graph.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.any.isRequired,
   globalID: PropTypes.string.isRequired,
   reduxAction_doUpdate: PropTypes.func,
 };

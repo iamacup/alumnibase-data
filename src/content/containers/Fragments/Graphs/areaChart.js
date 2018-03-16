@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawComparisonChart, drawAreaChart } from '../../../../content/scripts/custom/echarts/generators';
+import { drawAreaChart } from '../../../../content/scripts/custom/echarts/generators';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -83,7 +83,7 @@ class Graph extends React.PureComponent {
             />
           </div>
         </div>
-        <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+        <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
       </div>
 
 

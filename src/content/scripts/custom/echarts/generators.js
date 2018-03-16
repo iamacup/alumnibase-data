@@ -21,6 +21,55 @@ const worldColours = {
   northAmerica: '#a7a737', southAmerica: '#86a965', africa: '#de4c4f', europe: '#d8854f', asia: '#eea638', oceania: '#8aabb0',
 };
 
+
+export function drawGroupedBarChart(titles, data, direction, value) {
+  const colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
+  let axis = {
+    x: [{ type: 'value', axisLabel: { formatter: value + '{value}' } }],
+    y: [{ type: 'category', data: titles }],
+  };
+
+  if (direction !== 'horizontal') {
+    axis = {
+      x: [{ type: 'category', data: titles }],
+      y: [{ type: 'value', axisLabel: { formatter: value + '{value}' } }],
+    };
+  }
+
+  const option = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+      },
+    },
+    legend: {
+      data: data.map(element => element.name),
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true,
+    },
+    xAxis: axis.x,
+    yAxis: axis.y,
+    series: data.map((element, i) => ({
+      name: element.name,
+      type: 'bar',
+      itemStyle: {
+        normal: {
+          color: colors[i],
+        },
+      },
+      data: element.data,
+    })),
+  };
+
+  return option;
+}
+
+
 export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
   // example data for the inputs - note that indata can contain arrays of any length, the boxplot calculation is performed on the data
   /* const inData = [
@@ -861,7 +910,7 @@ export function drawComparisonChart(titles, set1Name, set2Name, set1, set2, perc
               color: '#4d627b',
               fontSize: 12,
             },
-            formatter: (value, index) => {
+            formatter: (value) => {
               if (percentages === true) {
                 return value + '%';
               }
@@ -897,7 +946,7 @@ export function drawComparisonChart(titles, set1Name, set2Name, set1, set2, perc
               color: '#4d627b',
               fontSize: 12,
             },
-            formatter: (value, index) => {
+            formatter: (value) => {
               if (percentages === true) {
                 return value + '%';
               }
