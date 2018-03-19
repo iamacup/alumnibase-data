@@ -9,8 +9,11 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
+import ukSalaryMapdata from '../../../../../../content/containers/Fragments/Graphs/ukSalaryMapdata';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import UKSalaryMap from '../../../../../../content/containers/Fragments/Graphs/ukSalaryMap';
+import UKSalaryMap from '../../../../../../content/containers/Fragments/Graphs/section5UkMap';
+import { gradsComeFromData, gradsGoToData } from '../../../../../../content/containers/Fragments/Graphs/UKGradData';
+import WorldMap from '../../../../../../content/containers/Fragments/Graphs/section5WorldMap';
 
 class Page extends React.PureComponent {
   constructor(props) {
@@ -64,9 +67,34 @@ class Page extends React.PureComponent {
     });
   }
 
+  getImageDataForActiveGraph() {
+    let $parent = $('#' + this.state.panel1ID);
+
+    if (!$parent.hasClass('active')) {
+      $parent = $('#' + this.state.panel2ID);
+    }
+
+    const $canvas = $parent.find('canvas');
+
+    if ($canvas.length === 1) {
+      return $canvas[0].toDataURL('image/png');
+    }
+
+    console.log('handle error TODO');
+    return null;
+  }
+
   clickShowNationalAverage() {
     this.setState({ showNationalAverage: !this.state.showNationalAverage });
   }
+
+
+  // <UKSalaryMap
+  //   title="UK Salary By Region"
+  //   globalID="uk-chart-1"
+  //   data={ukSalaryMapdata}
+  //   pieces={['Less than £10,000', '£10,000-£14,999', '£15,000-£19,999', '£20,000-£24,999', '£25,000-£29,999', '£30,000-£34,999', '£35,000-£39,999', '£40,000+', 'Test', 'Test2']}
+  // />
 
   render() {
     const content = (
@@ -88,14 +116,25 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
+
         <div className="row">
           <div className="col-md-12">
 
-            <UKSalaryMap
-              title="UK Salary By Region"
-              data={{}}
+            <WorldMap
+              title1="Where Grads Come From"
+              title2="Where Grads Go"
+              globalID="world-chart"
             />
 
+            <UKSalaryMap
+              title1="Where Grads Come From in the UK"
+              data1={gradsComeFromData}
+              pieces1={['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+']}
+              globalID="uk-chart"
+              title2="Where Grads Go To in the UK"
+              data2={gradsGoToData}
+              pieces2={['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+']}
+            />
           </div>
         </div>
 

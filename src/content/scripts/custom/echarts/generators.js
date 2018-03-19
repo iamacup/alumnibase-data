@@ -2,25 +2,147 @@
 
 import { isNumeric, nFormatter } from '../../../../content/scripts/custom/utilities';
 import prepareBoxplotData from './dataTool';
+import ukData from '../../../../content/containers/Fragments/Graphs/ukData';
 
 function getColourScheme() {
   return [
-    '#944a9c',
-    '#c5bdee',
-    '#bd94b4',
-    '#735a8b',
-    '#d5a4de',
-    '#392939',
-    '#ff9494',
+    '#1c6cab',
+    '#a4c0e5',
+    '#ff7311',
+    '#ffbb7d',
+    '#d02224',
+    '#ff8d8b',
+    '#11293b',
   ];
 }
 
-const barChartColourScheme = ['#11293b', '#235175', '#2f6d9d', '#3a88c4', '#62a0d0', '#88b7dc', '#93bedf', '#b0d0e8', '#d7e7f3', '#ebf3f9'];
+const colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
 
 const worldColours = {
   northAmerica: '#a7a737', southAmerica: '#86a965', africa: '#de4c4f', europe: '#d8854f', asia: '#eea638', oceania: '#8aabb0',
 };
 
+
+export function drawUKMap(data, pieces) {
+  const option = {
+    series_id: 4242979,
+    backgroundColor: '#c5d6e7',
+    color: [
+      '#c23531',
+      '#2f4554',
+      '#61a0a8',
+      '#d48265',
+      '#749f83',
+      '#ca8622',
+      '#bda29a',
+      '#6e7074',
+      '#546570',
+      '#c4ccd3',
+      '#f05b72',
+      '#ef5b9c',
+      '#f47920',
+      '#905a3d',
+      '#fab27b',
+      '#2a5caa',
+      '#444693',
+      '#726930',
+      '#b2d235',
+      '#6d8346',
+      '#ac6767',
+      '#1d953f',
+      '#6950a1',
+      '#918597',
+      '#f6f5ec',
+    ],
+    series: [
+      {
+        itemStyle: {
+          emphasis: {
+            borderColor: 'black',
+          },
+          normal: {
+            borderColor: 'white',
+          },
+        },
+        symbol: 'circle',
+        data,
+        showLegendSymbol: false,
+        name: '',
+        tooltip: {
+          formatter: '{b}',
+        },
+        label: {
+          emphasis: {
+            show: false,
+          },
+        },
+        mapType: 'UK_electoral_2016',
+        nameMap: ukData,
+        roam: true,
+        type: 'map',
+      },
+    ],
+    toolbox: {
+      show: false,
+    },
+    legend: [
+      {
+        textStyle: {
+          color: '#333',
+          fontSize: 12,
+        },
+        show: true,
+        top: 'top',
+        data: [
+          '',
+        ],
+        orient: 'horizontal',
+        selectedMode: 'multiple',
+        left: 'center',
+      },
+    ],
+    tooltip: {
+      borderColor: 'black',
+      axisPointer: {
+        type: 'line',
+      },
+      textStyle: {
+        color: '#000000',
+        fontSize: 14,
+      },
+      trigger: 'item',
+      borderWidth: 1,
+      backgroundColor: 'white',
+      formatter: null,
+      triggerOn: 'mousemove|click',
+    },
+    visualMap: {
+      text: [
+        'Legend',
+      ],
+      pieces,
+      splitNumber: 5,
+      calculable: true,
+      orient: 'vertical',
+      textStyle: {
+        color: [
+          'black',
+        ],
+      },
+      min: 0,
+      top: 'bottom',
+      showLabel: true,
+      max: 1,
+      inRange: {
+        color: ['#1c6cab', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'],
+      },
+      type: 'piecewise',
+      dimension: null,
+      left: 'left',
+    },
+  };
+  return option;
+}
 
 export function drawGroupedBarChart(titles, data, direction, value) {
   const colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
@@ -133,6 +255,35 @@ export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
         type: 'boxplot',
         data: data[a].boxData,
         tooltip: { formatter },
+        itemStyle: {
+          normal: {
+            borderColor: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                offset: 0,
+                color: colourScheme[a],
+              }],
+              globalCoord: false,
+            },
+            borderWidth: 2,
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                offset: 0,
+                color: colourScheme[a],
+              }],
+              globalCoord: false,
+            },
+          },
+        },
       },
     );
   }
@@ -148,7 +299,6 @@ export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
         type: 'shadow',
       },
     },
-    color: getColourScheme(),
     grid: {
       left: '10%',
       top: '20%',
@@ -336,7 +486,7 @@ export function drawNewPieChart(data, label, chart, toggle) {
   return options;
 }
 
-export function drawWorldChart(mapData) {
+export function drawWorldChart(mapData, type, value) {
   // mapData = the spots on the map.
   // mapData should be in the form  [{code: 'AF', name: 'Afghanistan', value: 32358260, color: 'asia'}]
   let max = -Infinity;
@@ -586,6 +736,60 @@ export function drawWorldChart(mapData) {
   latlong.ZW = { latitude: -20, longitude: 30 };
 
 
+  const option2 = {
+    title: {
+      text: 'Where grads come from',
+      left: 'center',
+      top: 'top',
+    },
+    tooltip: {
+      trigger: 'item',
+      formatter(params) {
+        const { name } = params;
+        const population = params.data.value[2];
+        return name + '<br />' + population + ' ' + value;
+      },
+    },
+    toolbox: {
+      show: true,
+      orient: 'vertical',
+      left: 'right',
+      top: 'center',
+      feature: {
+        dataView: { readOnly: false },
+        restore: {},
+        saveAsImage: {},
+      },
+    },
+    visualMap: {
+      min: 0,
+      max: 1000000,
+      text: ['High', 'Low'],
+      realtime: false,
+      calculable: true,
+      color: ['orangered', 'yellow', 'lightskyblue'],
+    },
+    series: [
+      {
+        name: 'World Population (2010)',
+        type: 'map',
+        mapType: 'world',
+        roam: true,
+        itemStyle: {
+          emphasis: { label: { show: true } },
+        },
+        data: mapData.map(itemOpt => ({
+          name: itemOpt.name,
+          value: [
+            latlong[itemOpt.code].longitude,
+            latlong[itemOpt.code].latitude,
+            itemOpt.value,
+          ],
+        })),
+      }],
+  };
+
+
   mapData.forEach((itemOpt) => {
     if (itemOpt.value > max) {
       max = itemOpt.value;
@@ -595,25 +799,28 @@ export function drawWorldChart(mapData) {
     }
   });
 
+  let visualType = {
+    show: true, min: 0, max: 10000, calculable: true, color: ['#11293b', '#1c6cab', '#a4c0e5'], text: ['High', 'Low'],
+  };
+
+  if (type === 'scatter') {
+    visualType = {
+      show: false, min: 0, max, inRange: { symbolSize: [6, 60] },
+    };
+  }
 
   const options = {
     tooltip: {
       trigger: 'item',
       formatter(params) {
         const { name } = params;
-        const value = 'population of' + params.value[2];
+        if (!params.data.value) return name;
 
-        return [name, value];
+        const population = params.data.value[2];
+        return name + '<br />' + population + ' ' + value;
       },
     },
-    visualMap: {
-      show: false,
-      min: 0,
-      max,
-      inRange: {
-        symbolSize: [6, 60],
-      },
-    },
+    visualMap: visualType,
     geo: {
       type: 'map',
       map: 'world',
@@ -635,7 +842,8 @@ export function drawWorldChart(mapData) {
     },
     series: [
       {
-        type: 'scatter',
+        type,
+        mapType: 'world',
         coordinateSystem: 'geo',
         data: mapData.map(itemOpt => ({
           name: itemOpt.name,
@@ -771,7 +979,7 @@ export function drawNewBarChart(axisData, dataArray) {
       type: 'bar',
       itemStyle: {
         normal: {
-          color: barChartColourScheme[i],
+          color: colourScheme[i],
         },
       },
       stack: 'the amount',
