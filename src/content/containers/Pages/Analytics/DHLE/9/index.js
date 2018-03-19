@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -9,7 +8,6 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
-import Graph from '../../../../../../content/containers/Fragments/Graphs/graph';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 class Page extends React.PureComponent {
@@ -54,16 +52,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-3" />
           <div className="col-md-6">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
-              </div>
-            </div>
-
+            <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
           </div>
           <div className="col-md-3" />
           <div className="col-md-12">

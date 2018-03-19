@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
 
 import { dNc } from '../../../content/scripts/custom/utilities';
 
@@ -77,13 +75,11 @@ class App extends React.Component {
 
 App.propTypes = {
   location: PropTypes.object,
-  reduxAction_doUpdate: PropTypes.func,
   reduxState_historyData: PropTypes.object,
 };
 
 App.defaultProps = {
   location: {},
-  reduxAction_doUpdate: () => {},
   reduxState_historyData: {},
 };
 

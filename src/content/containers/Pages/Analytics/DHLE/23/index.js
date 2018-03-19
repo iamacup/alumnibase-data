@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -53,7 +52,6 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-6">
-
             <Graph
               titles={['Other', 'Unemployed', 'Further Study', 'Work and further study', 'Part-time work', 'Full-time work']}
               set1={[44990, 6435, 1890, 5120, 3355, 2285]}

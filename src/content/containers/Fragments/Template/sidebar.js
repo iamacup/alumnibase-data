@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -57,7 +56,7 @@ class Page extends React.PureComponent {
                         <i className="dropdown-caret" />
                       </span>
                       <p className="mnp-name">Patrick McConnell</p>
-                      <span className="mnp-desc">p.mcconnell@boomtown.ac.uk</span>
+                      <span className="mnp-desc">patrick@alumnibaseapp.com</span>
                     </a>
                   </div>
                   <div id="profile-nav" className="collapse list-group bg-trans">
@@ -109,7 +108,57 @@ class Page extends React.PureComponent {
                   <li className="list-divider" />
 
                   {/*  <!--Category name--> */}
-                  <li className="list-header">Regulatory Analytics</li>
+                  <li className="list-header">Analytics</li>
+
+
+                  {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/views', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">Respondant Views</span>
+                      <i className="arrow" />
+                    </a>
+
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/views', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/views/1', 'active-link')}>
+                        <Link href="/analytics/views/1" to="/analytics/views/1">Views on Education Impact</Link>
+                      </li>
+                    </ul>
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/views', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/views/2', 'active-link')}>
+                        <Link href="/analytics/views/2" to="/analytics/views/2">Views on Overall Happiness</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+
+                  {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/salary', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">Salary Data</span>
+                      <i className="arrow" />
+                    </a>
+
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/salary/1', 'active-link')}>
+                        <Link href="/analytics/salary/1" to="/analytics/salary/1">Filterable Salaries</Link>
+                      </li>
+                    </ul>
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/salary/2', 'active-link')}>
+                        <Link href="/analytics/salary/2" to="/analytics/salary/2">Geographical Salaries</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+
+                  <li className="list-divider" />
+
+                  {/*  <!--Category name--> */}
+                  <li className="list-header">Regulatory Outputs</li>
 
 
                   {/*  <!--Menu list item--> */}

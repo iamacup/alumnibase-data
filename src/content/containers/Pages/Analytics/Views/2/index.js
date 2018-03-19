@@ -9,23 +9,25 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
+import Section5Graph from '../../../../../../content/containers/Fragments/Graphs/section5Graph';
+import Section5Graph2 from '../../../../../../content/containers/Fragments/Graphs/section5Graph2';
 
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'Requirements 106 to 109 - Further Study Details',
+      pageTitle: 'Views on Overall Happiness',
       breadcrumbs: [
         {
           name: 'Analytics',
           link: '/analytics',
         },
         {
-          name: 'Further Study',
-          link: '/analytics/further-study',
+          name: 'Views',
+          link: '/analytics/views',
         },
         {
-          name: 'RQ 106-109 - Further Study Details',
-          link: '/analytics/further-study/106-109',
+          name: 'Views on Overall Happiness',
+          link: '/analytics/views/2',
         }],
     });
 
@@ -49,80 +51,71 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-
         <div className="row">
-          <div className="col-md-6">
-
+          <div className="col-md-10 col-md-push-1">
             <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
+              <div className="panel-body" style={{ paddingBottom: '15px' }}>
+                Data from section 5 of the respondent survey is collated here. <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the survey respondents
               </div>
             </div>
-
           </div>
-          <div className="col-md-6">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div className="row">
-          <div className="col-md-6">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./3.png')} />
-              </div>
-            </div>
-
-          </div>
-          <div className="col-md-6">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./4.png')} />
-              </div>
-
-            </div>
-
-          </div>
-
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./5.png')} />
-              </div>
-            </div>
-
+            <Section5Graph
+              title="My current work fits with my future plans"
+              globalID="new-1-5"
+            />
           </div>
-
         </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph
+              title="My current work is meaningful and important to me"
+              globalID="new-1-6"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph2
+              title="Overall, how satisfied are you with your life now"
+              globalID="new-1-7"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph2
+              title="Overall, to what extent do you feel the things you do in your life are worthwhile"
+              globalID="new-1-8"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph2
+              title="Overall, how happy did you feel yesterday"
+              globalID="new-1-9"
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <Section5Graph2
+              title="Overall, how anxious did you feel yesterday"
+              globalID="new-1-10"
+            />
+          </div>
+        </div>
+
+
       </div>
     );
 

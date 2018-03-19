@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -9,7 +8,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
-import Graph from '../../../../../../content/containers/Fragments/Graphs/graph';
+import GroupedBarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 class Page extends React.PureComponent {
@@ -53,32 +52,34 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-12">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
-              </div>
-            </div>
-
+            <GroupedBarChart
+              title="Post Graduate Graduates by Type of Employment & Gender"
+              direction="horizontal"
+              value=""
+              globalID="grouperdBar-5"
+              titles={['Managers, directors and senior officials', 'Professional occupations', 'Associate professional and techniacl occupations', 'Total professional', 'Administrative and secretarial occupations', 'skilled trades occupations', 'Caring, leisure and other service occupations', 'Sales and customer service occupations', 'Process, plant and machine operatives', 'Elementary occupations', 'Total non-professional']}
+              data={[
+                    { name: 'Other', data: [0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0] },
+                    { name: 'Male', data: [640, 11560, 3680, 15885, 465, 120, 245, 460, 55, 305, 1650] },
+                    { name: 'Female', data: [435, 19605, 4230, 24275, 890, 55, 635, 585, 15, 285, 2465] },
+                ]}
+            />
           </div>
           <div className="col-md-12">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
-              </div>
-
-            </div>
-
+            <GroupedBarChart
+              title="First Degree Graduates by Type of Employment & Gender"
+              direction="horizontal"
+              value=""
+              globalID="grouperdBar-6"
+              titles={['Managers, directors and senior officials', 'Professional occupations', 'Associate professional and techniacl occupations', 'Total professional', 'Administrative and secretarial occupations', 'skilled trades occupations', 'Caring, leisure and other service occupations', 'Sales and customer service occupations', 'Process, plant and machine operatives', 'Elementary occupations', 'Total non-professional']}
+              data={[
+                    { name: 'Other', data: [0, 10, 5, 15, 0, 0, 0, 0, 0, 0, 5] },
+                    { name: 'Male', data: [3150, 25280, 21785, 50220, 3170, 1210, 2090, 6715, 660, 4700, 18545] },
+                    { name: 'Female', data: [2705, 40365, 26920, 69990, 7015, 755, 7480, 10165, 200, 4875, 30495] },
+                ]}
+            />
           </div>
         </div>
-
       </div>
     );
 

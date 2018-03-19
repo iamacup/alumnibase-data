@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import echarts from 'echarts';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
@@ -9,25 +10,37 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
+import UKSalaryMap from '../../../../../../content/containers/Fragments/Graphs/ukSalaryMap';
 
 class Page extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showNationalAverage: false,
+    };
+  }
+
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'DLHE Requirement 7 - UK Domicilied Graduates',
+      pageTitle: 'Graduate Salaries',
       breadcrumbs: [
         {
           name: 'Analytics',
           link: '/analytics',
         },
         {
-          name: 'DHLE-Like',
-          link: '/analytics/dlhe-like',
+          name: 'Salary',
+          link: '/analytics/salary',
         },
         {
-          name: 'RQ 7 - UK Domicilied Graduates',
-          link: '/analytics/dlhe-like/7',
+          name: 'Graduate Salaries',
+          link: '/analytics/salary/1',
         }],
     });
+
+    // this is a hack to make echarts available to the uk map - need to replace this with the expose loader!!!
+    window.echarts = echarts;
 
     $(() => {
       // listen for resize events
@@ -40,7 +53,19 @@ class Page extends React.PureComponent {
 
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
+
+      // make the checkbox look nice with switchery
+      const elem = document.querySelector('#switchery-switch');
+      // eslint-disable-next-line no-undef
+
+      elem.onchange = () => {
+        this.clickShowNationalAverage();
+      };
     });
+  }
+
+  clickShowNationalAverage() {
+    this.setState({ showNationalAverage: !this.state.showNationalAverage });
   }
 
   render() {
@@ -50,29 +75,26 @@ class Page extends React.PureComponent {
         <StandardFilters />
 
         <div className="row">
-          <div className="col-md-6">
-
+          <div className="col-md-10 col-md-push-1">
             <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
+              <div className="panel-body" style={{ paddingBottom: '15px' }}>
+                By default, the data shown below is for the <strong>entire survey data set.</strong> Use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
+
+                <br /><br />
+                Show national average on graphs: <input id="switchery-switch" type="checkbox" />
+
               </div>
             </div>
-
           </div>
-          <div className="col-md-6">
+        </div>
 
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
-              </div>
+        <div className="row">
+          <div className="col-md-12">
 
-            </div>
+            <UKSalaryMap
+              title="UK Salary By Region"
+              data={{}}
+            />
 
           </div>
         </div>

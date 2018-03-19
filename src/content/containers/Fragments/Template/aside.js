@@ -3,11 +3,8 @@
 
 
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import { fireDebouncedResizeEvents } from '../../../../content/scripts/custom/utilities';
 
 class Page extends React.PureComponent {
   getPins() {

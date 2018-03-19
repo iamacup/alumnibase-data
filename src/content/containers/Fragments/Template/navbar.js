@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -52,7 +51,7 @@ class Page extends React.PureComponent {
             <a href="index.html" className="navbar-brand">
               <img src={require('../../../../content/theme/custom/images/top-left-logo.png')} alt="Global Logo" className="brand-icon" />
               <div className="brand-title">
-                <span className="brand-text">UniLytics</span>
+                <span className="brand-text">AlumniBase</span>
               </div>
             </a>
           </div>

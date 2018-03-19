@@ -12,18 +12,55 @@ import DHLE8Page from '../../content/containers/Pages/Analytics/DHLE/8';
 import DHLE9Page from '../../content/containers/Pages/Analytics/DHLE/9';
 import DHLE11Page from '../../content/containers/Pages/Analytics/DHLE/11';
 
+import Views1PageA from '../../content/containers/Pages/Analytics/Views/1/1a';
+import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
+
+import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
+
+import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
+import Salary2Page from '../../content/containers/Pages/Analytics/Salary/2';
+
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
 import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
 
 import WPBMEEPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-Economic';
 import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-POLAR3';
 
-
 export default [
   {
     path: '/',
     exact: true,
     component: CampaignOverviewPage,
+  },
+  {
+    path: '/analytics/views/1',
+    exact: true,
+    component: Views1PageA,
+  },
+  {
+    path: '/analytics/views/1/direct-university-impact',
+    exact: true,
+    component: Views1PageA,
+  },
+  {
+    path: '/analytics/views/1/views-on-education',
+    exact: true,
+    component: Views1PageB,
+  },
+  {
+    path: '/analytics/views/2',
+    exact: true,
+    component: Views2Page,
+  },
+  {
+    path: '/analytics/salary/1',
+    exact: true,
+    component: Salary1Page,
+  },
+  {
+    path: '/analytics/salary/2',
+    exact: true,
+    component: Salary2Page,
   },
   {
     path: '/campaign/overview',

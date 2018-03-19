@@ -2,16 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import React from 'react';
-import Helmet from 'react-helmet';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawComparisonChart } from '../../../../content/scripts/custom/echarts/generators';
 import { dNc, debounce } from '../../../../content/scripts/custom/utilities';
-
-import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
 class Graph extends React.PureComponent {
   componentDidMount() {
@@ -63,7 +56,7 @@ class Graph extends React.PureComponent {
         ],
       });
 
-      const executeFunction = debounce((e) => {
+      const executeFunction = debounce(() => {
         console.log('change 1');
       }, 250);
 
@@ -80,7 +73,7 @@ class Graph extends React.PureComponent {
         ],
       });
 
-      const executeFunction2 = debounce((e) => {
+      const executeFunction2 = debounce(() => {
         console.log('change 2');
       }, 250);
 

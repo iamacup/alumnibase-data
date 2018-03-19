@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
 import { drawNewBarChart } from '../../../../content/scripts/custom/echarts/generators';
+
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
 class Graph extends React.PureComponent {
@@ -20,39 +21,21 @@ class Graph extends React.PureComponent {
   }
 
   componentDidMount() {
-    const axisData = { y: this.props.titles, x: '' };
-    const dataSeries = [
-      { name: this.props.set1Name, data: this.props.set1 },
-      { name: this.props.set2Name, data: this.props.set2 },
-    ];
-
-    const preFinalSet1 = [];
-    const preFinalSet2 = [];
-
-    const { set1, set2 } = this.props;
-
-    for (let a = 0; a < set1.length; a++) {
-      const total = set1[a] + set2[a];
-
-      preFinalSet1.push(Math.round((set1[a] / total) * 100));
-      preFinalSet2.push(Math.round((set2[a] / total) * 100));
-    }
-
-    const axisDataPercentage = { y: this.props.titles, x: '%' };
-    const dataSeriesPercentage = [
-      { name: this.props.set1Name, data: preFinalSet1 },
-      { name: this.props.set2Name, data: preFinalSet2 },
-    ];
-    // this is the absolute numbers
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    renderChartToTarget(this.graphTarget2, options);
+    $(() => {
+      const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
+      const dataSeries = [
+        { name: 'Very likely', data: [20, 16, 14, 12, 10] },
+        { name: 'Likely', data: [20, 16, 14, 12, 10] },
+        { name: 'Not very likely', data: [40, 44, 44, 44, 40] },
+        { name: 'Not likely at all', data: [10, 12, 14, 16, 20] },
+        { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
+      ];
 
 
-    // this is the percentage numbers
-    const optionPercentage = drawNewBarChart(axisDataPercentage, dataSeriesPercentage);
+      const option = drawNewBarChart(axisData, dataSeries);
 
-    renderChartToTarget(this.graphTarget1, optionPercentage);
+      renderChartToTarget(this.graphTarget1, option);
+    });
   }
 
   getImageDataForActiveGraph() {
@@ -70,6 +53,73 @@ class Graph extends React.PureComponent {
 
     console.log('handle error TODO');
     return null;
+  }
+
+  getPercentageBlock() {
+    const randombetween = (min, max) => Math.floor(Math.random() * ((max - (min + 1)) + min));
+
+    const generate = (max, thecount) => {
+      const r = [];
+      let currsum = 0;
+      for (let i = 0; i < thecount - 1; i++) {
+        r[i] = randombetween(1, max - (thecount - i - 1) - currsum);
+        currsum += r[i];
+      }
+      r[thecount - 1] = max - currsum;
+      return r;
+    };
+
+    const rands = generate(100, 5);
+
+    const obj = (
+      <div>
+        {this.getPercentRow('Very likely', rands[0])}
+        {this.getPercentRow('Likely', rands[1])}
+        {this.getPercentRow('Not very likely', rands[2])}
+        {this.getPercentRow('Not likely at all', rands[3])}
+        {this.getPercentRow('Don\'t know', rands[4], false)}
+      </div>
+    );
+
+    return obj;
+  }
+
+  getPercentRow(title, percentage, bottomMargin) {
+    const barStyle = { height: '4px' };
+
+    if (bottomMargin === false) {
+      barStyle.marginBottom = '0';
+    }
+
+    const obj = (
+      <div className="row">
+        <div className="col-sm-4">
+          <div className="text-left visible-xs-block">
+            <h6 style={{ marginTop: '0' }}>{title}</h6>
+          </div>
+          <div className="text-right hidden-xs">
+            <h6 style={{ marginTop: '0' }}>{title}</h6>
+          </div>
+        </div>
+        <div className="col-sm-8">
+          <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{percentage}%</h6>
+          <div className="progress" style={barStyle}>
+            <div
+              className="progress-bar"
+              role="progressbar"
+              aria-valuenow="70"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style={{ width: percentage + '%' }}
+            >
+              <span className="sr-only">{percentage}% Complete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    return obj;
   }
 
   clickGraph() {
@@ -99,20 +149,21 @@ class Graph extends React.PureComponent {
 
   render() {
     return (
+
+
       <div className="panel">
 
         <div className="panel-heading">
           <div className="panel-control">
-
             <ul className="nav nav-tabs">
               <li className="active">
-                <a data-toggle="tab" href={'#' + this.state.panel1ID} onClick={() => { this.clickGraph(); }}>
-                  <i className="far fa-percent" />
+                <a data-toggle="tab" href={'#' + this.state.panel1ID}>
+                  Overall
                 </a>
               </li>
               <li>
                 <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
-                  <i className="far fa-hashtag" />
+                  Trends
                 </a>
               </li>
             </ul>
@@ -127,16 +178,17 @@ class Graph extends React.PureComponent {
               </ul>
             </div>
           </div>
-          <h3 className="panel-title"><strong>{this.props.title}</strong></h3>
+          <h3 className="panel-title"><strong> {this.props.title}</strong></h3>
         </div>
 
         <hr style={{ margin: 0 }} />
 
-        <div className="panel-body">
-
-
+        <div className="panel-body" style={{ paddingBottom: '0' }}>
           <div className="tab-content">
             <div id={this.state.panel1ID} className="tab-pane fade in active">
+              {this.getPercentageBlock()}
+            </div>
+            <div id={this.state.panel2ID} className="tab-pane fade">
               <div className="pad-all">
                 <div
                   className="echarts-graph"
@@ -145,41 +197,32 @@ class Graph extends React.PureComponent {
                 />
               </div>
             </div>
-            <div id={this.state.panel2ID} className="tab-pane fade">
-              <div className="pad-all">
-                <div
-                  className="echarts-graph"
-                  style={{ width: '100%', height: '360px' }}
-                  ref={(graphTarget2) => { this.graphTarget2 = graphTarget2; }}
-                />
-              </div>
-            </div>
           </div>
 
-          {this.props.postContent}
+          <div className="text-right" style={{ marginTop: '26px' }}>
+            <h5>
+              <small>
+                      Percentage values when all responses are aggregated
+              </small>
+            </h5>
+          </div>
         </div>
 
         <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
       </div>
+
     );
   }
 }
 
 Graph.propTypes = {
-  titles: PropTypes.array.isRequired,
-  set1: PropTypes.array.isRequired,
-  set2: PropTypes.array.isRequired,
-  set1Name: PropTypes.string.isRequired,
-  set2Name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   globalID: PropTypes.string.isRequired,
   reduxAction_doUpdate: PropTypes.func,
-  postContent: PropTypes.any,
 };
 
 Graph.defaultProps = {
   reduxAction_doUpdate: () => {},
-  postContent: null,
 };
 
 const mapStateToProps = null;
