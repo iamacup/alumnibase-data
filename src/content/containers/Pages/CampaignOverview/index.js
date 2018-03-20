@@ -4,6 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Wrapper from '../../../../content/containers/Fragments/Template/wrapper';
 import PieChart from '../../../../content/containers/Fragments/Graphs/pieChart';
@@ -226,329 +227,365 @@ class Page extends React.PureComponent {
     const content = (
       <div id="page-content">
 
-        <div className="row">
+        <div className="row" style={{ paddingBottom: '50px' }}>
 
-          <div className="col-lg-5">
+          <div className="col-lg-12">
             <div className="row">
-              <div className="col-sm-6 col-lg-6">
+              <div className="col-sm-4 col-lg-4">
 
                 {/* <!--Sparkline Area Chart--> */}
-                <div className="panel panel-success panel-colorful text-center">
-                  <div className="pad-all">
-                    <p className="text-lg text-semibold"> DLHE-Like</p>
+                <Link href="" to="/analytics/views/1">
+                  <div className="panel panel-success panel-colorful text-center">
+                    <div className="pad-all">
+                      <p className="text-lg text-semibold">Analytics</p>
+                    </div>
+                    <div className="pad-top text-center">
+                      {/* <!--Placeholder--> */}
+                      <div id="demo-sparkline-area" className="sparklines-full-content" />
+                    </div>
                   </div>
-                  <div className="pad-top text-center">
-                    {/* <!--Placeholder--> */}
-                    <div id="demo-sparkline-area" className="sparklines-full-content" />
-                  </div>
-                </div>
+                </Link>
               </div>
-              <div className="col-sm-6 col-lg-6">
 
-                {/* <!--Sparkline Line Chart--> */}
-                <div className="panel panel-info panel-colorful text-center">
-                  <div className="pad-all">
-                    <p className="text-lg text-semibold">Further Study</p>
-                  </div>
-                  <div className="pad-top text-center">
-
-                    {/* <!--Placeholder--> */}
-                    <div id="demo-sparkline-line" className="sparklines-full-content" style={{ marginTop: '-5px', paddingBottom: '5px' }} />
-
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-6 col-lg-6">
-
+              <div className="col-sm-4 col-lg-4">
                 {/* <!--Sparkline bar chart --> */}
-                <div className="panel panel-purple panel-colorful text-center">
-                  <div className="pad-all">
-                    <p className="text-lg text-semibold"> Widening Participation</p>
-                  </div>
-                  <div className="text-center">
+                <Link href="" to="/analytics/dlhe-like/2-3">
+                  <div className="panel panel-purple panel-colorful text-center">
+                    <div className="pad-all">
+                      <p className="text-lg text-semibold">Regulatory Outputs</p>
+                    </div>
+                    <div className="text-center">
 
-                    {/* <!--Placeholder--> */}
-                    <div id="demo-sparkline-bar" className="box-inline" />
+                      {/* <!--Placeholder--> */}
+                      <div id="demo-sparkline-bar" className="box-inline" />
 
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
-              <div className="col-sm-6 col-lg-6">
+              <div className="col-sm-4 col-lg-4">
 
 
                 {/* <!--Sparkline bar chart --> */}
-                <div className="panel panel-warning panel-colorful text-center">
-                  <div className="pad-all">
-                    <p className="text-lg text-semibold">Advanced Analytics</p>
+                <Link href="" to="/analytics/employment-outcomes/employment-destinations">
+                  <div className="panel panel-warning panel-colorful text-center">
+                    <div className="pad-all">
+                      <p className="text-lg text-semibold">Advanced Analytics</p>
+                    </div>
+                    <div className="text-center">
+                      {/* <!--Placeholder--> */}
+                      <div id="my-advanced-chart" className="box-inline" />
+
+                    </div>
                   </div>
-                  <div className="text-center">
-                    {/* <!--Placeholder--> */}
-                    <div id="my-advanced-chart" className="box-inline" />
-                  </div>
-                </div>
+                </Link>
+
               </div>
             </div>
-          </div>
-        </div>
 
 
-        <div className="row">
-          <div className="col-md-3">
-            <div className="panel panel-warning panel-colorful media middle pad-all">
-              <div className="media-left">
-                <div className="pad-hor">
-                  <i className="far fa-address-card fa-2x" />
-                </div>
-              </div>
-              <div className="media-body">
-                <p className="text-2x mar-no text-semibold">345,127</p>
-                <p className="mar-no">Contacts</p>
-              </div>
-            </div>
           </div>
-          <div className="col-md-3">
-            <div className="panel panel-info panel-colorful media middle pad-all">
-              <div className="media-left">
-                <div className="pad-hor">
-                  <i className="far fa-users fa-2x" />
-                </div>
-              </div>
-              <div className="media-body">
-                <p className="text-2x mar-no text-semibold">120,000</p>
-                <p className="mar-no">Contacted</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="panel panel-mint panel-colorful media middle pad-all">
-              <div className="media-left">
-                <div className="pad-hor">
-                  <i className="far fa-envelope fa-2x" />
-                </div>
-              </div>
-              <div className="media-body">
-                <p className="text-2x mar-no text-semibold">240,000</p>
-                <p className="mar-no">Emails Sent</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="panel panel-danger panel-colorful media middle pad-all">
-              <div className="media-left">
-                <div className="pad-hor">
-                  <i className="far fa-cogs fa-2x" />
-                </div>
-              </div>
-              <div className="media-body">
-                <p className="text-2x mar-no text-semibold">30</p>
-                <p className="mar-no">Segments</p>
-              </div>
-            </div>
-          </div>
-
         </div>
 
 
         {/* <!---------------Graphs---------------> */}
         {/* <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> */}
+        <div className="row">
+          <div className="col-md-10 col-md-push-1">
 
+            {/* <!--Page content--> */}
+            {/* <!--===================================================--> */}
 
-        {/* <!--Page content--> */}
-        {/* <!--===================================================--> */}
-        <div id="page-content">
+            <div className="row">
+              <div className="col-md-4">
 
-          <div className="row">
-            <div className="col-md-4">
-
-              {/* <!-- Donut Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-body">
-                  <PieChart
-                    title="Gender Split"
-                    label
-                    alignment
-                    chart="doughnut"
-                    data={[
+                {/* <!-- Donut Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="panel-body">
+                    <PieChart
+                      title="Gender Split"
+                      label
+                      alignment
+                      chart="doughnut"
+                      data={[
                       { name: 'Male', value: 55 },
                       { name: 'Female', value: 40 },
                       { name: 'Other', value: 5 },
                     ]}
-                    globalID="overview-pie-2"
-                  />
-                </div>
-              </div>
-              {/* <!----------------------------------> */}
-
-            </div>
-            <div className="col-md-4">
-
-              {/* <!-- Donut Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-body">
-                  <div className="text-center p-5">
-                    <h1>100, 000 <br /> Responses</h1>
+                      globalID="overview-pie-2"
+                    />
                   </div>
                 </div>
-              </div>
-              {/* <!----------------------------------> */}
+                {/* <!----------------------------------> */}
 
-            </div>
-            <div className="col-md-4">
-              {/* <!-- Donut Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-body">
-                  <PieChart
-                    title="Ethnicity Split"
-                    label={false}
-                    alignment={false}
-                    chart="pie"
-                    data={[
+              </div>
+              <div className="col-md-4">
+
+                {/* <!-- Donut Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="panel-body">
+                    <div className="text-center p-5">
+                      <h1>45,683</h1>
+                      <h2>Total Responses</h2>
+                      <h1>37% </h1>
+                      <h2>Response Rate</h2>
+                    </div>
+                  </div>
+                </div>
+                {/* <!----------------------------------> */}
+
+              </div>
+              <div className="col-md-4">
+                {/* <!-- Donut Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="panel-body">
+                    <PieChart
+                      title="Ethnicity Split"
+                      label={false}
+                      alignment={false}
+                      chart="pie"
+                      data={[
                       { name: 'White', value: 40 },
                       { name: 'Chinese', value: 20 },
                       { name: 'Mixed/ Other', value: 10 },
                       { name: 'Asian', value: 20 },
                       { name: 'Black', value: 10 },
                     ]}
-                    globalID="overview-pie-3"
-                  />
+                      globalID="overview-pie-3"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          {/* <!----------------------------------> */}
+            {/* <!----------------------------------> */}
 
-          <div className="row">
-            <div className="col-md-6">
+            <div className="row">
+              <div className="col-md-6">
 
 
-              {/* <!-- Area Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="pad-all">
-                  <BarChart
-                    title="Total Responses per Year Group"
-                    value=""
-                    titles={['2012', '2013', '2014', '2015', '2016', '2017']}
-                    direction="horizontal"
-                    data={[
+                {/* <!-- Area Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="pad-all">
+                    <BarChart
+                      title="Total Responses per Year Group"
+                      value=""
+                      titles={['2012', '2013', '2014', '2015', '2016', '2017']}
+                      direction="horizontal"
+                      data={[
                       { data: [980, 800, 975, 678, 708, 1020] },
                       ]}
-                    globalID="overview-bar-1"
-                  />
+                      globalID="overview-bar-1"
+                    />
+                  </div>
                 </div>
+                {/* <!----------------------------------> */}
+
+
               </div>
-              {/* <!----------------------------------> */}
+              <div className="col-md-6">
 
-
-            </div>
-            <div className="col-md-6">
-
-              {/* <!-- Line Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="pad-all">
-                  <BarChart
-                    title="Age distribution of respondants"
-                    value=""
-                    titles={['under 25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56+']}
-                    direction="vertical"
-                    data={[
+                {/* <!-- Line Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="pad-all">
+                    <BarChart
+                      title="Age distribution of respondants"
+                      value=""
+                      titles={['under 25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56+']}
+                      direction="vertical"
+                      data={[
                       { data: [456, 1000, 793, 578, 654, 543, 308, 123] },
                       ]}
-                    globalID="overview-bar-2"
-                  />
+                      globalID="overview-bar-2"
+                    />
+                  </div>
                 </div>
-              </div>
-              {/* <!----------------------------------> */}
+                {/* <!----------------------------------> */}
 
 
-            </div>
-          </div>
-
-
-          {/* <!-- Morris JS Full Content --> */}
-          {/* <!----------------------------------> */}
-          <div className="panel">
-            <div className="panel-body">
-              <div id="demo-morris-area-legend-full" className="text-center" />
-              <div id="demo-morris-area-full" className="morris-full-content" style={{ height: '300px' }} />
-              <div className="">
-                <h4>Subject Breackdown Split</h4>
-                <p>dots**</p>
               </div>
             </div>
-          </div>
-          {/*  <!----------------------------------> */}
 
 
-          <div className="row">
-            <div className="col-md-7">
-
-
-              {/* <!-- Bar Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Religion Split</h3>
-                </div>
-                <div className="panel-body">
-                  <div id="demo-morris-bar" style={{ height: '250px' }} />
+            {/* <!-- Morris JS Full Content --> */}
+            {/* <!----------------------------------> */}
+            <div className="panel">
+              <div className="panel-body">
+                <div id="demo-morris-area-legend-full" className="text-center" />
+                <div id="demo-morris-area-full" className="morris-full-content" style={{ height: '300px' }} />
+                <div className="">
+                  <h4>Subject Breackdown Split</h4>
+                  <p>dots**</p>
                 </div>
               </div>
-              {/* <!----------------------------------> */}
-
-
             </div>
-            <div className="col-md-5">
+            {/*  <!----------------------------------> */}
 
 
-              {/* <!-- Donut Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-body">
-                  <PieChart
-                    title="Disability Split"
-                    label
-                    alignment
-                    chart="doughnut"
-                    data={[
+            <div className="row">
+              <div className="col-md-7">
+
+
+                {/* <!-- Bar Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h3 className="panel-title">Religion Split</h3>
+                  </div>
+                  <div className="panel-body">
+                    <div id="demo-morris-bar" style={{ height: '250px' }} />
+                  </div>
+                </div>
+                {/* <!----------------------------------> */}
+
+
+              </div>
+              <div className="col-md-5">
+
+
+                {/* <!-- Donut Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="panel-body">
+                    <PieChart
+                      title="Disability Split"
+                      label
+                      alignment
+                      chart="doughnut"
+                      data={[
                       { name: 'Searching Engine', value: 400 },
                       { name: 'Direct', value: 335 },
                       { name: 'Email', value: 310 },
                       { name: 'Alliance Advertisement', value: 274 },
                       { name: 'Video Advertisement', value: 235 },
                     ]}
-                    globalID="overview-pie-1"
-                  />
+                      globalID="overview-pie-1"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          {/* <!----------------------------------> */}
+            {/* <!----------------------------------> */}
 
 
-          {/* <!-- Morris JS Full Content --> */}
-          {/* <!----------------------------------> */}
-          <div className="panel">
-            <div className="panel-body">
-              <WorldMap
-                title1="Alumni Country of Origin"
-                title2="Alumni Destinations"
-                globalID="world-chart"
-              />
+            {/* <!-- Morris JS Full Content --> */}
+            {/* <!----------------------------------> */}
+            <div className="panel">
+              <div className="panel-body">
+                <WorldMap
+                  title1="Alumni Country of Origin"
+                  title2="Alumni Destinations"
+                  globalID="world-chart"
+                />
+              </div>
             </div>
+            {/*  <!----------------------------------> */}
+
+
+            {/* <!--===================================================--> */}
+            {/* <!--End page content--> */}
           </div>
-          {/*  <!----------------------------------> */}
-
-
         </div>
-        {/* <!--===================================================--> */}
-        {/* <!--End page content--> */}
+
+        <div className="row">
+          <div className="col-md-6">
+            <div className="panel">
+
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Top 10 Subject Respondant List</h3>
+                </div>
+
+                {/* <!--Bordered Table--> */}
+                {/* <!--===================================================--> */}
+                <div className="panel-body">
+                  <div className="table-responsive">
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th className="text-center">#</th>
+                          <th>Course</th>
+                          <th>Respondants</th>
+                          <th>Subject</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="text-center">1</td>
+                          <td><a href="#" className="btn-link">Criminology and Law</a></td>
+                          <td><span className="text-muted">500</span></td>
+                          <td><span className="label label-purple">Social Sciences</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">2</td>
+                          <td><a href="#" className="btn-link">Politics, Philosophy and Economics</a></td>
+                          <td><span className="text-muted">467</span></td>
+                          <td><span className="label label-purple">Social Sciences</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">3</td>
+                          <td><a href="#" className="btn-link">Environmental Science</a></td>
+                          <td><span className="text-muted">421</span></td>
+                          <td><span className="label label-success">Environment & Development</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">4</td>
+                          <td><a href="#" className="btn-link">Economics</a></td>
+                          <td><span className="text-muted">398</span></td>
+                          <td><span className="label label-info">Mathematics</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">5</td>
+                          <td><a href="#" className="btn-link">Computing & IT</a></td>
+                          <td><span className="text-muted">340</span></td>
+                          <td><span className="label label-info">Mathematics</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">6</td>
+                          <td><a href="#" className="btn-link">Medicine & Surgery</a></td>
+                          <td><span className="text-muted">278</span></td>
+                          <td><span className="label label-danger">Medical Sciences</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">7</td>
+                          <td><a href="#" className="btn-link">Classical Studies</a></td>
+                          <td><span className="text-muted">265</span></td>
+                          <td><span className="label label-warning">Arts & Humanities</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">8</td>
+                          <td><a href="#" className="btn-link">History</a></td>
+                          <td><span className="text-muted">254</span></td>
+                          <td><span className="label label-warning">Arts & Humanities</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">9</td>
+                          <td><a href="#" className="btn-link">English Literature</a></td>
+                          <td><span className="text-muted">242</span></td>
+                          <td><span className="label label-warning">Arts & Humanities</span></td>
+                        </tr>
+                        <tr>
+                          <td className="text-center">10</td>
+                          <td><a href="#" className="btn-link">Art History</a></td>
+                          <td><span className="text-muted">238</span></td>
+                          <td><span className="label label-warning">Arts & Humanities</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                {/* <!--===================================================--> */}
+                {/* <!--End Bordered Table--> */}
+
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         {/* <!-----------End of Graphs------------> */}
         {/* <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> */}

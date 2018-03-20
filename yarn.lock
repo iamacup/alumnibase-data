@@ -1803,7 +1803,7 @@ rc@^1.0.1, rc@^1.1.7:
 
 "react-base@https://github.com/iamacup/react-base.git#master":
   version "1.0.1"
-  resolved "https://github.com/iamacup/react-base.git#8a7bfbb2301bfa1432d659dfab8f211a3451774a"
+  resolved "https://github.com/iamacup/react-base.git#ca50ab12ee6c3cbc878b8aa925a414e0c90dac86"
   dependencies:
     axios "^0.17.1"
     babel-core "^6.26.0"
