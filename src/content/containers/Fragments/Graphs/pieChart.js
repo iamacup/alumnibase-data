@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { drawNewPieChart } from '../../../scripts/custom/echarts/generators';
+import { drawNewPieChart } from '../../../scripts/custom/echarts/drawPieChart';
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents, whenLoaded } from '../../../../content/scripts/custom/utilities';
 

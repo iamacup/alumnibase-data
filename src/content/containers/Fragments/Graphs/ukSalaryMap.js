@@ -1,15 +1,15 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+
+/* eslint-disable jsx-a11y/anchor-is-valid, no-undef */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawWorldChart } from '../../../../content/scripts/custom/echarts/generators';
-import worldMapData from './worldMapData';
+import { drawUKMap } from '../../../../content/scripts/custom/echarts/drawUKMap';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
-class Graph extends React.PureComponent {
+class Graph extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,14 +18,13 @@ class Graph extends React.PureComponent {
     };
   }
 
+
   componentDidMount() {
-    require('echarts-maps/world.js');
+    const pieces = this.props.pieces.map((element, i) => ({ max: i + 0.1, label: element, min: i }));
 
-    const data = this.props.data.map(element => ({
-      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
-    }));
-
-    renderChartToTarget(this.graphTarget1, drawWorldChart(data, this.props.type, this.props.value));
+    $(() => {
+      renderChartToTarget(this.graphTarget1, drawUKMap(this.props.data, pieces));
+    });
   }
 
   getImageDataForActiveGraph() {
@@ -72,62 +71,36 @@ class Graph extends React.PureComponent {
 
   render() {
     return (
-
       <div className="panel">
         <div className="panel-heading">
           <div className="panel-control">
             <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
           </div>
-
-          <ul className="nav nav-tabs">
-            <li className="active">
-              <a data-toggle="tab" href={'#' + this.state.panel1ID}>
-                  Comeing
-              </a>
-            </li>
-            <li>
-              <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
-                  Going
-              </a>
-            </li>
-          </ul>
           <h3 className="panel-title">{this.props.title}</h3>
         </div>
-
-
         <div className="collapse in">
           <div className="panel-body" id={this.state.panel1ID}>
-            <div className="tab-content">
-              <div id={this.state.panel1ID} className="tab-pane fade in active">
-                <p>jrfgkjhf</p>
-              </div>
-              <div id={this.state.panel2ID} className="tab-pane fade">
-                <div className="pad-all">
-                  <div
-                    className="echarts-graph"
-                    style={{ width: '100%', height: '360px' }}
-                    ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-                  />
-                </div>
-              </div>
+            <div className="pad-all">
+              <div
+                className="echarts-graph"
+                style={{ width: '100%', height: '1000px' }}
+                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+              />
             </div>
-
-            <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
           </div>
+
+          <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>
       </div>
-
-
     );
   }
 }
 
 Graph.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  data: PropTypes.any.isRequired,
   globalID: PropTypes.string.isRequired,
+  data: PropTypes.any.isRequired,
+  pieces: PropTypes.array.isRequired,
   reduxAction_doUpdate: PropTypes.func,
 };
 
@@ -142,3 +115,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Graph);
+

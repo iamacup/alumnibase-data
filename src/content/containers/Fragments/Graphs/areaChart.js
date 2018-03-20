@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawAreaChart } from '../../../../content/scripts/custom/echarts/generators';
+import { drawAreaChart } from '../../../../content/scripts/custom/echarts/drawAreaChart';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 

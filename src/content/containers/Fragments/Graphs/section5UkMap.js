@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawUKMap } from '../../../../content/scripts/custom/echarts/generators';
+import { drawUKMap } from '../../../../content/scripts/custom/echarts/drawUkMap';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
 class Graph extends React.Component {
@@ -76,31 +76,32 @@ class Graph extends React.Component {
     return (
       <div className="panel">
         <div className="panel-heading">
-          <div className="panel-control">
-            <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
+          <h3 className="panel-title">UK data</h3>
+          <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
+        </div>
+        <div className="panel-control">
 
-            <ul className="nav nav-tabs">
-              <li className="active">
-                <a data-toggle="tab" href={'#' + this.state.panel1ID} onClick={() => { this.clickGraph(); }}>
+          <ul className="nav nav-tabs">
+            <li className="active">
+              <a data-toggle="tab" href={'#' + this.state.panel1ID} onClick={() => { this.clickGraph(); }}>
                   Coming
-                </a>
-              </li>
-              <li>
-                <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
                   Going
-                </a>
-              </li>
+              </a>
+            </li>
+          </ul>
+          <div className="btn-group dropdown">
+            <button data-toggle="dropdown" className="dropdown-toggle btn btn-default btn-active-primary">
+              <i className="caret" />
+            </button>
+            <ul className="dropdown-menu dropdown-menu-right">
+              <li><a href="#" onClick={(e) => { this.download(e); }} ><i className="far fa-download" /> Download Image</a></li>
+              <li><a href="#"><i className="far fa-table" /> See Underlying Data</a></li>
+              <li><a href="#" onClick={(e) => { this.pin(e); }}><i className="fas fa-thumbtack" /> Pin Graph</a></li>
             </ul>
-            <div className="btn-group dropdown">
-              <button data-toggle="dropdown" className="dropdown-toggle btn btn-default btn-active-primary">
-                <i className="caret" />
-              </button>
-              <ul className="dropdown-menu dropdown-menu-right">
-                <li><a href="#" onClick={(e) => { this.download(e); }} ><i className="far fa-download" /> Download Image</a></li>
-                <li><a href="#"><i className="far fa-table" /> See Underlying Data</a></li>
-                <li><a href="#" onClick={(e) => { this.pin(e); }}><i className="fas fa-thumbtack" /> Pin Graph</a></li>
-              </ul>
-            </div>
           </div>
         </div>
 
