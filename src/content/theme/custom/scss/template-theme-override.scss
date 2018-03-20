@@ -1,4 +1,4 @@
-@import "../../../../../nifty-v2.9/css-preprocessors/scss/_variables";
+@import "../../../../../src/includes/nifty-v2.9/css-preprocessors/scss/_variables";
 
 
 
@@ -82,5 +82,5 @@ $footer-bg                  : lighten($body-bg, 3%);
 $footer-color               : $body-color;
 
 //============================================
-@import "../../../../../nifty-v2.9/css-preprocessors/scss/themes/_themes";
-@import "../../../../../nifty-v2.9/css-preprocessors/scss/themes/_themes-e-base";
+@import "../../../../../src/includes/nifty-v2.9/css-preprocessors/scss/themes/_themes";
+@import "../../../../../src/includes/nifty-v2.9/css-preprocessors/scss/themes/_themes-e-base";

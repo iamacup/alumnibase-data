@@ -47,7 +47,7 @@ class Page extends React.PureComponent {
                 <div id="mainnav-profile" className="mainnav-profile">
                   <div className="profile-wrap text-center">
                     <div className="pad-btm">
-                      <img className="img-circle img-md" src={require('../../../../../nifty-v2.9/img/profile-photos/1.png')} alt="Profile" />
+                      <img className="img-circle img-md" src={require('../../../../../src/includes/nifty-v2.9/img/profile-photos/1.png')} alt="Profile" />
 
 
                     </div>

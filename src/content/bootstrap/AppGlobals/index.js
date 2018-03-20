@@ -8,16 +8,16 @@ import { dNc } from '../../../content/scripts/custom/utilities';
 import * as storeAction from '../../../foundation/redux/globals/DataStoreSingle/actions';
 
 // nifty core stylesheet - required
-import '../../../../nifty-v2.9/css-preprocessors/scss/nifty.scss';
+import '../../../../src/includes/nifty-v2.9/css-preprocessors/scss/nifty.scss';
 
 import '../../../content/theme/custom/scss/template-theme-override.scss';
 
 // premium icons - options -- TODO should migrate to FA exlusively?
-import '../../../../nifty-v2.9/premium/icon-sets/icons/line-icons/premium-line-icons.min.css';
-import '../../../../nifty-v2.9/premium/icon-sets/icons/solid-icons/premium-solid-icons.min.css';
+import '../../../../src/includes/nifty-v2.9/premium/icon-sets/icons/line-icons/premium-line-icons.min.css';
+import '../../../../src/includes/nifty-v2.9/premium/icon-sets/icons/solid-icons/premium-solid-icons.min.css';
 
 // FontAwesome
-import '../../../../fontawesome-pro-5.0.4/web-fonts-with-css/css/fontawesome-all.css';
+// import '../../../../fontawesome-pro-5.0.4/web-fonts-with-css/css/fontawesome-all.css';
 
 // our custom styles
 import '../../../content/theme/custom/scss/application.scss';
