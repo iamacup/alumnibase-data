@@ -85,62 +85,73 @@ class Graph extends React.PureComponent {
 
       <div className="panel">
         <div className="panel-heading">
-          <h3 className="panel-title">Outside of the UK</h3>
-          <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
-        </div>
-        <div className="panel-control">
-
-          <ul className="nav nav-tabs">
-            <li className="active">
-              <a data-toggle="tab" href={'#' + this.state.panel1ID} onClick={() => { this.clickGraph(); }}>
-                  Coming
-              </a>
-            </li>
-            <li>
-              <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
-                  Going
-              </a>
-            </li>
-          </ul>
-          <div className="btn-group dropdown">
-            <button data-toggle="dropdown" className="dropdown-toggle btn btn-default btn-active-primary">
-              <i className="caret" />
-            </button>
-            <ul className="dropdown-menu dropdown-menu-right">
-              <li><a href="#" onClick={(e) => { this.download(e); }} ><i className="far fa-download" /> Download Image</a></li>
-              <li><a href="#"><i className="far fa-table" /> See Underlying Data</a></li>
-              <li><a href="#" onClick={(e) => { this.pin(e); }}><i className="fas fa-thumbtack" /> Pin Graph</a></li>
-            </ul>
+          <div className="panel-control">
+            <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
           </div>
+          <h3 className="panel-title">Outside of the UK</h3>
         </div>
-
 
         <div className="collapse in">
           <div className="panel-body">
-            <div className="tab-content">
-              <div id={this.state.panel1ID} className="tab-pane fade in active">
-                <h3 className="panel-title">{this.props.title1}</h3>
-                <div className="pad-all">
-                  <div
-                    className="echarts-graph"
-                    style={{ width: '100%', height: '360px' }}
-                    ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-                  />
-                </div>
-              </div>
-              <div id={this.state.panel2ID} className="tab-pane fade">
-                <h3 className="panel-title">{this.props.title2}</h3>
-                <div className="pad-all">
-                  <div
-                    className="echarts-graph"
-                    style={{ width: '100%', height: '360px' }}
-                    ref={(graphTarget2) => { this.graphTarget2 = graphTarget2; }}
-                  />
-                </div>
-              </div>
-            </div>
+            <div className="panel">
+              <div className="panel-heading">
+                <div className="panel-control">
 
-            <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+
+                  <ul className="nav nav-tabs">
+                    <li className="active">
+                      <a data-toggle="tab" href={'#' + this.state.panel1ID} onClick={() => { this.clickGraph(); }}>
+                  Coming
+                      </a>
+                    </li>
+                    <li>
+                      <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
+                  Going
+                      </a>
+                    </li>
+                  </ul>
+                  <div className="btn-group dropdown">
+                    <button data-toggle="dropdown" className="dropdown-toggle btn btn-default btn-active-primary">
+                      <i className="caret" />
+                    </button>
+                    <ul className="dropdown-menu dropdown-menu-right">
+                      <li><a href="#" onClick={(e) => { this.download(e); }} ><i className="far fa-download" /> Download Image</a></li>
+                      <li><a href="#"><i className="far fa-table" /> See Underlying Data</a></li>
+                      <li><a href="#" onClick={(e) => { this.pin(e); }}><i className="fas fa-thumbtack" /> Pin Graph</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="panel-body">
+
+                <div className="tab-content">
+                  <div id={this.state.panel1ID} className="tab-pane fade in active">
+                    <h3 className="panel-title">{this.props.title1}</h3>
+                    <div className="pad-all">
+                      <div
+                        className="echarts-graph"
+                        style={{ width: '100%', height: '360px' }}
+                        ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+                      />
+                    </div>
+                  </div>
+                  <div id={this.state.panel2ID} className="tab-pane fade">
+                    <h3 className="panel-title">{this.props.title2}</h3>
+                    <div className="pad-all">
+                      <div
+                        className="echarts-graph"
+                        style={{ width: '100%', height: '360px' }}
+                        ref={(graphTarget2) => { this.graphTarget2 = graphTarget2; }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+            </div>
           </div>
         </div>
       </div>

@@ -41,7 +41,7 @@ class Page extends React.PureComponent {
           link: '/analytics/salary/2',
         },
         {
-          name: 'World Data',
+          name: 'Geographical Views',
           link: '/analytics/salary/2/world',
         }],
     });
@@ -121,6 +121,7 @@ class Page extends React.PureComponent {
               title2="Where Grads Go"
               globalID="world-chart"
             />
+
           </div>
         </div>
 

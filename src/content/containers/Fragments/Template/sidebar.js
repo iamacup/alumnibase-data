@@ -148,8 +148,27 @@ class Page extends React.PureComponent {
                       </li>
                     </ul>
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/salary/2', 'active-link')}>
-                        <Link href="/analytics/salary/2" to="/analytics/salary/2">Geographical Salaries</Link>
+                      <li className={this.classNameBasedOnLocation('/analytics/salary/2/world', 'active-sub')}>
+                        <a href="/analytics/salary/2/world">
+
+                          <span className="menu-title">Geographical Salaries</span>
+                          <i className="arrow" />
+                        </a>
+                        {/*  <Link href="/analytics/salary/2" to="/analytics/salary/2">Geographical Salaries</Link> */}
+                        {/*  <!--Inner-Submenu--> */}
+
+                        <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary/2', 'in')} >
+                          <li className={this.classNameBasedOnLocation('/analytics/salary/2/world', 'active-link')}>
+                            <Link href="/analytics/salary/2/world" to="/analytics/salary/2/world">Geographic Views</Link>
+                          </li>
+                        </ul>
+                        <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary/2', 'in')} >
+                          <li className={this.classNameBasedOnLocation('/analytics/salary/2/uk', 'active-link')}>
+                            <Link href="/analytics/salary/2/uk" to="/analytics/salary/2/uk">Alumni Destinations</Link>
+                          </li>
+                        </ul>
+
+
                       </li>
                     </ul>
                   </li>
