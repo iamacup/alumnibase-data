@@ -88,7 +88,6 @@ class Graph extends React.PureComponent {
           <div className="panel-control">
             <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
           </div>
-          <h3 className="panel-title">Outside of the UK</h3>
         </div>
 
         <div className="collapse in">
@@ -101,12 +100,12 @@ class Graph extends React.PureComponent {
                   <ul className="nav nav-tabs">
                     <li className="active">
                       <a data-toggle="tab" href={'#' + this.state.panel1ID} onClick={() => { this.clickGraph(); }}>
-                  Coming
+                  Country of Origin
                       </a>
                     </li>
                     <li>
                       <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
-                  Going
+                  Alumni Destinations
                       </a>
                     </li>
                   </ul>

@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Wrapper from '../../../../content/containers/Fragments/Template/wrapper';
+import PieChart from '../../../../content/containers/Fragments/Graphs/pieChart';
+import BarChart from '../../../../content/containers/Fragments/Graphs/groupedBarChart';
+import WorldMap from '../../../../content/containers/Fragments/Graphs/section5WorldMap';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
@@ -224,80 +227,7 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <div className="row">
-          <div className="col-lg-7">
 
-            {/* <!--Network Line Chart--> */}
-            {/* <!--===================================================--> */}
-            <div id="demo-panel-network" className="panel">
-              <div className="panel-heading">
-                <div className="panel-control">
-                  <button id="demo-panel-network-refresh" className="btn btn-default btn-active-primary" data-toggle="panel-overlay" data-target="#demo-panel-network"><i className="far fa-sync-alt" /></button>
-                </div>
-                <h3 className="panel-title">Reach since campaign start</h3>
-              </div>
-
-
-              {/* <!--chart placeholder--> */}
-              <div className="pad-all">
-                <div id="demo-chart-network" style={{ height: '255px' }} />
-              </div>
-
-
-              {/* <!--Chart information--> */}
-              <div className="panel-body">
-
-                <div className="row">
-                  <div className="col-lg-8">
-                    <p className="text-semibold text-uppercase text-main">Campaign Completion</p>
-                    <div className="row">
-                      <div className="col-xs-5">
-                        <div className="media">
-                          <div className="media-left">
-                            <span className="text-3x text-thin text-main">50%</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xs-7 text-sm">
-                        <p>
-                          <span>Open Rate</span>
-                          <span className="pad-lft text-semibold">
-                            <span className="text-lg">81%</span>
-                          </span>
-                        </p>
-                        <p>
-                          <span>Response Rate</span>
-                          <span className="pad-lft text-semibold">
-                            <span className="text-lg">37%</span>
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-
-
-                  </div>
-
-
-                  <div className="col-lg-4">
-                    <p className="text-uppercase text-semibold text-main">Total Resposnes</p>
-                    <ul className="list-unstyled">
-                      <li>
-                        <div className="media pad-btm">
-                          <div className="media-left">
-                            <span className="text-2x text-thin text-main">45,683</span>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
-            {/* <!--===================================================--> */}
-            {/* <!--End network line chart--> */}
-
-          </div>
           <div className="col-lg-5">
             <div className="row">
               <div className="col-sm-6 col-lg-6">
@@ -354,38 +284,12 @@ class Page extends React.PureComponent {
                     <p className="text-lg text-semibold">Advanced Analytics</p>
                   </div>
                   <div className="text-center">
-
                     {/* <!--Placeholder--> */}
                     <div id="my-advanced-chart" className="box-inline" />
-
                   </div>
                 </div>
-
-
               </div>
             </div>
-
-
-            {/* <!--Extra Small Weather Widget--> */}
-            {/* <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> */}
-            <div className="panel">
-              <div className="panel-body text-left clearfix">
-
-                <p className="text-semibold text-uppercase text-main">Current Phase</p>
-                <p className="text-muted mar-top">Emaill all graduates (5 - 10 years)</p>
-
-                <hr />
-
-                <p className="text-semibold text-uppercase text-main">Next Phase</p>
-                <p className="text-muted mar-top">Email all recent graduates (5 years) - <strong>Monday</strong></p>
-
-              </div>
-            </div>
-
-            {/* <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> */}
-            {/* <!--End Extra Small Weather Widget--> */}
-
-
           </div>
         </div>
 
@@ -456,18 +360,86 @@ class Page extends React.PureComponent {
         <div id="page-content">
 
           <div className="row">
+            <div className="col-md-4">
+
+              {/* <!-- Donut Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-body">
+                  <PieChart
+                    title="Gender Split"
+                    label
+                    alignment
+                    chart="doughnut"
+                    data={[
+                      { name: 'Male', value: 55 },
+                      { name: 'Female', value: 40 },
+                      { name: 'Other', value: 5 },
+                    ]}
+                    globalID="overview-pie-2"
+                  />
+                </div>
+              </div>
+              {/* <!----------------------------------> */}
+
+            </div>
+            <div className="col-md-4">
+
+              {/* <!-- Donut Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-body">
+                  <div className="text-center p-5">
+                    <h1>100, 000 <br /> Responses</h1>
+                  </div>
+                </div>
+              </div>
+              {/* <!----------------------------------> */}
+
+            </div>
+            <div className="col-md-4">
+              {/* <!-- Donut Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-body">
+                  <PieChart
+                    title="Ethnicity Split"
+                    label={false}
+                    alignment={false}
+                    chart="pie"
+                    data={[
+                      { name: 'White', value: 40 },
+                      { name: 'Chinese', value: 20 },
+                      { name: 'Mixed/ Other', value: 10 },
+                      { name: 'Asian', value: 20 },
+                      { name: 'Black', value: 10 },
+                    ]}
+                    globalID="overview-pie-3"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <!----------------------------------> */}
+
+          <div className="row">
             <div className="col-md-6">
 
 
               {/* <!-- Area Chart --> */}
               {/* <!----------------------------------> */}
               <div className="panel">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Area Chart</h3>
-                </div>
                 <div className="pad-all">
-                  <div id="demo-morris-area-legend" className="text-center" />
-                  <div id="demo-morris-area" style={{ height: '250px' }} />
+                  <BarChart
+                    title="Total Responses per Year Group"
+                    value=""
+                    titles={['2012', '2013', '2014', '2015', '2016', '2017']}
+                    direction="horizontal"
+                    data={[
+                      { data: [980, 800, 975, 678, 708, 1020] },
+                      ]}
+                    globalID="overview-bar-1"
+                  />
                 </div>
               </div>
               {/* <!----------------------------------> */}
@@ -479,12 +451,17 @@ class Page extends React.PureComponent {
               {/* <!-- Line Chart --> */}
               {/* <!----------------------------------> */}
               <div className="panel">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Line Chart</h3>
-                </div>
                 <div className="pad-all">
-                  <div id="demo-morris-line-legend" className="text-center" />
-                  <div id="demo-morris-line" style={{ height: '268px' }} />
+                  <BarChart
+                    title="Age distribution of respondants"
+                    value=""
+                    titles={['under 25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56+']}
+                    direction="vertical"
+                    data={[
+                      { data: [456, 1000, 793, 578, 654, 543, 308, 123] },
+                      ]}
+                    globalID="overview-bar-2"
+                  />
                 </div>
               </div>
               {/* <!----------------------------------> */}
@@ -501,8 +478,8 @@ class Page extends React.PureComponent {
               <div id="demo-morris-area-legend-full" className="text-center" />
               <div id="demo-morris-area-full" className="morris-full-content" style={{ height: '300px' }} />
               <div className="">
-                <h4>Morris JS Full Content</h4>
-                <p>....</p>
+                <h4>Subject Breackdown Split</h4>
+                <p>dots**</p>
               </div>
             </div>
           </div>
@@ -517,7 +494,7 @@ class Page extends React.PureComponent {
               {/* <!----------------------------------> */}
               <div className="panel">
                 <div className="panel-heading">
-                  <h3 className="panel-title">Bar Chart</h3>
+                  <h3 className="panel-title">Religion Split</h3>
                 </div>
                 <div className="panel-body">
                   <div id="demo-morris-bar" style={{ height: '250px' }} />
@@ -533,11 +510,21 @@ class Page extends React.PureComponent {
               {/* <!-- Donut Chart --> */}
               {/* <!----------------------------------> */}
               <div className="panel">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Donut Chart</h3>
-                </div>
                 <div className="panel-body">
-                  <div id="demo-morris-donut" className="morris-donut" style={{ height: '250px' }} />
+                  <PieChart
+                    title="Disability Split"
+                    label
+                    alignment
+                    chart="doughnut"
+                    data={[
+                      { name: 'Searching Engine', value: 400 },
+                      { name: 'Direct', value: 335 },
+                      { name: 'Email', value: 310 },
+                      { name: 'Alliance Advertisement', value: 274 },
+                      { name: 'Video Advertisement', value: 235 },
+                    ]}
+                    globalID="overview-pie-1"
+                  />
                 </div>
               </div>
             </div>
@@ -549,62 +536,14 @@ class Page extends React.PureComponent {
           {/* <!----------------------------------> */}
           <div className="panel">
             <div className="panel-body">
-              <div id="demo-morris-area-legend-full" className="text-center" />
-              <div id="demo-morris-area-full" className="morris-full-content" style={{ height: '300px' }} />
-              <div className="">
-                <h4>Morris JS Full Content</h4>
-                <p>....</p>
-              </div>
+              <WorldMap
+                title1="Alumni Country of Origin"
+                title2="Alumni Destinations"
+                globalID="world-chart"
+              />
             </div>
           </div>
           {/*  <!----------------------------------> */}
-
-
-          <div className="row">
-            <div className="col-md-4">
-
-              {/* <!-- Donut Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Donut Chart</h3>
-                </div>
-                <div className="panel-body">
-                  <div id="demo-morris-donut" className="morris-donut" style={{ height: '250px' }} />
-                </div>
-              </div>
-              {/* <!----------------------------------> */}
-
-            </div>
-            <div className="col-md-4">
-
-              {/* <!-- Donut Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Donut Chart</h3>
-                </div>
-                <div className="panel-body">
-                  <div id="demo-morris-donut" className="morris-donut" style={{ height: '250px' }} />
-                </div>
-              </div>
-              {/* <!----------------------------------> */}
-
-            </div>
-            <div className="col-md-4">
-              {/* <!-- Donut Chart --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Donut Chart</h3>
-                </div>
-                <div className="panel-body">
-                  <div id="demo-morris-donut" className="morris-donut" style={{ height: '250px' }} />
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* <!----------------------------------> */}
 
 
         </div>

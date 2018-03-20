@@ -9,11 +9,9 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
-import ukSalaryMapdata from '../../../../../../content/containers/Fragments/Graphs/ukSalaryMapdata';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import UKSalaryMap from '../../../../../../content/containers/Fragments/Graphs/section5UkMap';
 import { gradsComeFromData, gradsGoToData } from '../../../../../../content/containers/Fragments/Graphs/UKGradData';
-import WorldMap from '../../../../../../content/containers/Fragments/Graphs/section5WorldMap';
 
 class Page extends React.PureComponent {
   constructor(props) {

@@ -251,61 +251,6 @@ export function drawWorldChart(mapData, type, value) {
   latlong.ZM = { latitude: -15, longitude: 30 };
   latlong.ZW = { latitude: -20, longitude: 30 };
 
-
-  const option2 = {
-    title: {
-      text: 'Where grads come from',
-      left: 'center',
-      top: 'top',
-    },
-    tooltip: {
-      trigger: 'item',
-      formatter(params) {
-        const { name } = params;
-        const population = params.data.value[2];
-        return name + '<br />' + population + ' ' + value;
-      },
-    },
-    toolbox: {
-      show: true,
-      orient: 'vertical',
-      left: 'right',
-      top: 'center',
-      feature: {
-        dataView: { readOnly: false },
-        restore: {},
-        saveAsImage: {},
-      },
-    },
-    visualMap: {
-      min: 0,
-      max: 1000000,
-      text: ['High', 'Low'],
-      realtime: false,
-      calculable: true,
-      color: ['orangered', 'yellow', 'lightskyblue'],
-    },
-    series: [
-      {
-        name: 'World Population (2010)',
-        type: 'map',
-        mapType: 'world',
-        roam: true,
-        itemStyle: {
-          emphasis: { label: { show: true } },
-        },
-        data: mapData.map(itemOpt => ({
-          name: itemOpt.name,
-          value: [
-            latlong[itemOpt.code].longitude,
-            latlong[itemOpt.code].latitude,
-            itemOpt.value,
-          ],
-        })),
-      }],
-  };
-
-
   mapData.forEach((itemOpt) => {
     if (itemOpt.value > max) {
       max = itemOpt.value;

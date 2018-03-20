@@ -91,12 +91,12 @@ class Graph extends React.Component {
                   <ul className="nav nav-tabs">
                     <li className="active">
                       <a data-toggle="tab" href={'#' + this.state.panel1ID} onClick={() => { this.clickGraph(); }}>
-                  Coming
+                  Cities of Origin
                       </a>
                     </li>
                     <li>
                       <a data-toggle="tab" href={'#' + this.state.panel2ID} onClick={() => { this.clickGraph(); }}>
-                  Going
+                  Alumni Destinations
                       </a>
                     </li>
                   </ul>
