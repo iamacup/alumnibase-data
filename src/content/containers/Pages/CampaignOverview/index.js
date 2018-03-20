@@ -446,6 +446,174 @@ class Page extends React.PureComponent {
 
         </div>
 
+
+        {/* <!---------------Graphs---------------> */}
+        {/* <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> */}
+
+
+        {/* <!--Page content--> */}
+        {/* <!--===================================================--> */}
+        <div id="page-content">
+
+          <div className="row">
+            <div className="col-md-6">
+
+
+              {/* <!-- Area Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Area Chart</h3>
+                </div>
+                <div className="pad-all">
+                  <div id="demo-morris-area-legend" className="text-center" />
+                  <div id="demo-morris-area" style={{ height: '250px' }} />
+                </div>
+              </div>
+              {/* <!----------------------------------> */}
+
+
+            </div>
+            <div className="col-md-6">
+
+              {/* <!-- Line Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Line Chart</h3>
+                </div>
+                <div className="pad-all">
+                  <div id="demo-morris-line-legend" className="text-center" />
+                  <div id="demo-morris-line" style={{ height: '268px' }} />
+                </div>
+              </div>
+              {/* <!----------------------------------> */}
+
+
+            </div>
+          </div>
+
+
+          {/* <!-- Morris JS Full Content --> */}
+          {/* <!----------------------------------> */}
+          <div className="panel">
+            <div className="panel-body">
+              <div id="demo-morris-area-legend-full" className="text-center" />
+              <div id="demo-morris-area-full" className="morris-full-content" style={{ height: '300px' }} />
+              <div className="">
+                <h4>Morris JS Full Content</h4>
+                <p>....</p>
+              </div>
+            </div>
+          </div>
+          {/*  <!----------------------------------> */}
+
+
+          <div className="row">
+            <div className="col-md-7">
+
+
+              {/* <!-- Bar Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Bar Chart</h3>
+                </div>
+                <div className="panel-body">
+                  <div id="demo-morris-bar" style={{ height: '250px' }} />
+                </div>
+              </div>
+              {/* <!----------------------------------> */}
+
+
+            </div>
+            <div className="col-md-5">
+
+
+              {/* <!-- Donut Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Donut Chart</h3>
+                </div>
+                <div className="panel-body">
+                  <div id="demo-morris-donut" className="morris-donut" style={{ height: '250px' }} />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <!----------------------------------> */}
+
+
+          {/* <!-- Morris JS Full Content --> */}
+          {/* <!----------------------------------> */}
+          <div className="panel">
+            <div className="panel-body">
+              <div id="demo-morris-area-legend-full" className="text-center" />
+              <div id="demo-morris-area-full" className="morris-full-content" style={{ height: '300px' }} />
+              <div className="">
+                <h4>Morris JS Full Content</h4>
+                <p>....</p>
+              </div>
+            </div>
+          </div>
+          {/*  <!----------------------------------> */}
+
+
+          <div className="row">
+            <div className="col-md-4">
+
+              {/* <!-- Donut Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Donut Chart</h3>
+                </div>
+                <div className="panel-body">
+                  <div id="demo-morris-donut" className="morris-donut" style={{ height: '250px' }} />
+                </div>
+              </div>
+              {/* <!----------------------------------> */}
+
+            </div>
+            <div className="col-md-4">
+
+              {/* <!-- Donut Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Donut Chart</h3>
+                </div>
+                <div className="panel-body">
+                  <div id="demo-morris-donut" className="morris-donut" style={{ height: '250px' }} />
+                </div>
+              </div>
+              {/* <!----------------------------------> */}
+
+            </div>
+            <div className="col-md-4">
+              {/* <!-- Donut Chart --> */}
+              {/* <!----------------------------------> */}
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Donut Chart</h3>
+                </div>
+                <div className="panel-body">
+                  <div id="demo-morris-donut" className="morris-donut" style={{ height: '250px' }} />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <!----------------------------------> */}
+
+
+        </div>
+        {/* <!--===================================================--> */}
+        {/* <!--End page content--> */}
+
+        {/* <!-----------End of Graphs------------> */}
+        {/* <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> */}
+
       </div>
     );
 
