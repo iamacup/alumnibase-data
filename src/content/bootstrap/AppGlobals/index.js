@@ -53,11 +53,11 @@ class App extends React.Component {
   }
 
   render() {
-    let path = 'https://www.sliips.com/';
+    let path = 'https://data.alumnibaseapp.com/';
 
     // todo this won't work because this component does not have access to the path at server render time, only things instantiated within the route <i.e. components that are made by the router> have access at render time
     if (dNc(this.props.location) && dNc(this.props.location.pathname)) {
-      path = 'https://www.sliips.com' + this.props.location.pathname;
+      path = 'https://data.alumnibaseapp.com' + this.props.location.pathname;
     }
 
     return (

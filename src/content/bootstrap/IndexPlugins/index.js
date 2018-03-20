@@ -87,8 +87,8 @@ result.bodyBottom.push(<script key="nn23" src="https://storage.googleapis.com/fi
 
 //result.bodyBottom.push(<script key="nn223" src="https://storage.googleapis.com/files.alumnibaseapp.com/assets/echarts.min.js" />);
 
-result.bodyBottom.push(<script key ="new2" type="text/javascript" src="https://files.alumnibaseapp.com/assets/echarts-uk-map-data.js" />);
+result.bodyBottom.push(<script key="new2" type="text/javascript" src="https://files.alumnibaseapp.com/assets/echarts-uk-map-data.js" />);
 
-
+result.bodyBottom.push(<script key="fa" defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js" />);
 
 export default result;
