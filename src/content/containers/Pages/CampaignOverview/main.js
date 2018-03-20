@@ -324,16 +324,28 @@ class Page extends React.PureComponent {
 
                 {/* <!-- Donut Chart --> */}
                 {/* <!----------------------------------> */}
-                <div className="panel">
+
+              <div className="panel" style={{ height: '430px' }} >
+                <div className="panel-heading">
+                  <div className="panel-control">
+                    <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
+                  </div>
+                  <h3 className="panel-title">Responses</h3>
+                </div>
+                <div className="collapse in">
                   <div className="panel-body">
-                    <div className="text-center p-5">
-                      <h1>45,683</h1>
-                      <h2>Total Responses</h2>
-                      <h1>37% </h1>
-                      <h2>Response Rate</h2>
+                    <div className="pad-all">
+                      <div className="text-center p-5">
+                        <h1>45,683</h1>
+                        <h2>Total Responses</h2>
+                        <h1>37% </h1>
+                        <h2>Response Rate</h2>
                     </div>
                   </div>
                 </div>
+                <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+              </div>
+            </div>
                 {/* <!----------------------------------> */}
 
               </div>
@@ -345,7 +357,7 @@ class Page extends React.PureComponent {
                     <PieChart
                       title="Ethnicity Split"
                       label={false}
-                      alignment={false}
+                      alignment
                       chart="pie"
                       data={[
                       { name: 'White', value: 40 },
