@@ -18,9 +18,10 @@ import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
 import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 
 import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
-import Salary2Page from '../../content/containers/Pages/Analytics/Salary/2';
-import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/2/2a';
-import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/2/2b';
+import Salary2Page from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary';
+import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
+import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
+import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/overview';
 
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
 import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
@@ -60,9 +61,9 @@ export default [
     component: Salary1Page,
   },
   {
-    path: '/analytics/salary/2',
+    path: '/analytics/salary/overview',
     exact: true,
-    component: Salary2Page,
+    component: SalaryOverview,
   },
   {
     path: '/analytics/destination/1',
