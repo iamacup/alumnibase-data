@@ -17,7 +17,7 @@ import '../../../../src/includes/nifty-v2.9/premium/icon-sets/icons/line-icons/p
 import '../../../../src/includes/nifty-v2.9/premium/icon-sets/icons/solid-icons/premium-solid-icons.min.css';
 
 // FontAwesome
-// import '../../../../fontawesome-pro-5.0.4/web-fonts-with-css/css/fontawesome-all.css';
+import '../../../../src/includes/fontawesome-pro-5.0.4/web-fonts-with-css/css/fontawesome-all.css';
 
 // our custom styles
 import '../../../content/theme/custom/scss/application.scss';
@@ -34,6 +34,8 @@ class App extends React.Component {
       // we do this to make sure that when start things, the nifty things execute
       // i thought we would need to do this but apparently not - calling htis actually seems to break things...
       // $(document).trigger('nifty.ready');
+      
+      $(document).trigger('nifty.ready');    
     });
   }
 

@@ -29,7 +29,7 @@ class Page extends React.PureComponent {
           link: '/analytics/dlhe-like/4',
         }],
     });
-
+          
     $(() => {
       // listen for resize events
       fireDebouncedResizeEvents();
