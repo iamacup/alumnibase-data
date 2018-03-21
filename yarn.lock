@@ -1801,9 +1801,9 @@ rc@^1.0.1, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"react-base@https://github.com/iamacup/react-base.git#master":
+"react-base@https://github.com/iamacup/react-base.git#a2ed739":
   version "1.0.1"
-  resolved "https://github.com/iamacup/react-base.git#8a7bfbb2301bfa1432d659dfab8f211a3451774a"
+  resolved "https://github.com/iamacup/react-base.git#a2ed7394d4b24c92c7630ff50cf3d8ba23c07704"
   dependencies:
     axios "^0.17.1"
     babel-core "^6.26.0"

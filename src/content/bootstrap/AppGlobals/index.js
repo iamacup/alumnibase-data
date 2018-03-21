@@ -34,6 +34,8 @@ class App extends React.Component {
       // we do this to make sure that when start things, the nifty things execute
       // i thought we would need to do this but apparently not - calling htis actually seems to break things...
       // $(document).trigger('nifty.ready');
+      
+      $(document).trigger('nifty.ready');    
     });
   }
 
