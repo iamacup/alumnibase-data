@@ -88,7 +88,7 @@ class Page extends React.PureComponent {
                     </Link>
                   </li>
 
-                  {/*  <!--Menu list item--> */}
+                  {/* 
                   <li className={this.classNameBasedOnLocation('/campaign/contacts', 'active-link')}>
                     <Link href="/campaign/contacts" to="/campaign/contacts">
                       <i className="far fa-address-card" />
@@ -96,13 +96,13 @@ class Page extends React.PureComponent {
                     </Link>
                   </li>
 
-                  {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/campaign/segmentation-and-phases', 'active-link')}>
                     <Link href="/campaign/segmentation-and-phases" to="/campaign/segmentation-and-phases">
                       <i className="far fa-cogs" />
                       <span className="menu-title">Segmentation & Phases</span>
                     </Link>
                   </li>
+                  */}
 
 
                   <li className="list-divider" />
@@ -399,54 +399,7 @@ class Page extends React.PureComponent {
                 </ul>
 
 
-                {/*  <!--Widget--> */}
-                {/*  <!--================================--> */}
-                <div className="mainnav-widget">
-
-                  {/*  <!-- Show the button on collapsed navigation --> */}
-                  <div className="show-small">
-                    <a href="#" data-toggle="menu-widget" data-target="#wg-server">
-                      <i className="pli-monitor-2" />
-                    </a>
-                  </div>
-
-                  {/*  <!-- Hide the content on collapsed navigation --> */}
-                  <div id="wg-server" className="hide-small mainnav-widget-content">
-                    <ul className="list-group">
-                      <li className="list-header pad-no mar-ver">Campaign Status</li>
-                      <li className="mar-btm">
-                        <span className="label label-primary pull-right">50%</span>
-                        <p>Campaign Progress</p>
-                        <div className="progress progress-sm">
-                          <div className="progress-bar progress-bar-primary" style={{ width: '50%' }}>
-                            <span className="sr-only">50%</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li className="mar-btm">
-                        <span className="label label-primary pull-right">81%</span>
-                        <p>Open Rate</p>
-                        <div className="progress progress-sm">
-                          <div className="progress-bar progress-bar-primary" style={{ width: '81%' }}>
-                            <span className="sr-only">81%</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li className="mar-btm">
-                        <span className="label label-purple pull-right">37%</span>
-                        <p>Response Rate</p>
-                        <div className="progress progress-sm">
-                          <div className="progress-bar progress-bar-purple" style={{ width: '37%' }}>
-                            <span className="sr-only">37%</span>
-                          </div>
-                        </div>
-                      </li>
-
-                    </ul>
-                  </div>
-                </div>
-                {/*  <!--================================--> */}
-                {/*  <!--End widget--> */}
+                
 
               </div>
             </div>
