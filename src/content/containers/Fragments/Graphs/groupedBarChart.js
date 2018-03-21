@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawGroupedBarChart } from '../../../../content/scripts/custom/echarts/generators';
+import { drawGroupedBarChart } from '../../../../content/scripts/custom/echarts/drawBarChart';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 

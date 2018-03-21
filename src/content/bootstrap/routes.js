@@ -19,6 +19,8 @@ import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 
 import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
 import Salary2Page from '../../content/containers/Pages/Analytics/Salary/2';
+import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/2/2a';
+import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/2/2b';
 
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
 import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
@@ -61,6 +63,16 @@ export default [
     path: '/analytics/salary/2',
     exact: true,
     component: Salary2Page,
+  },
+  {
+    path: '/analytics/salary/2/world',
+    exact: true,
+    component: Salary2WorldPage,
+  },
+  {
+    path: '/analytics/salary/2/uk',
+    exact: true,
+    component: Salary2UkPage,
   },
   {
     path: '/campaign/overview',

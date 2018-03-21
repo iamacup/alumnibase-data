@@ -10,7 +10,8 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import WorldMap from '../../../../../../content/containers/Fragments/Graphs/section5WorldMap';
+import UKSalaryMap from '../../../../../../content/containers/Fragments/Graphs/section5UkMap';
+import { gradsComeFromData, gradsGoToData } from '../../../../../../content/containers/Fragments/Graphs/UKGradData';
 
 class Page extends React.PureComponent {
   constructor(props) {
@@ -38,8 +39,8 @@ class Page extends React.PureComponent {
           link: '/analytics/salary/2',
         },
         {
-          name: 'World Data',
-          link: '/analytics/salary/2/world',
+          name: 'Alumni Destinations',
+          link: '/analytics/salary/2/uk',
         }],
     });
 
@@ -113,10 +114,14 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-12">
 
-            <WorldMap
-              title1="Where Grads Come From"
-              title2="Where Grads Go"
-              globalID="world-chart"
+            <UKSalaryMap
+              title1="Where Grads Come From in the UK"
+              data1={gradsComeFromData}
+              pieces1={['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+']}
+              globalID="uk-chart"
+              title2="Where Grads Go To in the UK"
+              data2={gradsGoToData}
+              pieces2={['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+']}
             />
           </div>
         </div>

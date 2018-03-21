@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawNewBarChart } from '../../../../content/scripts/custom/echarts/generators';
+import { drawNewBarChart } from '../../../../content/scripts/custom/echarts/drawStackedBarChart';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 

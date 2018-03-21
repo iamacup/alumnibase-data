@@ -1,32 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import { drawNewPieChart } from '../../../scripts/custom/echarts/generators';
+import { drawNewPieChart } from '../../../scripts/custom/echarts/drawPieChart';
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents, whenLoaded } from '../../../../content/scripts/custom/utilities';
+import { fireDebouncedResizeEvents } from '../../../../content/scripts/custom/utilities';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
 class Chart extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      panel1ID: this.props.globalID + '1',
+    };
+  }
+
   componentDidMount() {
-    console.log(this.props);
-    const label = false;
-    const chart = 'pie';
-
-    const data = [
-      { name: 'Searching Engine', value: 400, color: '#11293b' },
-      { name: 'Direct', value: 335, color: '#235175' },
-      { name: 'Email', value: 310, color: '#2f6d9d' },
-      { name: 'Alliance Advertisement', value: 274, color: '#3a88c4' },
-      { name: 'Video Advertisement', value: 235, color: '#62a0d0' },
-    ];
-
-
     $(() => {
       // draw out the graphs
-      renderChartToTarget(this.graphTarget1, drawNewPieChart(data, label, chart, 'alignment'));
+      renderChartToTarget(this.graphTarget1, drawNewPieChart(this.props.data, this.props.label, this.props.chart, this.props.alignment));
 
       // listen for resize events
       fireDebouncedResizeEvents();
@@ -41,31 +35,51 @@ class Chart extends React.Component {
 
   render() {
     return (
-      <div>
-        <div
-          className="echarts-graph"
-          style={{ width: '500px', height: '200px' }}
-          ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-        />
+      <div className="panel">
+        <div className="panel-heading">
+          <div className="panel-control">
+            <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
+          </div>
+          <h3 className="panel-title">{this.props.title}</h3>
+        </div>
+
+
+        <div className="collapse in">
+          <div className="panel-body" id={this.state.panel1ID}>
+            <div className="pad-all">
+              <div
+                className="echarts-graph"
+                style={{ width: '500px', height: '250px' }}
+                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+              />
+            </div>
+          </div>
+
+          <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+        </div>
       </div>
     );
   }
 }
 
-// Chart.propTypes = {
-//   globalID: PropTypes.string.isRequired,
-//   reduxAction_doUpdate: PropTypes.func,
-// };
+Chart.propTypes = {
+  title: PropTypes.string.isRequired,
+  label: PropTypes.bool.isRequired,
+  alignment: PropTypes.bool.isRequired,
+  chart: PropTypes.string.isRequired,
+  data: PropTypes.any.isRequired,
+  globalID: PropTypes.string.isRequired,
+  reduxAction_doUpdate: PropTypes.func,
+};
 
-// Chart.defaultProps = {
-//   reduxAction_doUpdate: () => {},
-// };
+Chart.defaultProps = {
+  reduxAction_doUpdate: () => {},
+};
 
-// const mapStateToProps = null;
+const mapStateToProps = null;
 
-// const mapDispatchToProps = dispatch => ({
-//   reduxAction_doUpdate: (mainID, subID, data) => dispatch(storeAction.doUpdate(mainID, subID, data)),
-// });
+const mapDispatchToProps = dispatch => ({
+  reduxAction_doUpdate: (mainID, subID, data) => dispatch(storeAction.doUpdate(mainID, subID, data)),
+});
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Chart);
-export default Chart;
+export default connect(mapStateToProps, mapDispatchToProps)(Chart);
