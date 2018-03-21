@@ -49,10 +49,20 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <StandardFilters />
-
+ <div className="row">
+          <div className="col-md-10 col-md-push-1">
+            <div className="panel">
+              <div className="panel-body" style={{ paddingBottom: '15px' }}>
+                Data from section 5 of the respondent survey is collated here. <br /><br />
+                These graphs display the gender split in earning by slary band.<br /><br />
+                <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Male /Female Earning by Salary Band"
               direction="vertical"
@@ -68,7 +78,8 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-
+ <div className="row">
+          <div className="col-md-8 col-md-push-2">
         <div className="row">
           <div className="col-md-6">
 
@@ -92,6 +103,8 @@ class Page extends React.PureComponent {
                 <img alt="Graph" className="img-responsive center-block" src={require('./3.png')} />
               </div>
 
+            </div>
+            </div>
             </div>
 
           </div>

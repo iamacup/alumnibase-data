@@ -48,13 +48,25 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <StandardFilters />
+         <div className="row">
+          <div className="col-md-10 col-md-push-1">
+            <div className="panel">
+              <div className="panel-body" style={{ paddingBottom: '15px' }}>
+                Data from section 5 of the respondent survey is collated here. <br /><br />
+                This page displays data from Alumni based on what regions of the UK they studied in, and where they go once they are in employment.<br /><br />
+                <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="row">
-          <div className="col-md-3" />
-          <div className="col-md-6">
+          <div className="col-md-8 col-md-push-2">
+
+        <div className="row">
+          <div className="col-md-10">
             <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
           </div>
-          <div className="col-md-3" />
           <div className="col-md-12">
 
             <div className="panel">
@@ -70,6 +82,8 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
+      </div>
+      </div>
       </div>
     );
 

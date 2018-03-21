@@ -10,7 +10,7 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import UKSalaryMap from '../../../../../../content/containers/Fragments/Graphs/section5UkMap';
+import UKMap from '../../../../../../content/containers/Fragments/Graphs/section5UkMap';
 import { gradsComeFromData, gradsGoToData } from '../../../../../../content/containers/Fragments/Graphs/UKGradData';
 
 class Page extends React.PureComponent {
@@ -114,7 +114,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-12">
 
-            <UKSalaryMap
+            <UKMap
               title1="Where Grads Come From in the UK"
               data1={gradsComeFromData}
               pieces1={['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+']}

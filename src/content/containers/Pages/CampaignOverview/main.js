@@ -10,6 +10,7 @@ import Wrapper from '../../../../content/containers/Fragments/Template/wrapper';
 import PieChart from '../../../../content/containers/Fragments/Graphs/pieChart';
 import BarChart from '../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import WorldMap from '../../../../content/containers/Fragments/Graphs/section5WorldMap';
+import Sankey from '../../../../content/containers/Fragments/Graphs/sankey';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
@@ -325,7 +326,7 @@ class Page extends React.PureComponent {
                 {/* <!-- Donut Chart --> */}
                 {/* <!----------------------------------> */}
 
-              <div className="panel" style={{ height: '430px' }} >
+              <div className="panel" >
                 <div className="panel-heading">
                   <div className="panel-control">
                     <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
@@ -338,6 +339,7 @@ class Page extends React.PureComponent {
                       <div className="text-center p-5">
                         <h1>45,683</h1>
                         <h2>Total Responses</h2>
+                        <br />
                         <h1>37% </h1>
                         <h2>Response Rate</h2>
                     </div>
@@ -357,7 +359,7 @@ class Page extends React.PureComponent {
                     <PieChart
                       title="Ethnicity Split"
                       label={false}
-                      alignment
+                      alignment={true}
                       chart="pie"
                       data={[
                       { name: 'White', value: 40 },
@@ -422,22 +424,6 @@ class Page extends React.PureComponent {
               </div>
             </div>
 
-
-            {/* <!-- Morris JS Full Content --> */}
-            {/* <!----------------------------------> */}
-            <div className="panel">
-              <div className="panel-body">
-                <div id="demo-morris-area-legend-full" className="text-center" />
-                <div id="demo-morris-area-full" className="morris-full-content" style={{ height: '300px' }} />
-                <div className="">
-                  <h4>Subject Breackdown Split</h4>
-                  <p>dots**</p>
-                </div>
-              </div>
-            </div>
-            {/*  <!----------------------------------> */}
-
-
             <div className="row">
               <div className="col-md-7">
 
@@ -445,11 +431,75 @@ class Page extends React.PureComponent {
                 {/* <!-- Bar Chart --> */}
                 {/* <!----------------------------------> */}
                 <div className="panel">
-                  <div className="panel-heading">
-                    <h3 className="panel-title">Religion Split</h3>
-                  </div>
                   <div className="panel-body">
-                    <div id="demo-morris-bar" style={{ height: '250px' }} />
+                                  <Sankey 
+                title= "Subject Breakdown Split"
+                columns={[['string', 'From'], ['string', 'To'], ['number', 'Weight']]}
+                rows={[
+       [ 'POLAR3 area', 'Engineering', 1 ],
+       [ 'POLAR3 area', 'Business and Legal', 1 ],
+       [ 'POLAR3 area', 'Computer science', 1 ],
+       [ 'POLAR3 area', 'English', 1 ],
+       [ 'POLAR3 area', 'Medicine', 1 ],
+       [ 'POLAR3 area', 'Politics, philosophy & theology', 1 ],
+       [ 'POLAR3 area', 'Psychology and sociology', 2 ],
+       [ 'POLAR3 area', 'Sciences', 1 ],
+       [ 'non-POLAR3 area', 'Architecture', 11 ],
+       [ 'non-POLAR3 area', 'Engineering', 8 ],
+       [ 'non-POLAR3 area', 'Business and Legal', 9 ],
+       [ 'non-POLAR3 area', 'Computer science', 5 ],
+       [ 'non-POLAR3 area', 'Creative arts', 5 ],
+       [ 'non-POLAR3 area', 'English', 4 ],
+       [ 'non-POLAR3 area', 'History', 5 ],
+       [ 'non-POLAR3 area', 'Medicine', 7 ],
+       [ 'non-POLAR3 area', 'Politics, philosophy & theology', 8 ],
+       [ 'non-POLAR3 area', 'Psychology and sociology', 6 ],
+       [ 'non-POLAR3 area', 'Sciences', 9 ],
+       [ 'non-POLAR3 area', 'Agriculture', 8 ],
+       [ 'Creative arts', 'under £20,000', 2 ],
+       [ 'Creative arts', '£20-30,000', 3 ],      
+       [ 'Architecture', '£20-30,000', 3 ],
+       [ 'Architecture', '£30-40,000', 3 ],
+       [ 'Architecture', '£40-50,000', 3 ],
+       [ 'Architecture', '£50+', 2 ],
+       [ 'Engineering', '£20-30,000', 3 ],
+       [ 'Engineering', '£30-40,000', 4 ],
+       [ 'Engineering', '£40-50,000', 1 ],
+       [ 'Engineering', '£50+', 1 ],
+       [ 'Business and Legal', '£20-30,000', 4 ],
+       [ 'Business and Legal', '£30-40,000', 4 ],
+       [ 'Business and Legal', '£40-50,000', 1 ],
+       [ 'Business and Legal', '£50+', 1 ],
+       [ 'Computer science', '£20-30,000', 3 ],
+       [ 'Computer science', '£30-40,000', 3 ],
+       [ 'English', 'under £20,000', 2 ],
+       [ 'English', '£20-30,000', 2 ],
+       [ 'English', '£30-40,000', 1 ],
+       [ 'History', 'under £20,000', 2 ],
+       [ 'History', '£20-30,000', 2 ],
+       [ 'History', '£30-40,000', 1 ],
+       [ 'Medicine', '£20-30,000', 2 ],
+       [ 'Medicine', '£30-40,000', 3 ],
+       [ 'Medicine', '£40-50,000', 2 ],
+       [ 'Medicine', '£50+', 1 ],
+       [ 'Politics, philosophy & theology', 'under £20,000', 2 ],
+       [ 'Politics, philosophy & theology', '£20-30,000', 4 ],
+       [ 'Politics, philosophy & theology', '£30-40,000', 3 ],
+       [ 'Psychology and sociology', 'under £20,000', 1 ],
+       [ 'Psychology and sociology', '£20-30,000', 4 ],
+       [ 'Psychology and sociology', '£30-40,000', 2 ],
+       [ 'Psychology and sociology', '£40-50,000', 1 ],
+       [ 'Sciences', '£20-30,000', 3 ],
+       [ 'Sciences', '£30-40,000', 3 ],
+       [ 'Sciences', '£40-50,000', 2 ],
+       [ 'Sciences', '£50+', 1 ],
+       [ 'Agriculture', 'under £20,000', 1 ],
+       [ 'Agriculture', '£20-30,000', 3 ],
+       [ 'Agriculture', '£30-40,000', 3 ],
+       [ 'Agriculture', '£40-50,000', 1 ],
+    ]}
+                globalID="overview-sankey-1"
+                />  
                   </div>
                 </div>
                 {/* <!----------------------------------> */}
@@ -469,11 +519,8 @@ class Page extends React.PureComponent {
                       alignment
                       chart="doughnut"
                       data={[
-                      { name: 'Searching Engine', value: 400 },
-                      { name: 'Direct', value: 335 },
-                      { name: 'Email', value: 310 },
-                      { name: 'Alliance Advertisement', value: 274 },
-                      { name: 'Video Advertisement', value: 235 },
+                      { name: 'No disability specified', value: 700 },
+                      { name: 'Disability declared', value: 400 },
                     ]}
                       globalID="overview-pie-1"
                     />
@@ -482,7 +529,7 @@ class Page extends React.PureComponent {
               </div>
             </div>
             {/* <!----------------------------------> */}
-
+<div className="row">
 
             {/* <!-- Morris JS Full Content --> */}
             {/* <!----------------------------------> */}
@@ -496,14 +543,12 @@ class Page extends React.PureComponent {
               </div>
             </div>
             {/*  <!----------------------------------> */}
-
-
-            {/* <!--===================================================--> */}
-            {/* <!--End page content--> */}
-          </div>
-        </div>
+            </div>
 
         <div className="row">
+
+                {/* <!--Bordered Table--> */}
+                {/* <!--===================================================--> */}
           <div className="col-md-6">
             <div className="panel">
 
@@ -511,9 +556,6 @@ class Page extends React.PureComponent {
                 <div className="panel-heading">
                   <h3 className="panel-title">Top 10 Subject Respondant List</h3>
                 </div>
-
-                {/* <!--Bordered Table--> */}
-                {/* <!--===================================================--> */}
                 <div className="panel-body">
                   <div className="table-responsive">
                     <table className="table">
@@ -590,15 +632,43 @@ class Page extends React.PureComponent {
                     </table>
                   </div>
                 </div>
-                {/* <!--===================================================--> */}
-                {/* <!--End Bordered Table--> */}
-
               </div>
             </div>
-
+          </div>
+                {/* <!--===================================================--> */}
+                {/* <!--End Bordered Table--> */}
+       
+          <div className="col-md-6">
+                        {/* <!-- Donut Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="panel-body">
+                    <PieChart
+                      title="Religion Split"
+                      label
+                      alignment
+                      chart="pie"
+                      data={[
+                      { name: 'No Religion', value: 1000 },
+                      { name: 'Christian', value: 700 },
+                      { name: 'Buddhist', value: 200 },
+                      { name: 'Hindu', value: 400 },
+                      { name: 'Jewish', value: 600 },
+                      { name: 'Muslim', value: 600 },
+                      { name: 'Sikh', value: 400 },
+                      
+                    ]}
+                      globalID="overview-pie-4"
+                    />
+                  </div>
+                </div>
+              </div>
+            {/* <!----------------------------------> */}
+        </div>
+            {/* <!--===================================================--> */}
+            {/* <!--End page content--> */}
           </div>
         </div>
-
         {/* <!-----------End of Graphs------------> */}
         {/* <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> */}
 

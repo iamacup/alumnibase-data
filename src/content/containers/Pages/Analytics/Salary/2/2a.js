@@ -95,23 +95,22 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-        <div className="row">
+       <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                By default, the data shown below is for the <strong>entire survey data set.</strong> Use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-
-                <br /><br />
-                Show national average on graphs: <input id="switchery-switch" type="checkbox" />
-
+                Data from section 5 of the respondent survey is collated here. For ease of access this data is split into two areas: <br /><br />
+                <strong>Where Graduates Come From</strong> the country of origin  <br />
+                <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the respondent and; <br />
+                <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
+              <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
               </div>
             </div>
           </div>
         </div>
 
-
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-8 col-md-push-2">
 
             <WorldMap
               title1="Where Grads Come From"

@@ -72,7 +72,7 @@ class Page extends React.PureComponent {
             </div>
           </div>
         </div>
-
+        
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <Section5Graph

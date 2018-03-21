@@ -50,9 +50,21 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <StandardFilters />
-
-        <div className="row">
+ <div className="row">
           <div className="col-md-10 col-md-push-1">
+            <div className="panel">
+              <div className="panel-body" style={{ paddingBottom: '15px' }}>
+                Data from section 5 of the respondent survey is collated here. The data is split into Science and Non-science degrees, and displays three sets of data in: <br /><br />
+                <strong>Destinations</strong> of first time graduates, subject specific.<br />
+                <strong>Average Earnings</strong> for a full time degree <br />
+                <strong>Gender split</strong> on the average full time earnings for a specified degree.<br /><br />
+                <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
             <StackedBarChart
               title="Sciences High Level Destinations entered by First Time Graduates"
               titles={['Medicine & dentistry', 'Subjects allied to medicine', 'Biological sciences', 'Veterinary science', 'Agriculture & related subjects', 'Physical sciences', 'Mathmatical sciences', 'Computer science', 'Engineering & technology', 'Architecture, building & planning', 'Total - Science subject areas']}
@@ -67,7 +79,7 @@ class Page extends React.PureComponent {
                     ]}
             />
           </div>
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Average Full Time Earnings"
               value="£"
@@ -83,7 +95,7 @@ class Page extends React.PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Male /Female Full Time Earnings by First Degree Graduates - Science"
               value="£"
@@ -96,7 +108,7 @@ class Page extends React.PureComponent {
               globalID="grouperdBar-2"
             />
           </div>
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-8 col-md-push-2">
             <StackedBarChart
               title="Non-Science High Level Destinations by First Time Graduates"
               titles={['Social studies', 'Law', 'Business & administrative studies', 'Mass communications & documentation', 'Languages', 'Historical & philosophical studies', 'Creative arts & design', 'Education', 'Combined']}
@@ -114,7 +126,7 @@ class Page extends React.PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Average Full Time Earnings"
               direction="horizontal"
@@ -126,9 +138,9 @@ class Page extends React.PureComponent {
                 ]}
             />
           </div>
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
-              title="Male /Female Full Time Earnings by First Degree Graduates - Science"
+              title="Male /Female Full Time Earnings by First Degree Graduates - Non-Science"
               titles={['Social studies', 'Law', 'Business & administrative studies', 'Mass communications & documentation', 'Languages', 'Historical & philosophical studies', 'Creative arts & design', 'Education', 'Combined']}
               value="£"
               data={[

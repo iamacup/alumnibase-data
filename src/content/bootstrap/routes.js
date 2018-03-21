@@ -1,5 +1,5 @@
 
-import CampaignOverviewPage from '../../content/containers/Pages/CampaignOverview';
+import CampaignOverviewPage from '../../content/containers/Pages/CampaignOverview/main';
 
 import NotFoundPage from '../../content/containers/Pages/NotFound';
 

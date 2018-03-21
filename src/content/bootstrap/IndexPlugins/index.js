@@ -70,7 +70,7 @@ result.bodyBottom.push(<script key="19" src="https://cdnjs.cloudflare.com/ajax/l
 
 // google charts JS
 result.bodyBottom.push(<script key ="new" type="text/javascript" src="https://www.gstatic.com/charts/loader.js" />);
-
+// <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
 
 //this does not work properly with the webpack config
 //result.bodyBottom.push(<script key ="new2" type="text/javascript" src="https://files.alumnibaseapp.com/assets/dataTool.min.js" />);

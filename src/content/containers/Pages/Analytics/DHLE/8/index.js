@@ -49,9 +49,20 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <StandardFilters />
+ <div className="row">
+          <div className="col-md-10 col-md-push-1">
+            <div className="panel">
+              <div className="panel-body" style={{ paddingBottom: '15px' }}>
+                Data from section 5 of the respondent survey is collated here. <br /><br />
+                These graphs display the gender split in graduates from the UK, for varied employment sectors, split by qualification.<br /><br />
+                <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="row">
-          <div className="col-md-10">
+          <div className="col-md-8 col-md-push-2">
 
             <GroupedBarChart
               title="First Degree Graduates from the UK in work, by type of work and gender"
@@ -66,7 +77,7 @@ class Page extends React.PureComponent {
                 ]}
             />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-8 col-md-push-2">
 
             <div className="panel">
               <div className="panel-heading">

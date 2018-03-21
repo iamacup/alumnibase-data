@@ -1,10 +1,8 @@
 // eslint-disable jsx-a11y/anchor-is-valid
 
 import React from 'react';
-// import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
 import { drawAreaChart } from '../../../../content/scripts/custom/echarts/drawAreaChart';
@@ -22,7 +20,6 @@ class Graph extends React.PureComponent {
 
   componentDidMount() {
     const options = drawAreaChart(this.props.data);
-
     renderChartToTarget(this.graphTarget1, options);
   }
 

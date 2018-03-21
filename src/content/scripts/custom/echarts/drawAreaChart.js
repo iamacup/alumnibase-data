@@ -1,4 +1,5 @@
 export function drawAreaChart(areaData) {
+    // areaData sould be in the form [{name: '', data: []}];
   const xlabel = [];
   for (let i = 20; i < 51; i++) {
     xlabel.push(i);

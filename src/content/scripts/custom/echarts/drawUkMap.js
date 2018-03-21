@@ -1,6 +1,7 @@
 import ukData from '../../../../content/containers/Fragments/Graphs/ukData';
 
 export function drawUKMap(data, pieces) {
+  // pieces sould be in the form {max: #, label: "", min: # }
   const option = {
     series_id: 4242979,
     backgroundColor: '#c5d6e7',

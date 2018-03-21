@@ -50,8 +50,21 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
+ <div className="row">
+          <div className="col-md-10 col-md-push-1">
+            <div className="panel">
+              <div className="panel-body" style={{ paddingBottom: '15px' }}>
+                Data from section 5 of the respondent survey is collated here. <br /><br />
+                These graphs display the gender split in graduates for certain employment destinations. <br />
+                For both <strong> Post Graduate</strong> and <strong> First Degree</strong> graduates. <br /><br />
+                <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Post Graduate Graduates by Type of Employment & Gender"
               direction="horizontal"
@@ -65,7 +78,7 @@ class Page extends React.PureComponent {
                 ]}
             />
           </div>
-          <div className="col-md-12">
+          <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="First Degree Graduates by Type of Employment & Gender"
               direction="horizontal"

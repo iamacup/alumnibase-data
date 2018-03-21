@@ -1,4 +1,6 @@
 export function drawLineChart(data, xLabel, yLabel) {
+  // data sould be in the form [{age: [], plotted: []}]
+
   const colours = [{ gt: 0, lte: 2, color: '#88b7dc' }, { gt: 2, lte: 4, color: '#62a0d0' }, { gt: 4, lte: 6, color: '#3a88c4' }, { gt: 6, lte: 8, color: '#2f6d9d' }, { gt: 8, lte: 10, color: '#235175' }];
   const options = {
     visualMap: [{
