@@ -79,6 +79,13 @@ class Graph extends React.PureComponent {
               ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
             />
           </div>
+          <div className="text-right" style={{ marginTop: '26px' }}>
+                  <h5>
+                    <small>
+                      Destinations and corresponding age values when all responses are aggregated
+                    </small>
+                  </h5>
+                </div>
         </div>
         <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
       </div>

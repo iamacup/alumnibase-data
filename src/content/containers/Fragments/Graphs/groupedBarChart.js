@@ -83,6 +83,13 @@ class GroupedBarChart extends React.PureComponent {
                 ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
               />
             </div>
+                  <div className="text-right" style={{ marginTop: '26px' }}>
+                  <h5>
+                    <small>
+{this.props.smallText}              
+                    </small>
+                  </h5>
+                </div>
           </div>
 
           <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
@@ -93,6 +100,7 @@ class GroupedBarChart extends React.PureComponent {
 }
 
 GroupedBarChart.propTypes = {
+  smallText: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   titles: PropTypes.array.isRequired,

@@ -65,12 +65,12 @@ export default [
     component: Salary2Page,
   },
   {
-    path: '/analytics/salary/2/world',
+    path: '/analytics/destination/1',
     exact: true,
     component: Salary2WorldPage,
   },
   {
-    path: '/analytics/salary/2/uk',
+    path: '/analytics/destination/2',
     exact: true,
     component: Salary2UkPage,
   },

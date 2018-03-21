@@ -143,6 +143,7 @@ class Graph extends React.PureComponent {
                   ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
                 />
               </div>
+
             </div>
             <div id={this.state.panel2ID} className="tab-pane fade">
               <div className="pad-all">
@@ -154,8 +155,14 @@ class Graph extends React.PureComponent {
               </div>
             </div>
           </div>
-
           {this.props.postContent}
+                 <div className="text-right" style={{ marginTop: '26px' }}>
+                  <h5>
+                    <small>
+                      Percentage and population values when all responses are aggregated
+                    </small>
+                  </h5>
+                </div>
         </div>
 
         <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
@@ -165,6 +172,7 @@ class Graph extends React.PureComponent {
 }
 
 Graph.propTypes = {
+  // smallText: PropTypes.string.isRequired,
   titles: PropTypes.array.isRequired,
   set1: PropTypes.array.isRequired,
   set2: PropTypes.array.isRequired,

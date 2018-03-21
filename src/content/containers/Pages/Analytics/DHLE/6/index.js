@@ -67,6 +67,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Post Graduate Graduates by Type of Employment & Gender"
+              smallText="Employment values when all responses are aggregated"
               direction="horizontal"
               value=""
               globalID="grouperdBar-5"
@@ -81,6 +82,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="First Degree Graduates by Type of Employment & Gender"
+              smallText="Employment values when all responses are aggregated"
               direction="horizontal"
               value=""
               globalID="grouperdBar-6"

@@ -104,8 +104,7 @@ class Page extends React.PureComponent {
                   </li>
                   */}
 
-
-                  <li className="list-divider" />
+<li className="list-divider" />
 
                   {/*  <!--Category name--> */}
                   <li className="list-header">Analytics</li>
@@ -132,7 +131,6 @@ class Page extends React.PureComponent {
                     </ul>
                   </li>
 
-
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/salary', 'active-sub')}>
                     <a href="#">
@@ -140,35 +138,29 @@ class Page extends React.PureComponent {
                       <span className="menu-title">Salary Data</span>
                       <i className="arrow" />
                     </a>
-
                     {/*  <!--Submenu--> */}
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary', 'in')} >
                       <li className={this.classNameBasedOnLocation('/analytics/salary/1', 'active-link')}>
                         <Link href="/analytics/salary/1" to="/analytics/salary/1">Filterable Salaries</Link>
                       </li>
                     </ul>
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/salary/2/world', 'active-sub')}>
-                        <a href="/analytics/salary/2/world">
+                  </li>
 
-                          <span className="menu-title">Geographical Salaries</span>
-                          <i className="arrow" />
-                        </a>
-                        {/*  <Link href="/analytics/salary/2" to="/analytics/salary/2">Geographical Salaries</Link> */}
-                        {/*  <!--Inner-Submenu--> */}
+                  {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/destination', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">Geographical Salaries</span>
+                      <i className="arrow" />
+                    </a>
 
-                        <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary/2', 'in')} >
-                          <li className={this.classNameBasedOnLocation('/analytics/salary/2/world', 'active-link')}>
-                            <Link href="/analytics/salary/2/world" to="/analytics/salary/2/world">Geographic Views</Link>
-                          </li>
-                        </ul>
-                        <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary/2', 'in')} >
-                          <li className={this.classNameBasedOnLocation('/analytics/salary/2/uk', 'active-link')}>
-                            <Link href="/analytics/salary/2/uk" to="/analytics/salary/2/uk">Alumni Destinations</Link>
-                          </li>
-                        </ul>
-
-
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/destination', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/destination/1', 'active-link')}>
+                        <Link href="/analytics/destination/1" to="/analytics/destination/1">Geographical Views</Link>
+                      </li>
+                     <li className={this.classNameBasedOnLocation('/analytics/destination/2', 'active-link')}>
+                        <Link href="/analytics/destination/2" to="/analytics/destination/2">Alumni Destinations</Link>
                       </li>
                     </ul>
                   </li>
@@ -256,7 +248,7 @@ class Page extends React.PureComponent {
                   </li>
 
 
-                  <li className="list-divider" />
+<li className="list-divider" />
 
                   {/*  <!--Category name--> */}
                   <li className="list-header">Advanced Analytics</li>

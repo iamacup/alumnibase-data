@@ -88,6 +88,7 @@ class Graph extends React.PureComponent {
           <div className="panel-control">
             <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
           </div>
+          <h3 className="panel-title">{this.props.title}</h3>
         </div>
 
         <div className="collapse in">
@@ -147,6 +148,13 @@ class Graph extends React.PureComponent {
                     </div>
                   </div>
                 </div>
+                                 <div className="text-right" style={{ marginTop: '26px' }}>
+                  <h5>
+                    <small>
+                      All data based on filters above.
+                    </small>
+                  </h5>
+                </div>
               </div>
 
               <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
@@ -161,6 +169,7 @@ class Graph extends React.PureComponent {
 }
 
 Graph.propTypes = {
+  title: PropTypes.string.isRequired,
   title1: PropTypes.string.isRequired,
   title2: PropTypes.string.isRequired,
   globalID: PropTypes.string.isRequired,

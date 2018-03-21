@@ -66,6 +66,7 @@ class Page extends React.PureComponent {
 
             <GroupedBarChart
               title="First Degree Graduates from the UK in work, by type of work and gender"
+              smallText="Employment values when all responses are aggregated"
               direction="horizontal"
               value=""
               globalID="grouperdBar-6"

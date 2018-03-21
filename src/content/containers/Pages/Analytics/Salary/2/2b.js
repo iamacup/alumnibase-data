@@ -40,7 +40,7 @@ class Page extends React.PureComponent {
         },
         {
           name: 'Alumni Destinations',
-          link: '/analytics/salary/2/uk',
+          link: '/analytics/destinations/2',
         }],
     });
 
@@ -96,25 +96,24 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-        <div className="row">
+<div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                By default, the data shown below is for the <strong>entire survey data set.</strong> Use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-
-                <br /><br />
-                Show national average on graphs: <input id="switchery-switch" type="checkbox" />
-
+                Data from section 5 of the respondent survey is collated here. This data is split into two areas: <br /><br />
+                <strong>Where Graduates Come From</strong> the UK region a graduate had come from to study.<br />
+                <strong>Alumni Destinations</strong> the UK region a graduate has moved to since studying.<br /><br />
+              <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
               </div>
             </div>
           </div>
         </div>
 
-
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-8 col-md-push-2">
 
             <UKMap
+              title="Graduate Destinations"
               title1="Where Grads Come From in the UK"
               data1={gradsComeFromData}
               pieces1={['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+']}

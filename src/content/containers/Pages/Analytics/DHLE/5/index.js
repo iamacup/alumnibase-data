@@ -82,6 +82,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Average Full Time Earnings"
+              smallText="Salary values when all responses are aggregated"
               value="£"
               direction="horizontal"
               globalID="grouperdBar-1"
@@ -98,6 +99,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Male /Female Full Time Earnings by First Degree Graduates - Science"
+              smallText="Salary values when all responses are aggregated"
               value="£"
               titles={['Medicine & dentistry', 'Subjects allied to medicine', 'Biological sciences', 'Vetenary science', 'Agriculture & related subjects', 'Physical sciences', 'Mathmatical sciences', 'Computer science', 'Engineering & technology', 'Architecture, building & planning']}
               data={[
@@ -129,6 +131,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Average Full Time Earnings"
+              smallText="Salary values when all responses are aggregated"
               direction="horizontal"
               value="£"
               globalID="grouperdBar-3"
@@ -141,6 +144,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Male /Female Full Time Earnings by First Degree Graduates - Non-Science"
+              smallText="Salary values when all responses are aggregated"
               titles={['Social studies', 'Law', 'Business & administrative studies', 'Mass communications & documentation', 'Languages', 'Historical & philosophical studies', 'Creative arts & design', 'Education', 'Combined']}
               value="£"
               data={[

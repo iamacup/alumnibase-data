@@ -1,6 +1,6 @@
 import prepareBoxplotData from './dataTool';
 
-const colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
+const colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b', '#0b6623'];
 
 export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
   // example data for the inputs - note that indata can contain arrays of any length, the boxplot calculation is performed on the data

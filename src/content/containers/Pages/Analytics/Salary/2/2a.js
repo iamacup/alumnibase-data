@@ -39,7 +39,7 @@ class Page extends React.PureComponent {
         },
         {
           name: 'Geographical Views',
-          link: '/analytics/salary/2/world',
+          link: '/analytics/destinations/1',
         }],
     });
 
@@ -99,10 +99,9 @@ class Page extends React.PureComponent {
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. For ease of access this data is split into two areas: <br /><br />
-                <strong>Where Graduates Come From</strong> the country of origin  <br />
-                <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the respondent and; <br />
-                <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
+                Data from section 5 of the respondent survey is collated here. This data is split into two areas: <br /><br />
+                <strong>Where Graduates Come From</strong> the country of origin a graduate had come from to study.<br />
+                <strong>Alumni Destinations</strong> the country a graduate has moved to since studying.<br /><br />
               <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
               </div>
             </div>
@@ -113,6 +112,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
 
             <WorldMap
+              title="Graduate Destinations"
               title1="Where Grads Come From"
               title2="Where Grads Go"
               globalID="world-chart"

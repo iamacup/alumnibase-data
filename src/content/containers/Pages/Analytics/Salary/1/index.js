@@ -116,48 +116,47 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-        <div className="row">
+     <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                By default, the data shown below is for the <strong>entire survey data set.</strong> Use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-
-                <br /><br />
+                Data from section 5 of the respondent survey is collated here.<br /><br />
+                This data displays the average pay gaps between <strong>gender, ethnicity and religion</strong>.<br /><br />
+              <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
                 Show national average on graphs: <input id="switchery-switch" type="checkbox" />
-
               </div>
             </div>
           </div>
         </div>
 
+     <div className="row">
+          <div className="col-md-8 col-md-push-2">
+
         <div className="row">
-          <div className="col-md-6 col-md-push-3">
             <Boxplot
               data={genderData}
               title="Average pay, split by gender"
             />
           </div>
-        </div>
+
 
         <div className="row">
-          <div className="col-md-8 col-md-push-2">
             <Boxplot
               data={ethnicityData}
               title="Average pay, split by ethnicity"
             />
-          </div>
         </div>
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
             <Boxplot
               data={religionData}
               title="Average pay, split by religion"
             />
           </div>
-        </div>
 
 
+      </div>
+      </div>
       </div>
     );
 

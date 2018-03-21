@@ -54,7 +54,7 @@ class Page extends React.PureComponent {
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
                 Data from section 5 of the respondent survey is collated here. <br /><br />
-                These graphs display the gender split in earning by slary band.<br /><br />
+                These graphs display the gender split in earning by salary band.<br /><br />
                 <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
               </div>
             </div>
@@ -65,6 +65,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <GroupedBarChart
               title="Male /Female Earning by Salary Band"
+              smallText="Salary values when all responses are aggregated"
               direction="vertical"
               value=""
               globalID="grouperdBar-7"
