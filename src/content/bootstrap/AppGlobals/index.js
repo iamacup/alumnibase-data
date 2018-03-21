@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import echarts from 'echarts';
 
 import { dNc } from '../../../content/scripts/custom/utilities';
 
@@ -30,11 +31,14 @@ class App extends React.Component {
     // include the bootstrap javascript
     require('../../../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js');
 
+    // this is a hack to make echarts available to the uk map - need to replace this with the expose loader!!!
+    window.echarts = echarts;
+
     $(() => {
       // we do this to make sure that when start things, the nifty things execute
       // i thought we would need to do this but apparently not - calling htis actually seems to break things...
       // $(document).trigger('nifty.ready');
-      
+
       $(document).trigger('nifty.ready');    
     });
   }

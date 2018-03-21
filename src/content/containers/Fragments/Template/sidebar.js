@@ -153,17 +153,33 @@ class Page extends React.PureComponent {
                   <li className={this.classNameBasedOnLocation('/analytics/destination', 'active-sub')}>
                     <a href="#">
                       <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
-                      <span className="menu-title">Geographical Salaries</span>
+                      <span className="menu-title">Geographic Data</span>
                       <i className="arrow" />
                     </a>
 
                     {/*  <!--Submenu--> */}
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/destination', 'in')} >
                       <li className={this.classNameBasedOnLocation('/analytics/destination/1', 'active-link')}>
-                        <Link href="/analytics/destination/1" to="/analytics/destination/1">Geographical Views</Link>
+                        <Link href="/analytics/destination/1" to="/analytics/destination/1">Global</Link>
                       </li>
                      <li className={this.classNameBasedOnLocation('/analytics/destination/2', 'active-link')}>
-                        <Link href="/analytics/destination/2" to="/analytics/destination/2">Alumni Destinations</Link>
+                        <Link href="/analytics/destination/2" to="/analytics/destination/2">Local</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+                  {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/jobs', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">Jobs and Careers</span>
+                      <i className="arrow" />
+                    </a>
+
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/jobs', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/jobs/1', 'active-link')}>
+                        <Link href="/analytics/jobs/1" to="/analytics/jobs/1">Overview</Link>
                       </li>
                     </ul>
                   </li>
