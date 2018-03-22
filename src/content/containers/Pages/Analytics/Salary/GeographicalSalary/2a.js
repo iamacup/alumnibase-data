@@ -43,9 +43,6 @@ class Page extends React.PureComponent {
         }],
     });
 
-    // this is a hack to make echarts available to the uk map - need to replace this with the expose loader!!!
-    window.echarts = echarts;
-
     $(() => {
       // listen for resize events
       fireDebouncedResizeEvents();
@@ -57,14 +54,6 @@ class Page extends React.PureComponent {
 
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
-
-      // make the checkbox look nice with switchery
-      const elem = document.querySelector('#switchery-switch');
-      // eslint-disable-next-line no-undef
-
-      elem.onchange = () => {
-        this.clickShowNationalAverage();
-      };
     });
   }
 

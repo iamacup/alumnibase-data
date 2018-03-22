@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import echarts from 'echarts';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
@@ -10,7 +9,7 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import WorldMap from '../../../../../../content/containers/Fragments/Graphs/section5WorldMap';
+import Boxplot from '../../../../../../content/containers/Fragments/Graphs/simpleBoxplot';
 
 class Page extends React.PureComponent {
   constructor(props) {
@@ -30,16 +29,12 @@ class Page extends React.PureComponent {
           link: '/analytics',
         },
         {
-          name: 'Salary',
-          link: '/analytics/salary',
+          name: 'Jobs',
+          link: '/analytics/jobs',
         },
         {
-          name: 'Graduate Salaries',
-          link: '/analytics/salary/2',
-        },
-        {
-          name: 'World Data',
-          link: '/analytics/salary/2/world',
+          name: 'Overview',
+          link: '/analytics/jobs/1',
         }],
     });
 
@@ -57,23 +52,6 @@ class Page extends React.PureComponent {
     });
   }
 
-  getImageDataForActiveGraph() {
-    let $parent = $('#' + this.state.panel1ID);
-
-    if (!$parent.hasClass('active')) {
-      $parent = $('#' + this.state.panel2ID);
-    }
-
-    const $canvas = $parent.find('canvas');
-
-    if ($canvas.length === 1) {
-      return $canvas[0].toDataURL('image/png');
-    }
-
-    console.log('handle error TODO');
-    return null;
-  }
-
   clickShowNationalAverage() {
     this.setState({ showNationalAverage: !this.state.showNationalAverage });
   }
@@ -82,35 +60,10 @@ class Page extends React.PureComponent {
     const content = (
       <div id="page-content">
 
-        <StandardFilters />
+      <StandardFilters />
 
-        <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                By default, the data shown below is for the <strong>entire survey data set.</strong> Use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-
-                <br /><br />
-                Show national average on graphs: <input id="switchery-switch" type="checkbox" />
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="row">
-          <div className="col-md-12">
-
-            <WorldMap
-              title1="Where Grads Come From"
-              title2="Where Grads Go"
-              globalID="world-chart"
-            />
-          </div>
-        </div>
-
-
+     
+        <h1>TODO</h1>
       </div>
     );
 

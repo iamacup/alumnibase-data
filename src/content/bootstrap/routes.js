@@ -17,6 +17,8 @@ import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
 
 import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 
+import Jobs1Page from '../../content/containers/Pages/Analytics/Jobs/1';
+
 import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
 import Salary2Page from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
@@ -34,6 +36,11 @@ export default [
     path: '/',
     exact: true,
     component: CampaignOverviewPage,
+  },
+  {
+    path: '/analytics/jobs/1',
+    exact: true,
+    component: Jobs1Page,
   },
   {
     path: '/analytics/views/1',
