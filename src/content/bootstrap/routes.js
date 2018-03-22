@@ -31,6 +31,8 @@ import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/Furt
 import WPBMEEPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-Economic';
 import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-POLAR3';
 
+import TestsPage from '../../content/containers/Pages/Tests';
+
 export default [
   {
     path: '/',
@@ -41,6 +43,11 @@ export default [
     path: '/analytics/jobs/1',
     exact: true,
     component: Jobs1Page,
+  },
+  {
+    path: '/tests',
+    exact: true,
+    component: TestsPage,
   },
   {
     path: '/analytics/views/1',
