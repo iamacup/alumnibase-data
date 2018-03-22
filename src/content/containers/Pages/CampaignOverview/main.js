@@ -297,31 +297,10 @@ class Page extends React.PureComponent {
             {/* <!--Page content--> */}
             {/* <!--===================================================--> */}
 
+
             <div className="row">
-              <div className="col-md-4">
 
-                {/* <!-- Donut Chart --> */}
-                {/* <!----------------------------------> */}
-                <div className="panel">
-                  <div className="panel-body">
-                    <PieChart
-                      title="Gender Split"
-                      label
-                      alignment
-                      chart="doughnut"
-                      data={[
-                      { name: 'Male', value: 55 },
-                      { name: 'Female', value: 40 },
-                      { name: 'Other', value: 5 },
-                    ]}
-                      globalID="overview-pie-2"
-                    />
-                  </div>
-                </div>
-                {/* <!----------------------------------> */}
-
-              </div>
-              <div className="col-md-4">
+              <div className="col-sm-6 col-sm-push-3">
 
                 {/* <!-- Donut Chart --> */}
                 {/* <!----------------------------------> */}
@@ -351,7 +330,35 @@ class Page extends React.PureComponent {
                 {/* <!----------------------------------> */}
 
               </div>
-              <div className="col-md-4">
+
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+
+                {/* <!-- Donut Chart --> */}
+                {/* <!----------------------------------> */}
+                <div className="panel">
+                  <div className="panel-body">
+                    <PieChart
+                      title="Gender Split"
+                      label
+                      alignment
+                      chart="doughnut"
+                      data={[
+                      { name: 'Male', value: 55 },
+                      { name: 'Female', value: 40 },
+                      { name: 'Other', value: 5 },
+                    ]}
+                      globalID="overview-pie-2"
+                    />
+                  </div>
+                </div>
+                {/* <!----------------------------------> */}
+
+              </div>
+
+              <div className="col-md-6">
                 {/* <!-- Donut Chart --> */}
                 {/* <!----------------------------------> */}
                 <div className="panel">
