@@ -1,3 +1,6 @@
+
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -146,7 +149,7 @@ class Graph extends React.PureComponent {
               </h5>
             </div>
           </div>
-          <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+          <a href="#" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>
       </div>
     );

@@ -2,14 +2,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, no-undef */
 
 import React from 'react';
+import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import drawUKMap from '../../../../content/scripts/custom/echarts/drawUKMap';
+import { drawCandlestickChart } from '../../../../content/scripts/custom/echarts/generators';
+
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
-class Graph extends React.Component {
+class Graph extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -18,12 +21,45 @@ class Graph extends React.Component {
     };
   }
 
-
   componentDidMount() {
-    const pieces = this.props.pieces.map((element, i) => ({ max: i + 0.1, label: element, min: i }));
+    // DO SOMETHING WITH this.props.data which should contain the draw data as an object for the graph to be drawn!!!
+
+    /* const option1 = drawCandlestickChart();
+
+    renderChartToTarget(this.graphTarget1, option1); */
 
     $(() => {
-      renderChartToTarget(this.graphTarget1, drawUKMap(this.props.data, pieces));
+      google.charts.load('current', { packages: ['corechart'] });
+
+      const drawChart = () => {
+        // TODO this should come from props as below
+        // const data = google.visualization.arrayToDataTable(this.props.data, true);
+
+        // but for example this is used:
+
+        const inputData = [
+          ['Male', 20000, 28000, 38000, 45000],
+          ['Female', 31000, 38000, 55000, 66000],
+        ];
+
+        const data = google.visualization.arrayToDataTable(inputData, true);
+
+        const options = {
+          legend: 'none',
+        };
+
+        const chart = new google.visualization.CandlestickChart(this.graphTarget1);
+
+        // draw the chart
+        chart.draw(data, options);
+
+        // draw the chart when the window resizes
+        $(document).on('debouncedResizeEvent', () => {
+          chart.draw(data, options);
+        });
+      };
+
+      google.charts.setOnLoadCallback(drawChart);
     });
   }
 
@@ -71,43 +107,33 @@ class Graph extends React.Component {
 
   render() {
     return (
+
       <div className="panel">
         <div className="panel-heading">
-          <div className="panel-control">
-            <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
-          </div>
           <h3 className="panel-title">{this.props.title}</h3>
         </div>
-        <div className="collapse in">
-          <div className="panel-body" id={this.state.panel1ID}>
-            <div className="pad-all">
-              <div
-                className="echarts-graph"
-                style={{ width: '100%', height: '1000px' }}
-                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-              />
-            </div>
-            <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
-                      All data based on filters above.
-                    </small>
-                  </h5>
-                </div>
+        <div className="panel-body" id={this.state.panel1ID}>
+          <div className="pad-all">
+            <div
+              className="echarts-graph"
+              style={{ width: '100%', height: '360px' }}
+              ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+            />
           </div>
-
-          <a href="#" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>
+
+        <a href="#" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
       </div>
+
+
     );
   }
 }
 
 Graph.propTypes = {
   title: PropTypes.string.isRequired,
-  globalID: PropTypes.string.isRequired,
   data: PropTypes.any.isRequired,
-  pieces: PropTypes.array.isRequired,
+  globalID: PropTypes.string.isRequired,
   reduxAction_doUpdate: PropTypes.func,
 };
 

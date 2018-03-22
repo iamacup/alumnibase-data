@@ -1,11 +1,14 @@
+
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
-import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
+// import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../content/scripts/custom/utilities';
 
-import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
+// import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
 class Chart extends React.Component {
   constructor(props) {
@@ -21,7 +24,7 @@ class Chart extends React.Component {
   //  rows must be in the format [[ 'Brazil', 'Portugal', 5 ], [ 'Brazil', 'France', 1 ],]
 
     $(() => {
-      const google = window.google;
+      const { google } = window;
 
       const colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
         '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
@@ -85,7 +88,7 @@ class Chart extends React.Component {
               />
             </div>
           </div>
-          <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+          <a href="#" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>
       </div>
     );
@@ -97,17 +100,19 @@ Chart.propTypes = {
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
   globalID: PropTypes.string.isRequired,
-  reduxAction_doUpdate: PropTypes.func,
+  // reduxAction_doUpdate: PropTypes.func,
 };
 
-Chart.defaultProps = {
+/* Chart.defaultProps = {
   reduxAction_doUpdate: () => {},
-};
+}; */
 
-const mapStateToProps = null;
+// const mapStateToProps = null;
 
-const mapDispatchToProps = dispatch => ({
+/* const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (mainID, subID, data) => dispatch(storeAction.doUpdate(mainID, subID, data)),
-});
+}); */
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chart);
+// export default connect(mapStateToProps, mapDispatchToProps)(Chart);
+
+export default Chart;

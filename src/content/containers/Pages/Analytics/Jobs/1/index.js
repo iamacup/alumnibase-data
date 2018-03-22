@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,7 +10,7 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import Boxplot from '../../../../../../content/containers/Fragments/Graphs/simpleBoxplot';
+// import Boxplot from '../../../../../../content/containers/Fragments/Graphs/simpleBoxplot';
 
 class Page extends React.PureComponent {
   constructor(props) {

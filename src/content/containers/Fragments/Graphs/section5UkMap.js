@@ -147,7 +147,7 @@ class Graph extends React.Component {
                 </div>
               </div>
 
-              <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+              <a href="#" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
             </div>
           </div>
         </div>

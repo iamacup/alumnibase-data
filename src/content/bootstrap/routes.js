@@ -20,7 +20,7 @@ import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 import Jobs1Page from '../../content/containers/Pages/Analytics/Jobs/1';
 
 import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
-import Salary2Page from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary';
+// import Salary2Page from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
 import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
 import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/overview';
@@ -30,6 +30,8 @@ import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/Furt
 
 import WPBMEEPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-Economic';
 import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-POLAR3';
+
+import TestsPage from '../../content/containers/Pages/Tests';
 
 export default [
   {
@@ -41,6 +43,11 @@ export default [
     path: '/analytics/jobs/1',
     exact: true,
     component: Jobs1Page,
+  },
+  {
+    path: '/tests',
+    exact: true,
+    component: TestsPage,
   },
   {
     path: '/analytics/views/1',
