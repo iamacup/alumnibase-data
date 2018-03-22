@@ -9,7 +9,7 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import CurvedLineChart from '../../../../../../content/containers/Fragments/Graphs/curvedLineChart';
+import { getPercentRow } from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
 import BellCurve from '../../../../../../content/containers/Fragments/Graphs/bellCurve';
 import BoxPlot from '../../../../../../content/containers/Fragments/Graphs/simpleBoxplot';
 import AreaChart from '../../../../../../content/containers/Fragments/Graphs/areaChart';
@@ -55,44 +55,6 @@ class Page extends React.PureComponent {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
-  }
-
-  getPercentRow(title, percentage, bottomMargin) {
-    const barStyle = { height: '4px' };
-
-    if (bottomMargin === false) {
-      barStyle.marginBottom = '0';
-    }
-
-    const obj = (
-      <div className="row">
-        <div className="col-sm-4">
-          <div className="text-left visible-xs-block">
-            <h6 style={{ marginTop: '0' }}>{title}</h6>
-          </div>
-          <div className="text-right hidden-xs">
-            <h6 style={{ marginTop: '0' }}>{title}</h6>
-          </div>
-        </div>
-        <div className="col-sm-8">
-          <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{percentage}%</h6>
-          <div className="progress" style={barStyle}>
-            <div
-              className="progress-bar"
-              role="progressbar"
-              aria-valuenow="70"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              style={{ width: percentage + '%' }}
-            >
-              <span className="sr-only">{percentage}% Complete</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-    return obj;
   }
 
   clickShowNationalAverage() {
@@ -172,11 +134,11 @@ class Page extends React.PureComponent {
                 <div className="panel-body" >
                   <div className="pad-all">
                     <div>
-                      {this.getPercentRow('a', [20])}
-                      {this.getPercentRow('b', [20])}
-                      {this.getPercentRow('c', [20])}
-                      {this.getPercentRow('d', [20])}
-                      {this.getPercentRow('e', [20])}
+                      {getPercentRow('a', [20])}
+                      {getPercentRow('b', [20])}
+                      {getPercentRow('c', [20])}
+                      {getPercentRow('d', [20])}
+                      {getPercentRow('e', [20])}
                     </div>
                   </div>
                   <div className="text-right" style={{ marginTop: '26px' }}>
@@ -191,34 +153,27 @@ class Page extends React.PureComponent {
               </div>
             </div>
 
-            {/* <CurvedLineChart
-               globalID="overview-chart-1"
-               title="Line Chart"
-               label ={['xAxis', 'yAxis']}
-               data = {[[21, 3], [22, 5], [23, 4], [24, 8], [25, 10], [26, 7]]}
-               /> */}
-
             <LineChart
               globalID="overview-chart-1"
               title="Line Chart"
-              label={['xAxis', 'yAxis']}
+              label={['Time After Graduating (years)', 'Salary']}
               data={{
-              age: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
-              plotted: [[3, 5, 4, 8, 10, 7, 1, 3, 5, 6, 2, 4, 6, 9, 5, 2, 4, 8, 5, 1]],
+              age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+              plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000]],
             }}
             />
 
             <LineChart
               globalID="overview-chart-6"
-              label={[1, 2]}
-              data={{ age: [1, 2, 3], plotted: [[4, 5, 6], [3, 4, 5]] }}
+              label={['Time After Graduating (years)', 'Salary']}
+              data={{ age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], plotted: [[2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]] }}
               title="Line Chart Gender Split - Percentages"
             />
 
             <LineChart
               globalID="overview-chart-7"
-              label={[1, 2]}
-              data={{ age: [1, 2, 3], plotted: [[4, 5, 6]] }}
+              label={['Time After Graduating (years)', 'Salary']}
+              data={{ age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000]] }}
               title="Line Chart Gender Split"
             />
 
