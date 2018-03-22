@@ -1,5 +1,5 @@
 const drawGroupedBarChart = (titles, data, direction, value) => {
-    // data sould be in the form {x: [1, 2, 3], y: '%'}
+  // data sould be in the form {x: [1, 2, 3], y: '%'}
   // direction is which way the axis should be: horizontal or vertical;
   // value is the axis value, ie "%" || "£";
   const colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
@@ -46,6 +46,6 @@ const drawGroupedBarChart = (titles, data, direction, value) => {
   };
 
   return option;
-}
+};
 
 export default drawGroupedBarChart;

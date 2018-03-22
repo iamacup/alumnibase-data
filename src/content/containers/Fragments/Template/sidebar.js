@@ -88,7 +88,7 @@ class Page extends React.PureComponent {
                     </Link>
                   </li>
 
-                  {/* 
+                  {/*
                   <li className={this.classNameBasedOnLocation('/campaign/contacts', 'active-link')}>
                     <Link href="/campaign/contacts" to="/campaign/contacts">
                       <i className="far fa-address-card" />
@@ -104,7 +104,7 @@ class Page extends React.PureComponent {
                   </li>
                   */}
 
-<li className="list-divider" />
+                  <li className="list-divider" />
 
                   {/*  <!--Category name--> */}
                   <li className="list-header">Analytics</li>
@@ -143,7 +143,7 @@ class Page extends React.PureComponent {
                       <li className={this.classNameBasedOnLocation('/analytics/salary/overview', 'active-link')}>
                         <Link href="/analytics/salary/overview" to="/analytics/salary/overview">Salary Overview</Link>
                       </li>
-                        <li className={this.classNameBasedOnLocation('/analytics/salary/1', 'active-link')}>
+                      <li className={this.classNameBasedOnLocation('/analytics/salary/1', 'active-link')}>
                         <Link href="/analytics/salary/1" to="/analytics/salary/1">Filterable Salaries</Link>
                       </li>
                     </ul>
@@ -162,7 +162,7 @@ class Page extends React.PureComponent {
                       <li className={this.classNameBasedOnLocation('/analytics/destination/1', 'active-link')}>
                         <Link href="/analytics/destination/1" to="/analytics/destination/1">Global</Link>
                       </li>
-                     <li className={this.classNameBasedOnLocation('/analytics/destination/2', 'active-link')}>
+                      <li className={this.classNameBasedOnLocation('/analytics/destination/2', 'active-link')}>
                         <Link href="/analytics/destination/2" to="/analytics/destination/2">Local</Link>
                       </li>
                     </ul>
@@ -267,7 +267,7 @@ class Page extends React.PureComponent {
                   </li>
 
 
-<li className="list-divider" />
+                  <li className="list-divider" />
 
                   {/*  <!--Category name--> */}
                   <li className="list-header">Advanced Analytics</li>
@@ -409,8 +409,6 @@ class Page extends React.PureComponent {
 
                 </ul>
 
-
-                
 
               </div>
             </div>

@@ -142,6 +142,6 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin) => {
   };
 
   return option;
-}
+};
 
 export default drawBoxplotChart;

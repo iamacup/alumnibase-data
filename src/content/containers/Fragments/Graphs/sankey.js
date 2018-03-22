@@ -23,45 +23,44 @@ class Chart extends React.Component {
     $(() => {
       const google = window.google;
 
-      var colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
-                  '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
+      const colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
+        '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
 
-    var options = {
-      height: 400,
-      sankey: {
-        node: {
-          colors: colors
+      const options = {
+        height: 400,
+        sankey: {
+          node: {
+            colors,
+          },
+          link: {
+            colorMode: 'gradient',
+            colors,
+          },
         },
-        link: {
-          colorMode: 'gradient',
-          colors: colors
-        }
-      }
-    };
-   google.charts.load("current", {packages:["sankey"]});
+      };
+      google.charts.load('current', { packages: ['sankey'] });
 
-    const drawChart = () => {
-
-    const data = new google.visualization.DataTable();
-                    this.props.columns.map(column => data.addColumn(column[0], column[1]));
-                    data.addRows(this.props.rows)
+      const drawChart = () => {
+        const data = new google.visualization.DataTable();
+        this.props.columns.map(column => data.addColumn(column[0], column[1]));
+        data.addRows(this.props.rows);
 
 
-    // Instantiate and draw our chart, passing in some options.
-    const chart = new google.visualization.Sankey(this.graphTarget1);
-    chart.draw(data, options);
-  
-    //   // listen for resize events
-      fireDebouncedResizeEvents();
+        // Instantiate and draw our chart, passing in some options.
+        const chart = new google.visualization.Sankey(this.graphTarget1);
+        chart.draw(data, options);
 
-    //   // then listen for the events here
-      $(document).on('debouncedResizeEvent', () => {
-    //     // and redraw the charts
-  chart.draw(data, options);
-      });
-   }
+        //   // listen for resize events
+        fireDebouncedResizeEvents();
 
-  google.charts.setOnLoadCallback(drawChart);
+        //   // then listen for the events here
+        $(document).on('debouncedResizeEvent', () => {
+          //     // and redraw the charts
+          chart.draw(data, options);
+        });
+      };
+
+      google.charts.setOnLoadCallback(drawChart);
     });
   }
 
@@ -79,11 +78,11 @@ class Chart extends React.Component {
         <div className="collapse in">
           <div className="panel-body" id={this.state.panel1ID}>
             <div className="pad-all">
-   <div
-              className="echarts-graph"
-              style={{ width: '100%', height: '400px' }}
-              ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-            />
+              <div
+                className="echarts-graph"
+                style={{ width: '100%', height: '400px' }}
+                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+              />
             </div>
           </div>
           <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>

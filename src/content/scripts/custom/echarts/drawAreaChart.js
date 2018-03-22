@@ -1,18 +1,18 @@
 const drawAreaChart = (areaData, axis) => {
-    // areaData sould be in the form [{name: '', data: []}];
+  // areaData sould be in the form [{name: '', data: []}];
   let xlabel = [];
-  let value = "";
-  let markline = ""
+  let value = '';
+  let markline = '';
   if (!axis) {
-  for (let i = 20; i < 51; i++) {
-    xlabel.push(i);
+    for (let i = 20; i < 51; i++) {
+      xlabel.push(i);
+    }
+  } else {
+    xlabel = axis;
+    value = 'years';
+    if (areaData.length < 2) markline = { data: [{ yAxis: 30000, name: '' }] };
+    else markline = { data: [{ yAxis: 30000, name: '' }, { yAxis: 40000, name: '' }] };
   }
-} else {
-  xlabel = axis;
-  value = "years"
-  if (areaData.length < 2) markline = { data : [{ yAxis: 30000, name : '' }] }
-    else markline = { data : [{ yAxis: 30000, name : '' }, { yAxis: 40000, name : '' }]}
-}
 
   const areaColours = ['#2b577e', '#d7d4c5', '#e8912c', '#6f6b51', '#6ca7da', '#e7b93a', '#0e1422'];
 
@@ -33,7 +33,7 @@ const drawAreaChart = (areaData, axis) => {
             width: 3,
           },
         },
-        markLine : markline,
+        markLine: markline,
         itemStyle: {
           normal: {
             color,
@@ -104,6 +104,6 @@ const drawAreaChart = (areaData, axis) => {
     series: getSeries(areaData),
   };
   return option;
-}
+};
 
 export default drawAreaChart;

@@ -22,38 +22,37 @@ class Graph extends React.PureComponent {
     $(() => {
       const google = window.google;
 
- google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', { packages: ['corechart'] });
 
       const drawChart = () => {
-
-        const data = google.visualization.DataTable()
-            data.addColumn("number", this.props.label[0]);
-            data.addColumn("number", this.props.label[1]);
-            data.addRows(this.props.data);
-          // ['under £20,000', 100],
-          // ['£20-29,000', 320],
-          // ['£30-39,000', 560],
-          // ['£40-49,000', 980],
-          // ['£50-59,000', 1120],
-          // ['£60-69,000', 980],
-          // ['£70-79,000', 560],
-          // ['£80-89,000', 320],
-          // ['£90,000+', 100]
+        const data = google.visualization.DataTable();
+        data.addColumn('number', this.props.label[0]);
+        data.addColumn('number', this.props.label[1]);
+        data.addRows(this.props.data);
+        // ['under £20,000', 100],
+        // ['£20-29,000', 320],
+        // ['£30-39,000', 560],
+        // ['£40-49,000', 980],
+        // ['£50-59,000', 1120],
+        // ['£60-69,000', 980],
+        // ['£70-79,000', 560],
+        // ['£80-89,000', 320],
+        // ['£90,000+', 100]
 
 
         const options = {
           curveType: 'function',
           legend: { position: 'bottom' },
-          trendlines: { 0: {} }
+          trendlines: { 0: {} },
         };
 
         const chart = new google.visualization.LineChart(this.graphTarget1);
 
         chart.draw(data, options);
-      }
+      };
 
       google.charts.setOnLoadCallback(drawChart);
-})
+    });
   }
 
   getImageDataForActiveGraph() {
@@ -102,30 +101,30 @@ class Graph extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
-        <div className="panel-control">
+          <div className="panel-control">
             <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
           </div>
           <h3 className="panel-title">{this.props.title}</h3>
         </div>
         <div className="collapse in">
-        <div className="panel-body" id={this.state.panel1ID}>
-          <div className="pad-all">
-            <div
-              className="echarts-graph"
-              style={{ width: '100%', height: '360px' }}
-              ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-            />
-          </div>
-          <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
+          <div className="panel-body" id={this.state.panel1ID}>
+            <div className="pad-all">
+              <div
+                className="echarts-graph"
+                style={{ width: '100%', height: '360px' }}
+                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+              />
+            </div>
+            <div className="text-right" style={{ marginTop: '26px' }}>
+              <h5>
+                <small>
                       Salary values when all responses are aggregated
-                    </small>
-                  </h5>
-                </div>
+                </small>
+              </h5>
+            </div>
+          </div>
+          <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>
-        <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
-      </div>
       </div>
     );
   }

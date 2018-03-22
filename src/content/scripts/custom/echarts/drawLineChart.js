@@ -80,6 +80,6 @@ const drawLineChart = (data, xLabel, yLabel) => {
     ],
   };
   return options;
-}
+};
 
 export default drawLineChart;

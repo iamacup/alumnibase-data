@@ -34,7 +34,7 @@ class Chart extends React.Component {
   }
 
   getImageDataForActiveGraph() {
-    let $parent = $('#' + this.state.panel1ID)
+    let $parent = $('#' + this.state.panel1ID);
 
     if (!$parent.hasClass('active')) {
       $parent = $('#' + this.state.panel2ID);
@@ -74,7 +74,7 @@ class Chart extends React.Component {
       imageData: this.getImageDataForActiveGraph(),
     });
   }
-  
+
   render() {
     return (
       <div className="panel">

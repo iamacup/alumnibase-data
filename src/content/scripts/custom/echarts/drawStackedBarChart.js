@@ -13,7 +13,7 @@ const drawNewBarChart = (axisData, dataArray) => {
     legend: {
       data: dataArray.map(data => data.name),
     },
-        grid: {
+    grid: {
       left: '3%',
       right: '4%',
       bottom: '3%',
@@ -41,6 +41,6 @@ const drawNewBarChart = (axisData, dataArray) => {
     })),
   };
   return options;
-}
+};
 
 export default drawNewBarChart;

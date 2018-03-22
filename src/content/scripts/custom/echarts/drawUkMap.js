@@ -120,6 +120,6 @@ const drawUKMap = (data, pieces) => {
     },
   };
   return option;
-}
+};
 
 export default drawUKMap;

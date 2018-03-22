@@ -326,28 +326,28 @@ class Page extends React.PureComponent {
                 {/* <!-- Donut Chart --> */}
                 {/* <!----------------------------------> */}
 
-              <div className="panel" >
-                <div className="panel-heading">
-                  <div className="panel-control">
-                    <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
-                  </div>
-                  <h3 className="panel-title">Responses</h3>
-                </div>
-                <div className="collapse in">
-                  <div className="panel-body">
-                    <div className="pad-all">
-                      <div className="text-center p-5">
-                        <h1>45,683</h1>
-                        <h2>Total Responses</h2>
-                        <br />
-                        <h1>37% </h1>
-                        <h2>Response Rate</h2>
+                <div className="panel" >
+                  <div className="panel-heading">
+                    <div className="panel-control">
+                      <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
                     </div>
+                    <h3 className="panel-title">Responses</h3>
+                  </div>
+                  <div className="collapse in">
+                    <div className="panel-body">
+                      <div className="pad-all">
+                        <div className="text-center p-5">
+                          <h1>45,683</h1>
+                          <h2>Total Responses</h2>
+                          <br />
+                          <h1>37% </h1>
+                          <h2>Response Rate</h2>
+                        </div>
+                      </div>
+                    </div>
+                    <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
                   </div>
                 </div>
-                <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
-              </div>
-            </div>
                 {/* <!----------------------------------> */}
 
               </div>
@@ -359,7 +359,7 @@ class Page extends React.PureComponent {
                     <PieChart
                       title="Ethnicity Split"
                       label={false}
-                      alignment={true}
+                      alignment
                       chart="pie"
                       data={[
                       { name: 'White', value: 40 },
@@ -432,74 +432,74 @@ class Page extends React.PureComponent {
                 {/* <!----------------------------------> */}
                 <div className="panel">
                   <div className="panel-body">
-                                  <Sankey 
-                title= "Subject Breakdown Split"
-                columns={[['string', 'From'], ['string', 'To'], ['number', 'Weight']]}
-                rows={[
-       [ 'POLAR3 area', 'Engineering', 1 ],
-       [ 'POLAR3 area', 'Business and Legal', 1 ],
-       [ 'POLAR3 area', 'Computer science', 1 ],
-       [ 'POLAR3 area', 'English', 1 ],
-       [ 'POLAR3 area', 'Medicine', 1 ],
-       [ 'POLAR3 area', 'Politics, philosophy & theology', 1 ],
-       [ 'POLAR3 area', 'Psychology and sociology', 2 ],
-       [ 'POLAR3 area', 'Sciences', 1 ],
-       [ 'non-POLAR3 area', 'Architecture', 11 ],
-       [ 'non-POLAR3 area', 'Engineering', 8 ],
-       [ 'non-POLAR3 area', 'Business and Legal', 9 ],
-       [ 'non-POLAR3 area', 'Computer science', 5 ],
-       [ 'non-POLAR3 area', 'Creative arts', 5 ],
-       [ 'non-POLAR3 area', 'English', 4 ],
-       [ 'non-POLAR3 area', 'History', 5 ],
-       [ 'non-POLAR3 area', 'Medicine', 7 ],
-       [ 'non-POLAR3 area', 'Politics, philosophy & theology', 8 ],
-       [ 'non-POLAR3 area', 'Psychology and sociology', 6 ],
-       [ 'non-POLAR3 area', 'Sciences', 9 ],
-       [ 'non-POLAR3 area', 'Agriculture', 8 ],
-       [ 'Creative arts', 'under £20,000', 2 ],
-       [ 'Creative arts', '£20-30,000', 3 ],      
-       [ 'Architecture', '£20-30,000', 3 ],
-       [ 'Architecture', '£30-40,000', 3 ],
-       [ 'Architecture', '£40-50,000', 3 ],
-       [ 'Architecture', '£50+', 2 ],
-       [ 'Engineering', '£20-30,000', 3 ],
-       [ 'Engineering', '£30-40,000', 4 ],
-       [ 'Engineering', '£40-50,000', 1 ],
-       [ 'Engineering', '£50+', 1 ],
-       [ 'Business and Legal', '£20-30,000', 4 ],
-       [ 'Business and Legal', '£30-40,000', 4 ],
-       [ 'Business and Legal', '£40-50,000', 1 ],
-       [ 'Business and Legal', '£50+', 1 ],
-       [ 'Computer science', '£20-30,000', 3 ],
-       [ 'Computer science', '£30-40,000', 3 ],
-       [ 'English', 'under £20,000', 2 ],
-       [ 'English', '£20-30,000', 2 ],
-       [ 'English', '£30-40,000', 1 ],
-       [ 'History', 'under £20,000', 2 ],
-       [ 'History', '£20-30,000', 2 ],
-       [ 'History', '£30-40,000', 1 ],
-       [ 'Medicine', '£20-30,000', 2 ],
-       [ 'Medicine', '£30-40,000', 3 ],
-       [ 'Medicine', '£40-50,000', 2 ],
-       [ 'Medicine', '£50+', 1 ],
-       [ 'Politics, philosophy & theology', 'under £20,000', 2 ],
-       [ 'Politics, philosophy & theology', '£20-30,000', 4 ],
-       [ 'Politics, philosophy & theology', '£30-40,000', 3 ],
-       [ 'Psychology and sociology', 'under £20,000', 1 ],
-       [ 'Psychology and sociology', '£20-30,000', 4 ],
-       [ 'Psychology and sociology', '£30-40,000', 2 ],
-       [ 'Psychology and sociology', '£40-50,000', 1 ],
-       [ 'Sciences', '£20-30,000', 3 ],
-       [ 'Sciences', '£30-40,000', 3 ],
-       [ 'Sciences', '£40-50,000', 2 ],
-       [ 'Sciences', '£50+', 1 ],
-       [ 'Agriculture', 'under £20,000', 1 ],
-       [ 'Agriculture', '£20-30,000', 3 ],
-       [ 'Agriculture', '£30-40,000', 3 ],
-       [ 'Agriculture', '£40-50,000', 1 ],
+                    <Sankey
+                      title="Subject Breakdown Split"
+                      columns={[['string', 'From'], ['string', 'To'], ['number', 'Weight']]}
+                      rows={[
+       ['POLAR3 area', 'Engineering', 1],
+       ['POLAR3 area', 'Business and Legal', 1],
+       ['POLAR3 area', 'Computer science', 1],
+       ['POLAR3 area', 'English', 1],
+       ['POLAR3 area', 'Medicine', 1],
+       ['POLAR3 area', 'Politics, philosophy & theology', 1],
+       ['POLAR3 area', 'Psychology and sociology', 2],
+       ['POLAR3 area', 'Sciences', 1],
+       ['non-POLAR3 area', 'Architecture', 11],
+       ['non-POLAR3 area', 'Engineering', 8],
+       ['non-POLAR3 area', 'Business and Legal', 9],
+       ['non-POLAR3 area', 'Computer science', 5],
+       ['non-POLAR3 area', 'Creative arts', 5],
+       ['non-POLAR3 area', 'English', 4],
+       ['non-POLAR3 area', 'History', 5],
+       ['non-POLAR3 area', 'Medicine', 7],
+       ['non-POLAR3 area', 'Politics, philosophy & theology', 8],
+       ['non-POLAR3 area', 'Psychology and sociology', 6],
+       ['non-POLAR3 area', 'Sciences', 9],
+       ['non-POLAR3 area', 'Agriculture', 8],
+       ['Creative arts', 'under £20,000', 2],
+       ['Creative arts', '£20-30,000', 3],
+       ['Architecture', '£20-30,000', 3],
+       ['Architecture', '£30-40,000', 3],
+       ['Architecture', '£40-50,000', 3],
+       ['Architecture', '£50+', 2],
+       ['Engineering', '£20-30,000', 3],
+       ['Engineering', '£30-40,000', 4],
+       ['Engineering', '£40-50,000', 1],
+       ['Engineering', '£50+', 1],
+       ['Business and Legal', '£20-30,000', 4],
+       ['Business and Legal', '£30-40,000', 4],
+       ['Business and Legal', '£40-50,000', 1],
+       ['Business and Legal', '£50+', 1],
+       ['Computer science', '£20-30,000', 3],
+       ['Computer science', '£30-40,000', 3],
+       ['English', 'under £20,000', 2],
+       ['English', '£20-30,000', 2],
+       ['English', '£30-40,000', 1],
+       ['History', 'under £20,000', 2],
+       ['History', '£20-30,000', 2],
+       ['History', '£30-40,000', 1],
+       ['Medicine', '£20-30,000', 2],
+       ['Medicine', '£30-40,000', 3],
+       ['Medicine', '£40-50,000', 2],
+       ['Medicine', '£50+', 1],
+       ['Politics, philosophy & theology', 'under £20,000', 2],
+       ['Politics, philosophy & theology', '£20-30,000', 4],
+       ['Politics, philosophy & theology', '£30-40,000', 3],
+       ['Psychology and sociology', 'under £20,000', 1],
+       ['Psychology and sociology', '£20-30,000', 4],
+       ['Psychology and sociology', '£30-40,000', 2],
+       ['Psychology and sociology', '£40-50,000', 1],
+       ['Sciences', '£20-30,000', 3],
+       ['Sciences', '£30-40,000', 3],
+       ['Sciences', '£40-50,000', 2],
+       ['Sciences', '£50+', 1],
+       ['Agriculture', 'under £20,000', 1],
+       ['Agriculture', '£20-30,000', 3],
+       ['Agriculture', '£30-40,000', 3],
+       ['Agriculture', '£40-50,000', 1],
     ]}
-                globalID="overview-sankey-1"
-                />  
+                      globalID="overview-sankey-1"
+                    />
                   </div>
                 </div>
                 {/* <!----------------------------------> */}
@@ -529,117 +529,117 @@ class Page extends React.PureComponent {
               </div>
             </div>
             {/* <!----------------------------------> */}
-<div className="row">
+            <div className="row">
 
-            {/* <!-- Morris JS Full Content --> */}
-            {/* <!----------------------------------> */}
-            <div className="panel">
-              <div className="panel-body">
-                <WorldMap
-                  title1="Alumni Country of Origin"
-                  title2="Alumni Destinations"
-                  globalID="world-chart"
-                />
-              </div>
-            </div>
-            {/*  <!----------------------------------> */}
-            </div>
-
-        <div className="row">
-
-                {/* <!--Bordered Table--> */}
-                {/* <!--===================================================--> */}
-          <div className="col-md-6">
-            <div className="panel">
-
+              {/* <!-- Morris JS Full Content --> */}
+              {/* <!----------------------------------> */}
               <div className="panel">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Top 10 Subject Respondant List</h3>
-                </div>
                 <div className="panel-body">
-                  <div className="table-responsive">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th className="text-center">#</th>
-                          <th>Course</th>
-                          <th>Respondants</th>
-                          <th>Subject</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="text-center">1</td>
-                          <td><a href="#" className="btn-link">Criminology and Law</a></td>
-                          <td><span className="text-muted">500</span></td>
-                          <td><span className="label label-purple">Social Sciences</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">2</td>
-                          <td><a href="#" className="btn-link">Politics, Philosophy and Economics</a></td>
-                          <td><span className="text-muted">467</span></td>
-                          <td><span className="label label-purple">Social Sciences</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">3</td>
-                          <td><a href="#" className="btn-link">Environmental Science</a></td>
-                          <td><span className="text-muted">421</span></td>
-                          <td><span className="label label-success">Environment & Development</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">4</td>
-                          <td><a href="#" className="btn-link">Economics</a></td>
-                          <td><span className="text-muted">398</span></td>
-                          <td><span className="label label-info">Mathematics</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">5</td>
-                          <td><a href="#" className="btn-link">Computing & IT</a></td>
-                          <td><span className="text-muted">340</span></td>
-                          <td><span className="label label-info">Mathematics</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">6</td>
-                          <td><a href="#" className="btn-link">Medicine & Surgery</a></td>
-                          <td><span className="text-muted">278</span></td>
-                          <td><span className="label label-danger">Medical Sciences</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">7</td>
-                          <td><a href="#" className="btn-link">Classical Studies</a></td>
-                          <td><span className="text-muted">265</span></td>
-                          <td><span className="label label-warning">Arts & Humanities</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">8</td>
-                          <td><a href="#" className="btn-link">History</a></td>
-                          <td><span className="text-muted">254</span></td>
-                          <td><span className="label label-warning">Arts & Humanities</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">9</td>
-                          <td><a href="#" className="btn-link">English Literature</a></td>
-                          <td><span className="text-muted">242</span></td>
-                          <td><span className="label label-warning">Arts & Humanities</span></td>
-                        </tr>
-                        <tr>
-                          <td className="text-center">10</td>
-                          <td><a href="#" className="btn-link">Art History</a></td>
-                          <td><span className="text-muted">238</span></td>
-                          <td><span className="label label-warning">Arts & Humanities</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <WorldMap
+                    title1="Alumni Country of Origin"
+                    title2="Alumni Destinations"
+                    globalID="world-chart"
+                  />
+                </div>
+              </div>
+              {/*  <!----------------------------------> */}
+            </div>
+
+            <div className="row">
+
+              {/* <!--Bordered Table--> */}
+              {/* <!--===================================================--> */}
+              <div className="col-md-6">
+                <div className="panel">
+
+                  <div className="panel">
+                    <div className="panel-heading">
+                      <h3 className="panel-title">Top 10 Subject Respondant List</h3>
+                    </div>
+                    <div className="panel-body">
+                      <div className="table-responsive">
+                        <table className="table">
+                          <thead>
+                            <tr>
+                              <th className="text-center">#</th>
+                              <th>Course</th>
+                              <th>Respondants</th>
+                              <th>Subject</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td className="text-center">1</td>
+                              <td><a href="#" className="btn-link">Criminology and Law</a></td>
+                              <td><span className="text-muted">500</span></td>
+                              <td><span className="label label-purple">Social Sciences</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">2</td>
+                              <td><a href="#" className="btn-link">Politics, Philosophy and Economics</a></td>
+                              <td><span className="text-muted">467</span></td>
+                              <td><span className="label label-purple">Social Sciences</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">3</td>
+                              <td><a href="#" className="btn-link">Environmental Science</a></td>
+                              <td><span className="text-muted">421</span></td>
+                              <td><span className="label label-success">Environment & Development</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">4</td>
+                              <td><a href="#" className="btn-link">Economics</a></td>
+                              <td><span className="text-muted">398</span></td>
+                              <td><span className="label label-info">Mathematics</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">5</td>
+                              <td><a href="#" className="btn-link">Computing & IT</a></td>
+                              <td><span className="text-muted">340</span></td>
+                              <td><span className="label label-info">Mathematics</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">6</td>
+                              <td><a href="#" className="btn-link">Medicine & Surgery</a></td>
+                              <td><span className="text-muted">278</span></td>
+                              <td><span className="label label-danger">Medical Sciences</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">7</td>
+                              <td><a href="#" className="btn-link">Classical Studies</a></td>
+                              <td><span className="text-muted">265</span></td>
+                              <td><span className="label label-warning">Arts & Humanities</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">8</td>
+                              <td><a href="#" className="btn-link">History</a></td>
+                              <td><span className="text-muted">254</span></td>
+                              <td><span className="label label-warning">Arts & Humanities</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">9</td>
+                              <td><a href="#" className="btn-link">English Literature</a></td>
+                              <td><span className="text-muted">242</span></td>
+                              <td><span className="label label-warning">Arts & Humanities</span></td>
+                            </tr>
+                            <tr>
+                              <td className="text-center">10</td>
+                              <td><a href="#" className="btn-link">Art History</a></td>
+                              <td><span className="text-muted">238</span></td>
+                              <td><span className="label label-warning">Arts & Humanities</span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-                {/* <!--===================================================--> */}
-                {/* <!--End Bordered Table--> */}
-       
-          <div className="col-md-6">
-                        {/* <!-- Donut Chart --> */}
+              {/* <!--===================================================--> */}
+              {/* <!--End Bordered Table--> */}
+
+              <div className="col-md-6">
+                {/* <!-- Donut Chart --> */}
                 {/* <!----------------------------------> */}
                 <div className="panel">
                   <div className="panel-body">
@@ -656,15 +656,15 @@ class Page extends React.PureComponent {
                       { name: 'Jewish', value: 600 },
                       { name: 'Muslim', value: 600 },
                       { name: 'Sikh', value: 400 },
-                      
+
                     ]}
                       globalID="overview-pie-4"
                     />
                   </div>
                 </div>
               </div>
-            {/* <!----------------------------------> */}
-        </div>
+              {/* <!----------------------------------> */}
+            </div>
             {/* <!--===================================================--> */}
             {/* <!--End page content--> */}
           </div>

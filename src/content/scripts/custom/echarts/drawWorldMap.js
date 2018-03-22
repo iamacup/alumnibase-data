@@ -329,6 +329,6 @@ const drawWorldChart = (mapData, type, value) => {
     ],
   };
   return options;
-}
+};
 
 export default drawWorldChart;

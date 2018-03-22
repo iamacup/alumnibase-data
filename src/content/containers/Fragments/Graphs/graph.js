@@ -156,13 +156,13 @@ class Graph extends React.PureComponent {
             </div>
           </div>
           {this.props.postContent}
-                 <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
+          <div className="text-right" style={{ marginTop: '26px' }}>
+            <h5>
+              <small>
                       Percentage and population values when all responses are aggregated
-                    </small>
-                  </h5>
-                </div>
+              </small>
+            </h5>
+          </div>
         </div>
 
         <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>

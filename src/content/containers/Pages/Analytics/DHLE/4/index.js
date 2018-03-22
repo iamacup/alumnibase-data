@@ -29,7 +29,7 @@ class Page extends React.PureComponent {
           link: '/analytics/dlhe-like/4',
         }],
     });
-          
+
     $(() => {
       // listen for resize events
       fireDebouncedResizeEvents();
@@ -49,14 +49,14 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <StandardFilters />
-     <div className="row">
+        <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
                 Data from section 5 of the respondent survey is collated here.<br /><br />
                 This graph displays the positions of employment of full-time graduates based on their age.<br /><br />
                 <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
-               </div>
+              </div>
             </div>
           </div>
         </div>

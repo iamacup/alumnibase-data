@@ -18,7 +18,6 @@ class Graph extends React.PureComponent {
   }
 
   componentDidMount() {
-
     $(() => {
       // draw out the graphs
       const option = drawLineChart(this.props.data, this.props.label[0], this.props.label[1]);
@@ -26,7 +25,7 @@ class Graph extends React.PureComponent {
 
       // listen for resize events
       fireDebouncedResizeEvents();
-      
+
       // then listen for the events here
       $(document).on('debouncedResizeEvent', () => {
         // and redraw the charts
@@ -36,7 +35,7 @@ class Graph extends React.PureComponent {
   }
 
   getImageDataForActiveGraph() {
-    let $parent = $('#' + this.state.panel1ID)
+    let $parent = $('#' + this.state.panel1ID);
 
     if (!$parent.hasClass('active')) {
       $parent = $('#' + this.state.panel2ID);
@@ -81,31 +80,31 @@ class Graph extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
-        <div className="panel-control">
+          <div className="panel-control">
             <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
           </div>
           <h3 className="panel-title">{this.props.title}</h3>
         </div>
         <div className="collapse in">
-        <div className="panel-body" id={this.state.panel1ID}>
-          <div className="pad-all">
-      <div
-                  className="echarts-graph"
-                  style={{ width: '100%', height: '360px' }}
-                  ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-                />
-          </div>
-          <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
+          <div className="panel-body" id={this.state.panel1ID}>
+            <div className="pad-all">
+              <div
+                className="echarts-graph"
+                style={{ width: '100%', height: '360px' }}
+                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+              />
+            </div>
+            <div className="text-right" style={{ marginTop: '26px' }}>
+              <h5>
+                <small>
                       Salary values when all responses are aggregated
-                    </small>
-                  </h5>
-                </div>
+                </small>
+              </h5>
+            </div>
+          </div>
+          <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>
-        <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
       </div>
-      </div> 
     );
   }
 }

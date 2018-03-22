@@ -48,7 +48,7 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <StandardFilters />
-         <div className="row">
+        <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
@@ -63,27 +63,27 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
 
-        <div className="row">
-          <div className="col-md-10">
-            <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
-          </div>
-          <div className="col-md-12">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
+            <div className="row">
+              <div className="col-md-10">
+                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
               </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
-              </div>
+              <div className="col-md-12">
 
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h3 className="panel-title"> - </h3>
+                  </div>
+                  <div className="pad-all">
+                    <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
+                  </div>
+
+                </div>
+
+              </div>
             </div>
 
           </div>
         </div>
-
-      </div>
-      </div>
       </div>
     );
 

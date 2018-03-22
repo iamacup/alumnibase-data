@@ -92,12 +92,12 @@ class Graph extends React.Component {
               />
             </div>
             <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
+              <h5>
+                <small>
                       Percentage values when all responses are aggregated
-                    </small>
-                  </h5>
-                </div>
+                </small>
+              </h5>
+            </div>
           </div>
           <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>

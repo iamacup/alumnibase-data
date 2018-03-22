@@ -148,7 +148,7 @@ class Graph extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-                                 <div className="text-right" style={{ marginTop: '26px' }}>
+                <div className="text-right" style={{ marginTop: '26px' }}>
                   <h5>
                     <small>
                       All data based on filters above.

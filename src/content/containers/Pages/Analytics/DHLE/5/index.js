@@ -50,7 +50,7 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <StandardFilters />
- <div className="row">
+        <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>

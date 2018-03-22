@@ -60,9 +60,9 @@ class Page extends React.PureComponent {
     const content = (
       <div id="page-content">
 
-      <StandardFilters />
+        <StandardFilters />
 
-     
+
         <h1>TODO</h1>
       </div>
     );

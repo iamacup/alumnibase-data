@@ -54,7 +54,6 @@ class Page extends React.PureComponent {
 
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
-
     });
   }
 
@@ -101,7 +100,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
- const salaryBoxData = {
+    const salaryBoxData = {
       categories: ['1', '2', '3', '4', '5'],
       values: [
         [20000, 30000],
@@ -117,7 +116,7 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-     <div className="row">
+        <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
@@ -128,103 +127,103 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-     <div className="row">
+        <div className="row">
           <div className="col-md-8 col-md-push-2">
 
-            <BellCurve 
-            globalID="overview-chart-1"
-            title="Average Salary Distribution"
+            <BellCurve
+              globalID="overview-chart-1"
+              title="Average Salary Distribution"
             />
 
             <BoxPlot
-            globalID="overview-chart-2"
-            title="Box Plots"
-            data={salaryBoxData}
+              globalID="overview-chart-2"
+              title="Box Plots"
+              data={salaryBoxData}
             />
 
-            <AreaChart 
-            globalID="overview-chart-3"
-            title="Area Chart"
-            axis={[1, 2, 3, 4, 5, 6, 7]}
-            data={[
+            <AreaChart
+              globalID="overview-chart-3"
+              title="Area Chart"
+              axis={[1, 2, 3, 4, 5, 6, 7]}
+              data={[
               { name: 'Average Salary', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] },
               ]}
-            />       
+            />
 
-            <AreaChart 
-            globalID="overview-chart-4"
-            title="Gender Split Area Chart"
-            axis={[1, 2, 3, 4, 5, 6, 7]}
-            data={[
+            <AreaChart
+              globalID="overview-chart-4"
+              title="Gender Split Area Chart"
+              axis={[1, 2, 3, 4, 5, 6, 7]}
+              data={[
               { name: 'Male', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] },
               { name: 'Female', data: [14000, 19000, 28000, 36000, 45000, 52000, 68000] },
               { name: 'Other', data: [0, 0, 0, 0, 0, 0, 5] },
               ]}
             />
 
-      <div className="panel">
-        <div className="panel-heading">
-          <div className="panel-control">
-            <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
-          </div>
-          <h3 className="panel-title">Percentage bars</h3>
-        </div>
-        <div className="collapse in">
-          <div className="panel-body" >
-            <div className="pad-all">
-             <div>
-                {this.getPercentRow('a', [20])}
-                {this.getPercentRow('b', [20])}
-                {this.getPercentRow('c', [20])}
-                {this.getPercentRow('d', [20])}
-                {this.getPercentRow('e', [20])}
+            <div className="panel">
+              <div className="panel-heading">
+                <div className="panel-control">
+                  <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
+                </div>
+                <h3 className="panel-title">Percentage bars</h3>
+              </div>
+              <div className="collapse in">
+                <div className="panel-body" >
+                  <div className="pad-all">
+                    <div>
+                      {this.getPercentRow('a', [20])}
+                      {this.getPercentRow('b', [20])}
+                      {this.getPercentRow('c', [20])}
+                      {this.getPercentRow('d', [20])}
+                      {this.getPercentRow('e', [20])}
+                    </div>
+                  </div>
+                  <div className="text-right" style={{ marginTop: '26px' }}>
+                    <h5>
+                      <small>
+                      Percentage values when all responses are aggregated
+                      </small>
+                    </h5>
+                  </div>
+                </div>
+                <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
               </div>
             </div>
-            <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
-                      Percentage values when all responses are aggregated
-                    </small>
-                  </h5>
-                </div>
-          </div>
-          <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
-        </div>
-      </div>
 
-   {/* <CurvedLineChart 
+            {/* <CurvedLineChart
                globalID="overview-chart-1"
-               title="Line Chart"  
+               title="Line Chart"
                label ={['xAxis', 'yAxis']}
                data = {[[21, 3], [22, 5], [23, 4], [24, 8], [25, 10], [26, 7]]}
                /> */}
 
-            <LineChart 
-            globalID="overview-chart-1"
-            title="Line Chart"  
-            label ={['xAxis', 'yAxis']}
-            data = {{ 
-              age: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40], 
-              plotted: [[3, 5, 4, 8, 10, 7, 1, 3, 5, 6, 2, 4, 6, 9, 5, 2, 4, 8, 5, 1] ]
+            <LineChart
+              globalID="overview-chart-1"
+              title="Line Chart"
+              label={['xAxis', 'yAxis']}
+              data={{
+              age: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
+              plotted: [[3, 5, 4, 8, 10, 7, 1, 3, 5, 6, 2, 4, 6, 9, 5, 2, 4, 8, 5, 1]],
             }}
             />
 
-      <LineChart 
-        globalID="overview-chart-6"
-        label={[1, 2]}
-        data={{age: [1, 2, 3], plotted: [[4, 5, 6], [3, 4, 5]]}}
-        title="Line Chart Gender Split - Percentages"
-      />
+            <LineChart
+              globalID="overview-chart-6"
+              label={[1, 2]}
+              data={{ age: [1, 2, 3], plotted: [[4, 5, 6], [3, 4, 5]] }}
+              title="Line Chart Gender Split - Percentages"
+            />
 
-       <LineChart 
-        globalID="overview-chart-7"
-        label={[1, 2]}
-        data={{age: [1, 2, 3], plotted: [[4, 5, 6]]}}
-        title="Line Chart Gender Split"
-      /> 
+            <LineChart
+              globalID="overview-chart-7"
+              label={[1, 2]}
+              data={{ age: [1, 2, 3], plotted: [[4, 5, 6]] }}
+              title="Line Chart Gender Split"
+            />
 
 
-      {/*           <PieChart
+            {/*           <PieChart
                             title="Ethnicity Split"
                             label={false}
                             alignment={true}
@@ -243,7 +242,7 @@ class Page extends React.PureComponent {
 
           </div>
         </div>
-     </div>
+      </div>
     );
 
     const { location } = this.props;
