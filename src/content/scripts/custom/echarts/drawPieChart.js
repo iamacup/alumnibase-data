@@ -1,4 +1,4 @@
-export function drawNewPieChart(data, label, chart, toggle) {
+const drawNewPieChart = (data, label, chart, toggle) => {
   // data sould be in the form [{name: 'string', data: []}]
   // label is a boolean, true is for arrow labels and false is for coloured boxes
   // chart is a string, "pie" or "doughnut"
@@ -60,3 +60,5 @@ const colors = ['#11293b', '#235175', '#2f6d9d', '#3a88c4', '#62a0d0'];
 
   return options;
 }
+
+export default drawNewPieChart; 

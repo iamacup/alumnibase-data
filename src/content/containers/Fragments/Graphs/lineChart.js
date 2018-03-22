@@ -1,14 +1,14 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import drawGroupedBarChart from '../../../../content/scripts/custom/echarts/drawBarChart';
+import { fireDebouncedResizeEvents } from '../../../../content/scripts/custom/utilities';
+import drawLineChart from '../../../../content/scripts/custom/echarts/drawLineChart';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
-class GroupedBarChart extends React.PureComponent {
+class Graph extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -18,13 +18,25 @@ class GroupedBarChart extends React.PureComponent {
   }
 
   componentDidMount() {
-    const option1 = drawGroupedBarChart(this.props.titles, this.props.data, this.props.direction, this.props.value);
 
-    renderChartToTarget(this.graphTarget1, option1);
+    $(() => {
+      // draw out the graphs
+      const option = drawLineChart(this.props.data, this.props.label[0], this.props.label[1]);
+      renderChartToTarget(this.graphTarget1, option);
+
+      // listen for resize events
+      fireDebouncedResizeEvents();
+      
+      // then listen for the events here
+      $(document).on('debouncedResizeEvent', () => {
+        // and redraw the charts
+        redrawCharts(this.graphTarget1, drawLineChart(this.props.data, this.props.label[0], this.props.label[1]));
+      });
+    });
   }
 
   getImageDataForActiveGraph() {
-    let $parent = $('#' + this.state.panel1ID);
+    let $parent = $('#' + this.state.panel1ID)
 
     if (!$parent.hasClass('active')) {
       $parent = $('#' + this.state.panel2ID);
@@ -69,48 +81,44 @@ class GroupedBarChart extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
-          <div className="panel-control">
+        <div className="panel-control">
             <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
           </div>
           <h3 className="panel-title">{this.props.title}</h3>
         </div>
         <div className="collapse in">
-          <div className="panel-body" id={this.state.panel1ID}>
-            <div className="pad-all">
-              <div
-                className="echarts-graph"
-                style={{ width: '100%', height: '360px' }}
-                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-              />
-            </div>
-                  <div className="text-right" style={{ marginTop: '26px' }}>
+        <div className="panel-body" id={this.state.panel1ID}>
+          <div className="pad-all">
+      <div
+                  className="echarts-graph"
+                  style={{ width: '100%', height: '360px' }}
+                  ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+                />
+          </div>
+          <div className="text-right" style={{ marginTop: '26px' }}>
                   <h5>
                     <small>
-{this.props.smallText}              
+                      Salary values when all responses are aggregated
                     </small>
                   </h5>
                 </div>
-          </div>
-
-          <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>
+        <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
       </div>
+      </div> 
     );
   }
 }
 
-GroupedBarChart.propTypes = {
-  smallText: PropTypes.string.isRequired,
+Graph.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  titles: PropTypes.array.isRequired,
-  direction: PropTypes.string.isRequired,
   data: PropTypes.any.isRequired,
+  label: PropTypes.array.isRequired,
   globalID: PropTypes.string.isRequired,
   reduxAction_doUpdate: PropTypes.func,
 };
 
-GroupedBarChart.defaultProps = {
+Graph.defaultProps = {
   reduxAction_doUpdate: () => {},
 };
 
@@ -120,4 +128,4 @@ const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (mainID, subID, data) => dispatch(storeAction.doUpdate(mainID, subID, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupedBarChart);
+export default connect(mapStateToProps, mapDispatchToProps)(Graph);

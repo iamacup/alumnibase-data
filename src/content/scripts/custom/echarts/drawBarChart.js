@@ -1,4 +1,4 @@
-export function drawGroupedBarChart(titles, data, direction, value) {
+const drawGroupedBarChart = (titles, data, direction, value) => {
     // data sould be in the form {x: [1, 2, 3], y: '%'}
   // direction is which way the axis should be: horizontal or vertical;
   // value is the axis value, ie "%" || "£";
@@ -47,3 +47,5 @@ export function drawGroupedBarChart(titles, data, direction, value) {
 
   return option;
 }
+
+export default drawGroupedBarChart;

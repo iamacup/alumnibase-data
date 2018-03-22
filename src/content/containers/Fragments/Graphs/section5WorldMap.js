@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawWorldChart } from '../../../../content/scripts/custom/echarts/drawWorldMap';
+import drawWorldChart from '../../../../content/scripts/custom/echarts/drawWorldMap';
 import worldMapData from './worldMapData';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 

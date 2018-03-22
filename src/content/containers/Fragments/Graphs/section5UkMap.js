@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawUKMap } from '../../../../content/scripts/custom/echarts/drawUkMap';
+import drawUKMap from '../../../../content/scripts/custom/echarts/drawUkMap';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
 class Graph extends React.Component {

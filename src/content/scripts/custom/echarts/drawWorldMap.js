@@ -2,7 +2,7 @@ const worldColours = {
   northAmerica: '#a7a737', southAmerica: '#86a965', africa: '#de4c4f', europe: '#d8854f', asia: '#eea638', oceania: '#8aabb0',
 };
 
-export function drawWorldChart(mapData, type, value) {
+const drawWorldChart = (mapData, type, value) => {
   // mapData = the spots on the map.
   // mapData should be in the form  [{code: 'AF', name: 'Afghanistan', value: 32358260, color: 'asia'}]
   let max = -Infinity;
@@ -330,3 +330,5 @@ export function drawWorldChart(mapData, type, value) {
   };
   return options;
 }
+
+export default drawWorldChart;
