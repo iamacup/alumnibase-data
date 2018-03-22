@@ -18,76 +18,61 @@ class BellCurve extends React.PureComponent {
       panel1ID: this.props.globalID + '1',
     };
   }
-
-  componentDidMount() {
-    $(() => {
+componentDidMount() {
+  $(() => {
       const google = window.google;
       google.charts.load('current', { packages: ['corechart'] });
-
-      // let stndDev = 1;
-      // let mean = 0;
-      // let xMin = -3;
-      // let xMax = 3.1;
-      // let xLeft = -2;
-      // let xRight = 1.25;
-
-      // const createArray = (xMin, xMax, xLeft, xRight, mean, stndDev) => {
-      //   let chartData = new Array([]);
-      //   let index = 0;
-      //   for (let i = xMin; i <= xMax; i += 0.1) {
-      //     chartData[index] = new Array(4);
-      //     chartData[index][0] = i;
-      //     // chartData[index][1] = jStat.normal.pdf(i, mean, stndDev);
-
-      //     if (i < xLeft || i > xRight) {
-      //       chartData[index][2] = false;
-      //     }
-      //     chartData[index][3] =
-      //       "opacity: 1; + color: #8064A2; + stroke-color: black; ";
-
-      //     index++;
-      //   }
-      //   console.log(chartData)
-      //   return chartData;
-      // }
-
-      const options = {
-        legend: { position: 'bottom' },
-        tooltip: { trigger: 'focus' },
-      };
+      
+      const string = 'opacity: 1; + color: #a6cee3; + stroke-color: #1c6cab;';
 
       const drawChart = () => {
-        const string = 'opacity: 1; + color: #a6cee3; + stroke-color: #1f78b4;';
-        const data = new google.visualization.DataTable();
-        data.addColumn('number', 'Salary');
+        var data = new google.visualization.DataTable();
+       data.addColumn('number', 'Salary');
         data.addColumn('number', 'People');
         data.addColumn({ type: 'boolean', role: 'scope' });
         data.addColumn({ type: 'string', role: 'style' });
         data.addRows([
-          [-3, 0.004, false, string],
-          [-1.5, 0.13, false, string],
-          [0, 0.399, true, string],
-          [1.5, 0.13, false, string],
-          [3, 0, false, string],
+          [10000, 130, false, string],
+          [20000, 329, false, string],
+          [30000, 931, true, string],
+          [40000, 300, false, string],
+          [50000, 100, false, string],
         ]);
 
-        // createArray(-3, 3.1, -2, 1.25, 0, 1));
+function createLine(x1, y1, x2, y2, color, w) {
+    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('stroke', color);
+    line.setAttribute('stroke-width', w);
+    return line;
+}
+
+function drawVAxisLine(chart,value){
+    var layout = chart.getChartLayoutInterface();
+    var chartArea = layout.getChartAreaBoundingBox();
+
+    var svg = chart.getContainer().getElementsByTagName('svg')[0];
+    var xLoc = layout.getXLocation(value)
+    svg.appendChild(createLine(xLoc,chartArea.top + chartArea.height,xLoc,chartArea.top,'#a4c0e5',4)); // axis line 
+}
 
 
-        const chart = new google.visualization.AreaChart(this.graphTarget1);
-
-        //   // listen for resize events
-        fireDebouncedResizeEvents();
-
-        //   // then listen for the events here
-        $(document).on('debouncedResizeEvent', () => {
-          //     // and redraw the charts
-          chart.draw(data, options);
-        });
-      };
+        const options = {
+            curveType: 'function',
+            lineWidth: 4,
+            legend: 'none',
+            tooltip: { trigger: 'focus' },
+        };
+        const chart = new google.visualization.LineChart(this.graphTarget1);
+        chart.draw(data, options);
+        drawVAxisLine(chart, 30000);
+      }
       google.charts.setOnLoadCallback(drawChart);
-    });
-  }
+    })
+}
 
   getImageDataForActiveGraph() {
     let $parent = $('#' + this.state.panel1ID);

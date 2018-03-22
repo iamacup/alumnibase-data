@@ -1,13 +1,10 @@
 const drawLineChart = (data, xLabel, yLabel) => {
   // data sould be in the form [{age: [], plotted: []}]
-  const colours = [{ gt: 0, lte: 2, color: '#88b7dc' }, { gt: 2, lte: 4, color: '#62a0d0' }, { gt: 4, lte: 6, color: '#3a88c4' }, { gt: 6, lte: 8, color: '#2f6d9d' }, { gt: 8, lte: 10, color: '#235175' }];
+  const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
   const options = {
-    visualMap: [{
-      show: false,
-      type: 'piecewise',
-      seriesIndex: 0,
-      pieces: colours,
-    }],
+    legend: {
+      data: data.name,
+    },
     tooltip: {
       trigger: 'item',
       axisPointer: {
@@ -57,23 +54,24 @@ const drawLineChart = (data, xLabel, yLabel) => {
         show: false,
       },
     }],
-    series: data.plotted.map(element => ({
+    series: data.plotted.map((element, i) => ({
+      name: data.name[i],
       type: 'line',
       itemStyle: {
         normal: {
-          color: '#235175',
+          color: colours[i],
           label: {
             show: true,
             position: 'top',
             formatter(p) {
               return p.value > 0 ? (p.value) : '';
-            },
-          },
-        },
+            }
+          }
+        }
       },
       smooth: true,
       data: element,
-    })),
+    }))
   };
   return options;
 };

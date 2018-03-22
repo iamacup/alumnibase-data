@@ -10,7 +10,7 @@ const drawAreaChart = (areaData, axis) => {
   } else {
     xlabel = axis;
     value = 'years';
-    if (areaData.length < 2) markline = { data: [{ yAxis: 30000, name: '' }] };
+    if (areaData.length < 2) markline = { data: [{ yAxis: 30000 }] };
     else markline = { data: [{ yAxis: 30000, name: '' }, { yAxis: 40000, name: '' }] };
   }
 
