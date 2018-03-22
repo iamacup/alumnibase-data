@@ -1,7 +1,8 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import echarts from 'echarts';
+// import echarts from 'echarts';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';

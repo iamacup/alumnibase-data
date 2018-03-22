@@ -20,7 +20,7 @@ import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 import Jobs1Page from '../../content/containers/Pages/Analytics/Jobs/1';
 
 import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
-import Salary2Page from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary';
+// import Salary2Page from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
 import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
 import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/overview';
