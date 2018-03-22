@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts, updateChartOptions } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawBoxplotChart } from '../../../../content/scripts/custom/echarts/drawBoxPlotChart';
+import drawBoxplotChart from '../../../../content/scripts/custom/echarts/drawBoxPlotChart';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -98,13 +98,13 @@ class Graph extends React.Component {
                 ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
               />
             </div>
-                     <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
+            <div className="text-right" style={{ marginTop: '26px' }}>
+              <h5>
+                <small>
                       Salary values when all responses are aggregated
-                    </small>
-                  </h5>
-                </div>
+                </small>
+              </h5>
+            </div>
           </div>
 
           <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>

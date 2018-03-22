@@ -1,6 +1,6 @@
 const colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
 
-export function drawNewBarChart(axisData, dataArray) {
+const drawNewBarChart = (axisData, dataArray) => {
   // axisData sould be in the form {x: [1, 2, 3], y: '%'}
   // dataArray sould be in the form [{name: 'string', data: []}]
   const options = {
@@ -13,7 +13,7 @@ export function drawNewBarChart(axisData, dataArray) {
     legend: {
       data: dataArray.map(data => data.name),
     },
-        grid: {
+    grid: {
       left: '3%',
       right: '4%',
       bottom: '3%',
@@ -41,4 +41,6 @@ export function drawNewBarChart(axisData, dataArray) {
     })),
   };
   return options;
-}
+};
+
+export default drawNewBarChart;

@@ -39,7 +39,7 @@ class App extends React.Component {
       // i thought we would need to do this but apparently not - calling htis actually seems to break things...
       // $(document).trigger('nifty.ready');
 
-      $(document).trigger('nifty.ready');    
+      $(document).trigger('nifty.ready');
     });
   }
 

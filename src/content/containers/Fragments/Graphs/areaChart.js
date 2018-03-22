@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawAreaChart } from '../../../../content/scripts/custom/echarts/drawAreaChart';
+import drawAreaChart from '../../../../content/scripts/custom/echarts/drawAreaChart';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -19,7 +19,11 @@ class Graph extends React.PureComponent {
   }
 
   componentDidMount() {
-    const options = drawAreaChart(this.props.data);
+    let axis = false;
+    if (this.props.axis.length > 1) axis = this.props.axis;
+
+    const options = drawAreaChart(this.props.data, axis);
+
     renderChartToTarget(this.graphTarget1, options);
   }
 
@@ -80,12 +84,12 @@ class Graph extends React.PureComponent {
             />
           </div>
           <div className="text-right" style={{ marginTop: '26px' }}>
-                  <h5>
-                    <small>
+            <h5>
+              <small>
                       Destinations and corresponding age values when all responses are aggregated
-                    </small>
-                  </h5>
-                </div>
+              </small>
+            </h5>
+          </div>
         </div>
         <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
       </div>
@@ -96,6 +100,7 @@ class Graph extends React.PureComponent {
 }
 
 Graph.propTypes = {
+  axis: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   data: PropTypes.any.isRequired,
   globalID: PropTypes.string.isRequired,

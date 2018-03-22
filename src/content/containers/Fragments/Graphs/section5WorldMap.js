@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { drawWorldChart } from '../../../../content/scripts/custom/echarts/drawWorldMap';
+import drawWorldChart from '../../../../content/scripts/custom/echarts/drawWorldMap';
 import worldMapData from './worldMapData';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -148,7 +148,7 @@ class Graph extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-                                 <div className="text-right" style={{ marginTop: '26px' }}>
+                <div className="text-right" style={{ marginTop: '26px' }}>
                   <h5>
                     <small>
                       All data based on filters above.

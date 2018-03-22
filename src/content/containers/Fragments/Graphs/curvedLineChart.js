@@ -1,14 +1,15 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+// eslint-disable jsx-a11y/anchor-is-valid
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import drawGroupedBarChart from '../../../../content/scripts/custom/echarts/drawBarChart';
+import { drawAreaChart } from '../../../../content/scripts/custom/echarts/drawAreaChart';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
-class GroupedBarChart extends React.PureComponent {
+class Graph extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -18,9 +19,40 @@ class GroupedBarChart extends React.PureComponent {
   }
 
   componentDidMount() {
-    const option1 = drawGroupedBarChart(this.props.titles, this.props.data, this.props.direction, this.props.value);
+    $(() => {
+      const google = window.google;
 
-    renderChartToTarget(this.graphTarget1, option1);
+      google.charts.load('current', { packages: ['corechart'] });
+
+      const drawChart = () => {
+        const data = google.visualization.DataTable();
+        data.addColumn('number', this.props.label[0]);
+        data.addColumn('number', this.props.label[1]);
+        data.addRows(this.props.data);
+        // ['under £20,000', 100],
+        // ['£20-29,000', 320],
+        // ['£30-39,000', 560],
+        // ['£40-49,000', 980],
+        // ['£50-59,000', 1120],
+        // ['£60-69,000', 980],
+        // ['£70-79,000', 560],
+        // ['£80-89,000', 320],
+        // ['£90,000+', 100]
+
+
+        const options = {
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          trendlines: { 0: {} },
+        };
+
+        const chart = new google.visualization.LineChart(this.graphTarget1);
+
+        chart.draw(data, options);
+      };
+
+      google.charts.setOnLoadCallback(drawChart);
+    });
   }
 
   getImageDataForActiveGraph() {
@@ -86,31 +118,27 @@ class GroupedBarChart extends React.PureComponent {
             <div className="text-right" style={{ marginTop: '26px' }}>
               <h5>
                 <small>
-                  {this.props.smallText}
+                      Salary values when all responses are aggregated
                 </small>
               </h5>
             </div>
           </div>
-
-          <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+          <a href="£" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
         </div>
       </div>
     );
   }
 }
 
-GroupedBarChart.propTypes = {
-  smallText: PropTypes.string.isRequired,
+Graph.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  titles: PropTypes.array.isRequired,
-  direction: PropTypes.string.isRequired,
-  data: PropTypes.any.isRequired,
+  data: PropTypes.array.isRequired,
+  label: PropTypes.string.isRequired,
   globalID: PropTypes.string.isRequired,
   reduxAction_doUpdate: PropTypes.func,
 };
 
-GroupedBarChart.defaultProps = {
+Graph.defaultProps = {
   reduxAction_doUpdate: () => {},
 };
 
@@ -120,4 +148,4 @@ const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (mainID, subID, data) => dispatch(storeAction.doUpdate(mainID, subID, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupedBarChart);
+export default connect(mapStateToProps, mapDispatchToProps)(Graph);
