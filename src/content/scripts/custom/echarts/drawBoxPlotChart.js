@@ -15,7 +15,7 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
 
   // the valueGapMaxMin is a value that will be added to the maximum and minimum values to provide spacing above and below the box plots
 
-if (colours) colourScheme = colours;
+  if (colours) colourScheme = colours;
 
   if (inData.length !== cats.length) {
     console.log('warning - number of categories is not the same as number of data items in drawBoxplotChart');

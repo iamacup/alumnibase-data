@@ -22,7 +22,7 @@ class Graph extends React.PureComponent {
   componentDidMount() {
     let axis = false;
 
-    if (this.props.axis.length > 1) ({ axis } = this.props.axis);
+    if (this.props.axis.length > 1) ({ axis } = this.props);
 
     const options = drawAreaChart(this.props.data, axis);
 
@@ -75,26 +75,32 @@ class Graph extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
+          <div className="panel-control">
+            <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
+          </div>
           <h3 className="panel-title">{this.props.title}</h3>
         </div>
-        <div className="panel-body" id={this.state.panel1ID}>
-          <div className="pad-all">
-            <div
-              className="echarts-graph"
-              style={{ width: '100%', height: '360px' }}
-              ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-            />
-          </div>
-          <div className="text-right" style={{ marginTop: '26px' }}>
-            <h5>
-              <small>
-                      Destinations and corresponding age values when all responses are aggregated
-              </small>
-            </h5>
-          </div>
-        </div>
+        <div className="collapse in">
 
-        <a href="#" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+          <div className="panel-body" id={this.state.panel1ID}>
+            <div className="pad-all">
+              <div
+                className="echarts-graph"
+                style={{ width: '100%', height: '360px' }}
+                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+              />
+            </div>
+            <div className="text-right" style={{ marginTop: '26px' }}>
+              <h5>
+                <small>
+                      Destinations and corresponding age values when all responses are aggregated
+                </small>
+              </h5>
+            </div>
+          </div>
+
+          <a href="#" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
+        </div>
       </div>
 
 

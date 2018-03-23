@@ -3,6 +3,7 @@ const drawAreaChart = (areaData, axis) => {
   let xlabel = [];
   let value = '';
   let markline = '';
+  // console.log(axis);
   if (!axis) {
     for (let i = 20; i < 51; i++) {
       xlabel.push(i);

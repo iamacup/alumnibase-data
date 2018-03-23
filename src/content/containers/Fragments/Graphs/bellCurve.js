@@ -5,9 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../content/scripts/custom/utilities';
-import { drawAreaChart } from '../../../../content/scripts/custom/echarts/drawAreaChart';
+import { redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -19,16 +17,16 @@ class BellCurve extends React.PureComponent {
       panel1ID: this.props.globalID + '1',
     };
   }
-componentDidMount() {
-  $(() => {
-      const google = window.google;
+  componentDidMount() {
+    $(() => {
+      const { google } = window;
       google.charts.load('current', { packages: ['corechart'] });
-      
+
       const string = 'opacity: 1; + color: #a6cee3; + stroke-color: #1c6cab;';
 
       const drawChart = () => {
-        var data = new google.visualization.DataTable();
-       data.addColumn('number', 'Salary');
+        const data = new google.visualization.DataTable();
+        data.addColumn('number', 'Salary');
         data.addColumn('number', 'People');
         data.addColumn({ type: 'boolean', role: 'scope' });
         data.addColumn({ type: 'string', role: 'style' });
@@ -40,40 +38,40 @@ componentDidMount() {
           [50000, 100, false, string],
         ]);
 
-function createLine(x1, y1, x2, y2, color, w) {
-    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', x1);
-    line.setAttribute('y1', y1);
-    line.setAttribute('x2', x2);
-    line.setAttribute('y2', y2);
-    line.setAttribute('stroke', color);
-    line.setAttribute('stroke-width', w);
-    return line;
-}
+        function createLine(x1, y1, x2, y2, color, w) {
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', x1);
+          line.setAttribute('y1', y1);
+          line.setAttribute('x2', x2);
+          line.setAttribute('y2', y2);
+          line.setAttribute('stroke', color);
+          line.setAttribute('stroke-width', w);
+          return line;
+        }
 
-function drawVAxisLine(chart,value){
-    var layout = chart.getChartLayoutInterface();
-    var chartArea = layout.getChartAreaBoundingBox();
+        function drawVAxisLine(chart, value) {
+          const layout = chart.getChartLayoutInterface();
+          const chartArea = layout.getChartAreaBoundingBox();
 
-    var svg = chart.getContainer().getElementsByTagName('svg')[0];
-    var xLoc = layout.getXLocation(value)
-    svg.appendChild(createLine(xLoc,chartArea.top + chartArea.height,xLoc,chartArea.top,'#a4c0e5',4)); // axis line 
-}
+          const svg = chart.getContainer().getElementsByTagName('svg')[0];
+          const xLoc = layout.getXLocation(value);
+          svg.appendChild(createLine(xLoc, chartArea.top + chartArea.height, xLoc, chartArea.top, '#a4c0e5', 4)); // axis line
+        }
 
 
         const options = {
-            curveType: 'function',
-            lineWidth: 4,
-            legend: 'none',
-            tooltip: { trigger: 'focus' },
+          curveType: 'function',
+          lineWidth: 4,
+          legend: 'none',
+          tooltip: { trigger: 'focus' },
         };
         const chart = new google.visualization.LineChart(this.graphTarget1);
         chart.draw(data, options);
         drawVAxisLine(chart, 30000);
-      }
+      };
       google.charts.setOnLoadCallback(drawChart);
-    })
-}
+    });
+  }
 
   getImageDataForActiveGraph() {
     let $parent = $('#' + this.state.panel1ID);

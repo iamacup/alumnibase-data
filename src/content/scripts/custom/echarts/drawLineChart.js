@@ -65,13 +65,13 @@ const drawLineChart = (data, xLabel, yLabel) => {
             position: 'top',
             formatter(p) {
               return p.value > 0 ? (p.value) : '';
-            }
-          }
-        }
+            },
+          },
+        },
       },
       smooth: true,
       data: element,
-    }))
+    })),
   };
   return options;
 };

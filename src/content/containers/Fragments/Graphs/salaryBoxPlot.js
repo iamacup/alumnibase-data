@@ -26,7 +26,7 @@ class Graph extends React.Component {
     $(() => {
       const { data } = this.props;
 
-      const colours = [['#ff7311', '#ffbb7d'], ['#d02224', '#ff8d8b'], ['#11293b', '#0b6623'], ['#1c6cab', '#a4c0e5']]
+      const colours = [['#ff7311', '#ffbb7d'], ['#d02224', '#ff8d8b'], ['#11293b', '#0b6623'], ['#1c6cab', '#a4c0e5']];
 
       const option1 = drawBoxplotChart(data[1].values, data[1].categories, 10000, colours[0]);
       const option2 = drawBoxplotChart(data[2].values, data[2].categories, 10000, colours[1]);
@@ -120,12 +120,12 @@ class Graph extends React.Component {
                   5 Years
                       </a>
                     </li>
-                       <li>
+                    <li>
                       <a data-toggle="tab" href={'#' + this.state.panel3ID} onClick={() => { this.clickGraph(); }}>
                   10 Years
                       </a>
                     </li>
-                       <li>
+                    <li>
                       <a data-toggle="tab" href={'#' + this.state.panel4ID} onClick={() => { this.clickGraph(); }}>
                   15 Years
                       </a>
@@ -142,65 +142,64 @@ class Graph extends React.Component {
                     </ul>
                   </div>
                 </div>
-                  
+
               </div>
 
               <div className="panel-body" style={{ paddingBottom: '0' }}>
- <div className="tab-content">
-            <div id={this.state.panel1ID} className="tab-pane fade in active">
-            <div className="pad-all">
-              <div
-                className="echarts-graph"
-                style={{ width: '100%', height: '360px' }}
-                ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
-              />
-            </div>
-            </div>
-              <div id={this.state.panel2ID} className="tab-pane fade">
-                         <div className="pad-all">
-                           <div
-                             className="echarts-graph"
-                             style={{ width: '100%', height: '360px' }}
-                             ref={(graphTarget2) => { this.graphTarget2 = graphTarget2; }}
-                           />
-                         </div>
-                       </div> 
+                <div className="tab-content">
+                  <div id={this.state.panel1ID} className="tab-pane fade in active">
+                    <div className="pad-all">
+                      <div
+                        className="echarts-graph"
+                        style={{ width: '100%', height: '360px' }}
+                        ref={(graphTarget1) => { this.graphTarget1 = graphTarget1; }}
+                      />
+                    </div>
+                  </div>
+                  <div id={this.state.panel2ID} className="tab-pane fade">
+                    <div className="pad-all">
+                      <div
+                        className="echarts-graph"
+                        style={{ width: '100%', height: '360px' }}
+                        ref={(graphTarget2) => { this.graphTarget2 = graphTarget2; }}
+                      />
+                    </div>
+                  </div>
 
-                          <div id={this.state.panel3ID} className="tab-pane fade">
-                         <div className="pad-all">
-                           <div
-                             className="echarts-graph"
-                             style={{ width: '100%', height: '360px' }}
-                             ref={(graphTarget3) => { this.graphTarget3 = graphTarget3; }}
-                           />
-                         </div>
-                       </div> 
-                             <div id={this.state.panel4ID} className="tab-pane fade">
-                         <div className="pad-all">
-                           <div
-                             className="echarts-graph"
-                             style={{ width: '100%', height: '360px' }}
-                             ref={(graphTarget4) => { this.graphTarget4 = graphTarget4; }}
-                           />
-                         </div>
-                       </div> 
-                      </div> 
+                  <div id={this.state.panel3ID} className="tab-pane fade">
+                    <div className="pad-all">
+                      <div
+                        className="echarts-graph"
+                        style={{ width: '100%', height: '360px' }}
+                        ref={(graphTarget3) => { this.graphTarget3 = graphTarget3; }}
+                      />
+                    </div>
+                  </div>
+                  <div id={this.state.panel4ID} className="tab-pane fade">
+                    <div className="pad-all">
+                      <div
+                        className="echarts-graph"
+                        style={{ width: '100%', height: '360px' }}
+                        ref={(graphTarget4) => { this.graphTarget4 = graphTarget4; }}
+                      />
+                    </div>
+                  </div>
+                </div>
 
-            <div className="text-right" style={{ marginTop: '26px' }}>
-              <h5>
-                <small>
+                <div className="text-right" style={{ marginTop: '26px' }}>
+                  <h5>
+                    <small>
                       Salary values when all responses are aggregated
-                </small>
-              </h5>
-                                                </div> 
-                       </div>  
-          <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
-        
+                    </small>
+                  </h5>
+                </div>
+              </div>
+              <a href="" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
 
 
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
       </div>
     );
   }
