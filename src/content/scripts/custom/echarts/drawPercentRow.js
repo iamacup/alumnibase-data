@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const getPercentRow = (title, percentage, bottomMargin) => {
+const getPercentRow = (title, percentage, bottomMargin) => {
   const barStyle = { height: '4px' };
 
   if (bottomMargin === false) {
@@ -38,4 +38,4 @@ export const getPercentRow = (title, percentage, bottomMargin) => {
   return obj;
 };
 
-// export default getPercentRow;
+export default getPercentRow;

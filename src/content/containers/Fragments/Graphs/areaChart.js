@@ -21,7 +21,7 @@ class Graph extends React.PureComponent {
 
   componentDidMount() {
     let axis = false;
-
+    console.log(this.props.axis, '*********');
     if (this.props.axis.length > 1) ({ axis } = this.props.axis);
 
     const options = drawAreaChart(this.props.data, axis);

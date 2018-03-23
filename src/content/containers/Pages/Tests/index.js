@@ -15,7 +15,7 @@ import BasicPanel from '../../../../content/components/BasicPanel';
 import TabbedGraphPanel from '../../../../content/components/TabbedGraphPanel';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
- 
+
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
