@@ -15,7 +15,7 @@ import BasicPanel from '../../../../content/components/BasicPanel';
 import TabbedGraphPanel from '../../../../content/components/TabbedGraphPanel';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
- 
+
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
@@ -122,10 +122,24 @@ class Page extends React.PureComponent {
                       content: <p>This is tab 1 content - remember, there is an optional callback in case you need to handle clicked buttons (like redrawing the graph content or something)</p>,
                       active: true,
                       clickCallback: () => { console.log('tab 1 is clicked on'); },
-                      type: 'echarts',
-                      allowDownload: true,
-                      seeData: true,
-                      pinGraph: true,
+                      graphData: {
+                        type: 'echarts',
+                        allowDownload: true,
+                        seeData: true,
+                        pinGraph: true,
+                      },
+                    },
+                    {
+                      title: 'This is tab 2',
+                      content: <p>This is tab 2 content </p>,
+                      active: false,
+                      clickCallback: () => { console.log('tab 2 is clicked on'); },
+                      graphData: {
+                        type: 'echarts',
+                        allowDownload: true,
+                        seeData: true,
+                        pinGraph: true,
+                      },
                     },
                   ]}
                   seperator
