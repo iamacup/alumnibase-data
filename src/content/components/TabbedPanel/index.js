@@ -41,7 +41,7 @@ class CollapsablePanel extends React.PureComponent {
 
     content.forEach((value, index) => {
       const tmp = (
-        <div id={'tab-factory-id-' + this.state.id + '-' + index} className={value.active === true ? 'tab-pane fade in active' : 'tab-pane fade'}>
+        <div key={index + 'tab'} id={'tab-factory-id-' + this.state.id + '-' + index} className={value.active === true ? 'tab-pane fade in active' : 'tab-pane fade'}>
           {value.content}
         </div>
       );

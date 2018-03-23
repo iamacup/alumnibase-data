@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import echarts from 'echarts';
 
-import { dNc } from '../../../content/scripts/custom/utilities';
+import { dNc, fireDebouncedResizeEvents } from '../../../content/scripts/custom/utilities';
+
+import { redrawCharts } from '../../../content/scripts/custom/echarts/utilities';
 
 import * as storeAction from '../../../foundation/redux/globals/DataStoreSingle/actions';
 
@@ -38,8 +40,10 @@ class App extends React.Component {
       // we do this to make sure that when start things, the nifty things execute
       // i thought we would need to do this but apparently not - calling htis actually seems to break things...
       // $(document).trigger('nifty.ready');
-
       $(document).trigger('nifty.ready');
+
+      // fire resize events
+      fireDebouncedResizeEvents();
     });
   }
 

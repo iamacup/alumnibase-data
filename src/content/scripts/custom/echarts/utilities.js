@@ -50,21 +50,47 @@ export function renderChartToTarget(domTarget, optionsObject) {
 
 export function redrawCharts() {
   $('.' + echartsGraphClass).each((index, vertex) => {
-    const domTarget = $(vertex).get(0);
+    const domNode = $(vertex).get(0);
 
-    const myChart = echarts.getInstanceByDom(domTarget);
+    if(dNc(domNode)) {
+      const myChart = echarts.getInstanceByDom(domNode);
+
+      if (dNc(myChart) && dNc(myChart.resize)) {
+        myChart.resize();
+      }
+    }
+  });
+}
+
+export function redrawChart(domTarget) {
+  const { jQueryDomNode, domNode } = getNodes(domTarget);
+
+  if(dNc(domNode)) {
+    const myChart = echarts.getInstanceByDom(domNode);
 
     if (dNc(myChart) && dNc(myChart.resize)) {
       myChart.resize();
+      return true;
     }
-  });
+  }
+
+  return false;
+}
+
+export function drawOrRedrawChart(domTarget, optionsObject) {
+  if (redrawChart(domTarget) === false) {
+    renderChartToTarget(domTarget, optionsObject);
+  }
 }
 
 export function updateChartOptions(domTarget, optionsObject) {
   const { domNode } = getNodes(domTarget);
 
-  // do the update
-  const myChart = echarts.getInstanceByDom(domNode);
-  myChart.setOption(optionsObject);
-  return myChart;
+  if(dNc(domNode)) {
+    const myChart = echarts.getInstanceByDom(domNode);
+    myChart.setOption(optionsObject);
+    return myChart;
+  }
+
+  return null;
 }
