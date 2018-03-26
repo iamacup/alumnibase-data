@@ -12,6 +12,17 @@ import BarChart from '../../../../content/containers/Fragments/Graphs/groupedBar
 import WorldMap from '../../../../content/containers/Fragments/Graphs/section5WorldMap';
 import Sankey from '../../../../content/containers/Fragments/Graphs/sankey';
 
+import TabbedGraphPanel from '../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../content/components/BasicPanel';
+
+import drawNewPieChart from '../../../../content/scripts/custom/echarts/drawPieChart';
+import drawGroupedBarChart from '../../../../content/scripts/custom/echarts/drawBarChart';
+import drawSankeyChart from '../../../../content/scripts/custom/googlecharts/sankey';
+import drawWorldMap from '../../../../content/scripts/custom/echarts/drawWorldMap';
+import worldMapData from '../../../../content/containers/Fragments/Graphs/worldMapData';
+
+import { renderChartToTarget } from '../../../../content/scripts/custom/echarts/utilities';
+
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 class Page extends React.PureComponent {
@@ -224,6 +235,475 @@ class Page extends React.PureComponent {
     });
   }
 
+  getEthnicitySplitGraph() {
+    const data = [
+      { name: 'White', value: 40 },
+      { name: 'Chinese', value: 20 },
+      { name: 'Mixed/ Other', value: 10 },
+      { name: 'Asian', value: 20 },
+      { name: 'Black', value: 10 },
+    ];
+    const label = false;
+    const chart = 'pie';
+    const alignment = true;
+
+    const options = drawNewPieChart(data, label, chart, alignment);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Ethnicity split"
+        globalID="overview-1"
+        content={[
+            {
+              title: '',
+              active: true,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getGenderSplitGraph() {
+    const data = [
+      { name: 'Male', value: 55 },
+      { name: 'Female', value: 40 },
+      { name: 'Other', value: 5 },
+    ];
+    const label = true;
+    const chart = 'doughnut';
+    const alignment = true;
+
+    const options = drawNewPieChart(data, label, chart, alignment);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Gender split"
+        globalID="overview-2"
+        content={[
+            {
+              title: '',
+              active: true,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getReligionSplitGraph() {
+    const data = [
+      { name: 'No Religion', value: 1000 },
+      { name: 'Christian', value: 700 },
+      { name: 'Buddhist', value: 200 },
+      { name: 'Hindu', value: 400 },
+      { name: 'Jewish', value: 600 },
+      { name: 'Muslim', value: 600 },
+      { name: 'Sikh', value: 400 },
+
+    ];
+    const label = true;
+    const chart = 'pie';
+    const alignment = true;
+
+    const options = drawNewPieChart(data, label, chart, alignment);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Religion split"
+        globalID="overview-8"
+        content={[
+            {
+              title: '',
+              active: true,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getDisabilitySplitGraph() {
+    const data = [
+      { name: 'No disability specified', value: 700 },
+      { name: 'Disability declared', value: 400 },
+    ];
+    const label = false;
+    const chart = 'doughnut';
+    const alignment = false;
+
+    const options = drawNewPieChart(data, label, chart, alignment);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Disability split"
+        globalID="overview-5"
+        content={[
+            {
+              title: '',
+              active: true,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getTotalResponsesPerYearGroup() {
+    const titles = ['2012', '2013', '2014', '2015', '2016', '2017'];
+    const data = [
+      { data: [980, 800, 975, 678, 708, 1020] },
+    ];
+    const direction = 'horizontal';
+    const value = '';
+
+    const options = drawGroupedBarChart(titles, data, direction, value);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Total Responses per Year Group"
+        globalID="overview-3"
+        content={[
+            {
+              title: '',
+              active: true,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getAgeDistribution() {
+    const titles = ['under 25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56+'];
+    const data = [
+      { data: [456, 1000, 793, 578, 654, 543, 308, 123] },
+    ];
+    const direction = 'vertical';
+    const value = '';
+
+    const options = drawGroupedBarChart(titles, data, direction, value);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Total Responses per Age"
+        globalID="overview-4"
+        content={[
+            {
+              title: '',
+              active: true,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getSubjectResponseRates() {
+    const reactData = (
+      <div className="table-responsive">
+        <table className="table">
+          <thead>
+            <tr>
+              <th className="text-center">#</th>
+              <th>Course</th>
+              <th>Respondants</th>
+              <th>Subject Area</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="text-center">1</td>
+              <td><a href="#" className="btn-link">Criminology and Law</a></td>
+              <td><span className="text-muted">500</span></td>
+              <td><span className="label label-purple">Social Sciences</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">2</td>
+              <td><a href="#" className="btn-link">Politics, Philosophy and Economics</a></td>
+              <td><span className="text-muted">467</span></td>
+              <td><span className="label label-purple">Social Sciences</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">3</td>
+              <td><a href="#" className="btn-link">Environmental Science</a></td>
+              <td><span className="text-muted">421</span></td>
+              <td><span className="label label-success">Environment & Development</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">4</td>
+              <td><a href="#" className="btn-link">Economics</a></td>
+              <td><span className="text-muted">398</span></td>
+              <td><span className="label label-info">Mathematics</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">5</td>
+              <td><a href="#" className="btn-link">Computing & IT</a></td>
+              <td><span className="text-muted">340</span></td>
+              <td><span className="label label-info">Mathematics</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">6</td>
+              <td><a href="#" className="btn-link">Medicine & Surgery</a></td>
+              <td><span className="text-muted">278</span></td>
+              <td><span className="label label-danger">Medical Sciences</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">7</td>
+              <td><a href="#" className="btn-link">Classical Studies</a></td>
+              <td><span className="text-muted">265</span></td>
+              <td><span className="label label-warning">Arts & Humanities</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">8</td>
+              <td><a href="#" className="btn-link">History</a></td>
+              <td><span className="text-muted">254</span></td>
+              <td><span className="label label-warning">Arts & Humanities</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">9</td>
+              <td><a href="#" className="btn-link">English Literature</a></td>
+              <td><span className="text-muted">242</span></td>
+              <td><span className="label label-warning">Arts & Humanities</span></td>
+            </tr>
+            <tr>
+              <td className="text-center">10</td>
+              <td><a href="#" className="btn-link">Art History</a></td>
+              <td><span className="text-muted">238</span></td>
+              <td><span className="label label-warning">Arts & Humanities</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Top 10 responses per subject"
+        globalID="overview-6"
+        content={[
+            {
+              title: '',
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              active: true,
+              graphData: {
+                type: 'react',
+                width: '100%',
+                height: '100%',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                data: {
+                  reactData,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getResponseLocations() {
+    const propsDataOne = [{ name: 'United States of America', value: 60000 }, { name: 'United Kingdom', value: 60000 }, { name: 'Zimbabwe', value: 20 }, { name: 'South Africa', value: 50 }, { name: 'India', value: 8000 }, { name: 'Italy', value: 109550 }, { name: 'Germany', value: 900 }, { name: 'Canada', value: 679 }, { name: 'France', value: 67468 }, { name: 'Spain', value: 674 }, { name: 'China', value: 67468 }, { name: 'Australia', value: 679 }];
+    const propsDataTwo = [{ name: 'United States of America', value: 10 }, { name: 'United Kingdom', value: 60000 }, { name: 'India', value: 4000 }, { name: 'Italy', value: 2000 }, { name: 'Germany', value: 3000 }, { name: 'Canada', value: 8000 }, { name: 'France', value: 7000 }, { name: 'Spain', value: 3050 }, { name: 'China', value: 3000 }, { name: 'Australia', value: 6000 }];
+
+    const data1 = propsDataOne.map(element => ({
+      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
+    }));
+
+    const data2 = propsDataTwo.map(element => ({
+      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
+    }));
+
+    const options1 = drawWorldMap(data1, 'map', 'People');
+    const options2 = drawWorldMap(data2, 'map', 'People');
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Responses mapped to location"
+        globalID="overview-7"
+        content={[
+            {
+              title: 'Responses based on country of birth',
+              active: true,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '450px',
+                data: {
+                  options: options1,
+                },
+              },
+            },
+            {
+              title: 'Responses based on current country',
+              active: false,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '450px',
+                data: {
+                  options: options2,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getTopPanel() {
+    const panelContent = (
+      <div className="pad-all">
+        <div className="text-center">
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="text-lg"><p className="text-5x text-thin text-main mar-no">45,683</p></div>
+              <p className="text-sm">Total responses</p>
+            </div>
+            <div className="col-sm-6">
+              <div className="text-lg"><p className="text-5x text-thin text-main mar-no">37%</p></div>
+              <p className="text-sm">Response rate</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    const panel = (
+      <BasicPanel
+        content={panelContent}
+      />
+    );
+
+    return panel;
+  }
+
   render() {
     const content = (
       <div id="page-content">
@@ -297,381 +777,70 @@ class Page extends React.PureComponent {
             {/* <!--Page content--> */}
             {/* <!--===================================================--> */}
 
+            <div className="row">
+              <div className="col-sm-10 col-sm-push-1">
+                {this.getTopPanel()}
+              </div>
+            </div>
+
+            <h3 className="text-main text-normal text-2x mar-no">Response demographics</h3>
+            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <hr className="new-section-xs" />
 
             <div className="row">
-
-              <div className="col-sm-6 col-sm-push-3">
-
-                {/* <!-- Donut Chart --> */}
-                {/* <!----------------------------------> */}
-
-                <div className="panel" >
-                  <div className="panel-heading">
-                    <div className="panel-control">
-                      <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
-                    </div>
-                    <h3 className="panel-title">Responses</h3>
-                  </div>
-                  <div className="collapse in">
-                    <div className="panel-body">
-                      <div className="pad-all">
-                        <div className="text-center p-5">
-                          <h1>45,683</h1>
-                          <h2>Total Responses</h2>
-                          <br />
-                          <h1>37% </h1>
-                          <h2>Response Rate</h2>
-                        </div>
-                      </div>
-                    </div>
-                    <a href="#" className="hidden" ref={(downloadLink) => { this.downloadLink = downloadLink; }} > Download Holder </a>
-                  </div>
-                </div>
-                {/* <!----------------------------------> */}
-
+              <div className="col-md-6">
+                {this.getGenderSplitGraph()}
               </div>
 
+              <div className="col-md-6">
+                {this.getEthnicitySplitGraph()}
+              </div>
             </div>
 
             <div className="row">
               <div className="col-md-6">
-
-                {/* <!-- Donut Chart --> */}
-                {/* <!----------------------------------> */}
-                <div className="panel">
-                  <div className="panel-body">
-                    <PieChart
-                      title="Gender Split"
-                      label
-                      alignment
-                      chart="doughnut"
-                      data={[
-                      { name: 'Male', value: 55 },
-                      { name: 'Female', value: 40 },
-                      { name: 'Other', value: 5 },
-                    ]}
-                      globalID="overview-pie-2"
-                    />
-                  </div>
-                </div>
-                {/* <!----------------------------------> */}
-
+                {this.getDisabilitySplitGraph()}
               </div>
-
               <div className="col-md-6">
-                {/* <!-- Donut Chart --> */}
-                {/* <!----------------------------------> */}
-                <div className="panel">
-                  <div className="panel-body">
-                    <PieChart
-                      title="Ethnicity Split"
-                      label={false}
-                      alignment
-                      chart="pie"
-                      data={[
-                      { name: 'White', value: 40 },
-                      { name: 'Chinese', value: 20 },
-                      { name: 'Mixed/ Other', value: 10 },
-                      { name: 'Asian', value: 20 },
-                      { name: 'Black', value: 10 },
-                    ]}
-                      globalID="overview-pie-3"
-                    />
-                  </div>
-                </div>
+                {this.getReligionSplitGraph()}
               </div>
             </div>
-            {/* <!----------------------------------> */}
+
+            <h3 className="text-main text-normal text-2x mar-no">Response age and year groupings</h3>
+            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <hr className="new-section-xs" />
 
             <div className="row">
               <div className="col-md-6">
-
-
-                {/* <!-- Area Chart --> */}
-                {/* <!----------------------------------> */}
-                <div className="panel">
-                  <div className="pad-all">
-                    <BarChart
-                      title="Total Responses per Year Group"
-                      value=""
-                      titles={['2012', '2013', '2014', '2015', '2016', '2017']}
-                      direction="horizontal"
-                      data={[
-                      { data: [980, 800, 975, 678, 708, 1020] },
-                      ]}
-                      globalID="overview-bar-1"
-                    />
-                  </div>
-                </div>
-                {/* <!----------------------------------> */}
-
-
+                {this.getTotalResponsesPerYearGroup()}
               </div>
-              <div className="col-md-6">
-
-                {/* <!-- Line Chart --> */}
-                {/* <!----------------------------------> */}
-                <div className="panel">
-                  <div className="pad-all">
-                    <BarChart
-                      title="Age distribution of respondants"
-                      value=""
-                      titles={['under 25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56+']}
-                      direction="vertical"
-                      data={[
-                      { data: [456, 1000, 793, 578, 654, 543, 308, 123] },
-                      ]}
-                      globalID="overview-bar-2"
-                    />
-                  </div>
-                </div>
-                {/* <!----------------------------------> */}
-
-
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-7">
-
-
-                {/* <!-- Bar Chart --> */}
-                {/* <!----------------------------------> */}
-                <div className="panel">
-                  <div className="panel-body">
-                    <Sankey
-                      title="Subject Breakdown Split"
-                      columns={[['string', 'From'], ['string', 'To'], ['number', 'Weight']]}
-                      rows={[
-       ['POLAR3 area', 'Engineering', 1],
-       ['POLAR3 area', 'Business and Legal', 1],
-       ['POLAR3 area', 'Computer science', 1],
-       ['POLAR3 area', 'English', 1],
-       ['POLAR3 area', 'Medicine', 1],
-       ['POLAR3 area', 'Politics, philosophy & theology', 1],
-       ['POLAR3 area', 'Psychology and sociology', 2],
-       ['POLAR3 area', 'Sciences', 1],
-       ['non-POLAR3 area', 'Architecture', 11],
-       ['non-POLAR3 area', 'Engineering', 8],
-       ['non-POLAR3 area', 'Business and Legal', 9],
-       ['non-POLAR3 area', 'Computer science', 5],
-       ['non-POLAR3 area', 'Creative arts', 5],
-       ['non-POLAR3 area', 'English', 4],
-       ['non-POLAR3 area', 'History', 5],
-       ['non-POLAR3 area', 'Medicine', 7],
-       ['non-POLAR3 area', 'Politics, philosophy & theology', 8],
-       ['non-POLAR3 area', 'Psychology and sociology', 6],
-       ['non-POLAR3 area', 'Sciences', 9],
-       ['non-POLAR3 area', 'Agriculture', 8],
-       ['Creative arts', 'under £20,000', 2],
-       ['Creative arts', '£20-30,000', 3],
-       ['Architecture', '£20-30,000', 3],
-       ['Architecture', '£30-40,000', 3],
-       ['Architecture', '£40-50,000', 3],
-       ['Architecture', '£50+', 2],
-       ['Engineering', '£20-30,000', 3],
-       ['Engineering', '£30-40,000', 4],
-       ['Engineering', '£40-50,000', 1],
-       ['Engineering', '£50+', 1],
-       ['Business and Legal', '£20-30,000', 4],
-       ['Business and Legal', '£30-40,000', 4],
-       ['Business and Legal', '£40-50,000', 1],
-       ['Business and Legal', '£50+', 1],
-       ['Computer science', '£20-30,000', 3],
-       ['Computer science', '£30-40,000', 3],
-       ['English', 'under £20,000', 2],
-       ['English', '£20-30,000', 2],
-       ['English', '£30-40,000', 1],
-       ['History', 'under £20,000', 2],
-       ['History', '£20-30,000', 2],
-       ['History', '£30-40,000', 1],
-       ['Medicine', '£20-30,000', 2],
-       ['Medicine', '£30-40,000', 3],
-       ['Medicine', '£40-50,000', 2],
-       ['Medicine', '£50+', 1],
-       ['Politics, philosophy & theology', 'under £20,000', 2],
-       ['Politics, philosophy & theology', '£20-30,000', 4],
-       ['Politics, philosophy & theology', '£30-40,000', 3],
-       ['Psychology and sociology', 'under £20,000', 1],
-       ['Psychology and sociology', '£20-30,000', 4],
-       ['Psychology and sociology', '£30-40,000', 2],
-       ['Psychology and sociology', '£40-50,000', 1],
-       ['Sciences', '£20-30,000', 3],
-       ['Sciences', '£30-40,000', 3],
-       ['Sciences', '£40-50,000', 2],
-       ['Sciences', '£50+', 1],
-       ['Agriculture', 'under £20,000', 1],
-       ['Agriculture', '£20-30,000', 3],
-       ['Agriculture', '£30-40,000', 3],
-       ['Agriculture', '£40-50,000', 1],
-    ]}
-                      globalID="overview-sankey-1"
-                    />
-                  </div>
-                </div>
-                {/* <!----------------------------------> */}
-
-
-              </div>
-              <div className="col-md-5">
-
-
-                {/* <!-- Donut Chart --> */}
-                {/* <!----------------------------------> */}
-                <div className="panel">
-                  <div className="panel-body">
-                    <PieChart
-                      title="Disability Split"
-                      label
-                      alignment
-                      chart="doughnut"
-                      data={[
-                      { name: 'No disability specified', value: 700 },
-                      { name: 'Disability declared', value: 400 },
-                    ]}
-                      globalID="overview-pie-1"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <!----------------------------------> */}
-            <div className="row">
-
-              {/* <!-- Morris JS Full Content --> */}
-              {/* <!----------------------------------> */}
-              <div className="panel">
-                <div className="panel-body">
-                  <WorldMap
-                    title1="Alumni Country of Origin"
-                    title2="Alumni Destinations"
-                    globalID="world-chart"
-                  />
-                </div>
-              </div>
-              {/*  <!----------------------------------> */}
-            </div>
-
-            <div className="row">
-
-              {/* <!--Bordered Table--> */}
-              {/* <!--===================================================--> */}
-              <div className="col-md-6">
-                <div className="panel">
-
-                  <div className="panel">
-                    <div className="panel-heading">
-                      <h3 className="panel-title">Top 10 Subject Respondant List</h3>
-                    </div>
-                    <div className="panel-body">
-                      <div className="table-responsive">
-                        <table className="table">
-                          <thead>
-                            <tr>
-                              <th className="text-center">#</th>
-                              <th>Course</th>
-                              <th>Respondants</th>
-                              <th>Subject</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td className="text-center">1</td>
-                              <td><a href="#" className="btn-link">Criminology and Law</a></td>
-                              <td><span className="text-muted">500</span></td>
-                              <td><span className="label label-purple">Social Sciences</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">2</td>
-                              <td><a href="#" className="btn-link">Politics, Philosophy and Economics</a></td>
-                              <td><span className="text-muted">467</span></td>
-                              <td><span className="label label-purple">Social Sciences</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">3</td>
-                              <td><a href="#" className="btn-link">Environmental Science</a></td>
-                              <td><span className="text-muted">421</span></td>
-                              <td><span className="label label-success">Environment & Development</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">4</td>
-                              <td><a href="#" className="btn-link">Economics</a></td>
-                              <td><span className="text-muted">398</span></td>
-                              <td><span className="label label-info">Mathematics</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">5</td>
-                              <td><a href="#" className="btn-link">Computing & IT</a></td>
-                              <td><span className="text-muted">340</span></td>
-                              <td><span className="label label-info">Mathematics</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">6</td>
-                              <td><a href="#" className="btn-link">Medicine & Surgery</a></td>
-                              <td><span className="text-muted">278</span></td>
-                              <td><span className="label label-danger">Medical Sciences</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">7</td>
-                              <td><a href="#" className="btn-link">Classical Studies</a></td>
-                              <td><span className="text-muted">265</span></td>
-                              <td><span className="label label-warning">Arts & Humanities</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">8</td>
-                              <td><a href="#" className="btn-link">History</a></td>
-                              <td><span className="text-muted">254</span></td>
-                              <td><span className="label label-warning">Arts & Humanities</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">9</td>
-                              <td><a href="#" className="btn-link">English Literature</a></td>
-                              <td><span className="text-muted">242</span></td>
-                              <td><span className="label label-warning">Arts & Humanities</span></td>
-                            </tr>
-                            <tr>
-                              <td className="text-center">10</td>
-                              <td><a href="#" className="btn-link">Art History</a></td>
-                              <td><span className="text-muted">238</span></td>
-                              <td><span className="label label-warning">Arts & Humanities</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* <!--===================================================--> */}
-              {/* <!--End Bordered Table--> */}
 
               <div className="col-md-6">
-                {/* <!-- Donut Chart --> */}
-                {/* <!----------------------------------> */}
-                <div className="panel">
-                  <div className="panel-body">
-                    <PieChart
-                      title="Religion Split"
-                      label
-                      alignment
-                      chart="pie"
-                      data={[
-                      { name: 'No Religion', value: 1000 },
-                      { name: 'Christian', value: 700 },
-                      { name: 'Buddhist', value: 200 },
-                      { name: 'Hindu', value: 400 },
-                      { name: 'Jewish', value: 600 },
-                      { name: 'Muslim', value: 600 },
-                      { name: 'Sikh', value: 400 },
-
-                    ]}
-                      globalID="overview-pie-4"
-                    />
-                  </div>
-                </div>
+                {this.getAgeDistribution()}
               </div>
-              {/* <!----------------------------------> */}
             </div>
+
+            <h3 className="text-main text-normal text-2x mar-no">Subject response rates</h3>
+            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <hr className="new-section-xs" />
+
+            <div className="row">
+              <div className="col-md-12">
+                {this.getSubjectResponseRates()}
+              </div>
+            </div>
+
+            <h3 className="text-main text-normal text-2x mar-no">Location data</h3>
+            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <hr className="new-section-xs" />
+
+            <div className="row">
+              <div className="col-md-12">
+                {this.getResponseLocations()}
+              </div>
+            </div>
+
+
             {/* <!--===================================================--> */}
             {/* <!--End page content--> */}
           </div>

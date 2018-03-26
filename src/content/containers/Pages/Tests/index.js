@@ -272,6 +272,8 @@ class Page extends React.PureComponent {
               active: false,
               graphData: {
                 type: 'react',
+                width: '100%',
+                height: '100%',
                 tools: {
                   allowDownload: false,
                   seeData: false,

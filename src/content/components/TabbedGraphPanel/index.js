@@ -96,16 +96,18 @@ class TabbedGraphPanel extends React.PureComponent {
       }
     };
 
-    // when everything is loaded
-    $(() => {
-      drawGraphs();
-
-      // and when we resize
-      $(document).on('debouncedResizeEvent', () => {
-        // we resize the current graph on screen
+    if (content[this.state.currentActive].graphData.type !== 'react') {
+      // when everything is loaded
+      $(() => {
         drawGraphs();
+
+        // and when we resize
+        $(document).on('debouncedResizeEvent', () => {
+          // we resize the current graph on screen
+          drawGraphs();
+        });
       });
-    });
+    }
   }
 
   getTabTitles() {

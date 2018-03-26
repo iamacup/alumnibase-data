@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { renderChartToTarget, redrawCharts } from '../../../../content/scripts/custom/echarts/utilities';
-import drawWorldChart from '../../../../content/scripts/custom/echarts/drawWorldMap';
+import drawWorldMap from '../../../../content/scripts/custom/echarts/drawWorldMap';
 import worldMapData from './worldMapData';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreMulti/actions';
 
@@ -33,8 +33,8 @@ class Graph extends React.PureComponent {
       code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
     }));
 
-    renderChartToTarget(this.graphTarget1, drawWorldChart(data1, 'map', 'People'));
-    renderChartToTarget(this.graphTarget2, drawWorldChart(data2, 'map', 'People'));
+    renderChartToTarget(this.graphTarget1, drawWorldMap(data1, 'map', 'People'));
+    renderChartToTarget(this.graphTarget2, drawWorldMap(data2, 'map', 'People'));
   }
 
   getImageDataForActiveGraph() {
