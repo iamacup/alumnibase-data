@@ -7,6 +7,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
@@ -235,11 +236,13 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the survey respondents
-              </div>
-            </div>
+            <BasicPanel
+              content={
+                <p>
+                  Data from section 5 of the respondent survey is collated here. <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the survey respondents
+                </p>
+              }
+            />
           </div>
         </div>
 

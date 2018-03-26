@@ -6,6 +6,7 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
@@ -182,14 +183,16 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. For ease of access this data is split into three areas: <br /><br />
-                <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life, <br />
-                <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the respondent and; <br />
-                <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
-              </div>
-            </div>
+            <BasicPanel
+              content={
+                <p>
+                  Data from section 5 of the respondent survey is collated here. For ease of access this data is split into three areas: <br /><br />
+                  <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life, <br />
+                  <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the respondent and; <br />
+                  <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
+                </p>
+              }
+            />
           </div>
         </div>
 
