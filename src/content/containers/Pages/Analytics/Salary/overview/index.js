@@ -199,8 +199,8 @@ class Page extends React.PureComponent {
               label={['Time After Graduating (years)', 'Salary']}
               data={{
                          age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                         name: ['Average'],
-                         plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000]],
+                         name: ['University Average', 'National Average'],
+                         plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000], [16000, 18000, 23000, 27000, 32000, 34000, 36000, 40000, 45000, 50000]],
                        }}
             />
             <SalaryLineGraph
