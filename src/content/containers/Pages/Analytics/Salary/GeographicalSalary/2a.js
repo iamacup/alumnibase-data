@@ -7,21 +7,16 @@ import { connect } from 'react-redux';
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
-
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import WorldMap from '../../../../../../content/containers/Fragments/Graphs/section5WorldMap';
 
+import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
+import drawWorldMap from '../../../../../../content/scripts/custom/echarts/drawWorldMap';
+import worldMapData from '../../../../../../content/containers/Fragments/Graphs/worldMapData';
+
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showNationalAverage: false,
-    };
-  }
-
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -45,38 +40,73 @@ class Page extends React.PureComponent {
     });
 
     $(() => {
-      // listen for resize events
-      fireDebouncedResizeEvents();
-
-      // then listen for the events here
-      $(document).on('debouncedResizeEvent', () => {
-        redrawCharts();
-      });
-
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
   }
 
-  getImageDataForActiveGraph() {
-    let $parent = $('#' + this.state.panel1ID);
+  getMap() {
+    // area chart stuff
+    const propsDataOne = [{ name: 'United States of America', value: 60000 }, { name: 'United Kingdom', value: 60000 }, { name: 'Zimbabwe', value: 20 }, { name: 'South Africa', value: 50 }, { name: 'India', value: 8000 }, { name: 'Italy', value: 109550 }, { name: 'Germany', value: 900 }, { name: 'Canada', value: 679 }, { name: 'France', value: 67468 }, { name: 'Spain', value: 674 }, { name: 'China', value: 67468 }, { name: 'Australia', value: 679 }];
+    const propsDataTwo = [{ name: 'United States of America', value: 10 }, { name: 'United Kingdom', value: 60000 }, { name: 'India', value: 4000 }, { name: 'Italy', value: 2000 }, { name: 'Germany', value: 3000 }, { name: 'Canada', value: 8000 }, { name: 'France', value: 7000 }, { name: 'Spain', value: 3050 }, { name: 'China', value: 3000 }, { name: 'Australia', value: 6000 }];
 
-    if (!$parent.hasClass('active')) {
-      $parent = $('#' + this.state.panel2ID);
-    }
+    const data1 = propsDataOne.map(element => ({
+      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
+    }));
 
-    const $canvas = $parent.find('canvas');
+    const data2 = propsDataTwo.map(element => ({
+      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
+    }));
 
-    if ($canvas.length === 1) {
-      return $canvas[0].toDataURL('image/png');
-    }
+    const options1 = drawWorldMap(data1, 'map', 'People');
+    const options2 = drawWorldMap(data2, 'map', 'People');
 
-    console.log('handle error TODO');
-    return null;
-  }
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Graduate Destinations"
+        globalID="geo-1"
+        content={[
+            {
+              title: 'Country of Origin',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '400px',
+                data: {
+                  options: options1,
+                },
+              },
+            },
+            {
+              title: 'Current Country of Residence',
+              active: false,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '400px',
+                data: {
+                  options: options2,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
 
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
+    return panel;
   }
 
   render() {
@@ -87,30 +117,24 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. This data is split into two areas: <br /><br />
-                <strong>Where Graduates Come From</strong> the country of origin a graduate had come from to study.<br />
-                <strong>Alumni Destinations</strong> the country a graduate has moved to since studying.<br /><br />
-                <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-              </div>
-            </div>
+            <BasicPanel
+              content={
+                <p>
+                  Data from section 5 of the respondent survey is collated here. This data is split into two areas: <br /><br />
+                  <strong>Where Graduates Come From</strong> the country of origin a graduate had come from to study.<br />
+                  <strong>Alumni Destinations</strong> the country a graduate has moved to since studying.<br /><br />
+                  <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
+                </p>
+              }
+            />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-
-            <WorldMap
-              title="Graduate Destinations"
-              title1="Where Grads Come From"
-              title2="Where Grads Go"
-              globalID="world-chart"
-            />
-
+            {this.getMap()}
           </div>
         </div>
-
 
       </div>
     );
