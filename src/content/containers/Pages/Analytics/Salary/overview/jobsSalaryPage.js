@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
@@ -380,7 +378,6 @@ class Page extends React.PureComponent {
       },
     ];
 
-    const salary = [{ average: 80, male: 80, female: 20 }];
     const content = (
       <div id="page-content">
         <StandardFilters />
