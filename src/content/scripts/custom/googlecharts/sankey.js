@@ -15,11 +15,11 @@ export default function drawSankeyChart(columns, rows) {
       },
     },
   };
-  
+
   return {
     load: [
-      'current', 
-      { packages: ['sankey'] }
+      'current',
+      { packages: ['sankey'] },
     ],
     drawCallback: (targetDiv) => {
       $(() => {
@@ -32,6 +32,6 @@ export default function drawSankeyChart(columns, rows) {
         const chart = new google.visualization.Sankey(targetDiv);
         chart.draw(data, options);
       });
-    }
+    },
   };
 }

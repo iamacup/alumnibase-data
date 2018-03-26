@@ -52,7 +52,7 @@ export function redrawCharts() {
   $('.' + echartsGraphClass).each((index, vertex) => {
     const domNode = $(vertex).get(0);
 
-    if(dNc(domNode)) {
+    if (dNc(domNode)) {
       const myChart = echarts.getInstanceByDom(domNode);
 
       if (dNc(myChart) && dNc(myChart.resize)) {
@@ -65,7 +65,7 @@ export function redrawCharts() {
 export function redrawChart(domTarget) {
   const { jQueryDomNode, domNode } = getNodes(domTarget);
 
-  if(dNc(domNode)) {
+  if (dNc(domNode)) {
     const myChart = echarts.getInstanceByDom(domNode);
 
     if (dNc(myChart) && dNc(myChart.resize)) {
@@ -86,7 +86,7 @@ export function drawOrRedrawChart(domTarget, optionsObject) {
 export function updateChartOptions(domTarget, optionsObject) {
   const { domNode } = getNodes(domTarget);
 
-  if(dNc(domNode)) {
+  if (dNc(domNode)) {
     const myChart = echarts.getInstanceByDom(domNode);
     myChart.setOption(optionsObject);
     return myChart;

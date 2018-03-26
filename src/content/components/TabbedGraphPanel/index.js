@@ -21,13 +21,14 @@
       height: Absolute height value - do not use percentages - i.e. '400px'
       data: {
         if type is 'echarts'
-          {  
-            options: Object - options for graph 
+          {
+            options: Object - options for graph
           }
         if type is 'googlecharts'
-          { 
-            load: Array - the values to be passed to the google.charts.load function (first 2 arguments) 
-            drawCallback: Function - the function that will be passed to the google.charts.setOnLoadCallback function (will be passed the dom target as its argument when called)
+          {
+            load: Array - the values to be passed to the google.charts.load function (first 2 arguments)
+            drawCallback: Function - the function that will be passed to the google.charts.setOnLoadCallback function
+              - Argument 1 is the DOM element to be drawn to
           }
         if type is 'react'
           {
@@ -67,7 +68,7 @@ class TabbedGraphPanel extends React.PureComponent {
       }
     });
 
-    if(currentActive === -1) {
+    if (currentActive === -1) {
       console.log('Was not an active tab specified in TabbedGraphPanel');
     }
 
@@ -84,7 +85,7 @@ class TabbedGraphPanel extends React.PureComponent {
       if (content[this.state.currentActive].graphData.type === 'echarts') {
         drawOrRedrawChart(this['graph' + this.state.currentActive], content[this.state.currentActive].graphData.data.options);
       } else if (content[this.state.currentActive].graphData.type === 'googlecharts') {
-        const {load, drawCallback} = content[this.state.currentActive].graphData.data;
+        const { load, drawCallback } = content[this.state.currentActive].graphData.data;
 
         const { google } = window;
 
@@ -168,7 +169,7 @@ class TabbedGraphPanel extends React.PureComponent {
             ref={(target) => { this['graph' + index] = target; }}
           />
         );
-      } else if(value.graphData.type === 'react') {
+      } else if (value.graphData.type === 'react') {
         graphContent = value.graphData.data.reactData;
       } else {
         console.log('unknown graph type in TabbgedGraphPanel 2');
@@ -257,12 +258,12 @@ class TabbedGraphPanel extends React.PureComponent {
     if (content[index].graphData.type === 'echarts') {
       setTimeout(() => { drawOrRedrawChart(this['graph' + index], content[index].graphData.data.options); }, 300);
     } else if (content[index].graphData.type === 'googlecharts') {
-      const {load, drawCallback} = content[index].graphData.data;
+      const { load, drawCallback } = content[index].graphData.data;
 
       const { google } = window;
 
       google.charts.load(load[0], load[1]);
-      
+
       setTimeout(() => { google.charts.setOnLoadCallback(drawCallback(this['graph' + index])); }, 300);
     } else {
       console.log('unknown graph type in TabbgedGraphPanel 5');
@@ -316,7 +317,7 @@ class TabbedGraphPanel extends React.PureComponent {
           <div className="panel-body" style={{ paddingBottom: '0', paddingTop: '0' }}>
 
             <div className="panel">
-            {
+              {
               // we test if the content has tabs, if it does, we render tabs
               (content.length > 1) ?
                 <div className="panel-heading">
@@ -325,11 +326,11 @@ class TabbedGraphPanel extends React.PureComponent {
                       {this.getTabTitles()}
                     </ul>
                   </div>
-                </div> 
+                </div>
               // if it does not, we just render null
                 : null
             }
-              
+
               <hr style={{ margin: 0 }} />
 
               <div className="panel-body" style={{ paddingBottom: '0' }}>
