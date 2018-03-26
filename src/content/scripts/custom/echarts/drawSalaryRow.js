@@ -1,11 +1,15 @@
 import React from 'react';
 
-const getPercentRow = (title, percentage, bottomMargin) => {
+const getSalaryRow = (title, salary, bottomMargin) => {
   const barStyle = { height: '4px' };
 
   if (bottomMargin === false) {
     barStyle.marginBottom = '0';
   }
+
+  const string = '' + (salary * 1000);
+  const value = '£' + string.slice(0, 2) + ',' + string.slice(2);
+
 
   const obj = (
     <div className="row">
@@ -18,17 +22,17 @@ const getPercentRow = (title, percentage, bottomMargin) => {
         </div>
       </div>
       <div className="col-sm-8">
-        <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{percentage}%</h6>
+        <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{value}</h6>
         <div className="progress" style={barStyle}>
           <div
             className="progress-bar"
             role="progressbar"
-            aria-valuenow="700"
+            aria-valuenow="70"
             aria-valuemin="0"
-            aria-valuemax="100000"
-            style={{ width: percentage + '%' }}
+            aria-valuemax="100"
+            style={{ width: salary + '%' }}
           >
-            <span className="sr-only">{percentage}% Complete</span>
+            <span className="sr-only">{salary}% Complete</span>
           </div>
         </div>
       </div>
@@ -38,4 +42,4 @@ const getPercentRow = (title, percentage, bottomMargin) => {
   return obj;
 };
 
-export default getPercentRow;
+export default getSalaryRow;

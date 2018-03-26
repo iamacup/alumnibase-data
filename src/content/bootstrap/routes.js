@@ -24,6 +24,9 @@ import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
 import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
 import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/overview';
+import SubjectSalaryPage from '../../content/containers/Pages/Analytics/Salary/overview/subjectSalaryPage';
+import JobsSalaryPage from '../../content/containers/Pages/Analytics/Salary/overview/jobsSalaryPage';
+import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Salary/overview/valueForMoney';
 
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
 import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
@@ -78,6 +81,21 @@ export default [
     path: '/analytics/salary/overview',
     exact: true,
     component: SalaryOverview,
+  },
+  {
+    path: '/analytics/salary/subjects',
+    exact: true,
+    component: SubjectSalaryPage,
+  },
+  {
+    path: '/analytics/salary/jobs',
+    exact: true,
+    component: JobsSalaryPage,
+  },
+  {
+    path: '/analytics/salary/value',
+    exact: true,
+    component: ValueForMoneyPage,
   },
   {
     path: '/analytics/destination/1',
