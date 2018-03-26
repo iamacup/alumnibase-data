@@ -5,15 +5,11 @@ import { connect } from 'react-redux';
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
-
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
-import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 
 import SubNav from './subNav';
 
@@ -117,70 +113,6 @@ class Page extends React.PureComponent {
       { name: 'Neither agree or disagree', data: [40, 44, 44, 44, 40] },
       { name: 'Disagree', data: [10, 12, 14, 16, 20] },
       { name: 'Strongly disagree', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    return options;
-  }
-
-  getOptions2() {
-    const age = [];
-    const plotted = [];
-
-    const start = 9.1;
-    const end = 5.6;
-
-    const firstAge = 21;
-    const lastAge = 61;
-
-    let current = start;
-    const increment = (start - end) / (lastAge - firstAge);
-
-    for (let a = firstAge; a < lastAge; a++) {
-      age.push(a);
-      plotted.push(Number(current.toPrecision(2)));
-
-      current -= increment;
-
-      console.log(increment);
-    }
-
-    const data = {
-      age,
-      plotted,
-      name: ['test'],
-    };
-
-    const options = drawLineChart(data, 'Age', 'Average Response');
-
-    return options;
-  }
-
-
-  getOptions3() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'Very Likely', data: [20, 16, 14, 12, 10] },
-      { name: 'Likely', data: [20, 16, 14, 12, 10] },
-      { name: 'Not very likely', data: [40, 44, 44, 44, 40] },
-      { name: 'Not likely at all', data: [10, 12, 14, 16, 20] },
-      { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    return options;
-  }
-
-  getOptions4() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'A great extent', data: [20, 16, 14, 12, 10] },
-      { name: 'Some extent', data: [20, 16, 14, 12, 10] },
-      { name: 'Not at all', data: [40, 44, 44, 44, 40] },
-      { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
-      { name: 'Have not worked since finishing course', data: [10, 12, 14, 16, 20] },
     ];
 
     const options = drawNewBarChart(axisData, dataSeries);

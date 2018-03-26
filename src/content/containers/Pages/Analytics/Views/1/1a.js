@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
-
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
