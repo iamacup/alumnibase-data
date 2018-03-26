@@ -31,7 +31,6 @@ class Graph extends React.PureComponent {
         { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
       ];
 
-
       const option = drawNewBarChart(axisData, dataSeries);
 
       renderChartToTarget(this.graphTarget1, option);

@@ -267,6 +267,8 @@ class TabbedGraphPanel extends React.PureComponent {
       google.charts.load(load[0], load[1]);
 
       setTimeout(() => { google.charts.setOnLoadCallback(drawCallback(this['graph' + index])); }, 300);
+    } else if (content[index].graphData.type === 'react') {
+      // do nothing
     } else {
       console.log('unknown graph type in TabbgedGraphPanel 5');
     }
@@ -315,7 +317,7 @@ class TabbedGraphPanel extends React.PureComponent {
           <h3 className="panel-title">{this.props.title}</h3>
         </div>
 
-        <div className="collapse in">
+        <div className={this.props.collapsed === true ? 'collapse' : 'collapse in'}>
           <div className="panel-body" style={{ paddingBottom: '0', paddingTop: '0' }}>
 
             <div className="panel">
@@ -355,6 +357,7 @@ TabbedGraphPanel.propTypes = {
   globalID: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   seperator: PropTypes.bool,
+  collapsed: PropTypes.bool,
 
   content: PropTypes.arrayOf(
     PropTypes.shape({
@@ -382,6 +385,7 @@ TabbedGraphPanel.propTypes = {
 
 TabbedGraphPanel.defaultProps = {
   seperator: true,
+  collapsed: false,
   reduxAction_doUpdate: () => {},
 };
 
