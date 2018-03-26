@@ -11,10 +11,6 @@ import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/cus
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import Section5Graph from '../../../../../../content/containers/Fragments/Graphs/section5Graph';
-import Section5Graph2 from '../../../../../../content/containers/Fragments/Graphs/section5Graph2';
-import Section5Graph3 from '../../../../../../content/containers/Fragments/Graphs/section5Graph3';
-import Section5Graph4 from '../../../../../../content/containers/Fragments/Graphs/section5Graph4';
 
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
@@ -45,14 +41,6 @@ class Page extends React.PureComponent {
     });
 
     $(() => {
-      // listen for resize events
-      fireDebouncedResizeEvents();
-
-      // then listen for the events here
-      $(document).on('debouncedResizeEvent', () => {
-        redrawCharts();
-      });
-
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
@@ -315,7 +303,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('How likely are you to recommend your HE provider to a friend or a colleague',
-              'view-1-4',
+              'view-1-5',
               this.getOptions2(),
               ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
               false)}
@@ -343,7 +331,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Study at a different institution',
-              'view-1-6',
+              'view-1-7',
               this.getOptions3(),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
               true)}
@@ -353,7 +341,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Work towards a different type of qualification',
-              'view-1-6',
+              'view-1-8',
               this.getOptions3(),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
               true)}
@@ -363,7 +351,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Decide to do something completely different',
-              'view-1-6',
+              'view-1-9',
               this.getOptions3(),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
               true)}
@@ -381,7 +369,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Be innovative in the workplace',
-              'view-1-6',
+              'view-1-10',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
@@ -391,7 +379,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Make a difference in the workplace',
-              'view-1-6',
+              'view-1-11',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
@@ -401,7 +389,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Change organisational culture and/or working practices',
-              'view-1-6',
+              'view-1-12',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
@@ -411,7 +399,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Influence the work of others in the workplace',
-              'view-1-6',
+              'view-1-13',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
@@ -421,7 +409,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Access immediate or short-term job opportunities in your chosen career',
-              'view-1-6',
+              'view-1-14',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
@@ -431,7 +419,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance your credibility or standing in the workplace',
-              'view-1-6',
+              'view-1-15',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
@@ -441,7 +429,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Progress towards your long term career aspirations',
-              'view-1-6',
+              'view-1-16',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
@@ -451,7 +439,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance your social and intellectual capabilities beyond employment',
-              'view-1-6',
+              'view-1-17',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
@@ -461,7 +449,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance the quality of your life generally',
-              'view-1-6',
+              'view-1-18',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
               true)}
