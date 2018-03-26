@@ -199,8 +199,8 @@ class Page extends React.PureComponent {
                     </a>
                     {/*  <!--Submenu--> */}
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/subjects', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/subjects', 'active-link')}>
-                        <Link href="/analytics/subjects" to="/analytics/subjects">Early Outcomes</Link>
+                      <li className={this.classNameBasedOnLocation('/analytics/subjects/early', 'active-link')}>
+                        <Link href="/analytics/subjects/early" to="/analytics/subjects/early">Early Outcomes</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/subjects/longterm', 'active-link')}>
                         <Link href="/analytics/subjects/longterm" to="/analytics/subjects/longterm">Longterm Outcomes</Link>

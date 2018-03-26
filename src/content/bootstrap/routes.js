@@ -29,7 +29,7 @@ import SubjectEarlyPage from '../../content/containers/Pages/Analytics/Salary/ov
 import JobsEarlyPage from '../../content/containers/Pages/Analytics/Salary/overview/jobsSalaryPage';
 import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Salary/overview/valueForMoney';
 import StemPage from '../../content/containers/Pages/Analytics/Salary/overview/stem';
-import PolarOverviewPage from '../../content/containers/Pages/Analytics/Salary/polar';
+import PolarOverviewPage from '../../content/containers/Pages/Analytics/Polar/Overview';
 
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
 import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
@@ -86,7 +86,7 @@ export default [
     component: SalaryOverview,
   },
   {
-    path: '/analytics/subjects',
+    path: '/analytics/subjects/early',
     exact: true,
     component: SubjectEarlyPage,
   },
