@@ -3,7 +3,7 @@ export default function drawSankeyChart(columns, rows) {
   // const colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
   //   '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
 
-const colors = ['#2f6d9d', '#54aece', '#66cbf0', '#9fb743', '#62a0d0'];
+  const colors = ['#2f6d9d', '#54aece', '#66cbf0', '#9fb743', '#62a0d0'];
 
   const options = {
     height: '100%',
