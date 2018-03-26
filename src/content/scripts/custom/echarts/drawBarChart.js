@@ -1,8 +1,10 @@
-const drawGroupedBarChart = (titles, data, direction, value) => {
+const drawGroupedBarChart = (titles, data, direction, value, colours) => {
   // data sould be in the form {x: [1, 2, 3], y: '%'}
   // direction is which way the axis should be: horizontal or vertical;
   // value is the axis value, ie "%" || "£";
-  const colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
+  let colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
+  if (colours) colors = colours;
+
   let axis = {
     x: [{ type: 'value', axisLabel: { formatter: value + '{value}' } }],
     y: [{ type: 'category', data: titles }],
@@ -14,7 +16,9 @@ const drawGroupedBarChart = (titles, data, direction, value) => {
       y: [{ type: 'value', axisLabel: { formatter: value + '{value}' } }],
     };
   }
-
+  // {
+  //           color(params) { return colors[params.dataIndex]; },
+  //         },
   const option = {
     tooltip: {
       trigger: 'axis',
@@ -38,7 +42,10 @@ const drawGroupedBarChart = (titles, data, direction, value) => {
       type: 'bar',
       itemStyle: {
         normal: {
-          color: colors[i],
+          color: (params) => {
+            if (colors.length === 2 && params.dataIndex < 3) return colors[1];
+            return colors[i];
+          },
         },
       },
       data: element.data,

@@ -181,6 +181,45 @@ class Page extends React.PureComponent {
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/1', 'active-link')}>
                         <Link href="/analytics/jobs/1" to="/analytics/jobs/1">Overview</Link>
                       </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/jobs/2', 'active-link')}>
+                        <Link href="/analytics/jobs/2" to="/analytics/jobs/2">Early Outcomes</Link>
+                      </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/jobs/3', 'active-link')}>
+                        <Link href="/analytics/jobs/3" to="/analytics/jobs/3">STEM</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+                  {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/subjects', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">Subjects</span>
+                      <i className="arrow" />
+                    </a>
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/subjects', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/subjects', 'active-link')}>
+                        <Link href="/analytics/subjects" to="/analytics/subjects">Early Outcomes</Link>
+                      </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/subjects/longterm', 'active-link')}>
+                        <Link href="/analytics/subjects/longterm" to="/analytics/subjects/longterm">Longterm Outcomes</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+                  {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/polar', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">POLAR</span>
+                      <i className="arrow" />
+                    </a>
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/polar', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/polar', 'active-link')}>
+                        <Link href="/analytics/polar" to="/analytics/polar">Outcomes</Link>
+                      </li>
                     </ul>
                   </li>
 
