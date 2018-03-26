@@ -86,7 +86,7 @@ export default [
     component: SalaryOverview,
   },
   {
-    path: '/analytics/subjects',
+    path: '/analytics/subjects/1',
     exact: true,
     component: SubjectEarlyPage,
   },
@@ -96,7 +96,7 @@ export default [
     component: JobsEarlyPage,
   },
   {
-    path: '/analytics/salary/value',
+    path: '/analytics/subjects/2',
     exact: true,
     component: ValueForMoneyPage,
   },
