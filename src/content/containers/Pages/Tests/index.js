@@ -14,6 +14,10 @@ import BasicPanel from '../../../../content/components/BasicPanel';
 
 import TabbedGraphPanel from '../../../../content/components/TabbedGraphPanel';
 
+import drawAreaChart from '../../../../content/scripts/custom/echarts/drawAreaChart';
+import drawNewPieChart from '../../../../content/scripts/custom/echarts/drawPieChart';
+import drawSankeyChart from '../../../../content/scripts/custom/googlecharts/sankey';
+
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 class Page extends React.PureComponent {
@@ -33,10 +37,263 @@ class Page extends React.PureComponent {
     });
   }
 
+  getTabbedGraphPanel() {
+    // area chart stuff
+    const axis1 = [1, 2, 3, 4, 5, 6, 7];
+    const data1 = [{ name: 'Average Salary', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] }];
+    const options1 = drawAreaChart(data1, axis1);
+
+    // pie chart stuff
+    const data2 = [
+      { name: 'Male', value: 55 },
+      { name: 'Female', value: 40 },
+      { name: 'Other', value: 5 },
+    ];
+    const options2 = drawNewPieChart(data2, true, 'doughnut', true);
+
+    // sankey chart stuff
+    const columns = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
+    const rows = [
+      ['POLAR3 area', 'Engineering', 1],
+      ['POLAR3 area', 'Business and Legal', 1],
+      ['POLAR3 area', 'Computer science', 1],
+      ['POLAR3 area', 'English', 1],
+      ['POLAR3 area', 'Medicine', 1],
+      ['POLAR3 area', 'Politics, philosophy & theology', 1],
+      ['POLAR3 area', 'Psychology and sociology', 2],
+      ['POLAR3 area', 'Sciences', 1],
+      ['non-POLAR3 area', 'Architecture', 11],
+      ['non-POLAR3 area', 'Engineering', 8],
+      ['non-POLAR3 area', 'Business and Legal', 9],
+      ['non-POLAR3 area', 'Computer science', 5],
+      ['non-POLAR3 area', 'Creative arts', 5],
+      ['non-POLAR3 area', 'English', 4],
+      ['non-POLAR3 area', 'History', 5],
+      ['non-POLAR3 area', 'Medicine', 7],
+      ['non-POLAR3 area', 'Politics, philosophy & theology', 8],
+      ['non-POLAR3 area', 'Psychology and sociology', 6],
+      ['non-POLAR3 area', 'Sciences', 9],
+      ['non-POLAR3 area', 'Agriculture', 8],
+      ['Creative arts', 'under £20,000', 2],
+      ['Creative arts', '£20-30,000', 3],
+      ['Architecture', '£20-30,000', 3],
+      ['Architecture', '£30-40,000', 3],
+      ['Architecture', '£40-50,000', 3],
+      ['Architecture', '£50+', 2],
+      ['Engineering', '£20-30,000', 3],
+      ['Engineering', '£30-40,000', 4],
+      ['Engineering', '£40-50,000', 1],
+      ['Engineering', '£50+', 1],
+      ['Business and Legal', '£20-30,000', 4],
+      ['Business and Legal', '£30-40,000', 4],
+      ['Business and Legal', '£40-50,000', 1],
+      ['Business and Legal', '£50+', 1],
+      ['Computer science', '£20-30,000', 3],
+      ['Computer science', '£30-40,000', 3],
+      ['English', 'under £20,000', 2],
+      ['English', '£20-30,000', 2],
+      ['English', '£30-40,000', 1],
+      ['History', 'under £20,000', 2],
+      ['History', '£20-30,000', 2],
+      ['History', '£30-40,000', 1],
+      ['Medicine', '£20-30,000', 2],
+      ['Medicine', '£30-40,000', 3],
+      ['Medicine', '£40-50,000', 2],
+      ['Medicine', '£50+', 1],
+      ['Politics, philosophy & theology', 'under £20,000', 2],
+      ['Politics, philosophy & theology', '£20-30,000', 4],
+      ['Politics, philosophy & theology', '£30-40,000', 3],
+      ['Psychology and sociology', 'under £20,000', 1],
+      ['Psychology and sociology', '£20-30,000', 4],
+      ['Psychology and sociology', '£30-40,000', 2],
+      ['Psychology and sociology', '£40-50,000', 1],
+      ['Sciences', '£20-30,000', 3],
+      ['Sciences', '£30-40,000', 3],
+      ['Sciences', '£40-50,000', 2],
+      ['Sciences', '£50+', 1],
+      ['Agriculture', 'under £20,000', 1],
+      ['Agriculture', '£20-30,000', 3],
+      ['Agriculture', '£30-40,000', 3],
+      ['Agriculture', '£40-50,000', 1],
+    ];
+
+    const googleData = drawSankeyChart(columns, rows);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="This is a tabbed panel"
+        globalID="CHANGE-ME-AND-MAKE-SURE-I-AM-GLOBALLY-UNIQUE-1"
+        content={[
+            {
+              title: 'This is tab 1',
+              preContent: <p>This is the OPTIONAL pre content</p>,
+              postContent: <p>This is the OPTIONAL post content</p>,
+              active: true,
+              clickCallback: () => { console.log('tab 1 is clicked on - this callback is optional'); },
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options: options1,
+                },
+              },
+            },
+            {
+              title: 'This is tab 2',
+              active: false,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options: options2,
+                },
+              },
+            },
+            {
+              title: <span>Icon and text <i className="fas fa-bullhorn" /></span>,
+              preContent: <p>This is the OPTIONAL pre content</p>,
+              postContent: <p>This is the OPTIONAL post content</p>,
+              active: false,
+              clickCallback: () => { console.log('tab 3 is clicked on - this callback is optional'); },
+              graphData: {
+                type: 'googlecharts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '250px',
+                data: googleData,
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getSingleGraphPanel() {
+    // area chart stuff
+    const axis1 = [1, 2, 3, 4, 5, 6, 7];
+    const data1 = [{ name: 'Average Salary', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] }];
+    const options1 = drawAreaChart(data1, axis1);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="This is a non tabbed pannel"
+        globalID="CHANGE-ME-AND-MAKE-SURE-I-AM-GLOBALLY-UNIQUE-2"
+        content={[
+            {
+              title: '',
+              preContent: <p>This is the OPTIONAL pre content</p>,
+              postContent: <p>This is the OPTIONAL post content</p>,
+              active: true,
+              clickCallback: () => { console.log('tab 1 is clicked on - this callback is optional'); },
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options: options1,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  getTabbedGraphPanelWithNonGraphContent() {
+    // pie chart stuff
+    const data2 = [
+      { name: 'Male', value: 55 },
+      { name: 'Female', value: 40 },
+      { name: 'Other', value: 5 },
+    ];
+    const options2 = drawNewPieChart(data2, true, 'doughnut', true);
+
+    const reactData = (
+      <div>
+        <h3>This could be any react element</h3>
+        <p>Just pass it through as you would any other JSX</p>
+      </div>
+    );
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="This is a tabbed panel with non graph based content"
+        globalID="CHANGE-ME-AND-MAKE-SURE-I-AM-GLOBALLY-UNIQUE-3"
+        content={[
+            {
+              title: 'Graph',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options: options2,
+                },
+              },
+            },
+            {
+              title: 'Non Graph',
+              active: false,
+              graphData: {
+                type: 'react',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                data: {
+                  reactData,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
   render() {
     const content = (
       <div id="page-content">
-        <div className="row" style={{ paddingTop: '50px' }}>
+        <div className="row" style={{ paddingTop: '50px', paddingBottom: '500px' }}>
           <div className="col-lg-12">
 
 
@@ -112,27 +369,28 @@ class Page extends React.PureComponent {
 
             <div className="row">
 
-              <div className="col-sm-6">
-                <TabbedGraphPanel
-                  title="This is a tabbed panel"
-                  globalID="globID"
-                  content={[
-                    {
-                      title: 'This is tab 1',
-                      content: <p>This is tab 1 content - remember, there is an optional callback in case you need to handle clicked buttons (like redrawing the graph content or something)</p>,
-                      active: true,
-                      clickCallback: () => { console.log('tab 1 is clicked on'); },
-                      type: 'echarts',
-                      allowDownload: true,
-                      seeData: true,
-                      pinGraph: true,
-                    },
-                  ]}
-                  seperator
-                />
+              <div className="col-sm-10 col-sm-push-1">
+                {this.getTabbedGraphPanel()}
               </div>
 
             </div>
+
+            <div className="row">
+
+              <div className="col-sm-10 col-sm-push-1">
+                {this.getSingleGraphPanel()}
+              </div>
+
+            </div>
+
+            <div className="row">
+
+              <div className="col-sm-10 col-sm-push-1">
+                {this.getTabbedGraphPanelWithNonGraphContent()}
+              </div>
+
+            </div>
+
 
           </div>
         </div>
