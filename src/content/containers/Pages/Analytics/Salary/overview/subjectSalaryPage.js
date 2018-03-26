@@ -9,14 +9,6 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showNationalAverage: false,
-    };
-  }
-
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -34,11 +26,11 @@ class Page extends React.PureComponent {
           link: '/analytics/salary/overview',
         }],
     });
-  }
 
-
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
+    $(() => {
+      // need to re-initialise the framework here when pages change
+      $(document).trigger('nifty.ready');
+    });
   }
 
   render() {
