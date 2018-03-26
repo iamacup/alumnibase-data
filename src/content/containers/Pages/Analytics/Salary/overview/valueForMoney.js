@@ -79,7 +79,7 @@ class Page extends React.PureComponent {
               value=""
               titles={['Education', 'Anthropology & Development Studies', 'Communication, Cultural and Media Studies, Library and Information Management', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Area Studies', 'Electrical and Electronic Engineering, Metallurgy and Materials', 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering', 'Mathematical Sciences', 'Physics', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', 'Allied Health Professions, Dentistry, Nursing and Pharmacy', 'Clinical Medicine']}
               direction="horizontal"
-              data={[{ name: 'one', data: [4, 8, 15, 20, 24, 28, 36, 44, 45, 52, 56, 64, 68, 76, 84, 88, 92, 100] }]}
+              data={[{ data: [4, 8, 15, 20, 24, 28, 36, 44, 45, 52, 56, 64, 68, 76, 84, 88, 92, 100] }]}
               globalID="VFM-1"
             />
 
@@ -89,7 +89,7 @@ class Page extends React.PureComponent {
               value=""
               titles={['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Theology and Religious Studies', 'Public Health, Health Services and Primary Care', 'Architecture, Built Environment and Planning', 'Clinical Medicine']}
               direction="horizontal"
-              data={[{ name: 'one', data: [0, 4, 8, 97, 99, 100] }]}
+              data={[{ data: [0, 4, 8, 97, 99, 100], colours: ['#1c6cab', '#d02224'] }]}
               globalID="VFM-1"
             />
           </div>

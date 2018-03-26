@@ -18,7 +18,7 @@ class GroupedBarChart extends React.PureComponent {
   }
 
   componentDidMount() {
-    const option1 = drawGroupedBarChart(this.props.titles, this.props.data, this.props.direction, this.props.value);
+    const option1 = drawGroupedBarChart(this.props.titles, this.props.data, this.props.direction, this.props.value, this.props.data[0].colours);
 
     renderChartToTarget(this.graphTarget1, option1);
   }
