@@ -11,6 +11,8 @@ import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/cus
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import BarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
+// import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+
 
 class Page extends React.PureComponent {
   constructor(props) {
@@ -73,6 +75,7 @@ class Page extends React.PureComponent {
         </div>
         <div className="row">
           <div className="col-md-8 col-md-push-2">
+
             <BarChart
               smallText=""
               title="Percentage of People who Believe their Course Offered Value for Money"
