@@ -8,7 +8,9 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import BarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
-import ScatterChart from '../../../../../../content/containers/Fragments/Graphs/scatterChart';
+import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import drawScatterGraph from '../../../../../../content/scripts/custom/echarts/drawScatterGraph';
+
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -36,6 +38,17 @@ class Page extends React.PureComponent {
   }
 
   render() {
+
+    const data = [
+      [3.275154, 3.957587],
+      [-3.344465, 2.603513],
+      [0.355083, -3.376585],
+    ];
+
+    const scatterData = drawScatterGraph(data);
+
+    console.log(scatterData)
+
     const content = (
       <div id="page-content">
         <StandardFilters />
@@ -72,9 +85,32 @@ class Page extends React.PureComponent {
               globalID="VFM-1"
             />
 
-            <ScatterChart
-              globalID="value-scatter-1"
-            />
+
+    <TabbedGraphPanel
+        title=""
+        globalID="scatter-1-1"
+        content={[
+            {
+              title: 'Quadrant',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '350px',
+                data: {
+                  options: scatterData,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+
           </div>
         </div>
       </div>
