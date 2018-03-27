@@ -291,23 +291,49 @@ class Page extends React.PureComponent {
               seperator
             />
 
-            <TabbedPanel
+
+            <TabbedGraphPanel
               title="List of all STEM subjects average salaries"
+              globalID="stem-vxy"
               content={[
-                    {
-                      title: 'STEM subjects',
-                      content: subjectsData,
-                      active: true,
-                      clickCallback: () => { console.log('tab 1 is clicked on'); },
+                {
+                  title: 'STEM subjects',
+                  active: true,
+                  graphData: {
+                    type: 'react',
+                    width: '100%',
+                    height: '100%',
+                    tools: {
+                      allowDownload: false,
+                      seeData: false,
+                      pinGraph: false,
                     },
-                       {
-                      title: 'Gender Split',
-                      content: genderSubjectsData,
-                      active: false,
+                    data: {
+                      reactData: subjectsData,
                     },
-                  ]}
+                  },
+                },
+                {
+                  title: 'Gender Split',
+                  active: false,
+                  graphData: {
+                    type: 'react',
+                    width: '100%',
+                    height: '100%',
+                    tools: {
+                      allowDownload: false,
+                      seeData: false,
+                      pinGraph: false,
+                    },
+                    data: {
+                      reactData: genderSubjectsData,
+                    },
+                  },
+                },
+              ]}
               seperator
             />
+
           </div>
         </div>
       </div>

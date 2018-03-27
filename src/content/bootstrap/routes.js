@@ -23,12 +23,12 @@ import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
 // import Salary2Page from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
 import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
-import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/overview';
+import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/Overview';
 
-import SubjectEarlyPage from '../../content/containers/Pages/Analytics/Salary/overview/subjectSalaryPage';
-import JobsEarlyPage from '../../content/containers/Pages/Analytics/Salary/overview/jobsSalaryPage';
-import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Salary/overview/valueForMoney';
-import StemPage from '../../content/containers/Pages/Analytics/Salary/overview/stem';
+import SubjectEarlyPage from '../../content/containers/Pages/Analytics/Subjects/Early';
+import JobsEarlyPage from '../../content/containers/Pages/Analytics/Jobs/Early';
+import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Salary/ValueForMoney';
+import StemPage from '../../content/containers/Pages/Analytics/Jobs/STEM';
 import PolarOverviewPage from '../../content/containers/Pages/Analytics/Polar/Overview';
 
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';

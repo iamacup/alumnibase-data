@@ -256,15 +256,6 @@ class Page extends React.PureComponent {
                 </p>
               }
             />
-
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                <p>Data relating directly to your institution from section 5 of the respondent survey is collated here. For clarity this data is split into two areas: <br /><br />
-                  <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life and; <br />
-                  <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 

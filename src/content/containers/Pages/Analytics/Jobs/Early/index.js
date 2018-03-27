@@ -354,24 +354,24 @@ class Page extends React.PureComponent {
     const react1 = jobs.map(element => getPercentRow(element.job, element.salary, '£'));
 
     const react2 = jobs.map(element => (
-                              <div key={element.job}>
-                                <div className="row">
-                                  <div className="col-md-4 col-md-push-2">
-                                    <p>{element.job}</p>
-                                  </div>
-                                </div>
-                                <div>
-                                  {getPercentRow('Male', element.male)}
-                                  {getPercentRow('Female', element.female)}
-                                </div>
-                              </div>
-                            ));
+      <div key={element.job}>
+        <div className="row">
+          <div className="col-md-4 col-md-push-2">
+            <p>{element.job}</p>
+          </div>
+        </div>
+        <div>
+          {getPercentRow('Male', element.male)}
+          {getPercentRow('Female', element.female)}
+        </div>
+      </div>
+    ));
 
     const panel = (
       <TabbedGraphPanel
-      title="High level job salaries"
-      globalID="salary-1-6"
-      content={[
+        title="High level job salaries"
+        globalID="salary-1-6"
+        content={[
           {
             title: 'Average Salary',
             active: true,
@@ -407,8 +407,8 @@ class Page extends React.PureComponent {
             },
           },
         ]}
-      seperator
-    />
+        seperator
+      />
     );
 
     return panel;
@@ -438,7 +438,7 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-       
+
       </div>
     );
 

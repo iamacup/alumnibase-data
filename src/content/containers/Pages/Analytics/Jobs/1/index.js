@@ -40,8 +40,8 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-
         <h1>TODO</h1>
+
       </div>
     );
 
