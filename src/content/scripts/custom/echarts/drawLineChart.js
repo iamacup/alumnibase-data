@@ -1,13 +1,12 @@
 const drawLineChart = (data, options) => {
   // data sould be in the form [{age: [], plotted: []}]
-  //options can have value (bool) and trendline (bool)
+  // options can have value (bool) and trendline (bool)
   let value = false;
   if (options.value !== false) value = true;
-// lineStyle: { normal: { color: '#8e1600', width: 2, type: 'dotted' }}
+  // lineStyle: { normal: { color: '#8e1600', width: 2, type: 'dotted' }}
 
   const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
-  
-  
+
 
   const option = {
     legend: {
@@ -59,10 +58,6 @@ const drawLineChart = (data, options) => {
       },
     }],
     series: data.plotted.map((element, i) => ({
-      // let color = colours[i];
-      // if (data.name[i] === "National Average") {
-      //   color = '#8e1600'
-      // }
       name: data.name[i],
       type: 'line',
       label: { formatter: '{b}: {d}' },

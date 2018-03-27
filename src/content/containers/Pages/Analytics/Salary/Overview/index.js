@@ -255,14 +255,14 @@ class Page extends React.PureComponent {
     const optionsB = {
       value: false,
       trendline: true,
-    }
+    };
 
     const data2 = {
       name: ['Male', 'Female', 'Other', 'National Average'],
       plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [0, 0, 0, 0, 0, 0, 5], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
       age: [1, 2, 3, 4, 5, 6, 7],
     };
-   
+
     const options2 = drawLineChart(data2, optionsB);
 
     const panel = (

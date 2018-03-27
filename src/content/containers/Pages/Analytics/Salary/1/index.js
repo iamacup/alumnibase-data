@@ -56,7 +56,7 @@ class Page extends React.PureComponent {
   getBoxPlot(input, title, id) {
     // const colours = [['#ff7311', '#ffbb7d'], ['#d02224', '#ff8d8b'], ['#11293b', '#0b6623'], ['#1c6cab', '#a4c0e5']];
 
-    const options = drawBoxplotChart(input.values, input.categories, 10000);
+    const options = drawBoxplotChart(input.values, input.categories, 40000);
 
     const panel = (
       <TabbedGraphPanel
@@ -96,33 +96,33 @@ class Page extends React.PureComponent {
     const genderData = {
       categories: ['Female', 'Male'],
       values: [
-        [20000, 30000],
-        [30000, 40000],
+        [28000, 200000],
+        [26000, 250000],
       ],
     };
 
     const ethnicityData = {
       categories: ['White', 'Mixed', 'Asian', 'Black / African / Caribbean', 'Other'],
       values: [
-        [20000, 30000],
-        [30000, 40000],
-        [20000, 30000],
-        [30000, 40000],
-        [20000, 30000],
+        [29000, 250000],
+        [26000, 240000],
+        [26000, 230000],
+        [26000, 240000],
+        [29000, 230000],
       ],
     };
 
     const religionData = {
       categories: ['No Religion', 'Chrstian', 'Buddhist', 'Hindu', 'Jewish', 'Muslim', 'Sikh', 'Other'],
       values: [
-        [20000, 30000],
-        [30000, 40000],
-        [20000, 30000],
-        [30000, 40000],
-        [20000, 30000],
-        [20000, 30000],
-        [30000, 40000],
-        [20000, 30000],
+        [29000, 250000],
+        [29000, 250000],
+        [26000, 240000],
+        [26000, 250000],
+        [29000, 230000],
+        [29000, 250000],
+        [26000, 240000],
+        [26000, 250000],
       ],
     };
 
