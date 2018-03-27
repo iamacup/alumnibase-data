@@ -26,6 +26,8 @@ import '../../../content/theme/custom/scss/application.scss';
 // TODO used?
 import '../../../content/theme/vendor/formValidation-0.7.1.min.css';
 
+const listenersList = {};
+
 class App extends React.Component {
   componentDidMount() {
     // include the bootstrap javascript
@@ -33,6 +35,7 @@ class App extends React.Component {
 
     // this is a hack to make echarts available to the uk map - need to replace this with the expose loader!!!
     window.echarts = echarts;
+    window.ourGraphResizeEventList = listenersList;
 
     $(() => {
       // we do this to make sure that when start things, the nifty things execute
@@ -42,6 +45,13 @@ class App extends React.Component {
 
       // fire resize events
       fireDebouncedResizeEvents();
+
+      // listen for them here
+      $(document).on('debouncedResizeEvent', () => {
+        // we resize the current graph on screen
+        console.log('triggering resize redraw here');
+        this.handleResizeGraphs();
+      });
     });
   }
 
@@ -58,6 +68,16 @@ class App extends React.Component {
       // this breaks navigation when enabled - need to work out why!!!
       // this.props.reduxAction_doUpdate('historyData', { paths });
     }
+  }
+
+  handleResizeGraphs() {
+    const arr = Object.values(window.ourGraphResizeEventList);
+
+    arr.forEach((value) => {
+      if (dNc(value)) {
+        value();
+      }
+    });
   }
 
   render() {
