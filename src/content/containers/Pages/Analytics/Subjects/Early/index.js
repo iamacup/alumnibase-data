@@ -8,15 +8,10 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 
+import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showNationalAverage: false,
-    };
-  }
-
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -34,14 +29,14 @@ class Page extends React.PureComponent {
           link: '/analytics/salary/overview',
         }],
     });
+
+    $(() => {
+      // need to re-initialise the framework here when pages change
+      $(document).trigger('nifty.ready');
+    });
   }
 
-
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
-  }
-
-  render() {
+  getGraphs() {
     const data = [
       {
         name: 'Clinical Medicine', salary: [26.535], male: [27], female: [24],
@@ -149,85 +144,94 @@ class Page extends React.PureComponent {
         name: 'Communication, Cultural and Media Studies, Library and Information Management', salary: [11], male: [12], female: [9],
       },
     ];
+
+    const react1 = data.map(element => getPercentRow(element.name, element.salary));
+
+    const react2 = data.map(element => (
+      <div key={element.name}>
+        <div className="row">
+          <div className="col-md-4 col-md-push-2">
+            <p>{element.name}</p>
+          </div>
+        </div>
+        {getPercentRow('Male', element.male)}
+        {getPercentRow('Female', element.female)}
+      </div>
+    ));
+
+    const panel = (
+      <TabbedGraphPanel
+        title="High level subject salaries"
+        globalID="salary-1-6"
+        content={[
+          {
+            title: 'Average Salary',
+            active: true,
+            graphData: {
+              type: 'react',
+              width: '100%',
+              height: '100%',
+              tools: {
+                allowDownload: false,
+                seeData: false,
+                pinGraph: false,
+              },
+              data: {
+                reactData: react1,
+              },
+            },
+          },
+          {
+            title: 'Gender Split',
+            active: false,
+            graphData: {
+              type: 'react',
+              width: '100%',
+              height: '100%',
+              tools: {
+                allowDownload: false,
+                seeData: false,
+                pinGraph: false,
+              },
+              data: {
+                reactData: react2,
+              },
+            },
+          },
+        ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
+  render() {
     const content = (
       <div id="page-content">
+
         <StandardFilters />
+
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here.<br /><br />
-                This data represents the average salary statistics.<br /><br />
-              </div>
-            </div>
+            <BasicPanel
+              content={
+                <p>
+                  The data below comprises only the first job data we hold on all survey respondants.
+                </p>
+              }
+            />
           </div>
         </div>
+
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-
-
-            {/*    <!--Panel with Tabs-->
-                    <!--===================================================--> */}
-            <div className="panel">
-
-              {/*   <!--Panel heading--> */}
-              <div className="panel-heading">
-                <div className="panel-control">
-                  <button className="btn btn-default" data-panel="minmax" onClick={() => { this.clickGraph(); }}><i className="far fa-chevron-up" /></button>
-                </div>
-                <h3 className="panel-title">Early Outcome Average Subject Salaries</h3>
-              </div>
-
-              <div className="collapse in">
-                <div className="panel-body" >
-                  <div className="panel">
-                    <div className="panel-heading">
-                      <div className="panel-control">
-                        <ul className="nav nav-tabs">
-                          <li className="active"><a href="#demo-tabs-box-1" data-toggle="tab">Average Salary</a></li>
-                          <li><a href="#demo-tabs-box-2" data-toggle="tab">Average Salary by Gender</a></li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/*  <!--Panel body--> */}
-                    <div className="panel-body">
-                      <div className="tab-content">
-                        <div className="tab-pane fade in active" id="demo-tabs-box-1">
-                          {data.map(element => getPercentRow(element.name, element.salary))}
-                        </div>
-                        <div className="tab-pane fade" id="demo-tabs-box-2">
-                          {data.map(element => (
-                            <div>
-                              <div className="row">
-                                <div className="col-md-4 col-md-push-2">
-                                  <p>{element.name}</p>
-                                </div>
-                              </div>
-                              {getPercentRow('Male', element.male)}
-                              {getPercentRow('Female', element.female)}
-                            </div>
-                                ))}
-                        </div>
-                      </div>
-                      <div className="text-right" style={{ marginTop: '26px' }}>
-                        <h5>
-                          <small>
-                                 Percentage values when all responses are aggregated
-                          </small>
-                        </h5>
-                      </div>
-                    </div>
-                    {/*    <!--===================================================-->
-                                <!--End Panel with Tabs--> */}
-                  </div>
-                </div>
-              </div>
-            </div>
+            {this.getGraphs()}
           </div>
         </div>
+
+
       </div>
-
     );
 
     const { location } = this.props;

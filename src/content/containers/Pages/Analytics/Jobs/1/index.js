@@ -6,21 +6,10 @@ import { connect } from 'react-redux';
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
-
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 // import Boxplot from '../../../../../../content/containers/Fragments/Graphs/simpleBoxplot';
 
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showNationalAverage: false,
-    };
-  }
-
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -40,21 +29,9 @@ class Page extends React.PureComponent {
     });
 
     $(() => {
-      // listen for resize events
-      fireDebouncedResizeEvents();
-
-      // then listen for the events here
-      $(document).on('debouncedResizeEvent', () => {
-        redrawCharts();
-      });
-
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
-  }
-
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
   }
 
   render() {
@@ -63,8 +40,8 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-
         <h1>TODO</h1>
+
       </div>
     );
 

@@ -6,9 +6,6 @@ import { Link } from 'react-router-dom';
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
-
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import TabbedPanel from '../../../../../../content/components/TabbedPanel';
@@ -17,16 +14,7 @@ import drawSankeyChart from '../../../../../../content/scripts/custom/googlechar
 import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 
-
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showNationalAverage: false,
-    };
-  }
-
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -46,21 +34,9 @@ class Page extends React.PureComponent {
     });
 
     $(() => {
-      // listen for resize events
-      fireDebouncedResizeEvents();
-
-      // then listen for the events here
-      $(document).on('debouncedResizeEvent', () => {
-        redrawCharts();
-      });
-
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
-  }
-
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
   }
 
   render() {
@@ -315,23 +291,49 @@ class Page extends React.PureComponent {
               seperator
             />
 
-            <TabbedPanel
+
+            <TabbedGraphPanel
               title="List of all STEM subjects average salaries"
+              globalID="stem-vxy"
               content={[
-                    {
-                      title: 'STEM subjects',
-                      content: subjectsData,
-                      active: true,
-                      clickCallback: () => { console.log('tab 1 is clicked on'); },
+                {
+                  title: 'STEM subjects',
+                  active: true,
+                  graphData: {
+                    type: 'react',
+                    width: '100%',
+                    height: '100%',
+                    tools: {
+                      allowDownload: false,
+                      seeData: false,
+                      pinGraph: false,
                     },
-                       {
-                      title: 'Gender Split',
-                      content: genderSubjectsData,
-                      active: false,
+                    data: {
+                      reactData: subjectsData,
                     },
-                  ]}
+                  },
+                },
+                {
+                  title: 'Gender Split',
+                  active: false,
+                  graphData: {
+                    type: 'react',
+                    width: '100%',
+                    height: '100%',
+                    tools: {
+                      allowDownload: false,
+                      seeData: false,
+                      pinGraph: false,
+                    },
+                    data: {
+                      reactData: genderSubjectsData,
+                    },
+                  },
+                },
+              ]}
               seperator
             />
+
           </div>
         </div>
       </div>
