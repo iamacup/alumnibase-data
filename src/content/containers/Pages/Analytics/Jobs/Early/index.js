@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 

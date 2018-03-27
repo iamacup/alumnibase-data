@@ -63,7 +63,7 @@ export function redrawCharts() {
 }
 
 export function redrawChart(domTarget) {
-  const { jQueryDomNode, domNode } = getNodes(domTarget);
+  const { domNode } = getNodes(domTarget);
 
   if (dNc(domNode)) {
     const myChart = echarts.getInstanceByDom(domNode);

@@ -1,14 +1,13 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import TabbedPanel from '../../../../../../content/components/TabbedPanel';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
 import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
@@ -208,16 +207,28 @@ class Page extends React.PureComponent {
 
     const tabbedPanelData = [
       {
-        title: 'Stem Destinations of Graduates', globalID: 'stem-sankey-1', type: 'googlecharts', options: googleData1,
+        title: 'Stem Destinations of Graduates',
+        globalID: 'stem-sankey-1',
+        type: 'googlecharts',
+        drawData: { ...googleData1 },
       },
       {
-        title: 'Ethnicity split of graduates going into soc.1-3 jobs', globalID: 'stem-sankey-2', type: 'googlecharts', options: googleData2,
+        title: 'Ethnicity split of graduates going into soc.1-3 jobs',
+        globalID: 'stem-sankey-2',
+        type: 'googlecharts',
+        drawData: { ...googleData2 },
       },
       {
-        title: 'Gender split of graduates going into soc.1-3 jobs', globalID: 'stem-sankey-3', type: 'googlecharts', options: googleData3,
+        title: 'Gender split of graduates going into soc.1-3 jobs',
+        globalID: 'stem-sankey-3',
+        type: 'googlecharts',
+        drawData: { ...googleData3 },
       },
       {
-        title: 'STEM vs Non-STEM subjects', globalID: 'stem-pie-1', type: 'echarts', options: echartsData1,
+        title: 'STEM vs Non-STEM subjects',
+        globalID: 'stem-pie-1',
+        type: 'echarts',
+        drawData: { options: echartsData1 },
       },
     ];
     const content = (
@@ -254,9 +265,7 @@ class Page extends React.PureComponent {
                 },
                 width: '100%',
                 height: '250px',
-                data: {
-                  options: data.options,
-                },
+                data: data.drawData,
               },
             },
           ]}

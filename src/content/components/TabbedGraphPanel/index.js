@@ -1,5 +1,5 @@
 
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-array-index-key, jsx-a11y/anchor-is-valid */
 
 /*
   takes an array that will be displayed as tabs if there is more than 1 element, no tabs if only 1, with structure:
@@ -49,7 +49,6 @@ import { drawOrRedrawChart } from '../../../content/scripts/custom/echarts/utili
 
 import * as storeAction from '../../../foundation/redux/globals/DataStoreMulti/actions';
 
-
 class TabbedGraphPanel extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -88,8 +87,12 @@ class TabbedGraphPanel extends React.PureComponent {
         const { load, drawCallback } = content[this.state.currentActive].graphData.data;
         const { google } = window;
 
+        const callbackFunc = () => {
+          drawCallback(this['graph' + this.state.currentActive]);
+        };
+
         google.charts.load(load[0], load[1]);
-        google.charts.setOnLoadCallback(drawCallback(this['graph' + this.state.currentActive]));
+        google.charts.setOnLoadCallback(callbackFunc);
       } else {
         console.log('unknown graph type in TabbgedGraphPanel 4');
       }
@@ -260,12 +263,14 @@ class TabbedGraphPanel extends React.PureComponent {
       setTimeout(() => { drawOrRedrawChart(this['graph' + index], content[index].graphData.data.options); }, 300);
     } else if (content[index].graphData.type === 'googlecharts') {
       const { load, drawCallback } = content[index].graphData.data;
-
       const { google } = window;
 
-      google.charts.load(load[0], load[1]);
+      const callbackFunc = () => {
+        drawCallback(this['graph' + index]);
+      };
 
-      setTimeout(() => { google.charts.setOnLoadCallback(drawCallback(this['graph' + index])); }, 300);
+      google.charts.load(load[0], load[1]);
+      setTimeout(() => { google.charts.setOnLoadCallback(callbackFunc); }, 300);
     } else if (content[index].graphData.type === 'react') {
       // do nothing
     } else {
@@ -297,7 +302,7 @@ class TabbedGraphPanel extends React.PureComponent {
   }
 
   render() {
-    const { seperator, title, content } = this.props;
+    const { seperator, content } = this.props;
 
     let seperatorContent = null;
 
@@ -334,7 +339,7 @@ class TabbedGraphPanel extends React.PureComponent {
                 : null
             }
 
-              <hr style={{ margin: 0 }} />
+              { seperatorContent }
 
               <div className="panel-body" style={{ paddingBottom: '0' }}>
                 <div className="tab-content">

@@ -1,3 +1,6 @@
+
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,6 +10,7 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
+
 import getSalaryRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 import BellCurve from '../../../../../../content/containers/Fragments/Graphs/bellCurve';
 import SalaryBoxPlot from '../../../../../../content/containers/Fragments/Graphs/salaryBoxPlot';
@@ -50,6 +54,20 @@ class Page extends React.PureComponent {
   getBellCurve() {
     const googleData = drawBellcurveChart();
 
+    const postContent = (
+      <div className="row">
+        <div className="col-sm-4" style={{ color: 'red' }}>
+            Some quick stat here
+        </div>
+        <div className="col-sm-4" style={{ color: 'red' }}>
+            Some quick stat here
+        </div>
+        <div className="col-sm-4" style={{ color: 'red' }}>
+            Some quick stat here
+        </div>
+      </div>
+    );
+
     const panel = (
       <TabbedGraphPanel
         title="Salary Distribution"
@@ -58,6 +76,7 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
+              postContent,
               graphData: {
                 type: 'googlecharts',
                 tools: {
@@ -432,11 +451,11 @@ const optionsB = {
       <div id="page-content">
         <StandardFilters />
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-6 col-md-push-3">
             <BasicPanel
               content={
                 <p>
-                  This data represents the average salary statistics.
+                  This data represents the average salary statistics for the selected filters.
                 </p>
               }
             />
@@ -445,7 +464,21 @@ const optionsB = {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">High level stats</h3>
+            <hr className="new-section-xs" />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
             {this.getBellCurve()}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Salary over time</h3>
+            <hr className="new-section-xs" />
           </div>
         </div>
 
@@ -464,6 +497,13 @@ const optionsB = {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getLineCharts()}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Subject breakdown</h3>
+            <hr className="new-section-xs" />
           </div>
         </div>
 

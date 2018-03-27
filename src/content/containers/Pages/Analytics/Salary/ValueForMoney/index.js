@@ -1,13 +1,12 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import BarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawScatterGraph from '../../../../../../content/scripts/custom/echarts/drawScatterGraph';
 import drawBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
@@ -39,6 +38,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
+<<<<<<< HEAD
 
 const barData = {
   titles1: ['Education', 'Anthropology & Development Studies', 'Communication, Cultural and Media Studies, Library and Information Management', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Area Studies', 'Electrical and Electronic Engineering, Metallurgy and Materials', 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering', 'Mathematical Sciences', 'Physics', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', 'Allied Health Professions, Dentistry, Nursing and Pharmacy', 'Clinical Medicine'], 
@@ -80,13 +80,13 @@ const tabData = [
         </div>
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-{tabData.map(element => (
-    <TabbedGraphPanel
-        title={element.title}
-        globalID={element.globalID}
-        content={[
+            {tabData.map(element => (
+              <TabbedGraphPanel
+                title={element.title}
+                globalID={element.globalID}
+                content={[
             {
-              title: "",
+              title: '',
               active: true,
               graphData: {
                 type: 'echarts',
@@ -103,8 +103,8 @@ const tabData = [
               },
             },
           ]}
-        seperator
-      />
+                seperator
+              />
 ))}
           </div>
         </div>
