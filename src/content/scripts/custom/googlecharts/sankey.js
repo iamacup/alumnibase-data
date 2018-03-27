@@ -24,16 +24,14 @@ export default function drawSankeyChart(columns, rows) {
       { packages: ['sankey'] },
     ],
     drawCallback: (targetDiv) => {
-      $(() => {
-        const { google } = window;
+      const { google } = window;
 
-        const data = new google.visualization.DataTable();
-        columns.map(column => data.addColumn(column[0], column[1]));
-        data.addRows(rows);
+      const data = new google.visualization.DataTable();
+      columns.map(column => data.addColumn(column[0], column[1]));
+      data.addRows(rows);
 
-        const chart = new google.visualization.Sankey(targetDiv);
-        chart.draw(data, options);
-      });
+      const chart = new google.visualization.Sankey(targetDiv);
+      chart.draw(data, options);
     },
   };
 }

@@ -494,3 +494,11 @@ export function nFormatter(num, digits) {
 
   return (num / si[i].value).toFixed(digits).replace(rx, '$1') + si[i].symbol;
 }
+
+export function whenLoaded(callback) {
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    callback();
+  } else {
+    document.addEventListener('DOMContentLoaded', callback);
+  }
+}
