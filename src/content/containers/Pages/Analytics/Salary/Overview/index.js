@@ -218,28 +218,27 @@ class Page extends React.PureComponent {
   }
 
   getLineCharts() {
+    const optionsA = {
+      trendline: true,
+    };
 
-    const optionsA= {
-      trendline: true
-    }
-
-    const data1 = { 
-      name: ['Average Salary'], 
+    const data1 = {
+      name: ['Average Salary'],
       plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000]],
       age: [1, 2, 3, 4, 5, 6, 7],
-    }
+    };
     const options1 = drawLineChart(data1, optionsA);
 
-    const optionsB= {
+    const optionsB = {
       trendline: true,
       value: false,
-    }
+    };
 
-  const data2 = { 
-      name: ['Male', 'Female', 'Other'], 
+    const data2 = {
+      name: ['Male', 'Female', 'Other'],
       plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [0, 0, 0, 0, 0, 0, 5]],
       age: [1, 2, 3, 4, 5, 6, 7],
-    }
+    };
     // const axis2 = [1, 2, 3, 4, 5, 6, 7]
     // const data2 = [
     //   { name: 'Male', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] },
@@ -371,22 +370,21 @@ class Page extends React.PureComponent {
   }
 
   getSalaryLineChart() {
-
     const data1 = {
       age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       name: ['Average'],
       plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000]],
     };
 
-const optionsA = {
-  x:'Time After Graduating (years)', 
-  y: 'Salary'
-}
-const optionsB = {
-  x:'Time After Graduating (years)', 
-  y: 'Salary',
-  value: false
-}
+    const optionsA = {
+      x: 'Time After Graduating (years)',
+      y: 'Salary',
+    };
+    const optionsB = {
+      x: 'Time After Graduating (years)',
+      y: 'Salary',
+      value: false,
+    };
 
     const options1 = drawLineChart(data1, optionsA);
 
@@ -394,7 +392,7 @@ const optionsB = {
     const data2 = {
       age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       name: ['Female', 'Male'],
-      plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000], [17000, 20000, 27000, 33000, 39000, 43000, 46000, 52000, 58000, 69000]]
+      plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000], [17000, 20000, 27000, 33000, 39000, 43000, 46000, 52000, 58000, 69000]],
     };
 
     const options2 = drawLineChart(data2, optionsB);

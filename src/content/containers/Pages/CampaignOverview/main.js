@@ -415,15 +415,15 @@ class Page extends React.PureComponent {
     const titles2 = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011'];
     const data = [
       { data: [980, 800, 975, 678, 708, 1020] },
-    ]; 
+    ];
     const data2 = [
       { data: [500, 600, 746, 774, 842, 874, 899, 900, 875, 778, 808, 920] },
     ];
 
     const option = {
- direction: 'horizontal',
-   value: ''
-    }
+      direction: 'horizontal',
+      value: '',
+    };
 
     const options = drawGroupedBarChart(titles, data, option);
     const options1 = drawGroupedBarChart(titles2, data2, option);
@@ -483,7 +483,7 @@ class Page extends React.PureComponent {
     const data = [
       { data: [456, 1000, 793, 578, 654, 543, 308, 123], rotation: '90' },
     ];
-    const option = {direction: 'vertical', value: '', rotate: -45}
+    const option = { direction: 'vertical', value: '', rotate: -45 };
 
 
     const options = drawGroupedBarChart(titles, data, option);

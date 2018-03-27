@@ -1,7 +1,7 @@
 const drawLineChart = (data, options) => {
   // data sould be in the form [{age: [], plotted: []}]
-let value = false;
-if (options.value !== false) value = true
+  let value = false;
+  if (options.value !== false) value = true;
   const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
   const option = {
     legend: {
@@ -55,20 +55,20 @@ if (options.value !== false) value = true
     series: data.plotted.map((element, i) => ({
       name: data.name[i],
       type: 'line',
-                  label: {formatter: '{b}: {d}'},
-        markLine: {
-                data: [
-                {
-                  name: 'National Average',
-                    yAxis: 35000,
-                    lineStyle:{
-                    normal:{
-                        color:'#8e1600',
-                        width:2
-                    }
-                },
-                }],
+      label: { formatter: '{b}: {d}' },
+      markLine: {
+        data: [
+          {
+            name: 'National Average',
+            yAxis: 35000,
+            lineStyle: {
+              normal: {
+                color: '#8e1600',
+                width: 2,
               },
+            },
+          }],
+      },
       symbolSize: 15,
       itemStyle: {
         normal: {

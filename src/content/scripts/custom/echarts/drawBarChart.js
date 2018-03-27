@@ -6,15 +6,17 @@ const drawGroupedBarChart = (titles, data, options) => {
   if (options.colours) colors = options.colours;
 
   let axis = {
-    x: [{ type: 'value', axisLabel: { formatter: options.value + '{value}'}}],
+    x: [{ type: 'value', axisLabel: { formatter: options.value + '{value}' } }],
     y: [{ type: 'category', data: titles }],
   };
-let rotation = 0;
-if (options.rotate) rotation = options.rotate
+  let rotation = 0;
+  if (options.rotate) rotation = options.rotate;
 
   if (options.direction !== 'horizontal') {
     axis = {
-      x: [{ type: 'category', data: titles, nameRotate: 180, axisLabel: {rotate: rotation}}],
+      x: [{
+        type: 'category', data: titles, nameRotate: 180, axisLabel: { rotate: rotation },
+      }],
       y: [{ type: 'value', axisLabel: { formatter: options.value + '{value}' } }],
     };
   }
