@@ -16,9 +16,7 @@ const drawGroupedBarChart = (titles, data, direction, value, colours) => {
       y: [{ type: 'value', axisLabel: { formatter: value + '{value}' } }],
     };
   }
-  // {
-  //           color(params) { return colors[params.dataIndex]; },
-  //         },
+
   const option = {
     tooltip: {
       trigger: 'axis',
