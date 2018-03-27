@@ -20,13 +20,13 @@ import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 import Jobs1Page from '../../content/containers/Pages/Analytics/Jobs/1';
 
 import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
-// import Salary2Page from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
 import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
 import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/Overview';
 
 import SubjectEarlyPage from '../../content/containers/Pages/Analytics/Subjects/Early';
-import JobsEarlyPage from '../../content/containers/Pages/Analytics/Jobs/Early';
+import JobsEarlyPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
+import JobsFirstPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
 import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Salary/ValueForMoney';
 import StemPage from '../../content/containers/Pages/Analytics/Jobs/STEM';
 import PolarOverviewPage from '../../content/containers/Pages/Analytics/Polar/Overview';
@@ -94,6 +94,11 @@ export default [
     path: '/analytics/jobs/2',
     exact: true,
     component: JobsEarlyPage,
+  },
+  {
+    path: '/analytics/jobs/4',
+    exact: true,
+    component: JobsFirstPage,
   },
   {
     path: '/analytics/subjects/2',
