@@ -223,28 +223,23 @@ class Page extends React.PureComponent {
     };
 
     const data1 = {
-      name: ['Average Salary'],
-      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000]],
+      name: ['Average Salary', 'National Average'],
+      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
       age: [1, 2, 3, 4, 5, 6, 7],
     };
     const options1 = drawLineChart(data1, optionsA);
 
     const optionsB = {
-      trendline: true,
       value: false,
-    };
+      trendline: true,
+    }
 
     const data2 = {
-      name: ['Male', 'Female', 'Other'],
-      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [0, 0, 0, 0, 0, 0, 5]],
+      name: ['Male', 'Female', 'Other', 'National Average'],
+      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [0, 0, 0, 0, 0, 0, 5], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
       age: [1, 2, 3, 4, 5, 6, 7],
     };
-    // const axis2 = [1, 2, 3, 4, 5, 6, 7]
-    // const data2 = [
-    //   { name: 'Male', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] },
-    //   { name: 'Female', data: [14000, 19000, 28000, 36000, 45000, 52000, 68000] },
-    //   { name: 'Other', data: [0, 0, 0, 0, 0, 0, 5] },
-    // ];
+   
     const options2 = drawLineChart(data2, optionsB);
 
     const panel = (
