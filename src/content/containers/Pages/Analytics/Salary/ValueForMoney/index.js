@@ -44,10 +44,9 @@ const barData = {
   titles1: ['Education', 'Anthropology & Development Studies', 'Communication, Cultural and Media Studies, Library and Information Management', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Area Studies', 'Electrical and Electronic Engineering, Metallurgy and Materials', 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering', 'Mathematical Sciences', 'Physics', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', 'Allied Health Professions, Dentistry, Nursing and Pharmacy', 'Clinical Medicine'], 
   titles2: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Theology and Religious Studies', 'Public Health, Health Services and Primary Care', 'Architecture, Built Environment and Planning', 'Clinical Medicine'],
   data2: [{ data: [0, 4, 8, 97, 99, 100] }],
-  colours2: ['#1c6cab', '#d02224'],
   data1: [{data: [4, 8, 15, 20, 24, 28, 36, 44, 45, 52, 56, 64, 68, 76, 84, 88, 92, 100]}], 
-  direction: "horizontal",
-  value: '',
+  options1: {direction: "horizontal", value: ''},
+  options2: {direction: "horizontal", value: '', colours2: ['#1c6cab', '#d02224'],},
 }
 
 const data = [
@@ -56,8 +55,8 @@ const data = [
   [0.355083, -3.376585],
 ];
 
-const bar1 = drawBarChart(barData.titles1, barData.data1, barData.direction, barData.value)
-const bar2 = drawBarChart(barData.titles2, barData.data2, barData.direction, barData.value, barData.colours2)
+const bar1 = drawBarChart(barData.titles1, barData.data1, barData.options1)
+const bar2 = drawBarChart(barData.titles2, barData.data2, barData.options2)
 const scatterData = drawScatterGraph(data);
 
 const tabData = [

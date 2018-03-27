@@ -1,19 +1,21 @@
-const drawGroupedBarChart = (titles, data, direction, value, colours) => {
+const drawGroupedBarChart = (titles, data, options) => {
   // data sould be in the form {x: [1, 2, 3], y: '%'}
   // direction is which way the axis should be: horizontal or vertical;
   // value is the axis value, ie "%" || "£";
   let colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
-  if (colours) colors = colours;
+  if (options.colours) colors = options.colours;
 
   let axis = {
-    x: [{ type: 'value', axisLabel: { formatter: value + '{value}' } }],
+    x: [{ type: 'value', axisLabel: { formatter: options.value + '{value}'}}],
     y: [{ type: 'category', data: titles }],
   };
+let rotation = 0;
+if (options.rotate) rotation = options.rotate
 
-  if (direction !== 'horizontal') {
+  if (options.direction !== 'horizontal') {
     axis = {
-      x: [{ type: 'category', data: titles }],
-      y: [{ type: 'value', axisLabel: { formatter: value + '{value}' } }],
+      x: [{ type: 'category', data: titles, nameRotate: 180, axisLabel: {rotate: rotation}}],
+      y: [{ type: 'value', axisLabel: { formatter: options.value + '{value}' } }],
     };
   }
 

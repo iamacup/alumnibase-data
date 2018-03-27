@@ -1,6 +1,5 @@
 import prepareBoxplotData from './dataTool';
 
-let colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b', '#0b6623'];
 
 const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
   // example data for the inputs - note that indata can contain arrays of any length, the boxplot calculation is performed on the data
@@ -15,6 +14,7 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
 
   // the valueGapMaxMin is a value that will be added to the maximum and minimum values to provide spacing above and below the box plots
 
+let colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b', '#0b6623'];
   if (colours) colourScheme = colours;
 
   if (inData.length !== cats.length) {

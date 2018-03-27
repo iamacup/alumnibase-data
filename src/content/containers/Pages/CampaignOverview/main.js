@@ -376,8 +376,8 @@ class Page extends React.PureComponent {
 
   getDisabilitySplitGraph() {
     const data = [
-      { name: 'No disability specified', value: 700 },
-      { name: 'Disability declared', value: 400 },
+      { name: 'No disability specified', value: 900 },
+      { name: 'Disability declared', value: 100 },
     ];
     const label = false;
     const chart = 'doughnut';
@@ -419,13 +419,21 @@ class Page extends React.PureComponent {
 
   getTotalResponsesPerYearGroup() {
     const titles = ['2012', '2013', '2014', '2015', '2016', '2017'];
+    const titles2 = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011'];
     const data = [
       { data: [980, 800, 975, 678, 708, 1020] },
+    ]; 
+    const data2 = [
+      { data: [500, 600, 746, 774, 842, 874, 899, 900, 875, 778, 808, 920] },
     ];
-    const direction = 'horizontal';
-    const value = '';
 
-    const options = drawGroupedBarChart(titles, data, direction, value);
+    const option = {
+ direction: 'horizontal',
+   value: ''
+    }
+
+    const options = drawGroupedBarChart(titles, data, option);
+    const options1 = drawGroupedBarChart(titles2, data2, option);
 
     // the actual panel stuff
     const panel = (
@@ -434,7 +442,7 @@ class Page extends React.PureComponent {
         globalID="overview-3"
         content={[
             {
-              title: '',
+              title: 'tab 1',
               active: true,
               postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
@@ -445,9 +453,27 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 width: '100%',
-                height: '250px',
+                height: '280px',
                 data: {
                   options,
+                },
+              },
+            },
+            {
+              title: 'Tab 2',
+              active: false,
+              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '280px',
+                data: {
+                  options: options1,
                 },
               },
             },
@@ -462,12 +488,12 @@ class Page extends React.PureComponent {
   getAgeDistribution() {
     const titles = ['under 25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56+'];
     const data = [
-      { data: [456, 1000, 793, 578, 654, 543, 308, 123] },
+      { data: [456, 1000, 793, 578, 654, 543, 308, 123], rotation: '90' },
     ];
-    const direction = 'vertical';
-    const value = '';
+    const option = {direction: 'vertical', value: '', rotate: -45}
 
-    const options = drawGroupedBarChart(titles, data, direction, value);
+
+    const options = drawGroupedBarChart(titles, data, option);
 
     // the actual panel stuff
     const panel = (
@@ -487,7 +513,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 width: '100%',
-                height: '250px',
+                height: '320px',
                 data: {
                   options,
                 },

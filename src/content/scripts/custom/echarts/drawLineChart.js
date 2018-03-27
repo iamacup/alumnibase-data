@@ -1,7 +1,9 @@
-const drawLineChart = (data, xLabel, yLabel) => {
+const drawLineChart = (data, options) => {
   // data sould be in the form [{age: [], plotted: []}]
+let value = false;
+if (options.value !== false) value = true
   const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
-  const options = {
+  const option = {
     legend: {
       data: data.name,
     },
@@ -14,12 +16,8 @@ const drawLineChart = (data, xLabel, yLabel) => {
         },
       },
     },
-    grid: {
-      top: 110,
-      bottom: 95,
-    },
     xAxis: [{
-      name: xLabel,
+      name: options.x,
       nameLocation: 'center',
       nameGap: 50,
       type: 'category',
@@ -31,13 +29,13 @@ const drawLineChart = (data, xLabel, yLabel) => {
       data: data.age,
     }],
     yAxis: [{
-      name: yLabel,
+      name: options.y,
       nameLocation: 'center',
       nameGap: 50,
       nameRotate: 90,
       type: 'value',
       splitLine: {
-        show: false,
+        show: true,
       },
       axisLine: {
         lineStyle: {
@@ -57,11 +55,26 @@ const drawLineChart = (data, xLabel, yLabel) => {
     series: data.plotted.map((element, i) => ({
       name: data.name[i],
       type: 'line',
+                  label: {formatter: '{b}: {d}'},
+        markLine: {
+                data: [
+                {
+                  name: 'National Average',
+                    yAxis: 35000,
+                    lineStyle:{
+                    normal:{
+                        color:'#8e1600',
+                        width:2
+                    }
+                },
+                }],
+              },
+      symbolSize: 15,
       itemStyle: {
         normal: {
           color: colours[i],
           label: {
-            show: true,
+            show: value,
             position: 'top',
             formatter(p) {
               return p.value > 0 ? (p.value) : '';
@@ -73,7 +86,7 @@ const drawLineChart = (data, xLabel, yLabel) => {
       data: element,
     })),
   };
-  return options;
+  return option;
 };
 
 export default drawLineChart;

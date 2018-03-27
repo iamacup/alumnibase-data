@@ -140,8 +140,6 @@ class Page extends React.PureComponent {
       plotted.push(Number(current.toPrecision(2)));
 
       current -= increment;
-
-      console.log(increment);
     }
 
     const data = {
@@ -187,6 +185,7 @@ class Page extends React.PureComponent {
   }
 
   getTabbed(title, id, options, arr, collapsed) {
+    console.log(options)
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}

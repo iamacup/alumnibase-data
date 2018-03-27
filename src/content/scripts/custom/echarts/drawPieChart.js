@@ -12,7 +12,8 @@ const drawNewPieChart = (data, label, chart, toggle) => {
   if (label) dataToggle = [];
   if (chart !== 'pie') radius = ['30%', '55%'];
 
-  const colors = ['#11293b', '#235175', '#2f6d9d', '#3a88c4', '#62a0d0'];
+  const colors = ['#1d2951', '#0e4d92', '#3c516d', '#7285a5', '#4682b4', '#588bae', '#89cff0', '#6593f5'];
+  // const colors = ['#11293b', '#235175', '#2f6d9d', '#3a88c4', '#62a0d0'];
 
   const options = {
     tooltip: {

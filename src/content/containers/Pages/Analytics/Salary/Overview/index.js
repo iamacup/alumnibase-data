@@ -7,7 +7,7 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
+import getSalaryRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 import BellCurve from '../../../../../../content/containers/Fragments/Graphs/bellCurve';
 import SalaryBoxPlot from '../../../../../../content/containers/Fragments/Graphs/salaryBoxPlot';
 import AreaChart from '../../../../../../content/containers/Fragments/Graphs/areaChart';
@@ -81,33 +81,36 @@ class Page extends React.PureComponent {
   getSalaryBoxPlots() {
     const data = {
       1: {
-        categories: ['Male', 'Female'],
+        categories: ['Male', 'Female', 'Other'],
         values: [
           [18000, 25000],
           [17000, 24000],
+          [17500, 24500],
         ],
       },
       2: {
-        categories: ['Male', 'Female'],
+        categories: ['Male', 'Female', 'Other'],
         values: [
           [26000, 35000],
           [24000, 33000],
+          [25000, 34000],
         ],
       },
       3: {
-        categories: ['Male', 'Female'],
+        categories: ['Male', 'Female', 'Other'],
         values: [
           [38000, 48000],
           [34000, 44000],
+          [36000, 46000],
         ],
       },
       4: {
-        categories: ['Male', 'Female'],
-        values: [[50000, 80000], [46000, 72000]],
+        categories: ['Male', 'Female', 'Other'],
+        values: [[50000, 80000], [46000, 72000], [48000, 76000]],
       },
     };
 
-    const colours = [['#ff7311', '#ffbb7d'], ['#d02224', '#ff8d8b'], ['#11293b', '#0b6623'], ['#1c6cab', '#a4c0e5']];
+    const colours = [['#ff7311', '#ffbb7d', '#ff8d8b'], ['#d02224', '#ff8d8b', '#a4c0e5'], ['#11293b', '#0b6623', '#1c6cab'], ['#1c6cab', '#a4c0e5', '#11293b']];
 
     const options1 = drawBoxplotChart(data[1].values, data[1].categories, 10000, colours[0]);
     const options2 = drawBoxplotChart(data[2].values, data[2].categories, 10000, colours[1]);
@@ -195,20 +198,36 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getAreaCharts() {
-    const axis1 = [1, 2, 3, 4, 5, 6, 7];
-    const data1 = [
-      { name: 'Average Salary', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] },
-    ];
-    const options1 = drawAreaChart(data1, axis1);
+  getLineCharts() {
 
-    const axis2 = [1, 2, 3, 4, 5, 6, 7];
-    const data2 = [
-      { name: 'Male', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] },
-      { name: 'Female', data: [14000, 19000, 28000, 36000, 45000, 52000, 68000] },
-      { name: 'Other', data: [0, 0, 0, 0, 0, 0, 5] },
-    ];
-    const options2 = drawAreaChart(data2, axis2);
+    const optionsA= {
+      trendline: true
+    }
+
+    const data1 = { 
+      name: ['Average Salary'], 
+      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000]],
+      age: [1, 2, 3, 4, 5, 6, 7],
+    }
+    const options1 = drawLineChart(data1, optionsA);
+
+    const optionsB= {
+      trendline: true,
+      value: false,
+    }
+
+  const data2 = { 
+      name: ['Male', 'Female', 'Other'], 
+      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [0, 0, 0, 0, 0, 0, 5]],
+      age: [1, 2, 3, 4, 5, 6, 7],
+    }
+    // const axis2 = [1, 2, 3, 4, 5, 6, 7]
+    // const data2 = [
+    //   { name: 'Male', data: [15000, 20000, 30000, 40000, 50000, 60000, 70000] },
+    //   { name: 'Female', data: [14000, 19000, 28000, 36000, 45000, 52000, 68000] },
+    //   { name: 'Other', data: [0, 0, 0, 0, 0, 0, 5] },
+    // ];
+    const options2 = drawLineChart(data2, optionsB);
 
     const panel = (
       <TabbedGraphPanel
@@ -268,15 +287,15 @@ class Page extends React.PureComponent {
             </div>
           </div>
           <div>
-            {getPercentRow('Male', [80])}
-            {getPercentRow('Female', [65])}
+            {getSalaryRow('Male', [26.420])}
+            {getSalaryRow('Female', [25.420])}
             <div className="row">
               <div className="col-md-4 col-md-push-2">
                 <p>Medical Sciences</p>
               </div>
             </div>
-            {getPercentRow('Male', [90])}
-            {getPercentRow('Female', [70])}
+            {getSalaryRow('Male', [26.535])}
+            {getSalaryRow('Female', [25.535])}
 
             <h4 className="panel-title">Art Degrees</h4>
             <div className="row">
@@ -284,19 +303,19 @@ class Page extends React.PureComponent {
                 <p>Fine Arts / Art History</p>
               </div>
             </div>
-            {getPercentRow('Male', [60])}
-            {getPercentRow('Female', [55])}
+            {getSalaryRow('Male', [11.020])}
+            {getSalaryRow('Female', [13.020])}
             <div className="row">
               <div className="col-md-4 col-md-push-2">
                 <p>Design</p>
               </div>
             </div>
-            {getPercentRow('Male', [70])}
-            {getPercentRow('Female', [60])}
+            {getSalaryRow('Male', [11.420])}
+            {getSalaryRow('Female', [12.420])}
           </div>
         </div>
         <div className="text-center">
-          <Link href="#" to="" className="btn btn-primary">Detailed Breakdown</Link>
+          <Link href="#" to="/analytics/subjects/early" className="btn btn-primary">Detailed Breakdown</Link>
         </div>
       </div>
     );
@@ -333,23 +352,33 @@ class Page extends React.PureComponent {
   }
 
   getSalaryLineChart() {
-    const label1 = ['Time After Graduating (years)', 'Salary'];
+
     const data1 = {
       age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       name: ['Average'],
       plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000]],
     };
 
-    const options1 = drawLineChart(data1, label1[0], label1[1]);
+const optionsA = {
+  x:'Time After Graduating (years)', 
+  y: 'Salary'
+}
+const optionsB = {
+  x:'Time After Graduating (years)', 
+  y: 'Salary',
+  value: false
+}
+
+    const options1 = drawLineChart(data1, optionsA);
 
     const label2 = ['Time After Graduating (years)', 'Salary'];
     const data2 = {
       age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       name: ['Female', 'Male'],
-      plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000], [17000, 20000, 27000, 33000, 39000, 43000, 46000, 52000, 58000, 69000]],
+      plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000], [17000, 20000, 27000, 33000, 39000, 43000, 46000, 52000, 58000, 69000]]
     };
 
-    const options2 = drawLineChart(data2, label2[0], label2[1]);
+    const options2 = drawLineChart(data2, optionsB);
 
     const panel = (
       <TabbedGraphPanel
@@ -434,7 +463,7 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getAreaCharts()}
+            {this.getLineCharts()}
           </div>
         </div>
 
