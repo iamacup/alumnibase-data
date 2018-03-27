@@ -11,7 +11,7 @@ import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/cus
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import BarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
-// import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import ScatterChart from '../../../../../../content/containers/Fragments/Graphs/scatterChart';
 
 
 class Page extends React.PureComponent {
@@ -95,6 +95,10 @@ class Page extends React.PureComponent {
               data={[{ data: [0, 4, 8, 97, 99, 100], colours: ['#1c6cab', '#d02224'] }]}
               globalID="VFM-1"
             />
+
+                     <ScatterChart 
+            globalID="value-scatter-1"
+          />
           </div>
         </div>
       </div>
