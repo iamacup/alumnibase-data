@@ -1,14 +1,13 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import TabbedPanel from '../../../../../../content/components/TabbedPanel';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
 import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';

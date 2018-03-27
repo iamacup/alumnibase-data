@@ -1,5 +1,5 @@
 
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-array-index-key, jsx-a11y/anchor-is-valid */
 
 /*
   takes an array that will be displayed as tabs if there is more than 1 element, no tabs if only 1, with structure:
@@ -302,7 +302,7 @@ class TabbedGraphPanel extends React.PureComponent {
   }
 
   render() {
-    const { seperator, title, content } = this.props;
+    const { seperator, content } = this.props;
 
     let seperatorContent = null;
 
@@ -339,7 +339,7 @@ class TabbedGraphPanel extends React.PureComponent {
                 : null
             }
 
-              <hr style={{ margin: 0 }} />
+              { seperatorContent }
 
               <div className="panel-body" style={{ paddingBottom: '0' }}>
                 <div className="tab-content">

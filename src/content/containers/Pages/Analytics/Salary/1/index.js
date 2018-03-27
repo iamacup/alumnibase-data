@@ -54,7 +54,7 @@ class Page extends React.PureComponent {
   }
 
   getBoxPlot(input, title, id) {
-    const colours = [['#ff7311', '#ffbb7d'], ['#d02224', '#ff8d8b'], ['#11293b', '#0b6623'], ['#1c6cab', '#a4c0e5']];
+    // const colours = [['#ff7311', '#ffbb7d'], ['#d02224', '#ff8d8b'], ['#11293b', '#0b6623'], ['#1c6cab', '#a4c0e5']];
 
     const options = drawBoxplotChart(input.values, input.categories, 10000);
 

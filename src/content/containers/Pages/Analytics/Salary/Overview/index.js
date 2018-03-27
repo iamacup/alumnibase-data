@@ -1,3 +1,6 @@
+
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,11 +11,6 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
-import BellCurve from '../../../../../../content/containers/Fragments/Graphs/bellCurve';
-import SalaryBoxPlot from '../../../../../../content/containers/Fragments/Graphs/salaryBoxPlot';
-import AreaChart from '../../../../../../content/containers/Fragments/Graphs/areaChart';
-import SalaryLineGraph from '../../../../../../content/containers/Fragments/Graphs/salaryLineGraph';
-import LineChart from '../../../../../../content/containers/Fragments/Graphs/lineChart';
 
 import drawBellcurveChart from '../../../../../../content/scripts/custom/googlecharts/bellcurve';
 import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/drawBoxPlotChart';

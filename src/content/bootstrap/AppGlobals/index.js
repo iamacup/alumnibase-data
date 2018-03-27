@@ -6,8 +6,6 @@ import echarts from 'echarts';
 
 import { dNc, fireDebouncedResizeEvents } from '../../../content/scripts/custom/utilities';
 
-import { redrawCharts } from '../../../content/scripts/custom/echarts/utilities';
-
 import * as storeAction from '../../../foundation/redux/globals/DataStoreSingle/actions';
 
 // nifty core stylesheet - required

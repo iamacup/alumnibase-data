@@ -1,26 +1,16 @@
+
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
-import PieChart from '../../../../../../content/containers/Fragments/Graphs/pieChart';
-import BarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
-import WorldMap from '../../../../../../content/containers/Fragments/Graphs/section5WorldMap';
-import Sankey from '../../../../../../content/containers/Fragments/Graphs/sankey';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
-import drawNewPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
-import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
-import drawWorldMap from '../../../../../../content/scripts/custom/echarts/drawWorldMap';
-import worldMapData from '../../../../../../content/containers/Fragments/Graphs/worldMapData';
-
-import { renderChartToTarget } from '../../../../../../content/scripts/custom/echarts/utilities';
 
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 

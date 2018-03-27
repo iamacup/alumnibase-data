@@ -1,13 +1,12 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import BarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawScatterGraph from '../../../../../../content/scripts/custom/echarts/drawScatterGraph';
 import drawBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
