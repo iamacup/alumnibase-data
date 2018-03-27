@@ -10,17 +10,10 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-
 import getSalaryRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
-import BellCurve from '../../../../../../content/containers/Fragments/Graphs/bellCurve';
-import SalaryBoxPlot from '../../../../../../content/containers/Fragments/Graphs/salaryBoxPlot';
-import AreaChart from '../../../../../../content/containers/Fragments/Graphs/areaChart';
-import SalaryLineGraph from '../../../../../../content/containers/Fragments/Graphs/salaryLineGraph';
-import LineChart from '../../../../../../content/containers/Fragments/Graphs/lineChart';
 
 import drawBellcurveChart from '../../../../../../content/scripts/custom/googlecharts/bellcurve';
 import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/drawBoxPlotChart';
-import drawAreaChart from '../../../../../../content/scripts/custom/echarts/drawAreaChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';

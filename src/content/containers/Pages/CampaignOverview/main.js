@@ -19,6 +19,14 @@ import worldMapData from '../../../../content/containers/Fragments/Graphs/worldM
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 class Page extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeTab: 0,
+    };
+  }
+
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Campaign Overview',
@@ -251,7 +259,6 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -295,7 +302,6 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -344,7 +350,6 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -387,7 +392,6 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -412,12 +416,12 @@ class Page extends React.PureComponent {
 
   getTotalResponsesPerYearGroup() {
     const titles = ['2012', '2013', '2014', '2015', '2016', '2017'];
-    const titles2 = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011'];
+    const titles2 = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
     const data = [
       { data: [980, 800, 975, 678, 708, 1020] },
     ];
     const data2 = [
-      { data: [500, 600, 746, 774, 842, 874, 899, 900, 875, 778, 808, 920] },
+      { data: [500, 600, 746, 774, 842, 874, 899, 900, 875, 778, 808, 920, 980, 800, 975, 678, 708, 1020] },
     ];
 
     const option = {
@@ -428,16 +432,29 @@ class Page extends React.PureComponent {
     const options = drawGroupedBarChart(titles, data, option);
     const options1 = drawGroupedBarChart(titles2, data2, option);
 
+    const postContentShowMore = (
+      <div className="text-center" style={{ marginTop: '12px' }}>
+        <button className="btn btn-primary" onClick={() => { this.setState({ activeTab: 1 }); }}>Show All</button>
+      </div>
+    );
+
+    const postContentHideMore = (
+      <div className="text-center" style={{ marginTop: '12px' }}>
+        <button className="btn btn-primary" onClick={() => { this.setState({ activeTab: 0 }); }}>Hide All</button>
+      </div>
+    );
+
     // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
-        title="Total Responses per Year Group"
+        title="Total Responses per Graduation Year"
         globalID="overview-3"
+        showTabs={false}
         content={[
             {
-              title: 'tab 1',
-              active: true,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              title: 'Tab 1',
+              active: this.state.activeTab === 0,
+              postContent: postContentShowMore,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -454,8 +471,8 @@ class Page extends React.PureComponent {
             },
             {
               title: 'Tab 2',
-              active: false,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+              active: this.state.activeTab !== 0,
+              postContent: postContentHideMore,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -464,7 +481,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 width: '100%',
-                height: '280px',
+                height: '580px',
                 data: {
                   options: options1,
                 },
@@ -497,7 +514,6 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -607,7 +623,6 @@ class Page extends React.PureComponent {
         content={[
             {
               title: '',
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               active: true,
               graphData: {
                 type: 'react',
@@ -655,7 +670,6 @@ class Page extends React.PureComponent {
             {
               title: 'Responses based on country of birth',
               active: true,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -673,7 +687,6 @@ class Page extends React.PureComponent {
             {
               title: 'Responses based on current country',
               active: false,
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
