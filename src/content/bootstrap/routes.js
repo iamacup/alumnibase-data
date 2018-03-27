@@ -24,7 +24,8 @@ import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/Ge
 import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
 import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/Overview';
 
-import SubjectEarlyPage from '../../content/containers/Pages/Analytics/Subjects/Early';
+import SubjectFirstYearPage from '../../content/containers/Pages/Analytics/Subjects/FirstYear';
+import SubjectFirstJobPage from '../../content/containers/Pages/Analytics/Subjects/FirstJob';
 import JobsEarlyPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
 import JobsFirstPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
 import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Salary/ValueForMoney';
@@ -86,9 +87,14 @@ export default [
     component: SalaryOverview,
   },
   {
-    path: '/analytics/subjects/early',
+    path: '/analytics/subjects/1',
     exact: true,
-    component: SubjectEarlyPage,
+    component: SubjectFirstYearPage,
+  },
+  {
+    path: '/analytics/subjects/4',
+    exact: true,
+    component: SubjectFirstJobPage,
   },
   {
     path: '/analytics/jobs/2',
