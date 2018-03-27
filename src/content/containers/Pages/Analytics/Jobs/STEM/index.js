@@ -208,16 +208,28 @@ class Page extends React.PureComponent {
 
     const tabbedPanelData = [
       {
-        title: 'Stem Destinations of Graduates', globalID: 'stem-sankey-1', type: 'googlecharts', options: googleData1,
+        title: 'Stem Destinations of Graduates',
+        globalID: 'stem-sankey-1',
+        type: 'googlecharts',
+        drawData: { ...googleData1 },
       },
       {
-        title: 'Ethnicity split of graduates going into soc.1-3 jobs', globalID: 'stem-sankey-2', type: 'googlecharts', options: googleData2,
+        title: 'Ethnicity split of graduates going into soc.1-3 jobs',
+        globalID: 'stem-sankey-2',
+        type: 'googlecharts',
+        drawData: { ...googleData2 },
       },
       {
-        title: 'Gender split of graduates going into soc.1-3 jobs', globalID: 'stem-sankey-3', type: 'googlecharts', options: googleData3,
+        title: 'Gender split of graduates going into soc.1-3 jobs',
+        globalID: 'stem-sankey-3',
+        type: 'googlecharts',
+        drawData: { ...googleData3 },
       },
       {
-        title: 'STEM vs Non-STEM subjects', globalID: 'stem-pie-1', type: 'echarts', options: echartsData1,
+        title: 'STEM vs Non-STEM subjects',
+        globalID: 'stem-pie-1',
+        type: 'echarts',
+        drawData: { options: echartsData1 },
       },
     ];
     const content = (
@@ -254,9 +266,7 @@ class Page extends React.PureComponent {
                 },
                 width: '100%',
                 height: '250px',
-                data: {
-                  options: data.options,
-                },
+                data: data.drawData,
               },
             },
           ]}

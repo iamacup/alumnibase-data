@@ -4,7 +4,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { dNc, debounce } from '../../../../content/scripts/custom/utilities';
+import { dNc, debounce, initialiseNonMobileSticky } from '../../../../content/scripts/custom/utilities';
 
 class Graph extends React.PureComponent {
   componentDidMount() {
@@ -78,14 +78,20 @@ class Graph extends React.PureComponent {
       }, 250);
 
       $('#date-slider').on('slideStop', executeFunction2);
+
+      this.initSticky();
     });
+  }
+
+  initSticky() {
+    initialiseNonMobileSticky(this.parentContainer, {});
   }
 
   render() {
     return (
-      <div className="row">
+      <div className="row" ref={(div) => { this.parentContainer = div; }}>
         <div className="col-sm-8 col-sm-push-2">
-          <div className="panel panel-sliips-purple">
+          <div className="panel panel-sliips-purple sticky-effects">
             <div className="panel-heading">
               <div className="panel-control">
                 <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>

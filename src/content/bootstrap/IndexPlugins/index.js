@@ -117,5 +117,10 @@ result.bodyBottom.push(<script key="nn23" src="https://storage.googleapis.com/fi
 
 result.bodyBottom.push(<script key="new2" type="text/javascript" src="https://files.alumnibaseapp.com/assets/echarts-uk-map-data.js" />);
 
+//stickykit
+
+
+result.bodyBottom.push(<script key="skit" type="text/javascript" src="https://unpkg.com/sticky-kit@1.1.2/dist/sticky-kit.min.js" />);
+
 
 export default result;

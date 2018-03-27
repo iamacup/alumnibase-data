@@ -50,6 +50,20 @@ class Page extends React.PureComponent {
   getBellCurve() {
     const googleData = drawBellcurveChart();
 
+    const postContent = (
+      <div className="row">
+        <div className="col-sm-4" style={{ color: 'red' }}>
+            Some quick stat here
+        </div>
+        <div className="col-sm-4" style={{ color: 'red' }}>
+            Some quick stat here
+        </div>
+        <div className="col-sm-4" style={{ color: 'red' }}>
+            Some quick stat here
+        </div>
+      </div>
+    );
+
     const panel = (
       <TabbedGraphPanel
         title="Salary Distribution"
@@ -58,6 +72,7 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
+              postContent,
               graphData: {
                 type: 'googlecharts',
                 tools: {
@@ -403,11 +418,11 @@ class Page extends React.PureComponent {
       <div id="page-content">
         <StandardFilters />
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-6 col-md-push-3">
             <BasicPanel
               content={
                 <p>
-                  This data represents the average salary statistics.
+                  This data represents the average salary statistics for the selected filters.
                 </p>
               }
             />
@@ -416,7 +431,21 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">High level stats</h3>
+            <hr className="new-section-xs" />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
             {this.getBellCurve()}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Salary over time</h3>
+            <hr className="new-section-xs" />
           </div>
         </div>
 
@@ -435,6 +464,13 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getAreaCharts()}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Subject breakdown</h3>
+            <hr className="new-section-xs" />
           </div>
         </div>
 

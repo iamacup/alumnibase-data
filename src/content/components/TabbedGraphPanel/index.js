@@ -89,6 +89,12 @@ class TabbedGraphPanel extends React.PureComponent {
 
         const { google } = window;
 
+        console.log('DOING THE LOAD 2');
+        // console.log(google);
+        // console.log(google.charts);
+        console.log(load);
+        console.log(drawCallback);
+
         google.charts.load(load[0], load[1]);
         google.charts.setOnLoadCallback(drawCallback(this['graph' + this.state.currentActive]));
       } else {
@@ -264,6 +270,7 @@ class TabbedGraphPanel extends React.PureComponent {
 
       const { google } = window;
 
+      console.log('DOING THE LOAD 1');
       google.charts.load(load[0], load[1]);
 
       setTimeout(() => { google.charts.setOnLoadCallback(drawCallback(this['graph' + index])); }, 300);

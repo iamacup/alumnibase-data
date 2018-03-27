@@ -235,11 +235,11 @@ class Page extends React.PureComponent {
         <StandardFilters />
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-6 col-md-push-3">
             <BasicPanel
               content={
                 <p>
-                  Data from section 5 of the respondent survey is collated here. <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the survey respondents
+                  Data from section 5 of the respondent survey is collated here. <strong>Overall Life</strong> is not directly related to the university degree, but indicates the general state of the survey respondents.
                 </p>
               }
             />
