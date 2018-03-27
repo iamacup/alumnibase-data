@@ -709,7 +709,7 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getTopPanel() {
+  getTotalResponsesPanel() {
     const panelContent = (
       <div className="pad-all">
         <div className="text-center">
@@ -809,12 +809,6 @@ class Page extends React.PureComponent {
             {/* <!--Page content--> */}
             {/* <!--===================================================--> */}
 
-            <div className="row">
-              <div className="col-sm-10 col-sm-push-1">
-                {this.getTopPanel()}
-              </div>
-            </div>
-
             <h3 className="text-main text-normal text-2x mar-no">Response demographics</h3>
             <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
             <hr className="new-section-xs" />
@@ -869,6 +863,16 @@ class Page extends React.PureComponent {
             <div className="row">
               <div className="col-md-12">
                 {this.getResponseLocations()}
+              </div>
+            </div>
+
+            <h3 className="text-main text-normal text-2x mar-no">Total Response Numbers</h3>
+            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <hr className="new-section-xs" />
+
+            <div className="row">
+              <div className="col-sm-10 col-sm-push-1">
+                {this.getTotalResponsesPanel()}
               </div>
             </div>
 
