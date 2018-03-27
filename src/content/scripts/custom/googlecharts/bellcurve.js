@@ -5,6 +5,8 @@ export default function drawBellcurveChart() {
     lineWidth: 4,
     legend: 'none',
     tooltip: { trigger: 'focus' },
+    vAxis: { title: '# of people' },
+    hAxis: { title: 'Salary' },
   };
 
   const string = 'opacity: 1; + color: #a6cee3; + stroke-color: #1c6cab;';

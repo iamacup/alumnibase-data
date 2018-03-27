@@ -10,17 +10,10 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-
 import getSalaryRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
-import BellCurve from '../../../../../../content/containers/Fragments/Graphs/bellCurve';
-import SalaryBoxPlot from '../../../../../../content/containers/Fragments/Graphs/salaryBoxPlot';
-import AreaChart from '../../../../../../content/containers/Fragments/Graphs/areaChart';
-import SalaryLineGraph from '../../../../../../content/containers/Fragments/Graphs/salaryLineGraph';
-import LineChart from '../../../../../../content/containers/Fragments/Graphs/lineChart';
 
 import drawBellcurveChart from '../../../../../../content/scripts/custom/googlecharts/bellcurve';
 import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/drawBoxPlotChart';
-import drawAreaChart from '../../../../../../content/scripts/custom/echarts/drawAreaChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
@@ -55,15 +48,45 @@ class Page extends React.PureComponent {
     const googleData = drawBellcurveChart();
 
     const postContent = (
-      <div className="row">
+      <div className="row text-center">
         <div className="col-sm-4" style={{ color: 'red' }}>
-            Some quick stat here
+
+          <div className="panel media middle">
+            <div className="media-left bg-mint pad-all">
+              <i className="fas fa-arrow-down icon-3x" />
+            </div>
+            <div className="media-body pad-all" style={{ backgroundColor: '#ecf0f5' }}>
+              <p className="text-2x mar-no text-semibold text-main">£20,000</p>
+              <p className="text-muted mar-no">The lower quartile for all applied filters</p>
+            </div>
+          </div>
+
         </div>
         <div className="col-sm-4" style={{ color: 'red' }}>
-            Some quick stat here
+
+          <div className="panel media middle">
+            <div className="media-left bg-mint pad-all">
+              <i className="fas fa-arrows-alt-h icon-3x" />
+            </div>
+            <div className="media-body pad-all" style={{ backgroundColor: '#ecf0f5' }}>
+              <p className="text-2x mar-no text-semibold text-main">£30,000</p>
+              <p className="text-muted mar-no">The median salary for all applied filters</p>
+            </div>
+          </div>
+
         </div>
         <div className="col-sm-4" style={{ color: 'red' }}>
-            Some quick stat here
+
+          <div className="panel media middle">
+            <div className="media-left bg-mint pad-all">
+              <i className="fas fa-arrow-up icon-3x" />
+            </div>
+            <div className="media-body pad-all" style={{ backgroundColor: '#ecf0f5' }}>
+              <p className="text-2x mar-no text-semibold text-main">£40,000</p>
+              <p className="text-muted mar-no">The upper quartile for all applied filters</p>
+            </div>
+          </div>
+
         </div>
       </div>
     );

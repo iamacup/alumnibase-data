@@ -55,6 +55,47 @@ class TabbedGraphPanel extends React.PureComponent {
 
     const { content } = this.props;
 
+    const currentActive = this.getCurrentActiveTab(content);
+
+    this.state = {
+      id: _.uniqueId(),
+      currentActive,
+    };
+  }
+
+  componentDidMount() {
+    const { content } = this.props;
+
+    if (content[this.state.currentActive].graphData.type !== 'react') {
+      // when everything is loaded
+      $(() => {
+        this.redrawActives();
+
+        // and when we resize
+        $(document).on('debouncedResizeEvent', () => {
+          // we resize the current graph on screen
+          this.redrawActives();
+        });
+      });
+    }
+  }
+
+  // we have to take a litte look at the props and update the state incase the active thing has been changed by props
+  componentWillReceiveProps(nextProps) {
+    const { content } = nextProps;
+
+    const currentActive = this.getCurrentActiveTab(content);
+
+    if (currentActive !== this.state.currentActive) {
+      this.setState({ currentActive });
+    }
+  }
+
+  componentDidUpdate() {
+    this.redrawActives();
+  }
+
+  getCurrentActiveTab(content) {
     let currentActive = -1;
 
     content.forEach((value, index) => {
@@ -71,45 +112,7 @@ class TabbedGraphPanel extends React.PureComponent {
       console.log('Was not an active tab specified in TabbedGraphPanel');
     }
 
-    this.state = {
-      id: _.uniqueId(),
-      currentActive,
-    };
-  }
-
-  componentDidMount() {
-    const { content } = this.props;
-
-    const drawGraphs = () => {
-      if (content[this.state.currentActive].graphData.type === 'echarts') {
-        drawOrRedrawChart(this['graph' + this.state.currentActive], content[this.state.currentActive].graphData.data.options);
-      } else if (content[this.state.currentActive].graphData.type === 'googlecharts') {
-        const { load, drawCallback } = content[this.state.currentActive].graphData.data;
-        const { google } = window;
-
-        const callbackFunc = () => {
-          drawCallback(this['graph' + this.state.currentActive]);
-        };
-
-        google.charts.load(load[0], load[1]);
-        google.charts.setOnLoadCallback(callbackFunc);
-      } else {
-        console.log('unknown graph type in TabbgedGraphPanel 4');
-      }
-    };
-
-    if (content[this.state.currentActive].graphData.type !== 'react') {
-      // when everything is loaded
-      $(() => {
-        drawGraphs();
-
-        // and when we resize
-        $(document).on('debouncedResizeEvent', () => {
-          // we resize the current graph on screen
-          drawGraphs();
-        });
-      });
-    }
+    return currentActive;
   }
 
   getTabTitles() {
@@ -256,28 +259,30 @@ class TabbedGraphPanel extends React.PureComponent {
     return null;
   }
 
-  tabClicked(index) {
+  redrawActives() {
     const { content } = this.props;
 
-    if (content[index].graphData.type === 'echarts') {
-      setTimeout(() => { drawOrRedrawChart(this['graph' + index], content[index].graphData.data.options); }, 300);
-    } else if (content[index].graphData.type === 'googlecharts') {
-      const { load, drawCallback } = content[index].graphData.data;
+    if (content[this.state.currentActive].graphData.type === 'echarts') {
+      drawOrRedrawChart(this['graph' + this.state.currentActive], content[this.state.currentActive].graphData.data.options);
+    } else if (content[this.state.currentActive].graphData.type === 'googlecharts') {
+      const { load, drawCallback } = content[this.state.currentActive].graphData.data;
       const { google } = window;
 
       const callbackFunc = () => {
-        drawCallback(this['graph' + index]);
+        drawCallback(this['graph' + this.state.currentActive]);
       };
 
       google.charts.load(load[0], load[1]);
-      setTimeout(() => { google.charts.setOnLoadCallback(callbackFunc); }, 300);
-    } else if (content[index].graphData.type === 'react') {
+      google.charts.setOnLoadCallback(callbackFunc);
+    } else if (content[this.state.currentActive].graphData.type === 'react') {
       // do nothing
     } else {
-      console.log('unknown graph type in TabbgedGraphPanel 5');
+      console.log('unknown graph type in TabbgedGraphPanel 4');
     }
+  }
 
-    this.setState({ currentActive: index });
+  tabClicked(index) {
+    setTimeout(() => { this.setState({ currentActive: index }); }, 300);
   }
 
   download(e) {
@@ -302,7 +307,7 @@ class TabbedGraphPanel extends React.PureComponent {
   }
 
   render() {
-    const { seperator, content } = this.props;
+    const { seperator, content, showTabs } = this.props;
 
     let seperatorContent = null;
 
@@ -328,7 +333,7 @@ class TabbedGraphPanel extends React.PureComponent {
               {
               // we test if the content has tabs, if it does, we render tabs
               (content.length > 1) ?
-                <div className="panel-heading">
+                <div className={showTabs === true ? 'panel-heading' : 'panel-heading hidden'}>
                   <div className="panel-control">
                     <ul className="nav nav-tabs">
                       {this.getTabTitles()}
@@ -362,6 +367,7 @@ TabbedGraphPanel.propTypes = {
   title: PropTypes.string.isRequired,
   seperator: PropTypes.bool,
   collapsed: PropTypes.bool,
+  showTabs: PropTypes.bool,
 
   content: PropTypes.arrayOf(
     PropTypes.shape({
@@ -389,6 +395,7 @@ TabbedGraphPanel.propTypes = {
 
 TabbedGraphPanel.defaultProps = {
   seperator: true,
+  showTabs: true,
   collapsed: false,
   reduxAction_doUpdate: () => {},
 };

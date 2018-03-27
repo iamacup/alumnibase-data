@@ -65,7 +65,9 @@ class Page extends React.PureComponent {
 
     const content = (
       <div id="page-content">
+
         <StandardFilters />
+
         <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
@@ -83,27 +85,27 @@ class Page extends React.PureComponent {
                 title={element.title}
                 globalID={element.globalID}
                 content={[
-            {
-              title: '',
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: element.options,
-                },
-              },
-            },
-          ]}
+                    {
+                      title: '',
+                      active: true,
+                      graphData: {
+                        type: 'echarts',
+                        tools: {
+                          allowDownload: true,
+                          seeData: false,
+                          pinGraph: true,
+                        },
+                        width: '100%',
+                        height: '350px',
+                        data: {
+                          options: element.options,
+                        },
+                      },
+                    },
+                  ]}
                 seperator
               />
-))}
+            ))}
           </div>
         </div>
       </div>
