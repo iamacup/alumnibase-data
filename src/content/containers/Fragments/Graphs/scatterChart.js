@@ -21,14 +21,31 @@ class Graph extends React.PureComponent {
   }
 
   componentDidMount() {
-    
     const data = [
-    [3.275154, 2.957587],
-    [-3.344465, 2.603513],
-    [0.355083, -3.376585],
-  ];
+      [3.275154, 3.957587],
+      [-3.344465, 2.603513],
+      [0.355083, -3.376585],
+    ];
 
-    const option = {};
+    const color = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+
+    const option = {
+      xAxis: {},
+      yAxis: {},
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+        },
+        formatter: '{b0}: {c0}<br />{b1}: {c1}',
+      },
+      series: [{
+        symbolSize: 20,
+        data,
+        type: 'scatter',
+      }],
+    };
+
     renderChartToTarget(this.graphTarget1, option);
   }
 

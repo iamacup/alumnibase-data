@@ -96,9 +96,9 @@ class Page extends React.PureComponent {
               globalID="VFM-1"
             />
 
-                     <ScatterChart 
-            globalID="value-scatter-1"
-          />
+            <ScatterChart
+              globalID="value-scatter-1"
+            />
           </div>
         </div>
       </div>
