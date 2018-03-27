@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
-
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import Boxplot from '../../../../../../content/containers/Fragments/Graphs/simpleBoxplot';
+
+import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/drawBoxPlotChart';
+
+import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 class Page extends React.PureComponent {
   constructor(props) {
@@ -39,14 +40,6 @@ class Page extends React.PureComponent {
     });
 
     $(() => {
-      // listen for resize events
-      fireDebouncedResizeEvents();
-
-      // then listen for the events here
-      $(document).on('debouncedResizeEvent', () => {
-        redrawCharts();
-      });
-
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
 
@@ -58,6 +51,41 @@ class Page extends React.PureComponent {
         this.clickShowNationalAverage();
       };
     });
+  }
+
+  getBoxPlot(input, title, id) {
+    const colours = [['#ff7311', '#ffbb7d'], ['#d02224', '#ff8d8b'], ['#11293b', '#0b6623'], ['#1c6cab', '#a4c0e5']];
+
+    const options = drawBoxplotChart(input.values, input.categories, 10000);
+
+    const panel = (
+      <TabbedGraphPanel
+        title={title}
+        globalID={id}
+        content={[
+            {
+              title: '',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '350px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
   }
 
   clickShowNationalAverage() {
@@ -111,6 +139,7 @@ class Page extends React.PureComponent {
       religionData.values.push(nationalAverageSalaryData);
     }
 
+
     const content = (
       <div id="page-content">
 
@@ -118,45 +147,37 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here.<br /><br />
-                This data displays the average pay gaps between <strong>gender, ethnicity and religion</strong>.<br /><br />
-                <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-                Show national average on graphs: <input id="switchery-switch" type="checkbox" />
-              </div>
-            </div>
+            <BasicPanel
+              content={
+                <p>
+                    Data from section 5 of the respondent survey is collated here.<br /><br />
+                    This data displays the average pay gaps between <strong>gender, ethnicity and religion</strong>.<br /><br />
+                  <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
+                    Show national average on graphs: <input id="switchery-switch" type="checkbox" />
+                </p>
+                }
+            />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-
-            <div className="row">
-              <Boxplot
-                data={genderData}
-                title="Average pay, split by gender"
-              />
-            </div>
-
-
-            <div className="row">
-              <Boxplot
-                data={ethnicityData}
-                title="Average pay, split by ethnicity"
-              />
-            </div>
-
-            <div className="row">
-              <Boxplot
-                data={religionData}
-                title="Average pay, split by religion"
-              />
-            </div>
-
-
+            {this.getBoxPlot(genderData, 'Average pay, split by gender', 'salary-0-1')}
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {this.getBoxPlot(ethnicityData, 'Average pay, split by ethnicity', 'salary-0-2')}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {this.getBoxPlot(religionData, 'Average pay, split by religion', 'salary-0-3')}
+          </div>
+        </div>
+
       </div>
     );
 

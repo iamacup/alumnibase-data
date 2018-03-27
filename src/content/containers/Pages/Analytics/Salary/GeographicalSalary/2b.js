@@ -7,22 +7,14 @@ import { connect } from 'react-redux';
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
-
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import UKMap from '../../../../../../content/containers/Fragments/Graphs/section5UkMap';
+import drawUKMap from '../../../../../../content/scripts/custom/echarts/drawUkMap';
 import { gradsComeFromData, gradsGoToData } from '../../../../../../content/containers/Fragments/Graphs/UKGradData';
 
+import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showNationalAverage: false,
-    };
-  }
-
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -46,38 +38,64 @@ class Page extends React.PureComponent {
     });
 
     $(() => {
-      // listen for resize events
-      fireDebouncedResizeEvents();
-
-      // then listen for the events here
-      $(document).on('debouncedResizeEvent', () => {
-        redrawCharts();
-      });
-
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
   }
 
-  getImageDataForActiveGraph() {
-    let $parent = $('#' + this.state.panel1ID);
+  getMap() {
+    const pieces1 = ['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
+    const pieces2 = ['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
 
-    if (!$parent.hasClass('active')) {
-      $parent = $('#' + this.state.panel2ID);
-    }
+    const options1 = drawUKMap(gradsComeFromData, pieces1);
+    const options2 = drawUKMap(gradsGoToData, pieces2);
 
-    const $canvas = $parent.find('canvas');
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Graduate Destinations"
+        globalID="geo-2"
+        content={[
+            {
+              title: 'County of Origin',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '650px',
+                data: {
+                  options: options1,
+                },
+              },
+            },
+            {
+              title: 'County of Residence',
+              active: false,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '650px',
+                data: {
+                  options: options2,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
 
-    if ($canvas.length === 1) {
-      return $canvas[0].toDataURL('image/png');
-    }
-
-    console.log('handle error TODO');
-    return null;
-  }
-
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
+    return panel;
   }
 
   render() {
@@ -88,33 +106,24 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. This data is split into two areas: <br /><br />
-                <strong>Where Graduates Come From</strong> the UK region a graduate had come from to study.<br />
-                <strong>Alumni Destinations</strong> the UK region a graduate has moved to since studying.<br /><br />
-                <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-              </div>
-            </div>
+            <BasicPanel
+              content={
+                <p>
+                  Data from section 5 of the respondent survey is collated here. This data is split into two areas: <br /><br />
+                  <strong>Where Graduates Come From</strong> the UK region a graduate had come from to study.<br />
+                  <strong>Alumni Destinations</strong> the UK region a graduate has moved to since studying.<br /><br />
+                  <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
+                </p>
+              }
+            />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-
-            <UKMap
-              title="Graduate Destinations"
-              title1="Where Grads Come From in the UK"
-              data1={gradsComeFromData}
-              pieces1={['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+']}
-              globalID="uk-chart"
-              title2="Where Grads Go To in the UK"
-              data2={gradsGoToData}
-              pieces2={['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+']}
-            />
+            {this.getMap()}
           </div>
         </div>
-
 
       </div>
     );
