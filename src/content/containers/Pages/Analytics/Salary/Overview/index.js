@@ -161,12 +161,13 @@ class Page extends React.PureComponent {
 
     const panel = (
       <TabbedGraphPanel
-        title="Gender salary splits for graduates over a 15 year span"
+        title="Salary ranges split by gender, show for year groups"
         globalID="salary-1-2"
         content={[
             {
               title: 'First Year',
               active: true,
+              preContent: <p>This graph shows the high, low and overall distibution of the salary for graduates in their <strong>First Year</strong> of graduating</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -184,6 +185,7 @@ class Page extends React.PureComponent {
             {
               title: '5 Years',
               active: false,
+              preContent: <p>This graph shows the high, low and overall distibution of the salary for graduates <strong>Five Years</strong> after graduating</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -201,6 +203,7 @@ class Page extends React.PureComponent {
             {
               title: '10 Years',
               active: false,
+              preContent: <p>This graph shows the high, low and overall distibution of the salary for graduates <strong>Ten Years</strong> after graduating</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -218,6 +221,7 @@ class Page extends React.PureComponent {
             {
               title: '15 Years',
               active: false,
+              preContent: <p>This graph shows the high, low and overall distibution of the salary for graduates <strong>Fifteen Years</strong> after graduating</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -259,7 +263,7 @@ class Page extends React.PureComponent {
 
     const data2 = {
       name: ['Male', 'Female', 'Other', 'National Average'],
-      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [0, 0, 0, 0, 0, 0, 5], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
+      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [15000, 29000, 27000, 32000, 40000, 51000, 60000], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
       age: [1, 2, 3, 4, 5, 6, 7],
     };
 
@@ -273,6 +277,7 @@ class Page extends React.PureComponent {
             {
               title: 'All Data',
               active: true,
+              postContent: <div className="pull-right"><p>Average is taken for all survery data with any filters applied.</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -290,6 +295,7 @@ class Page extends React.PureComponent {
             {
               title: 'Gender Split',
               active: false,
+              postContent: <div className="pull-right"><p>Average is taken for all survery data with any filters applied.</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -316,6 +322,8 @@ class Page extends React.PureComponent {
     const reactData = (
       <div>
         <div className="pad-all">
+          <p>Average is taken for all survery data with any filters applied.</p>
+
           <h4 className="panel-title">Science Degrees</h4>
           <div className="row">
             <div className="col-md-4 col-md-push-2">
@@ -417,12 +425,13 @@ class Page extends React.PureComponent {
 
     const panel = (
       <TabbedGraphPanel
-        title="Salary over time"
+        title="Average salary over time, optionally split by Gender"
         globalID="salary-1-7"
         content={[
             {
               title: 'All Data',
               active: true,
+              postContent: <div className="pull-right"><p>Average is taken for all survery data with any filters applied.</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -440,6 +449,7 @@ class Page extends React.PureComponent {
             {
               title: 'Gender Split',
               active: false,
+              postContent: <div className="pull-right"><p>Average is taken for all survery data with any filters applied.</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
