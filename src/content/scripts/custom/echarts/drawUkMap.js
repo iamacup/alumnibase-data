@@ -112,7 +112,8 @@ const drawUKMap = (data, pieces) => {
       showLabel: true,
       max: 1,
       inRange: {
-        color: ['#1c6cab', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'],
+        color: ['#fff', '#a1cf84', '#81af64', '#618f44', '#416f26', '#224f08'],
+        // color: ['#fff', '#e2efe2', '#a8cda6', '#47924d', '#oa612a', '#11293b'],
       },
       type: 'piecewise',
       dimension: null,

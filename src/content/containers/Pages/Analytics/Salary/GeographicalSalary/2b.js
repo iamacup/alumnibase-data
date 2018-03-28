@@ -43,8 +43,8 @@ class Page extends React.PureComponent {
   }
 
   getMap() {
-    const pieces1 = ['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
-    const pieces2 = ['less than 100', '100-300 grads', '300-500 grads', '500-1000 grads', '1000+'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
+    const pieces1 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
+    const pieces2 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
 
     const options1 = drawUKMap(gradsComeFromData, pieces1);
     const options2 = drawUKMap(gradsGoToData, pieces2);
