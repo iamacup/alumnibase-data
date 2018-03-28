@@ -10,7 +10,6 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import drawWorldMap from '../../../../../../content/scripts/custom/echarts/drawWorldMap';
 import worldMapData from '../../../../../../content/containers/Fragments/Graphs/worldMapData';
@@ -115,16 +114,10 @@ class Page extends React.PureComponent {
         <StandardFilters />
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <BasicPanel
-              content={
-                <p>
-                  <strong>Where Graduates Come From</strong> the country of origin a graduate had come from to study.<br />
-                  <strong>Alumni Destinations</strong> the country a graduate has moved to since studying.<br /><br />
-                  <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-                </p>
-              }
-            />
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Breakdown of Alumni by location</h3>
+            <h5 className="text-uppercase text-muted text-normal">Both past and present.</h5>
+            <hr className="new-section-xs" />
           </div>
         </div>
 

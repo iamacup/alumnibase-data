@@ -476,7 +476,8 @@ class Page extends React.PureComponent {
     const content = (
       <div id="page-content">
         <StandardFilters />
-        <div className="row">
+
+        {/* <div className="row">
           <div className="col-md-6 col-md-push-3">
             <BasicPanel
               content={
@@ -486,7 +487,7 @@ class Page extends React.PureComponent {
               }
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">

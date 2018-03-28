@@ -66,10 +66,6 @@ class Page extends React.PureComponent {
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
                 By default, the data shown below is for the <strong>entire survey data set.</strong> Use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-
-                <br /><br />
-                Show national average on graphs: <input id="switchery-switch" type="checkbox" />
-
               </div>
             </div>
           </div>

@@ -49,7 +49,6 @@ class App extends React.Component {
       // listen for them here
       $(document).on('debouncedResizeEvent', () => {
         // we resize the current graph on screen
-        console.log('triggering resize redraw here');
         this.handleResizeGraphs();
       });
     });
