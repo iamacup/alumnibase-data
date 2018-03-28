@@ -8,7 +8,6 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import BasicPanel from '../../../../../../content/components/BasicPanel';
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 
 class Page extends React.PureComponent {
