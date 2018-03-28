@@ -17,7 +17,6 @@ import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/d
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -406,7 +405,6 @@ class Page extends React.PureComponent {
 
     const options1 = drawLineChart(data1, optionsA);
 
-    const label2 = ['Time After Graduating (years)', 'Salary'];
     const data2 = {
       age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       name: ['Female', 'Male'],

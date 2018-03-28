@@ -9,8 +9,6 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import drawSankey from '../../../../../../content/scripts/custom/googlecharts/sankey';
 
 class Page extends React.PureComponent {
   componentDidMount() {
