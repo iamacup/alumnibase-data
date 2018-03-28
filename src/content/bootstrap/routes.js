@@ -15,7 +15,7 @@ import DHLE11Page from '../../content/containers/Pages/Analytics/DHLE/11';
 import Views1PageA from '../../content/containers/Pages/Analytics/Views/1/1a';
 import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
 
-import Views2Page from '../../content/containers/Pages/Analytics/Views/2'; 
+import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 
 import Jobs1Page from '../../content/containers/Pages/Analytics/Jobs/1';
 
