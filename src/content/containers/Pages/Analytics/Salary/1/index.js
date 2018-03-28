@@ -166,7 +166,7 @@ class Page extends React.PureComponent {
                         <div className="media-left bg-primary pad-all">
                           <input id="switchery-switch" type="checkbox" />
                         </div>
-                        <div className="media-body pad-lft" style={{ backgroundColor: '#ecf0f5' }}>
+                        <div className="media-body pad-lft bg-on-white">
                           <p className="text-muted mar-no">Show national average on graphs - <strong style={{ color: 'red' }}>NEED TO DISCUSS IF WE KEEP THIS</strong></p>
                         </div>
                       </div>

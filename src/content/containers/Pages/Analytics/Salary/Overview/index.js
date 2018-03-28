@@ -55,7 +55,7 @@ class Page extends React.PureComponent {
             <div className="media-left bg-mint pad-all">
               <i className="fas fa-arrow-down icon-3x" />
             </div>
-            <div className="media-body pad-all" style={{ backgroundColor: '#ecf0f5' }}>
+            <div className="media-body pad-all bg-on-white">
               <p className="text-2x mar-no text-semibold text-main">£20,000</p>
               <p className="text-muted mar-no">The lower quartile for all applied filters</p>
             </div>
@@ -68,7 +68,7 @@ class Page extends React.PureComponent {
             <div className="media-left bg-mint pad-all">
               <i className="fas fa-arrows-alt-h icon-3x" />
             </div>
-            <div className="media-body pad-all" style={{ backgroundColor: '#ecf0f5' }}>
+            <div className="media-body pad-all bg-on-white">
               <p className="text-2x mar-no text-semibold text-main">£30,000</p>
               <p className="text-muted mar-no">The median salary for all applied filters</p>
             </div>
@@ -81,7 +81,7 @@ class Page extends React.PureComponent {
             <div className="media-left bg-mint pad-all">
               <i className="fas fa-arrow-up icon-3x" />
             </div>
-            <div className="media-body pad-all" style={{ backgroundColor: '#ecf0f5' }}>
+            <div className="media-body pad-all bg-on-white">
               <p className="text-2x mar-no text-semibold text-main">£40,000</p>
               <p className="text-muted mar-no">The upper quartile for all applied filters</p>
             </div>
