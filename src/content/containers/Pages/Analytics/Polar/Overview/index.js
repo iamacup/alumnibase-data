@@ -144,7 +144,7 @@ class Page extends React.PureComponent {
           <div className="col-lg-12">
 
             <h3 className="text-main text-normal text-2x mar-no">POLAR3 Outcomes</h3>
-            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <h5 className="text-muted text-normal">Data shown for all respondants</h5>
             <hr className="new-section-xs" />
 
             <div className="row">

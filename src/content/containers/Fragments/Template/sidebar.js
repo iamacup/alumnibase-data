@@ -146,10 +146,10 @@ class Page extends React.PureComponent {
                         <Link href="/analytics/jobs/1" to="/analytics/jobs/employers">Employers</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/2', 'active-link')}>
-                        <Link href="/analytics/jobs/2" to="/analytics/jobs/2">First Year</Link>
+                        <Link href="/analytics/jobs/2" to="/analytics/jobs/2">First Year Salary</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/4', 'active-link')}>
-                        <Link href="/analytics/jobs/4" to="/analytics/jobs/4">First Job</Link>
+                        <Link href="/analytics/jobs/4" to="/analytics/jobs/4">Time to First Job</Link>
                       </li>
                     </ul>
                   </li>
