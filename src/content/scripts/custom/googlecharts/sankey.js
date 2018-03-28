@@ -35,10 +35,12 @@ export default function drawSankeyChart(columns, rows, totals) {
         let percentage = 0;
         if (totals) {
           percentage = (row[2] / totals[row[0]]) * 100;
-        }
-        row.push(`${row[0]} to ${row[1]} Jobs <br /> <strong>%${percentage.toFixed(2)}</strong><br /> <strong>#${row[2]}</strong>`);
+          row.push(`${row[0]} to ${row[1]} Jobs <br /> <strong>%${percentage.toFixed(2)}</strong><br /> <strong>#${row[2]}</strong>`);
+        } else row.push(`${row[0]} -> ${row[1]} <br /> <strong>${row[2]}</strong>`);
+
         return row;
       },
+
       );
 
       const data = new google.visualization.DataTable();

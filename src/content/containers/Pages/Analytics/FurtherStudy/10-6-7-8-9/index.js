@@ -46,21 +46,6 @@ class Page extends React.PureComponent {
   }
 
   render() {
-    const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
-    const options1 = {
-      STEM: 10, 'Non-STEM': 20, 'High Skilled': 19, 'Not High Skilled': 11,
-    };
-    const rows1 = [
-      ['STEM', 'High Skilled', 6],
-      ['STEM', 'Not High Skilled', 4],
-      ['Non-STEM', 'High Skilled', 13],
-      ['Non-STEM', 'Not High Skilled', 7],
-      ['High Skilled', 'Alligned to Industrial Strategy', 10],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 9],
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 8],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
-    ];
-    const googleData = drawSankey(columns1, rows1, options1);
     const content = (
       <div id="page-content">
 
@@ -69,30 +54,8 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-6">
-            <TabbedGraphPanel
-              title="Further Study Among Durham Graduates"
-              globalID="RQ-105-pie-1"
-              content={[
-            {
-              title: '',
-              // preContent: <p>This is the OPTIONAL pre content</p>,
-              // postContent: <p>This is the OPTIONAL post content</p>,
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '400px',
-                data: { ...googleData },
-              },
-            },
-          ]}
-              seperator
-            />
+            <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
+
 
           </div>
           <div className="col-md-6">
