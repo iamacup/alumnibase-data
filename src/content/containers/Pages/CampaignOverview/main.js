@@ -427,7 +427,7 @@ class Page extends React.PureComponent {
     // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
-        title="Course Type"
+        title="Course Type Split"
         globalID="overview-9"
         content={[
             {
@@ -874,7 +874,7 @@ class Page extends React.PureComponent {
             </div>
 
             <div className="row">
-              <div className="col-md-6 col-md-push-3">
+              <div className="col-md-8 col-md-push-2">
                 {this.getCourseTypeGraph()}
               </div>
             </div>
