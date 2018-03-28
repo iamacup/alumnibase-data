@@ -49,7 +49,6 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-        <StandardFilters />
         <div className="row">
           <div className="col-md-10 col-md-push-1">
             <div className="panel">

@@ -11,6 +11,9 @@ import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/cus
 import GroupedBarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
+import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
+
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
@@ -44,51 +47,69 @@ class Page extends React.PureComponent {
     });
   }
 
+  getGroupedBarchart(title, value, direction, globalID, titles, data) {
+    const obj = {
+      direction,
+      value,
+      // colours: this.props.data[0].colours,
+    };
+
+    const options = drawGroupedBarChart(titles, data, obj);
+
+    const panel = (<TabbedGraphPanel
+      title={title}
+      globalID={globalID}
+      content={[
+            {
+              title: '',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '350px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+      seperator
+    />);
+
+    return panel;
+  }
+
   render() {
     const content = (
       <div id="page-content">
 
         <StandardFilters />
+
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                These graphs display the gender split in graduates from the UK, for varied employment sectors, split by qualification.<br /><br />
-                <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
-              </div>
-            </div>
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Graduates in Employment</h3>
+            <h5 className="text-muted text-normal">Employment for graduates 6 months after leaving university.</h5>
+            <hr className="new-section-xs" />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-
-            <GroupedBarChart
-              title="First Degree Graduates from the UK in work, by type of work and gender"
-              smallText="Employment values when all responses are aggregated"
-              direction="horizontal"
-              value=""
-              globalID="grouperdBar-6"
-              titles={['Self-employed', 'Starting up own business', 'On a permanent or open-ended contract', 'On a fixed-term contract lasting 12 months or longer', 'On a fixed-term contract lasting less than 12 months', 'Voluntary work', 'On an internship', 'Developing a professional portfolio', 'Temping (including supply teaching', 'On a zero hours contract', 'Other', 'Unknown']}
-              data={[
-                    { name: 'Other', data: [0, 0, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0] },
-                    { name: 'Male', data: [3990, 580, 39450, 10460, 5255, 725, 1980, 460, 1460, 2785, 1135, 540] },
-                    { name: 'Female', data: [3530, 415, 59720, 15675, 7985, 1165, 2915, 500, 2520, 3665, 1575, 890] },
-                ]}
-            />
-          </div>
-          <div className="col-md-8 col-md-push-2">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
-              </div>
-
-            </div>
-
+            {this.getGroupedBarchart('First Degree Graduates from the UK in work, by type of work and gender',
+              '',
+              'horizontal',
+              'DHLE-8-1',
+              ['Self-employed', 'Starting up own business', 'On a permanent or open-ended contract', 'On a fixed-term contract lasting 12 months or longer', 'On a fixed-term contract lasting less than 12 months', 'Voluntary work', 'On an internship', 'Developing a professional portfolio', 'Temping (including supply teaching', 'On a zero hours contract', 'Other', 'Unknown'],
+              [
+                { name: 'Other', data: [0, 0, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0] },
+                { name: 'Male', data: [3990, 580, 39450, 10460, 5255, 725, 1980, 460, 1460, 2785, 1135, 540] },
+                { name: 'Female', data: [3530, 415, 59720, 15675, 7985, 1165, 2915, 500, 2520, 3665, 1575, 890] },
+              ])}
           </div>
         </div>
 
