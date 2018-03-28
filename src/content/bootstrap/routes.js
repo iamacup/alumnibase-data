@@ -64,7 +64,7 @@ export default [
     path: '/analytics/views/1/direct-university-impact',
     exact: true,
     component: Views1PageA,
-  }, 
+  },
   {
     path: '/analytics/views/1/views-on-education',
     exact: true,

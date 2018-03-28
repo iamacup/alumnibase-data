@@ -7,7 +7,6 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import WorldMap from '../../../../../../content/containers/Fragments/Graphs/section5WorldMap';
 
 class Page extends React.PureComponent {
   componentDidMount() {

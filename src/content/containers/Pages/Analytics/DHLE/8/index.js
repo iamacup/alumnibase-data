@@ -8,7 +8,6 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
-import GroupedBarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
