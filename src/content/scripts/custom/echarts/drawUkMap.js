@@ -35,9 +35,9 @@ const drawUKMap = (data, pieces) => {
     series: [
       {
         itemStyle: {
-          emphasis: {
-            borderColor: 'black',
-          },
+          // emphasis: {
+          //   borderColor: 'black',
+          // },
           normal: {
             borderColor: 'white',
           },
