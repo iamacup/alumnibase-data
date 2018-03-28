@@ -14,20 +14,17 @@ import DHLE11Page from '../../content/containers/Pages/Analytics/DHLE/11';
 
 import Views1PageA from '../../content/containers/Pages/Analytics/Views/1/1a';
 import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
-
 import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 
-import Jobs1Page from '../../content/containers/Pages/Analytics/Jobs/1';
-
-import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
+import SalaryRangesPage from '../../content/containers/Pages/Analytics/Salary/Ranges';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
 import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
 import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/Overview';
 
 import SubjectFirstYearPage from '../../content/containers/Pages/Analytics/Subjects/FirstYear';
 import SubjectFirstJobPage from '../../content/containers/Pages/Analytics/Subjects/FirstJob';
-import JobsEarlyPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
-import JobsFirstPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
+import JobsFirstYearPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
+import JobsFirstJobPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
 import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Subjects/ValueForMoney';
 import StemOverviewPage from '../../content/containers/Pages/Analytics/STEM/Overview';
 import StemDestinationsPage from '../../content/containers/Pages/Analytics/STEM/Destinations';
@@ -49,11 +46,6 @@ export default [
     component: CampaignOverviewPage,
   },
   {
-    path: '/analytics/jobs/1',
-    exact: true,
-    component: Jobs1Page,
-  },
-  {
     path: '/data-control/export',
     exact: true,
     component: DataExportPage,
@@ -72,7 +64,7 @@ export default [
     path: '/analytics/views/1/direct-university-impact',
     exact: true,
     component: Views1PageA,
-  },
+  }, 
   {
     path: '/analytics/views/1/views-on-education',
     exact: true,
@@ -84,9 +76,9 @@ export default [
     component: Views2Page,
   },
   {
-    path: '/analytics/salary/1',
+    path: '/analytics/salary/ranges',
     exact: true,
-    component: Salary1Page,
+    component: SalaryRangesPage,
   },
   {
     path: '/analytics/salary/overview',
@@ -94,24 +86,24 @@ export default [
     component: SalaryOverview,
   },
   {
-    path: '/analytics/subjects/1',
+    path: '/analytics/subjects/first-year',
     exact: true,
     component: SubjectFirstYearPage,
   },
   {
-    path: '/analytics/subjects/4',
+    path: '/analytics/subjects/first-job',
     exact: true,
     component: SubjectFirstJobPage,
   },
   {
-    path: '/analytics/jobs/2',
+    path: '/analytics/jobs/first-job',
     exact: true,
-    component: JobsEarlyPage,
+    component: JobsFirstJobPage,
   },
   {
-    path: '/analytics/jobs/4',
+    path: '/analytics/jobs/first-year',
     exact: true,
-    component: JobsFirstPage,
+    component: JobsFirstYearPage,
   },
   {
     path: '/analytics/subjects/vfm',
