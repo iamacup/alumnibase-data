@@ -10,6 +10,7 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawScatterGraph from '../../../../../../content/scripts/custom/echarts/drawScatterGraph';
 import drawBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
+import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 
 
 class Page extends React.PureComponent {
@@ -95,6 +96,20 @@ class Page extends React.PureComponent {
       [3100, 1.71],
       [3200, 4],
       [3800, 4.86],
+      [3900, 2.93],
+      [4000, 3.57],
+      [4100, 0.71],
+      [4200],
+      [4300],
+      [4400],
+      [4500],
+      [4600],
+      [4700],
+      [4800],
+      [4900],
+      [5000],
+      [5100],
+
       // Negative-High
       [5000, -3],
       [10000, -3.5],
@@ -108,6 +123,20 @@ class Page extends React.PureComponent {
     const postContent = [['* Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['** Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
     const text1 = <p>{postContent[0]}<br />{postContent[1]}<br />{postContent[2]}<br />{postContent[3]}</p>;
 
+    const optionsA = {
+      x: 'Years',
+      y: 'Number of People Over the Threshold',
+      yLabel: 'horizontal',
+    };
+
+    const data1 = {
+      name: ['Plan 2', 'Plan 3'],
+      plotted: [[20000, 25000, 43000],
+        [10000, 12000, 16000, 23000, 43000]],
+      age: ['New Graduate - 2 Years', '2 - 5 Years', '5 - 10 Years', '10 - 15 Years', '15 - 20 Years'],
+    };
+    const lineData = drawLineChart(data1, optionsA);
+
     const tabData = [
       {
         title: 'Percentage of People who Believe their Course Offered Value for Money', globalID: 'VFM-1', options: bar1, text: text1,
@@ -116,7 +145,10 @@ class Page extends React.PureComponent {
         title: 'Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money', globalID: 'VFM-2', options: bar2, text: '',
       },
       {
-        title: 'Quadrant', globalID: 'VFM-3', options: scatterData, text: '',
+        title: 'Overall Happiness in Life vs Salary', globalID: 'VFM-3', options: scatterData, text: '',
+      },
+      {
+        title: 'Average Time Taken for Graduates to Pay Back Student Loans', globalID: 'VFM-4', options: lineData, text: '',
       },
     ];
 

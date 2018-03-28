@@ -2,7 +2,15 @@ const drawLineChart = (data, options) => {
   // data sould be in the form [{age: [], plotted: []}]
   // options can have value (bool) and trendline (bool)
   let value = false;
+  let yLabel = 90;
+  let location = 'center';
+  let gap = 50;
   if (options.value !== false) value = true;
+  if (options.yLabel) {
+    yLabel = 0;
+    location = 'end';
+    gap = 20;
+  }
   // lineStyle: { normal: { color: '#8e1600', width: 2, type: 'dotted' }}
 
   const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
@@ -34,9 +42,9 @@ const drawLineChart = (data, options) => {
     }],
     yAxis: [{
       name: options.y,
-      nameLocation: 'center',
-      nameGap: 50,
-      nameRotate: 90,
+      nameLocation: location,
+      nameGap: gap,
+      nameRotate: yLabel,
       type: 'value',
       splitLine: {
         show: true,
