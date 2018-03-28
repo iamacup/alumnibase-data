@@ -1,4 +1,5 @@
-import ukData from '../../../../content/containers/Fragments/Graphs/ukData';
+
+import ukData from './ukData';
 
 const drawUKMap = (data, pieces) => {
   // pieces sould be in the form {max: #, label: "", min: # }

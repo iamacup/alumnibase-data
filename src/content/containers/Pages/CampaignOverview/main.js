@@ -14,7 +14,7 @@ import BasicPanel from '../../../../content/components/BasicPanel';
 import drawNewPieChart from '../../../../content/scripts/custom/echarts/drawPieChart';
 import drawGroupedBarChart from '../../../../content/scripts/custom/echarts/drawBarChart';
 import drawWorldMap from '../../../../content/scripts/custom/echarts/drawWorldMap';
-import worldMapData from '../../../../content/containers/Fragments/Graphs/worldMapData';
+import worldMapData from '../../../../content/scripts/custom/echarts/worldMapData';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 

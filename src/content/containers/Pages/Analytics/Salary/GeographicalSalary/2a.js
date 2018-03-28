@@ -12,7 +12,7 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
 import drawWorldMap from '../../../../../../content/scripts/custom/echarts/drawWorldMap';
-import worldMapData from '../../../../../../content/containers/Fragments/Graphs/worldMapData';
+import worldMapData from '../../../../../../content/scripts/custom/echarts/worldMapData';
 
 class Page extends React.PureComponent {
   componentDidMount() {

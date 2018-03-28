@@ -9,7 +9,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import drawUKMap from '../../../../../../content/scripts/custom/echarts/drawUkMap';
-import {gradsComeFromData, gradsGoToData} from  '../../../../../../content/containers/Fragments/Graphs/UKGradData';
+import { gradsComeFromData, gradsGoToData } from './UKGradData';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
