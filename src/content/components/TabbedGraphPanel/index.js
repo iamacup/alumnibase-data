@@ -71,11 +71,13 @@ class TabbedGraphPanel extends React.PureComponent {
       $(() => {
         this.redrawActives();
 
-        // and when we resize
-        $(document).on('debouncedResizeEvent', () => {
+        // stick a resize listener her
+        const resizeFunc = () => {
           // we resize the current graph on screen
           this.redrawActives();
-        });
+        };
+
+        window.ourGraphResizeEventList[this.props.globalID] = resizeFunc;
       });
     }
   }
@@ -93,6 +95,10 @@ class TabbedGraphPanel extends React.PureComponent {
 
   componentDidUpdate() {
     this.redrawActives();
+  }
+
+  componentWillUnmount() {
+    window.ourGraphResizeEventList[this.props.globalID] = null;
   }
 
   getCurrentActiveTab(content) {

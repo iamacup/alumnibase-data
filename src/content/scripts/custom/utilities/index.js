@@ -64,7 +64,7 @@ export function debounce(callback, wait, context = this) {
 
 export function fireDebouncedResizeEvents(eventName = 'debouncedResizeEvent') {
   const executeFunction = debounce(() => {
-    $.event.trigger({ type: eventName }, []);
+    $.event.trigger({ type: eventName });
   }, 201);
 
   $(window).resize(executeFunction);
