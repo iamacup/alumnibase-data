@@ -9,7 +9,6 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 class Page extends React.PureComponent {
   componentDidMount() {
