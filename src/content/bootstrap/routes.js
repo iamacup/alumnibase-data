@@ -12,7 +12,7 @@ import DHLE8Page from '../../content/containers/Pages/Analytics/DHLE/8';
 import DHLE9Page from '../../content/containers/Pages/Analytics/DHLE/9';
 import DHLE11Page from '../../content/containers/Pages/Analytics/DHLE/11';
 
-import Views1PageA from '../../content/containers/Pages/Analytics/Views/1/1a';
+import Views1PageA from '../../content/containers/Pages/Analytics/Views/1/1a';  
 import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
 
 import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
@@ -28,7 +28,7 @@ import SubjectFirstYearPage from '../../content/containers/Pages/Analytics/Subje
 import SubjectFirstJobPage from '../../content/containers/Pages/Analytics/Subjects/FirstJob';
 import JobsEarlyPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
 import JobsFirstPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
-import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Salary/ValueForMoney';
+import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Subjects/ValueForMoney';
 import StemPage from '../../content/containers/Pages/Analytics/STEM/Overview';
 import PolarOverviewPage from '../../content/containers/Pages/Analytics/Polar/Overview';
 
@@ -114,7 +114,7 @@ export default [
     component: JobsFirstPage,
   },
   {
-    path: '/analytics/subjects/2',
+    path: '/analytics/subjects/vfm',
     exact: true,
     component: ValueForMoneyPage,
   },

@@ -214,13 +214,9 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            <BasicPanel
-              content={
-                <p>
-                  The data below comprises only the first job data we hold on all survey respondants.
-                </p>
-              }
-            />
+            <h3 className="text-main text-normal text-2x mar-no">First Job</h3>
+            <h5 className="text-muted text-normal">Below we explore the average time it takes to get a first job based on the subject studied, optionally split by gender.</h5>
+            <hr className="new-section-xs" />
           </div>
         </div>
 
