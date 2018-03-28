@@ -120,10 +120,10 @@ class Page extends React.PureComponent {
                     {/*  <!--Submenu--> */}
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary', 'in')} >
                       <li className={this.classNameBasedOnLocation('/analytics/salary/overview', 'active-link')}>
-                        <Link href="/analytics/salary/overview" to="/analytics/salary/overview">Salary Overview</Link>
+                        <Link href="/analytics/salary/overview" to="/analytics/salary/overview">Overview</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/salary/1', 'active-link')}>
-                        <Link href="/analytics/salary/1" to="/analytics/salary/1">Salary Ranges</Link>
+                        <Link href="/analytics/salary/1" to="/analytics/salary/1">Ranges</Link>
                       </li>
                     </ul>
                   </li>
@@ -142,6 +142,9 @@ class Page extends React.PureComponent {
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/1', 'active-link')}>
                         <Link href="/analytics/jobs/1" to="/analytics/jobs/1">Overview</Link>
                       </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/jobs/employers', 'active-link')}>
+                        <Link href="/analytics/jobs/1" to="/analytics/jobs/employers">Employers</Link>
+                      </li>
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/2', 'active-link')}>
                         <Link href="/analytics/jobs/2" to="/analytics/jobs/2">First Year</Link>
                       </li>
@@ -151,22 +154,6 @@ class Page extends React.PureComponent {
                     </ul>
                   </li>
 
-
-                  {/*  <!--Menu list item--> */}
-                  <li className={this.classNameBasedOnLocation('/analytics/stem', 'active-sub')}>
-                    <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
-                      <span className="menu-title">STEM</span>
-                      <i className="arrow" />
-                    </a>
-
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/stem', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/stem/overview', 'active-link')}>
-                        <Link href="/analytics/stem/overview" to="/analytics/stem/overview">Overview</Link>
-                      </li>
-                    </ul>
-                  </li>
 
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/subjects', 'active-sub')}>
@@ -193,6 +180,22 @@ class Page extends React.PureComponent {
                   </li>
 
                   {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/stem', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">STEM</span>
+                      <i className="arrow" />
+                    </a>
+
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/stem', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/stem/overview', 'active-link')}>
+                        <Link href="/analytics/stem/overview" to="/analytics/stem/overview">Overview</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+                  {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/polar', 'active-sub')}>
                     <a href="#">
                       <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
@@ -203,6 +206,22 @@ class Page extends React.PureComponent {
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/polar', 'in')} >
                       <li className={this.classNameBasedOnLocation('/analytics/polar', 'active-link')}>
                         <Link href="/analytics/polar" to="/analytics/polar">Outcomes</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+                  {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/further-study', 'active-sub')}>
+                    <a href="#">
+                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">Further Study</span>
+                      <i className="arrow" />
+                    </a>
+
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/stem', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/further-study/overview', 'active-link')}>
+                        <Link href="/analytics/further-study/overview" to="/analytics/further-study/overview">Overview</Link>
                       </li>
                     </ul>
                   </li>
@@ -333,132 +352,6 @@ class Page extends React.PureComponent {
                   <li className="list-divider" />
 
                   {/*  <!--Category name--> */}
-                  <li className="list-header">Advanced Analytics</li>
-
-
-                  {/*  <!--Menu list item--> */}
-                  <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes', 'active-sub')}>
-                    <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#ffb300' }} />
-                      <span className="menu-title">Employment Outcomes</span>
-                      <i className="arrow" />
-                    </a>
-
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/employment-outcomes', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/employment-destinations', 'active-link')}>
-                        <Link href="/analytics/employment-outcomes/employment-destinations" to="/analytics/employment-outcomes/employment-destinations">Employment Destinations</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/earning-trends', 'active-link')}>
-                        <Link href="/analytics/employment-outcomes/earning-trends" to="/analytics/employment-outcomes/earning-trends">Earning Trends</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/impact-on-career', 'active-link')}>
-                        <Link href="/analytics/employment-outcomes/impact-on-career" to="/analytics/employment-outcomes/impact-on-career">Impact on Career</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/student-voice', 'active-link')}>
-                        <Link href="/analytics/employment-outcomes/student-voice" to="/analytics/employment-outcomes/student-voice">Student Voice</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/carrer-advice', 'active-link')}>
-                        <Link href="/analytics/employment-outcomes/carrer-advice" to="/analytics/employment-outcomes/carrer-advice">Career Advice</Link>
-                      </li>
-                    </ul>
-                  </li>
-
-
-                  <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends', 'active-sub')}>
-                    <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#ffb300' }} />
-                      <span className="menu-title">HE Trends</span>
-                      <i className="arrow" />
-                    </a>
-
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/higher-education-trends', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends/further-study-outcomes', 'active-link')}>
-                        <Link href="/analytics/higher-education-trends/further-study-outcomes" to="/analytics/higher-education-trends/further-study-outcomes">Further Study Outcomes</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends/full-time-part-time-trends', 'active-link')}>
-                        <Link href="/analytics/higher-education-trends/full-time-part-time-trends" to="/analytics/higher-education-trends/full-time-part-time-trends">Full Time / Part Time Trends</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends/uk-eu-non-eu', 'active-link')}>
-                        <Link href="/analytics/higher-education-trends/uk-eu-non-eu" to="/analytics/higher-education-trends/uk-eu-non-eu">UK / EU / Non-EU</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends/mature-students', 'active-link')}>
-                        <Link href="/analytics/higher-education-trends/mature-students" to="/analytics/higher-education-trends/mature-students">Mature Students</Link>
-                      </li>
-                    </ul>
-                  </li>
-
-
-                  <li className={this.classNameBasedOnLocation('/analytics/dlhe-plus', 'active-sub')}>
-                    <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#ffb300' }} />
-                      <span className="menu-title">DLHE+</span>
-                      <i className="arrow" />
-                    </a>
-
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/dlhe-plus', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/dlhe-plus/soon', 'active-link')}>
-                        <Link href="/analytics/dlhe-plus/soon" to="/analytics/dlhe-plus/soon">Coming Soon</Link>
-                      </li>
-                    </ul>
-                  </li>
-
-
-                  <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2', 'active-sub')}>
-                    <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#ffb300' }} />
-                      <span className="menu-title">Widening Pariticpation</span>
-                      <i className="arrow" />
-                    </a>
-
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/widening-participation-2', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/students-with-disabilities', 'active-link')}>
-                        <Link href="/analytics/widening-participation-2/students-with-disabilities" to="/analytics/widening-participation-2/students-with-disabilities">Students with Disabilities</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/ethnicity-and-socio-economic-background', 'active-link')}>
-                        <Link href="/analytics/widening-participation-2/ethnicity-and-socio-economic-background" to="/analytics/widening-participation-2/ethnicity-and-socio-economic-background">Ethnicity & Socio-economic background</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/part-time-and-mature-students', 'active-link')}>
-                        <Link href="/analytics/widening-participation-2/part-time-and-mature-students" to="/analytics/widening-participation-2/part-time-and-mature-students">Part Time & Mature Students </Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/government-opportunity-areas', 'active-link')}>
-                        <Link href="/analytics/widening-participation-2/government-opportunity-areas" to="/analytics/widening-participation-2/government-opportunity-areas">Government Opportunity Areas</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/ncop', 'active-link')}>
-                        <Link href="/analytics/widening-participation-2/ncop" to="/analytics/widening-participation-2/ncop">NCOP</Link>
-                      </li>
-                    </ul>
-                  </li>
-
-
-                  <li className={this.classNameBasedOnLocation('/analytics/student-satisfaction', 'active-sub')}>
-                    <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#ffb300' }} />
-                      <span className="menu-title">Student Satisfaction</span>
-                      <i className="arrow" />
-                    </a>
-
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/student-satisfaction', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/student-satisfaction/recent-graduates-teaching-satisfaction', 'active-link')}>
-                        <Link href="/analytics/student-satisfaction/recent-graduates-teaching-satisfaction" to="/analytics/student-satisfaction/recent-graduates-teaching-satisfaction">Recent Graduates Teaching Satisfaction</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/student-satisfaction/welfare-provision', 'active-link')}>
-                        <Link href="/analytics/student-satisfaction/welfare-provision" to="/analytics/student-satisfaction/welfare-provision">Welfare Provision</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/student-satisfaction/degree-worth-it', 'active-link')}>
-                        <Link href="/analytics/student-satisfaction/degree-worth-it" to="/analytics/student-satisfaction/degree-worth-it">Degree worth it?</Link>
-                      </li>
-                    </ul>
-                  </li>
-
-
-                  <li className="list-divider" />
-
-                  {/*  <!--Category name--> */}
                   <li className="list-header">Data Control</li>
 
                   {/*  <!--Menu list item--> */}
@@ -484,6 +377,134 @@ class Page extends React.PureComponent {
     );
   }
 }
+
+/*
+
+old advanced analytics
+
+<li className="list-divider" />
+
+
+<li className="list-header">Advanced Analytics</li>
+
+
+<li className={this.classNameBasedOnLocation('/analytics/employment-outcomes', 'active-sub')}>
+  <a href="#">
+    <i className="far fa-adjust" style={{ color: '#ffb300' }} />
+    <span className="menu-title">Employment Outcomes</span>
+    <i className="arrow" />
+  </a>
+
+
+  <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/employment-outcomes', 'in')} >
+    <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/employment-destinations', 'active-link')}>
+      <Link href="/analytics/employment-outcomes/employment-destinations" to="/analytics/employment-outcomes/employment-destinations">Employment Destinations</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/earning-trends', 'active-link')}>
+      <Link href="/analytics/employment-outcomes/earning-trends" to="/analytics/employment-outcomes/earning-trends">Earning Trends</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/impact-on-career', 'active-link')}>
+      <Link href="/analytics/employment-outcomes/impact-on-career" to="/analytics/employment-outcomes/impact-on-career">Impact on Career</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/student-voice', 'active-link')}>
+      <Link href="/analytics/employment-outcomes/student-voice" to="/analytics/employment-outcomes/student-voice">Student Voice</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/employment-outcomes/carrer-advice', 'active-link')}>
+      <Link href="/analytics/employment-outcomes/carrer-advice" to="/analytics/employment-outcomes/carrer-advice">Career Advice</Link>
+    </li>
+  </ul>
+</li>
+
+
+<li className={this.classNameBasedOnLocation('/analytics/higher-education-trends', 'active-sub')}>
+  <a href="#">
+    <i className="far fa-adjust" style={{ color: '#ffb300' }} />
+    <span className="menu-title">HE Trends</span>
+    <i className="arrow" />
+  </a>
+
+
+  <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/higher-education-trends', 'in')} >
+    <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends/further-study-outcomes', 'active-link')}>
+      <Link href="/analytics/higher-education-trends/further-study-outcomes" to="/analytics/higher-education-trends/further-study-outcomes">Further Study Outcomes</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends/full-time-part-time-trends', 'active-link')}>
+      <Link href="/analytics/higher-education-trends/full-time-part-time-trends" to="/analytics/higher-education-trends/full-time-part-time-trends">Full Time / Part Time Trends</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends/uk-eu-non-eu', 'active-link')}>
+      <Link href="/analytics/higher-education-trends/uk-eu-non-eu" to="/analytics/higher-education-trends/uk-eu-non-eu">UK / EU / Non-EU</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/higher-education-trends/mature-students', 'active-link')}>
+      <Link href="/analytics/higher-education-trends/mature-students" to="/analytics/higher-education-trends/mature-students">Mature Students</Link>
+    </li>
+  </ul>
+</li>
+
+
+<li className={this.classNameBasedOnLocation('/analytics/dlhe-plus', 'active-sub')}>
+  <a href="#">
+    <i className="far fa-adjust" style={{ color: '#ffb300' }} />
+    <span className="menu-title">DLHE+</span>
+    <i className="arrow" />
+  </a>
+
+  <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/dlhe-plus', 'in')} >
+    <li className={this.classNameBasedOnLocation('/analytics/dlhe-plus/soon', 'active-link')}>
+      <Link href="/analytics/dlhe-plus/soon" to="/analytics/dlhe-plus/soon">Coming Soon</Link>
+    </li>
+  </ul>
+</li>
+
+
+<li className={this.classNameBasedOnLocation('/analytics/widening-participation-2', 'active-sub')}>
+  <a href="#">
+    <i className="far fa-adjust" style={{ color: '#ffb300' }} />
+    <span className="menu-title">Widening Pariticpation</span>
+    <i className="arrow" />
+  </a>
+
+  <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/widening-participation-2', 'in')} >
+    <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/students-with-disabilities', 'active-link')}>
+      <Link href="/analytics/widening-participation-2/students-with-disabilities" to="/analytics/widening-participation-2/students-with-disabilities">Students with Disabilities</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/ethnicity-and-socio-economic-background', 'active-link')}>
+      <Link href="/analytics/widening-participation-2/ethnicity-and-socio-economic-background" to="/analytics/widening-participation-2/ethnicity-and-socio-economic-background">Ethnicity & Socio-economic background</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/part-time-and-mature-students', 'active-link')}>
+      <Link href="/analytics/widening-participation-2/part-time-and-mature-students" to="/analytics/widening-participation-2/part-time-and-mature-students">Part Time & Mature Students </Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/government-opportunity-areas', 'active-link')}>
+      <Link href="/analytics/widening-participation-2/government-opportunity-areas" to="/analytics/widening-participation-2/government-opportunity-areas">Government Opportunity Areas</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/widening-participation-2/ncop', 'active-link')}>
+      <Link href="/analytics/widening-participation-2/ncop" to="/analytics/widening-participation-2/ncop">NCOP</Link>
+    </li>
+  </ul>
+</li>
+
+
+<li className={this.classNameBasedOnLocation('/analytics/student-satisfaction', 'active-sub')}>
+  <a href="#">
+    <i className="far fa-adjust" style={{ color: '#ffb300' }} />
+    <span className="menu-title">Student Satisfaction</span>
+    <i className="arrow" />
+  </a>
+
+  <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/student-satisfaction', 'in')} >
+    <li className={this.classNameBasedOnLocation('/analytics/student-satisfaction/recent-graduates-teaching-satisfaction', 'active-link')}>
+      <Link href="/analytics/student-satisfaction/recent-graduates-teaching-satisfaction" to="/analytics/student-satisfaction/recent-graduates-teaching-satisfaction">Recent Graduates Teaching Satisfaction</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/student-satisfaction/welfare-provision', 'active-link')}>
+      <Link href="/analytics/student-satisfaction/welfare-provision" to="/analytics/student-satisfaction/welfare-provision">Welfare Provision</Link>
+    </li>
+    <li className={this.classNameBasedOnLocation('/analytics/student-satisfaction/degree-worth-it', 'active-link')}>
+      <Link href="/analytics/student-satisfaction/degree-worth-it" to="/analytics/student-satisfaction/degree-worth-it">Degree worth it?</Link>
+    </li>
+  </ul>
+</li>
+
+*/
+
 
 Page.propTypes = {
   theLocation: PropTypes.object.isRequired,

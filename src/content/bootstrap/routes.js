@@ -38,6 +38,8 @@ import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/Furt
 import WPBMEEPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-Economic';
 import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-POLAR3';
 
+import DataExportPage from '../../content/containers/Pages/DataControl/Export';
+
 import TestsPage from '../../content/containers/Pages/Tests';
 
 export default [
@@ -50,6 +52,11 @@ export default [
     path: '/analytics/jobs/1',
     exact: true,
     component: Jobs1Page,
+  },
+  {
+    path: '/data-control/export',
+    exact: true,
+    component: DataExportPage,
   },
   {
     path: '/tests',
