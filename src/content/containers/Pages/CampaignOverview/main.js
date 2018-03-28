@@ -414,6 +414,47 @@ class Page extends React.PureComponent {
     return panel;
   }
 
+  getCourseTypeGraph() {
+    const data = [
+      { name: 'Undergraduate degree', value: 75 },
+      { name: 'Postgraduate taught degree', value: 18 },
+      { name: 'Postgraduate research degree', value: 5 },
+      { name: 'Foundation degree', value: 2 },
+    ];
+
+    const options = drawNewPieChart(data, true, 'pie', false);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Course Type"
+        globalID="overview-9"
+        content={[
+            {
+              title: '',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+
+    return panel;
+  }
+
   getTotalResponsesPerYearGroup() {
     const titles = ['2012', '2013', '2014', '2015', '2016', '2017'];
     const titles2 = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
@@ -829,6 +870,12 @@ class Page extends React.PureComponent {
               </div>
               <div className="col-md-6">
                 {this.getReligionSplitGraph()}
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6 col-md-push-3">
+                {this.getCourseTypeGraph()}
               </div>
             </div>
 
