@@ -106,12 +106,11 @@ class Page extends React.PureComponent {
     // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
-        title="Subject and Salary of Current Graduates, Based on the POLAR Area they came to Study From"
+        title="Subject Areas and Salary of Current Graduates, Based on the their pre-university location"
         globalID="overview-6"
         content={[
             {
               title: '',
-              postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               active: true,
               graphData: {
                 type: 'googlecharts',
@@ -144,7 +143,6 @@ class Page extends React.PureComponent {
           <div className="col-lg-12">
 
             <h3 className="text-main text-normal text-2x mar-no">POLAR3 Outcomes</h3>
-            <h5 className="text-muted text-normal">Data shown for all respondants</h5>
             <hr className="new-section-xs" />
 
             <div className="row">
