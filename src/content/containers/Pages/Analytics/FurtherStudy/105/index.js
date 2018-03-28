@@ -9,6 +9,9 @@ import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/u
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
+import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
+
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -44,6 +47,16 @@ class Page extends React.PureComponent {
   }
 
   render() {
+    const pieData1 = [
+      { name: 'No Further Study', value: 60 },
+      { name: 'Masters', value: 30 },
+      { name: 'PhD', value: 7 },
+      { name: 'Post Doc', value: 2 },
+      { name: 'Professor', value: 1 },
+    ];
+
+    const echartsData1 = drawPieChart(pieData1, false, 'pie', false);
+
     const content = (
       <div id="page-content">
 
@@ -53,19 +66,34 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
 
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
-              </div>
-            </div>
-
+            <TabbedGraphPanel
+              title="Further Study Among Durham Graduates"
+              globalID="RQ-105-pie-1"
+              content={[
+            {
+              title: '',
+              // preContent: <p>This is the OPTIONAL pre content</p>,
+              // postContent: <p>This is the OPTIONAL post content</p>,
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '400px',
+                data: {
+                  options: echartsData1,
+                },
+              },
+            },
+          ]}
+              seperator
+            />
           </div>
-
         </div>
-
       </div>
     );
 
