@@ -102,7 +102,7 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
 
   const option = {
     legend: {
-      y: '10%',
+      y: '90%',
       data: cats,
     },
     tooltip: {
@@ -113,7 +113,7 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
     },
     grid: {
       left: '10%',
-      top: '20%',
+      top: '10%',
       right: '10%',
       bottom: '15%',
     },

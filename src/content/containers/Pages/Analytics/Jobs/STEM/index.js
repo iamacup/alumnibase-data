@@ -40,6 +40,9 @@ class Page extends React.PureComponent {
 
   render() {
     const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
+    const options1 = {
+      STEM: 10, 'Non-STEM': 20, 'High Skilled': 19, 'Not High Skilled': 11,
+    };
     const rows1 = [
       ['STEM', 'High Skilled', 6],
       ['STEM', 'Not High Skilled', 4],
@@ -50,53 +53,56 @@ class Page extends React.PureComponent {
       ['Not High Skilled', 'Not Alligned to Industrial Strategy', 8],
       ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
     ];
+
     const rows2 = [
       ['White', 'Non-STEM', 9],
-      ['Mixed', 'Non-STEM', 3],
-      ['Asian', 'Non-STEM', 5],
-      ['Black / African / Caribbean', 'Non-STEM', 5],
-      ['Other', 'Non-STEM', 3],
       ['White', 'STEM', 7],
+      ['Mixed', 'Non-STEM', 3],
       ['Mixed', 'STEM', 1],
+      ['Asian', 'Non-STEM', 5],
       ['Asian', 'STEM', 3],
+      ['Black / African / Caribbean', 'Non-STEM', 5],
       ['Black / African / Caribbean', 'STEM', 2],
+      ['Other', 'Non-STEM', 3],
       ['Other', 'STEM', 1],
       ['STEM', 'High Skilled', 8],
-      ['Non-STEM', 'High Skilled', 15],
       ['STEM', 'Not High Skilled', 6],
+      ['Non-STEM', 'High Skilled', 15],
       ['Non-STEM', 'Not High Skilled', 10],
       ['High Skilled', 'Alligned to Industrial Strategy', 15],
       ['High Skilled', 'Not Alligned to Industrial Strategy', 8],
       ['Not High Skilled', 'Not Alligned to Industrial Strategy', 8],
       ['Not High Skilled', 'Alligned to Industrial Strategy', 8],
     ];
+    const options2 = {
+      White: 16, Mixed: 4, Asian: 8, 'Black / African / Caribbean': 7, Other: 4, STEM: 14, 'Non-STEM': 25, 'High Skilled': 23, 'Not High Skilled': 16,
+    };
     const rows3 = [
       ['Female', 'STEM', 2],
-      ['Male', 'STEM', 8],
       ['Female', 'Non-STEM', 3],
+      ['Male', 'STEM', 8],
       ['Male', 'Non-STEM', 7],
-
       ['STEM', 'High Skilled', 4],
       ['STEM', 'Not High Skilled', 6],
-
       ['Non-STEM', 'High Skilled', 7],
       ['Non-STEM', 'Not High Skilled', 3],
-
       ['High Skilled', 'Alligned to Industrial Strategy', 8],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
-
       ['High Skilled', 'Not Alligned to Industrial Strategy', 3],
+      ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
       ['Not High Skilled', 'Not Alligned to Industrial Strategy', 6],
     ];
+    const options3 = {
+      Female: 5, Male: 15, STEM: 10, 'Non-STEM': 10, 'High Skilled': 11, 'Not High Skilled': 9,
+    };
 
     const pieData1 = [
       { name: 'STEM Subjects', value: 36 },
       { name: 'Non-STEM Subjects', value: 6 },
     ];
 
-    const googleData1 = drawSankeyChart(columns1, rows1);
-    const googleData2 = drawSankeyChart(columns1, rows2);
-    const googleData3 = drawSankeyChart(columns1, rows3);
+    const googleData1 = drawSankeyChart(columns1, rows1, options1);
+    const googleData2 = drawSankeyChart(columns1, rows2, options2);
+    const googleData3 = drawSankeyChart(columns1, rows3, options3);
     const echartsData1 = drawPieChart(pieData1, false, 'pie', false);
 
     const data1 = [

@@ -182,7 +182,10 @@ class Page extends React.PureComponent {
                         <Link href="/analytics/jobs/1" to="/analytics/jobs/1">Overview</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/2', 'active-link')}>
-                        <Link href="/analytics/jobs/2" to="/analytics/jobs/2">Early Outcomes</Link>
+                        <Link href="/analytics/jobs/2" to="/analytics/jobs/2">First Year</Link>
+                      </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/jobs/4', 'active-link')}>
+                        <Link href="/analytics/jobs/4" to="/analytics/jobs/4">First Job</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/3', 'active-link')}>
                         <Link href="/analytics/jobs/3" to="/analytics/jobs/3">STEM</Link>
@@ -199,8 +202,11 @@ class Page extends React.PureComponent {
                     </a>
                     {/*  <!--Submenu--> */}
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/subjects', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/subjects/early', 'active-link')}>
-                        <Link href="/analytics/subjects/early" to="/analytics/subjects/early">Early Outcomes</Link>
+                      <li className={this.classNameBasedOnLocation('/analytics/subjects/1', 'active-link')}>
+                        <Link href="/analytics/subjects/1" to="/analytics/subjects/1">First Year</Link>
+                      </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/subjects/4', 'active-link')}>
+                        <Link href="/analytics/subjects/4" to="/analytics/subjects/4">First Job</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/subjects/2', 'active-link')}>
                         <Link href="/analytics/subjects/2" to="/analytics/subjects/2">Value For Money</Link>

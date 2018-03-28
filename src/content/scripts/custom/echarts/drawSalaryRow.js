@@ -1,15 +1,21 @@
 import React from 'react';
 
-const getSalaryRow = (title, salary, bottomMargin) => {
+const getSalaryRow = (title, salary, bottomMargin, time) => {
   const barStyle = { height: '4px' };
 
   if (bottomMargin === false) {
     barStyle.marginBottom = '0';
   }
 
+  let length = 3;
   const string = '' + (salary * 1000);
-  const value = '£' + string.slice(0, 2) + ',' + string.slice(2);
+  let value = '£' + string.slice(0, 2) + ',' + string.slice(2);
+  if (string.length < 5) value = '£' + string.slice(0, 1) + ',' + string.slice(1, string.length);
 
+  if (time) {
+    value = salary + ' Months';
+    length = 5;
+  }
 
   const obj = (
     <div className="row">
@@ -30,7 +36,7 @@ const getSalaryRow = (title, salary, bottomMargin) => {
             aria-valuenow="70"
             aria-valuemin="0"
             aria-valuemax="100"
-            style={{ width: salary + '%' }}
+            style={{ width: (salary * length) + '%' }}
           >
             <span className="sr-only">{salary}% Complete</span>
           </div>

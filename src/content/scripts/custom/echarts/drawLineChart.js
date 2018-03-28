@@ -58,10 +58,6 @@ const drawLineChart = (data, options) => {
       },
     }],
     series: data.plotted.map((element, i) => ({
-      // let color = colours[i];
-      // if (data.name[i] === "National Average") {
-      //   color = '#8e1600'
-      // }
       name: data.name[i],
       type: 'line',
       label: { formatter: '{b}: {d}' },
