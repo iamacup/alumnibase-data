@@ -193,6 +193,11 @@ class Page extends React.PureComponent {
                         <Link href="/analytics/stem/overview" to="/analytics/stem/overview">Overview</Link>
                       </li>
                     </ul>
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/stem', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/stem/destinations', 'active-link')}>
+                        <Link href="/analytics/stem/destinations" to="/analytics/stem/destinations">Destinations and Outcomes</Link>
+                      </li>
+                    </ul>
                   </li>
 
                   {/*  <!--Menu list item--> */}

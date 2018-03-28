@@ -29,7 +29,8 @@ import SubjectFirstJobPage from '../../content/containers/Pages/Analytics/Subjec
 import JobsEarlyPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
 import JobsFirstPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
 import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Subjects/ValueForMoney';
-import StemPage from '../../content/containers/Pages/Analytics/STEM/Overview';
+import StemOverviewPage from '../../content/containers/Pages/Analytics/STEM/Overview';
+import StemDestinationsPage from '../../content/containers/Pages/Analytics/STEM/Destinations';
 import PolarOverviewPage from '../../content/containers/Pages/Analytics/Polar/Overview';
 
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
@@ -126,7 +127,12 @@ export default [
   {
     path: '/analytics/stem/overview',
     exact: true,
-    component: StemPage,
+    component: StemOverviewPage,
+  },
+  {
+    path: '/analytics/stem/destinations',
+    exact: true,
+    component: StemDestinationsPage,
   },
   {
     path: '/analytics/destination/1',

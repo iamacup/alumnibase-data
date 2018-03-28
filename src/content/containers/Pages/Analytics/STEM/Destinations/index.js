@@ -213,20 +213,31 @@ class Page extends React.PureComponent {
 
     const tabbedPanelData = [
       {
-        title: 'STEM vs Non-STEM subjects',
-        globalID: 'stem-pie-1',
-        type: 'echarts',
-        drawData: { options: echartsData1 },
+        title: 'Stem Destinations of Graduates',
+        globalID: 'stem-sankey-1',
+        type: 'googlecharts',
+        drawData: { ...googleData1 },
+      },
+      {
+        title: 'Ethnicity split of graduates going into soc.1-3 jobs',
+        globalID: 'stem-sankey-2',
+        type: 'googlecharts',
+        drawData: { ...googleData2 },
+      },
+      {
+        title: 'Gender split of graduates going into soc.1-3 jobs',
+        globalID: 'stem-sankey-3',
+        type: 'googlecharts',
+        drawData: { ...googleData3 },
       },
     ];
-
     const content = (
       <div id="page-content">
         <StandardFilters />
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            <h3 className="text-main text-normal text-2x mar-no">Overview of STEM Students</h3>
+            <h3 className="text-main text-normal text-2x mar-no">STEM Destinations</h3>
             <hr className="new-section-xs" />
           </div>
         </div>
@@ -259,79 +270,6 @@ class Page extends React.PureComponent {
                 seperator
               />
   ))}
-
-            <TabbedGraphPanel
-              title="Average Salary per STEM Subject"
-              globalID="stem-line-1"
-              content={[
-                       {
-                         title: '',
-                         // preContent: <p>This is the OPTIONAL pre content</p>,
-                         // postContent: <p>This is the OPTIONAL post content</p>,
-                         active: true,
-                         graphData: {
-                           type: 'echarts',
-                           tools: {
-                             allowDownload: true,
-                             seeData: false,
-                             pinGraph: true,
-                           },
-                           width: '100%',
-                           height: '400px',
-                           data: {
-                             options: lineChartData,
-                           },
-                         },
-                       },
-                     ]}
-              seperator
-            />
-
-            <h3 className="text-main text-normal text-2x mar-no">STEM Salaries</h3>
-            <h5 className="text-muted text-normal">Breakdown of STEM subjects and their associated salary outcomes for students in their <strong>First Job</strong>, with optional Gender Split</h5>
-            <hr className="new-section-xs" />
-
-            <TabbedGraphPanel
-              title="List of all STEM subjects average salaries"
-              globalID="stem-vxy"
-              content={[
-                {
-                  title: 'STEM subjects',
-                  active: true,
-                  graphData: {
-                    type: 'react',
-                    width: '100%',
-                    height: '100%',
-                    tools: {
-                      allowDownload: false,
-                      seeData: false,
-                      pinGraph: false,
-                    },
-                    data: {
-                      reactData: subjectsData,
-                    },
-                  },
-                },
-                {
-                  title: 'Gender Split',
-                  active: false,
-                  graphData: {
-                    type: 'react',
-                    width: '100%',
-                    height: '100%',
-                    tools: {
-                      allowDownload: false,
-                      seeData: false,
-                      pinGraph: false,
-                    },
-                    data: {
-                      reactData: genderSubjectsData,
-                    },
-                  },
-                },
-              ]}
-              seperator
-            />
 
           </div>
         </div>
