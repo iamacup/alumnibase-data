@@ -38,29 +38,86 @@ class Page extends React.PureComponent {
   }
 
   render() {
+    // * Allied Health Professions, Dentistry, Nursing and Pharmacy
+    // ** Aeronautical, Mechanical, Chemical and Manufacturing Engineering
+    // *** Electrical and Electronic Engineering, Metallurgy and Materials
+    // **** Communication, Cultural and Media Studies, Library and Information Management
     const barData = {
-      titles1: ['Education', 'Anthropology & Development Studies', 'Communication, Cultural and Media Studies, Library and Information Management', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Area Studies', 'Electrical and Electronic Engineering, Metallurgy and Materials', 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering', 'Mathematical Sciences', 'Physics', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', 'Allied Health Professions, Dentistry, Nursing and Pharmacy', 'Clinical Medicine'],
+      titles1: ['Education', 'Anthropology & Development Studies', '****', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Area Studies', '***', '**', 'Mathematical Sciences', 'Physics', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', '*', 'Clinical Medicine'],
       titles2: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Theology and Religious Studies', 'Public Health, Health Services and Primary Care', 'Architecture, Built Environment and Planning', 'Clinical Medicine'],
-      data2: [{ data: [0, 4, 8, 97, 99, 100] }],
-      data1: [{ data: [4, 8, 15, 20, 24, 28, 36, 44, 45, 52, 56, 64, 68, 76, 84, 88, 92, 100] }],
+      data2: [{ data: [27, 34, 48, 97, 99, 100] }],
+      data1: [{ data: [34, 38, 45, 50, 54, 58, 62, 64, 65, 72, 76, 78, 80, 82, 84, 88, 92, 100] }],
       options1: { direction: 'horizontal', value: '' },
-      options2: { direction: 'horizontal', value: '', colours2: ['#1c6cab', '#d02224'] },
+      options2: { direction: 'horizontal', value: '', colours: ['#1c6cab', '#d02224'] },
     };
 
     const data = [
-      [3.275154, 3.957587],
-      [-3.344465, 2.603513],
-      [0.355083, -3.376585],
+    // Negative-Low
+      [-3000, -2.5],
+      [-2000, -1],
+      [-2500, -0.7],
+      [-4700, -1.5],
+      [-4600, -0],
+      [-45000, -1],
+      [-0, -2],
+      [-100, -0.05],
+      [-700, -1.2],
+      [-600, -0.6],
+      // Positive-Low
+      [-5000, 3],
+      [-6000, 2],
+      [-2500, 1.57],
+      [-700, 2.43],
+      [-750, 0.71],
+      [-3500, 1.21],
+      [-3300, 2.93],
+      [-1800, 1.79],
+      [-1500, 3.43],
+      [-100, 4.21],
+      // Positive-High
+      [5000, 3],
+      [100, 3.93],
+      [200, 2.79],
+      [300, 1.64],
+      [800, 0.64],
+      [900, 1.57],
+      [1000, 3.21],
+      [1000, 4.71],
+      [1500, 2.36],
+      [1800, 0.71],
+      [2000, 3.57],
+      [2500, 1.86],
+      [2600, 5.21],
+      [2700, 4.64],
+      [2800, 0.93],
+      [2900, 2.93],
+      [3000, 0],
+      [3100, 1.71],
+      [3200, 4],
+      [3800, 4.86],
+      // Negative-High
+      [5000, -3],
+      [10000, -3.5],
     ];
 
     const bar1 = drawBarChart(barData.titles1, barData.data1, barData.options1);
     const bar2 = drawBarChart(barData.titles2, barData.data2, barData.options2);
     const scatterData = drawScatterGraph(data);
 
+
+    const postContent = [['* Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['** Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
+    const text1 = <p>{postContent[0]}<br />{postContent[1]}<br />{postContent[2]}<br />{postContent[3]}</p>;
+
     const tabData = [
-      { title: 'Percentage of People who Believe their Course Offered Value for Money', globalID: 'VFM-1', options: bar1 },
-      { title: 'Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money', globalID: 'VFM-2', options: bar2 },
-      { title: 'Quadrant', globalID: 'VFM-3', options: scatterData },
+      {
+        title: 'Percentage of People who Believe their Course Offered Value for Money', globalID: 'VFM-1', options: bar1, text: text1,
+      },
+      {
+        title: 'Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money', globalID: 'VFM-2', options: bar2, text: '',
+      },
+      {
+        title: 'Quadrant', globalID: 'VFM-3', options: scatterData, text: '',
+      },
     ];
 
     const content = (
@@ -81,12 +138,14 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {tabData.map(element => (
+                      // {if {element.globalID !== "VFM-1") text = ""}
               <TabbedGraphPanel
                 title={element.title}
                 globalID={element.globalID}
                 content={[
                     {
                       title: '',
+                      postContent: element.text,
                       active: true,
                       graphData: {
                         type: 'echarts',
@@ -96,7 +155,7 @@ class Page extends React.PureComponent {
                           pinGraph: true,
                         },
                         width: '100%',
-                        height: '350px',
+                        height: '400px',
                         data: {
                           options: element.options,
                         },

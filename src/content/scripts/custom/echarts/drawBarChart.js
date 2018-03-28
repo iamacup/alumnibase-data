@@ -4,7 +4,7 @@ const drawGroupedBarChart = (titles, data, options) => {
   // value is the axis value, ie "%" || "£";
   let colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
   if (options.colours) colors = options.colours;
-
+  console.log(colors);
   let axis = {
     x: [{ type: 'value', axisLabel: { formatter: options.value + '{value}' } }],
     y: [{ type: 'category', data: titles }],
