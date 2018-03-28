@@ -33,8 +33,7 @@ import StemOverviewPage from '../../content/containers/Pages/Analytics/STEM/Over
 import StemDestinationsPage from '../../content/containers/Pages/Analytics/STEM/Destinations';
 import PolarOverviewPage from '../../content/containers/Pages/Analytics/Polar/Overview';
 
-import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
-import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
+import FurtherStudyOverviewPage from '../../content/containers/Pages/Analytics/FurtherStudy/Overview';
 
 import WPBMEEPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-Economic';
 import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-POLAR3';
@@ -190,14 +189,9 @@ export default [
     component: DHLE11Page,
   },
   {
-    path: '/analytics/further-study/105',
+    path: '/analytics/further-study/overview',
     exact: true,
-    component: FurtherStudy105Page,
-  },
-  {
-    path: '/analytics/further-study/106-109',
-    exact: true,
-    component: FurtherStudyMultiPage,
+    component: FurtherStudyOverviewPage,
   },
   {
     path: '/analytics/widening-participation/bme-economic-achievement',

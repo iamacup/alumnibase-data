@@ -316,25 +316,6 @@ class Page extends React.PureComponent {
                   </li>
 
                   {/*  <!--Menu list item--> */}
-                  <li className={this.classNameBasedOnLocation('/analytics/further-study', 'active-sub')}>
-                    <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#03a9f4' }} />
-                      <span className="menu-title">Further Study</span>
-                      <i className="arrow" />
-                    </a>
-
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/further-study', 'in')}>
-                      <li className={this.classNameBasedOnLocation('/analytics/further-study/105', 'active-link')}>
-                        <Link href="/analytics/further-study/trends" to="/analytics/further-study/105">RQ 105 - Trends for Further Study</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/further-study/106-109', 'active-link')}>
-                        <Link href="/analytics/further-study/trends" to="/analytics/further-study/106-109">RQ 106-109 - Further Study Details</Link>
-                      </li>
-                    </ul>
-                  </li>
-
-                  {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/widening-participation', 'active-sub')}>
                     <a href="#">
                       <i className="far fa-adjust" style={{ color: '#ab47bc' }} />

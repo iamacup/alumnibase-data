@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -12,11 +13,10 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
 
-
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'Requirement 105 - Trends for Further Study',
+      pageTitle: 'Further Study Overview',
       breadcrumbs: [
         {
           name: 'Analytics',
@@ -27,20 +27,12 @@ class Page extends React.PureComponent {
           link: '/analytics/further-study',
         },
         {
-          name: 'RQ 105 - Trends for Further Study',
-          link: '/analytics/further-study/105',
+          name: 'Overview',
+          link: '/analytics/further-study/overview',
         }],
     });
 
     $(() => {
-      // listen for resize events
-      fireDebouncedResizeEvents();
-
-      // then listen for the events here
-      $(document).on('debouncedResizeEvent', () => {
-        redrawCharts();
-      });
-
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
@@ -62,34 +54,39 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Further Study Trends</h3>
+            <h5 className="text-muted text-normal">Data taken from graduates after they entered their 'first job'</h5>
+            <hr className="new-section-xs" />
+          </div>
+        </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
 
             <TabbedGraphPanel
-              title="Further Study Among Durham Graduates"
+              title="Further Study Among Graduates"
               globalID="RQ-105-pie-1"
               content={[
-            {
-              title: '',
-              // preContent: <p>This is the OPTIONAL pre content</p>,
-              // postContent: <p>This is the OPTIONAL post content</p>,
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
+                {
+                  title: '',
+                  active: true,
+                  graphData: {
+                    type: 'echarts',
+                    tools: {
+                      allowDownload: true,
+                      seeData: false,
+                      pinGraph: true,
+                    },
+                    width: '100%',
+                    height: '400px',
+                    data: {
+                      options: echartsData1,
+                    },
+                  },
                 },
-                width: '100%',
-                height: '400px',
-                data: {
-                  options: echartsData1,
-                },
-              },
-            },
-          ]}
+              ]}
               seperator
             />
           </div>
