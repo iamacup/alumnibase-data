@@ -15,7 +15,7 @@ import DHLE11Page from '../../content/containers/Pages/Analytics/DHLE/11';
 import Views1PageA from '../../content/containers/Pages/Analytics/Views/1/1a';
 import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
 
-import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
+import Views2Page from '../../content/containers/Pages/Analytics/Views/2'; 
 
 import Jobs1Page from '../../content/containers/Pages/Analytics/Jobs/1';
 
@@ -29,7 +29,7 @@ import SubjectFirstJobPage from '../../content/containers/Pages/Analytics/Subjec
 import JobsEarlyPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
 import JobsFirstPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
 import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Salary/ValueForMoney';
-import StemPage from '../../content/containers/Pages/Analytics/Jobs/STEM';
+import StemPage from '../../content/containers/Pages/Analytics/STEM/Overview';
 import PolarOverviewPage from '../../content/containers/Pages/Analytics/Polar/Overview';
 
 import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
@@ -117,7 +117,7 @@ export default [
     component: PolarOverviewPage,
   },
   {
-    path: '/analytics/jobs/3',
+    path: '/analytics/stem/overview',
     exact: true,
     component: StemPage,
   },

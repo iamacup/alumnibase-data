@@ -45,7 +45,9 @@ class Page extends React.PureComponent {
 
       // make the checkbox look nice with switchery
       const elem = document.querySelector('#switchery-switch');
+
       // eslint-disable-next-line no-undef
+      const init = new Switchery(elem);
 
       elem.onchange = () => {
         this.clickShowNationalAverage();
@@ -66,6 +68,7 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
+              postContent: <div className="pull-right"><p>Data is shown for all survery data with any filters applied.</p></div>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -93,6 +96,8 @@ class Page extends React.PureComponent {
   }
 
   render() {
+    console.log(this.state);
+
     const genderData = {
       categories: ['Female', 'Male'],
       values: [
@@ -127,7 +132,7 @@ class Page extends React.PureComponent {
     };
 
     if (this.state.showNationalAverage === true) {
-      const nationalAverageSalaryData = [10000, 20000];
+      const nationalAverageSalaryData = [26000, 28700];
 
       genderData.categories.push('National Average');
       genderData.values.push(nationalAverageSalaryData);
@@ -139,7 +144,6 @@ class Page extends React.PureComponent {
       religionData.values.push(nationalAverageSalaryData);
     }
 
-
     const content = (
       <div id="page-content">
 
@@ -149,31 +153,47 @@ class Page extends React.PureComponent {
           <div className="col-md-10 col-md-push-1">
             <BasicPanel
               content={
-                <p>
-                    Data from section 5 of the respondent survey is collated here.<br /><br />
+
+                <div>
+                  <p>
                     This data displays the average pay gaps between <strong>gender, ethnicity and religion</strong>.<br /><br />
-                  <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-                    Show national average on graphs: <input id="switchery-switch" type="checkbox" />
-                </p>
+                    <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.<br /><br />
+                  </p>
+
+                  <div className="row">
+                    <div className="col-sm-4 col-sm-push-4">
+                      <div className="panel media middle">
+                        <div className="media-left bg-primary pad-all">
+                          <input id="switchery-switch" type="checkbox" />
+                        </div>
+                        <div className="media-body pad-lft" style={{ backgroundColor: '#ecf0f5' }}>
+                          <p className="text-muted mar-no">Show national average on graphs - <strong style={{ color: 'red' }}>NEED TO DISCUSS IF WE KEEP THIS</strong></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
                 }
             />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-md-8 col-md-push-2">
+          <div className="col-md-10 col-md-push-1">
             {this.getBoxPlot(genderData, 'Average pay, split by gender', 'salary-0-1')}
           </div>
         </div>
 
         <div className="row">
-          <div className="col-md-8 col-md-push-2">
+          <div className="col-md-10 col-md-push-1">
             {this.getBoxPlot(ethnicityData, 'Average pay, split by ethnicity', 'salary-0-2')}
           </div>
         </div>
 
         <div className="row">
-          <div className="col-md-8 col-md-push-2">
+          <div className="col-md-10 col-md-push-1">
             {this.getBoxPlot(religionData, 'Average pay, split by religion', 'salary-0-3')}
           </div>
         </div>

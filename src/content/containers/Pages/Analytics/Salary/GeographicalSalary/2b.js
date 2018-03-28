@@ -12,7 +12,6 @@ import drawUKMap from '../../../../../../content/scripts/custom/echarts/drawUkMa
 import { gradsComeFromData, gradsGoToData } from '../../../../../../content/containers/Fragments/Graphs/UKGradData';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -59,6 +58,7 @@ class Page extends React.PureComponent {
             {
               title: 'County of Origin',
               active: true,
+              preContent: <p>Use the mouse wheel to scroll, click and drag to move the map. You can also filter the results by clicking on them in the legend.</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -76,6 +76,7 @@ class Page extends React.PureComponent {
             {
               title: 'County of Residence',
               active: false,
+              preContent: <p>Use the mouse wheel to scroll, click and drag to move the map. You can also filter the results by clicking on them in the legend.</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -105,17 +106,10 @@ class Page extends React.PureComponent {
         <StandardFilters />
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <BasicPanel
-              content={
-                <p>
-                  Data from section 5 of the respondent survey is collated here. This data is split into two areas: <br /><br />
-                  <strong>Where Graduates Come From</strong> the UK region a graduate had come from to study.<br />
-                  <strong>Alumni Destinations</strong> the UK region a graduate has moved to since studying.<br /><br />
-                  <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
-                </p>
-              }
-            />
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Breakdown of Alumni by location</h3>
+            <h5 className="text-uppercase text-muted text-normal">Both past and present - this only includes alumni that were born in the uk, or are currently in the UK respectively.</h5>
+            <hr className="new-section-xs" />
           </div>
         </div>
 

@@ -52,7 +52,6 @@ class Page extends React.PureComponent {
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. <br /><br />
                 This page displays data from Alumni based on what regions of the UK they studied in, and where they go once they are in employment.<br /><br />
                 <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
               </div>
