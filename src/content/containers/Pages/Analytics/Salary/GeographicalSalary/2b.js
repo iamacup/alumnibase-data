@@ -108,7 +108,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">Breakdown of Alumni by location</h3>
-            <h5 className="text-uppercase text-muted text-normal">Both past and present - this only includes alumni that were born in the uk, or are currently in the UK respectively.</h5>
+            <h5 className="text-muted text-normal">Both past and present - this only includes alumni that were born in the uk, or are currently in the UK respectively.</h5>
             <hr className="new-section-xs" />
           </div>
         </div>

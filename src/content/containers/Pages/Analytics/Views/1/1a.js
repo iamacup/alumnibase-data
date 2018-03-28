@@ -312,7 +312,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">If you were now to choose whether or not to do your course, how likely or unlikely is it that you would...</h3>
-            <h5 className="text-uppercase text-muted text-normal">Multi part question</h5>
+            <h5 className="text-muted text-normal">Multi part question</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
@@ -360,7 +360,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">To what extent has your HE experience enabled you to...</h3>
-            <h5 className="text-uppercase text-muted text-normal">Multi part question</h5>
+            <h5 className="text-muted text-normal">Multi part question</h5>
             <hr className="new-section-xs" />
           </div>
         </div>

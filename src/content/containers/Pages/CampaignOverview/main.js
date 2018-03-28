@@ -851,7 +851,7 @@ class Page extends React.PureComponent {
             {/* <!--===================================================--> */}
 
             <h3 className="text-main text-normal text-2x mar-no">Response demographics</h3>
-            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <h5 className="text-muted text-normal">Data shown for all respondants</h5>
             <hr className="new-section-xs" />
 
             <div className="row">
@@ -880,7 +880,7 @@ class Page extends React.PureComponent {
             </div>
 
             <h3 className="text-main text-normal text-2x mar-no">Response age and year groupings</h3>
-            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <h5 className="text-muted text-normal">Data shown for all respondants</h5>
             <hr className="new-section-xs" />
 
             <div className="row">
@@ -894,7 +894,7 @@ class Page extends React.PureComponent {
             </div>
 
             <h3 className="text-main text-normal text-2x mar-no">Subject response rates</h3>
-            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <h5 className="text-muted text-normal">Data shown for all respondants</h5>
             <hr className="new-section-xs" />
 
             <div className="row">
@@ -904,7 +904,7 @@ class Page extends React.PureComponent {
             </div>
 
             <h3 className="text-main text-normal text-2x mar-no">Location data</h3>
-            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <h5 className="text-muted text-normal">Data shown for all respondants</h5>
             <hr className="new-section-xs" />
 
             <div className="row">
@@ -914,7 +914,7 @@ class Page extends React.PureComponent {
             </div>
 
             <h3 className="text-main text-normal text-2x mar-no">Total Response Numbers</h3>
-            <h5 className="text-uppercase text-muted text-normal">Data shown for all respondants</h5>
+            <h5 className="text-muted text-normal">Data shown for all respondants</h5>
             <hr className="new-section-xs" />
 
             <div className="row">

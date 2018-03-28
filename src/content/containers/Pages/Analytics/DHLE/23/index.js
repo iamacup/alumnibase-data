@@ -120,19 +120,9 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-        <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <BasicPanel
-              content={
-                <p>
-                  Each graph displays the employment status of past Alumni, for both Post Graduate courses and first time degrees. <br />
-                  Click through the tabs to see the data displayed as percentages or raw numbers. <br /><br />
-                  <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
-                </p>
-              }
-            />
-          </div>
-        </div>
+        <h3 className="text-main text-normal text-2x mar-no">Post University Activity</h3>
+        <h5 className="text-muted text-normal">Each graph displays the employment status of past Alumni, for both Post Graduate courses and first time degrees. Click through the tabs to see the data displayed as percentages or raw numbers.</h5>
+        <hr className="new-section-xs" />
 
         <div className="row">
           <div className="col-md-6">

@@ -48,14 +48,12 @@ class Page extends React.PureComponent {
       <div id="page-content">
 
         <StandardFilters />
+
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                This page displays data from Alumni based on what regions of the UK they studied in, and where they go once they are in employment.<br /><br />
-                <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
-              </div>
-            </div>
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Destination of Employment</h3>
+            <h5 className="text-muted text-normal">Destination for graduates 6 months after leaving university.</h5>
+            <hr className="new-section-xs" />
           </div>
         </div>
 

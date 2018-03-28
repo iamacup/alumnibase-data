@@ -119,7 +119,6 @@ class Page extends React.PureComponent {
     const bar2 = drawBarChart(barData.titles2, barData.data2, barData.options2);
     const scatterData = drawScatterGraph(data);
 
-
     const postContent = [['* Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['** Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
     const text1 = <p>{postContent[0]}<br />{postContent[1]}<br />{postContent[2]}<br />{postContent[3]}</p>;
 
@@ -137,18 +136,37 @@ class Page extends React.PureComponent {
     };
     const lineData = drawLineChart(data1, optionsA);
 
-    const tabData = [
+    const tabData1 = [
       {
-        title: 'Percentage of People who Believe their Course Offered Value for Money', globalID: 'VFM-1', options: bar1, text: text1,
+        title: 'Percentage of People who Believe their Course Offered Value for Money',
+        globalID: 'VFM-1',
+        options: bar1,
+        text: text1,
       },
       {
-        title: 'Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money', globalID: 'VFM-2', options: bar2, text: '',
+        title: 'Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money',
+        globalID: 'VFM-2',
+        options: bar2,
+        text: '',
       },
+    ];
+
+    const tabData2 = [
       {
-        title: 'Overall Happiness in Life vs Salary', globalID: 'VFM-3', options: scatterData, text: '',
+        title: 'Average Time Taken for Graduates to Pay Back Student Loans',
+        globalID: 'VFM-4',
+        options: lineData,
+        text: <div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>,
       },
+    ];
+
+
+    const tabData3 = [
       {
-        title: 'Average Time Taken for Graduates to Pay Back Student Loans', globalID: 'VFM-4', options: lineData, text: '',
+        title: 'University Impact vs Life Salary',
+        globalID: 'VFM-3',
+        options: scatterData,
+        text: '',
       },
     ];
 
@@ -158,17 +176,15 @@ class Page extends React.PureComponent {
         <StandardFilters />
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <div className="panel">
-              <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                This data represents the average salary statistics.<br /><br />
-              </div>
-            </div>
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Percieved Value</h3>
+            <hr className="new-section-xs" />
           </div>
         </div>
+
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {tabData.map(element => (
+            {tabData1.map(element => (
                       // {if {element.globalID !== "VFM-1") text = ""}
               <TabbedGraphPanel
                 title={element.title}
@@ -198,6 +214,89 @@ class Page extends React.PureComponent {
             ))}
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Loan Repayment</h3>
+            <h5 className="text-muted text-normal">Predictions based on total average salary for data per year group, inflation of loans and assumed full loan value with repayments made at standard PAYE tax rate.</h5>
+            <hr className="new-section-xs" />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {tabData2.map(element => (
+                      // {if {element.globalID !== "VFM-1") text = ""}
+              <TabbedGraphPanel
+                title={element.title}
+                globalID={element.globalID}
+                content={[
+                    {
+                      title: '',
+                      postContent: element.text,
+                      active: true,
+                      graphData: {
+                        type: 'echarts',
+                        tools: {
+                          allowDownload: true,
+                          seeData: false,
+                          pinGraph: true,
+                        },
+                        width: '100%',
+                        height: '400px',
+                        data: {
+                          options: element.options,
+                        },
+                      },
+                    },
+                  ]}
+                seperator
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-10 col-md-push-1">
+            <h3 className="text-main text-normal text-2x mar-no">Monetary and Derived Value</h3>
+            <h5 className="text-muted text-normal">We take various metrics from the survey that indicate positive impact of the university on the respondents life that are not related to salary and map them against salary.</h5>
+            <hr className="new-section-xs" />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-10 col-md-push-1">
+            {tabData3.map(element => (
+                      // {if {element.globalID !== "VFM-1") text = ""}
+              <TabbedGraphPanel
+                title={element.title}
+                globalID={element.globalID}
+                content={[
+                    {
+                      title: '',
+                      postContent: element.text,
+                      active: true,
+                      graphData: {
+                        type: 'echarts',
+                        tools: {
+                          allowDownload: true,
+                          seeData: false,
+                          pinGraph: true,
+                        },
+                        width: '100%',
+                        height: '400px',
+                        data: {
+                          options: element.options,
+                        },
+                      },
+                    },
+                  ]}
+                seperator
+              />
+            ))}
+          </div>
+        </div>
+
       </div>
     );
 

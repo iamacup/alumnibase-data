@@ -122,8 +122,8 @@ class Page extends React.PureComponent {
                       <li className={this.classNameBasedOnLocation('/analytics/salary/overview', 'active-link')}>
                         <Link href="/analytics/salary/overview" to="/analytics/salary/overview">Overview</Link>
                       </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/salary/1', 'active-link')}>
-                        <Link href="/analytics/salary/1" to="/analytics/salary/1">Ranges</Link>
+                      <li className={this.classNameBasedOnLocation('/analytics/salary/ranges', 'active-link')}>
+                        <Link href="/analytics/salary/ranges" to="/analytics/salary/ranges">Ranges</Link>
                       </li>
                     </ul>
                   </li>
@@ -139,17 +139,17 @@ class Page extends React.PureComponent {
 
                     {/*  <!--Submenu--> */}
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/jobs', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/jobs/1', 'active-link')}>
-                        <Link href="/analytics/jobs/1" to="/analytics/jobs/1">Overview</Link>
+                      <li className={this.classNameBasedOnLocation('/analytics/jobs/overview', 'active-link')}>
+                        <Link href="/analytics/jobs/overview" to="/analytics/jobs/overview">Overview</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/employers', 'active-link')}>
-                        <Link href="/analytics/jobs/1" to="/analytics/jobs/employers">Employers</Link>
+                        <Link href="/analytics/jobs/employers" to="/analytics/jobs/employers">Employers</Link>
                       </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/jobs/2', 'active-link')}>
-                        <Link href="/analytics/jobs/2" to="/analytics/jobs/2">First Year</Link>
+                      <li className={this.classNameBasedOnLocation('/analytics/jobs/first-year', 'active-link')}>
+                        <Link href="/analytics/jobs/first-year" to="/analytics/jobs/first-year">First Year Salary</Link>
                       </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/jobs/4', 'active-link')}>
-                        <Link href="/analytics/jobs/4" to="/analytics/jobs/4">First Job</Link>
+                      <li className={this.classNameBasedOnLocation('/analytics/jobs/first-job', 'active-link')}>
+                        <Link href="/analytics/jobs/first-job" to="/analytics/jobs/first-job">Time to First Job</Link>
                       </li>
                     </ul>
                   </li>
@@ -164,17 +164,17 @@ class Page extends React.PureComponent {
                     </a>
                     {/*  <!--Submenu--> */}
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/subjects', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/subjects/1', 'active-link')}>
-                        <Link href="/analytics/subjects/1" to="/analytics/subjects/1">First Year</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/subjects/4', 'active-link')}>
-                        <Link href="/analytics/subjects/4" to="/analytics/subjects/4">First Job</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/subjects/2', 'active-link')}>
-                        <Link href="/analytics/subjects/2" to="/analytics/subjects/2">Value For Money</Link>
+                      <li className={this.classNameBasedOnLocation('/analytics/subjects/vfm', 'active-link')}>
+                        <Link href="/analytics/subjects/vfm" to="/analytics/subjects/vfm">Value For Money</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/subjects/3', 'active-link')}>
                         <Link href="/analytics/subjects/3" to="/analytics/subjects/3">Longterm Outcomes</Link>
+                      </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/subjects/first-year', 'active-link')}>
+                        <Link href="/analytics/subjects/first-year" to="/analytics/subjects/first-year">First Year Salary</Link>
+                      </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/subjects/first-job', 'active-link')}>
+                        <Link href="/analytics/subjects/first-job" to="/analytics/subjects/first-job">Time to First Job</Link>
                       </li>
                     </ul>
                   </li>
@@ -191,6 +191,11 @@ class Page extends React.PureComponent {
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/stem', 'in')} >
                       <li className={this.classNameBasedOnLocation('/analytics/stem/overview', 'active-link')}>
                         <Link href="/analytics/stem/overview" to="/analytics/stem/overview">Overview</Link>
+                      </li>
+                    </ul>
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/stem', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/stem/destinations', 'active-link')}>
+                        <Link href="/analytics/stem/destinations" to="/analytics/stem/destinations">Destinations and Outcomes</Link>
                       </li>
                     </ul>
                   </li>
@@ -306,25 +311,6 @@ class Page extends React.PureComponent {
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/dlhe-like/11', 'active-link')}>
                         <Link href="/analytics/dlhe-like/11" to="/analytics/dlhe-like/11">RQ 11 - First Time Graduates in full time work</Link>
-                      </li>
-                    </ul>
-                  </li>
-
-                  {/*  <!--Menu list item--> */}
-                  <li className={this.classNameBasedOnLocation('/analytics/further-study', 'active-sub')}>
-                    <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#03a9f4' }} />
-                      <span className="menu-title">Further Study</span>
-                      <i className="arrow" />
-                    </a>
-
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/further-study', 'in')}>
-                      <li className={this.classNameBasedOnLocation('/analytics/further-study/105', 'active-link')}>
-                        <Link href="/analytics/further-study/trends" to="/analytics/further-study/105">RQ 105 - Trends for Further Study</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/further-study/106-109', 'active-link')}>
-                        <Link href="/analytics/further-study/trends" to="/analytics/further-study/106-109">RQ 106-109 - Further Study Details</Link>
                       </li>
                     </ul>
                   </li>
