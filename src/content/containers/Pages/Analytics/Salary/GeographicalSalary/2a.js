@@ -119,7 +119,6 @@ class Page extends React.PureComponent {
             <BasicPanel
               content={
                 <p>
-                  Data from section 5 of the respondent survey is collated here. This data is split into two areas: <br /><br />
                   <strong>Where Graduates Come From</strong> the country of origin a graduate had come from to study.<br />
                   <strong>Alumni Destinations</strong> the country a graduate has moved to since studying.<br /><br />
                   <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.

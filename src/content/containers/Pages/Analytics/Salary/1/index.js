@@ -150,7 +150,6 @@ class Page extends React.PureComponent {
             <BasicPanel
               content={
                 <p>
-                    Data from section 5 of the respondent survey is collated here.<br /><br />
                     This data displays the average pay gaps between <strong>gender, ethnicity and religion</strong>.<br /><br />
                   <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.
                     Show national average on graphs: <input id="switchery-switch" type="checkbox" />

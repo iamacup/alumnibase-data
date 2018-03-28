@@ -54,7 +54,6 @@ class Page extends React.PureComponent {
           <div className="col-md-10 col-md-push-1">
             <div className="panel">
               <div className="panel-body" style={{ paddingBottom: '15px' }}>
-                Data from section 5 of the respondent survey is collated here. <br /><br />
                 These graphs display the gender split in graduates for certain employment destinations. <br />
                 For both <strong> Post Graduate</strong> and <strong> First Degree</strong> graduates. <br /><br />
                 <strong>Remember</strong> to use the filters above to get a more personalised view of data for you.
