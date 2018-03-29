@@ -2,7 +2,6 @@ const drawAreaChart = (areaData, axis) => {
   // areaData sould be in the form [{name: '', data: []}];
   let xlabel = [];
   let value = '';
-  let markline = '';
   // console.log(axis);
   if (!axis) {
     for (let i = 20; i < 51; i++) {
@@ -11,8 +10,6 @@ const drawAreaChart = (areaData, axis) => {
   } else {
     xlabel = axis;
     value = 'years';
-    if (areaData.length < 2) markline = { data: [{ yAxis: 30000 }] };
-    else markline = { data: [{ yAxis: 30000, name: '' }, { yAxis: 40000, name: '' }] };
   }
 
   const areaColours = ['#2b577e', '#d7d4c5', '#e8912c', '#6f6b51', '#6ca7da', '#e7b93a', '#0e1422'];
@@ -34,7 +31,7 @@ const drawAreaChart = (areaData, axis) => {
             width: 3,
           },
         },
-        markLine: markline,
+        // markLine: markline,
         itemStyle: {
           normal: {
             color,
