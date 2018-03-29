@@ -16,6 +16,8 @@ import Views1PageA from '../../content/containers/Pages/Analytics/Views/1/1a';
 import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
 import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 
+import SplashPage from '../../content/containers/Pages/Splash';
+
 import SalaryRangesPage from '../../content/containers/Pages/Analytics/Salary/Ranges';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
 import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
@@ -49,6 +51,11 @@ export default [
     path: '/data-control/export',
     exact: true,
     component: DataExportPage,
+  },
+  {
+    path: '/splash',
+    exact: true,
+    component: SplashPage,
   },
   {
     path: '/tests',
