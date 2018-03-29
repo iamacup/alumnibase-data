@@ -79,10 +79,10 @@ class Page extends React.PureComponent {
         seperator
       />
     );
-    return panel
+    return panel;
   }
 
-    getResidenceGraph() {
+  getResidenceGraph() {
     const data = [
       { name: 'EU', value: 20 },
       { name: 'Non-EU', value: 30 },
@@ -118,7 +118,7 @@ class Page extends React.PureComponent {
         seperator
       />
     );
-    return panel
+    return panel;
   }
 
   getMap() {
@@ -199,15 +199,15 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-            <div className="row">
-              <div className="col-md-4 col-md-push-2">
-                {this.getOriginGraph()}
-              </div>
+        <div className="row">
+          <div className="col-md-4 col-md-push-2">
+            {this.getOriginGraph()}
+          </div>
 
-              <div className="col-md-4 col-md-push-2">
-                {this.getResidenceGraph()}
-              </div>
-            </div>
+          <div className="col-md-4 col-md-push-2">
+            {this.getResidenceGraph()}
+          </div>
+        </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">

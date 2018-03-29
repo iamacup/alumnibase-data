@@ -116,7 +116,6 @@ class Page extends React.PureComponent {
   }
 
   getOptions2() {
-
     const option = {
       x: 'Age',
       y: 'Average Response',
@@ -142,7 +141,7 @@ class Page extends React.PureComponent {
       current -= increment;
     }
 
-    plotted.push(first)
+    plotted.push(first);
 
     const data = {
       age,

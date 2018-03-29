@@ -123,8 +123,7 @@ class Page extends React.PureComponent {
   }
 
   getOptions2() {
-
-const optionsA = {
+    const optionsA = {
       x: 'Age',
       y: 'Average Response',
     };
@@ -147,14 +146,14 @@ const optionsA = {
       current -= increment;
     }
 
-    plotted.push(first)
+    plotted.push(first);
 
-       const data = {
+    const data = {
       age,
       name: ['test'],
       plotted,
     };
- 
+
     const options = drawLineChart(data, optionsA);
 
     return options;
