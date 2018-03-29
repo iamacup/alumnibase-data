@@ -785,10 +785,10 @@ class Page extends React.PureComponent {
 
           <div className="col-lg-12">
             <div className="row">
-              <div className="col-sm-4 col-lg-4">
+              <div className="col-sm-push-2 col-sm-4 col-lg-push-2 col-lg-4">
 
                 {/* <!--Sparkline Area Chart--> */}
-                <Link href="" to="/analytics/views/1">
+                <Link href="/splash/analytics" to="/splash/analytics">
                   <div className="panel panel-success panel-colorful text-center">
                     <div className="pad-all">
                       <p className="text-lg text-semibold">Analytics</p>
@@ -801,9 +801,9 @@ class Page extends React.PureComponent {
                 </Link>
               </div>
 
-              <div className="col-sm-4 col-lg-4">
+              <div className="col-sm-push-2 col-sm-4 col-lg-push-2 col-lg-4">
                 {/* <!--Sparkline bar chart --> */}
-                <Link href="" to="/analytics/dlhe-like/2-3">
+                <Link href="/splash/regulatory" to="/splash/regulatory">
                   <div className="panel panel-purple panel-colorful text-center">
                     <div className="pad-all">
                       <p className="text-lg text-semibold">Regulatory Outputs</p>
@@ -817,24 +817,8 @@ class Page extends React.PureComponent {
                   </div>
                 </Link>
               </div>
-              <div className="col-sm-4 col-lg-4">
 
 
-                {/* <!--Sparkline bar chart --> */}
-                <Link href="" to="/analytics/employment-outcomes/employment-destinations">
-                  <div className="panel panel-warning panel-colorful text-center">
-                    <div className="pad-all">
-                      <p className="text-lg text-semibold">Advanced Analytics</p>
-                    </div>
-                    <div className="text-center">
-                      {/* <!--Placeholder--> */}
-                      <div id="my-advanced-chart" className="box-inline" />
-
-                    </div>
-                  </div>
-                </Link>
-
-              </div>
             </div>
 
 

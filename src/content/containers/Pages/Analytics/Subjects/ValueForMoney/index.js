@@ -185,7 +185,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {tabData1.map(element => (
-                      // {if {element.globalID !== "VFM-1") text = ""}
+              // {if {element.globalID !== "VFM-1") text = ""}
               <TabbedGraphPanel
                 title={element.title}
                 globalID={element.globalID}
