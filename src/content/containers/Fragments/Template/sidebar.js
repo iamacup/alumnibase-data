@@ -113,7 +113,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/salary', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="fas fa-money-bill-alt" style={{ color: '#8bc34a' }} />
                       <span className="menu-title">Salary Data</span>
                       <i className="arrow" />
                     </a>
@@ -132,7 +132,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/jobs', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="fas fa-user-md" style={{ color: '#8bc34a' }} />
                       <span className="menu-title">Jobs and Careers</span>
                       <i className="arrow" />
                     </a>
@@ -158,7 +158,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/subjects', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="fas fa-pen-square" style={{ color: '#8bc34a' }} />
                       <span className="menu-title">Subjects</span>
                       <i className="arrow" />
                     </a>
@@ -182,7 +182,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/stem', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="fas fa-chart-line" style={{ color: '#8bc34a' }} />
                       <span className="menu-title">STEM</span>
                       <i className="arrow" />
                     </a>
@@ -203,7 +203,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/polar', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="fas fa-address-book" style={{ color: '#8bc34a' }} />
                       <span className="menu-title">POLAR</span>
                       <i className="arrow" />
                     </a>
@@ -218,7 +218,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/further-study', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="fas fa-chevron-double-up" style={{ color: '#8bc34a' }} />
                       <span className="menu-title">Further Study</span>
                       <i className="arrow" />
                     </a>
@@ -234,7 +234,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/views', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="fas fa-eye" style={{ color: '#8bc34a' }} />
                       <span className="menu-title">Respondant Views</span>
                       <i className="arrow" />
                     </a>
@@ -255,7 +255,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/destination', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="fas fa-map" style={{ color: '#8bc34a' }} />
                       <span className="menu-title">Geographic Data</span>
                       <i className="arrow" />
                     </a>
@@ -281,7 +281,7 @@ class Page extends React.PureComponent {
                   {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/dlhe-like', 'active-sub')}>
                     <a href="#">
-                      <i className="far fa-adjust" style={{ color: '#8bc34a' }} />
+                      <i className="far fa-adjust" style={{ color: '#ab47bc' }} />
                       <span className="menu-title">DLHE-Like</span>
                       <i className="arrow" />
                     </a>
