@@ -123,7 +123,14 @@ class Page extends React.PureComponent {
   }
 
   getOptions2() {
+
+const optionsA = {
+      x: 'Age',
+      y: 'Average Response',
+    };
+
     const age = [];
+    const first = [];
     const plotted = [];
 
     const start = 9.1;
@@ -134,21 +141,21 @@ class Page extends React.PureComponent {
 
     let current = start;
     const increment = (start - end) / (lastAge - firstAge);
-
     for (let a = firstAge; a < lastAge; a++) {
       age.push(a);
-      plotted.push(Number(current.toPrecision(2)));
-
+      first.push(Number(current.toPrecision(2)));
       current -= increment;
     }
 
-    const data = {
-      age,
-      plotted,
-      name: ['test'],
-    };
+    plotted.push(first)
 
-    const options = drawLineChart(data, 'Age', 'Average Response');
+       const data = {
+      age,
+      name: ['test'],
+      plotted,
+    };
+ 
+    const options = drawLineChart(data, optionsA);
 
     return options;
   }
@@ -185,7 +192,6 @@ class Page extends React.PureComponent {
   }
 
   getTabbed(title, id, options, arr, collapsed) {
-    console.log(options);
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
