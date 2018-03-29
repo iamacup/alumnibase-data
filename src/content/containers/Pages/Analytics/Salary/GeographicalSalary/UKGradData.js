@@ -1,11 +1,11 @@
 export const gradsComeFromData = [
   {
     name: 'Altrincham and Sale West',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Amber Valley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Arundel and South Downs',
@@ -17,39 +17,39 @@ export const gradsComeFromData = [
   },
   {
     name: 'Ashford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ashton-under-Lyne',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Aylesbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Banbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Barking',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Barnsley Central',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Barnsley East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Barrow and Furness',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Basildon and Billericay',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Basingstoke',
@@ -57,47 +57,47 @@ export const gradsComeFromData = [
   },
   {
     name: 'Bassetlaw',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Bath',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Batley and Spen',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Battersea',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Beaconsfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Beckenham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bedford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bermondsey and Old Southwark',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Berwick-upon-Tweed',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Bethnal Green and Bow',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Beverley and Holderness',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Bexhill and Battle',
@@ -105,55 +105,55 @@ export const gradsComeFromData = [
   },
   {
     name: 'Bexleyheath and Crayford',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Birkenhead',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Birmingham, Edgbaston',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Erdington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Hall Green',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Hodge Hill',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Ladywood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Northfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Perry Barr',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Selly Oak',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Yardley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bishop Auckland',
-    value: 0,
+    value: 5,
   },
   {
     name: 'Blackburn',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Blackley and Broughton',
@@ -161,7 +161,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Blackpool North and Cleveleys',
-    value: 1,
+    value: 0,
   },
   {
     name: 'Blackpool South',
@@ -169,11 +169,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Blaydon',
-    value: 3,
+    value: 5,
   },
   {
     name: 'Blyth Valley',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Bognor Regis and Littlehampton',
@@ -181,7 +181,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Bolsover',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bolton North East',
@@ -197,27 +197,27 @@ export const gradsComeFromData = [
   },
   {
     name: 'Bootle',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Boston and Skegness',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Bosworth',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bournemouth East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bournemouth West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bracknell',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bradford East',
@@ -225,39 +225,39 @@ export const gradsComeFromData = [
   },
   {
     name: 'Bradford South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bradford West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Braintree',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Brent Central',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Brent North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Brentford and Isleworth',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Brentwood and Ongar',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bridgwater and West Somerset',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Brigg and Goole',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Brighton, Kemptown',
@@ -269,71 +269,71 @@ export const gradsComeFromData = [
   },
   {
     name: 'Bristol East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bristol North West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bristol South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bristol West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Broadland',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bromley and Chislehurst',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bromsgrove',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Broxbourne',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Broxtowe',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Buckingham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Burnley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Burton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bury North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bury South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bury St Edmunds',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Calder Valley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Camberwell and Peckham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Camborne and Redruth',
@@ -341,15 +341,15 @@ export const gradsComeFromData = [
   },
   {
     name: 'Cambridge',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cannock Chase',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Canterbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Carlisle',
@@ -357,11 +357,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Carshalton and Wallington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Castle Point',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Central Devon',
@@ -369,15 +369,15 @@ export const gradsComeFromData = [
   },
   {
     name: 'Central Suffolk and North Ipswich',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Charnwood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chatham and Aylesford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cheadle',
@@ -389,19 +389,19 @@ export const gradsComeFromData = [
   },
   {
     name: 'Chelsea and Fulham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cheltenham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chesham and Amersham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chesterfield',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Chichester',
@@ -409,7 +409,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Chingford and Woodford Green',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chippenham',
@@ -417,23 +417,23 @@ export const gradsComeFromData = [
   },
   {
     name: 'Chipping Barnet',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chorley',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Christchurch',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cities of London and Westminster',
-    value: 0,
+    value: 1,
   },
   {
     name: 'City of Chester',
-    value: 3,
+    value: 1,
   },
   {
     name: 'City of Durham',
@@ -441,147 +441,147 @@ export const gradsComeFromData = [
   },
   {
     name: 'Clacton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cleethorpes',
-    value: 0,
-  },
-  {
-    name: 'Colchester',
-    value: 0,
-  },
-  {
-    name: 'Colne Valley',
-    value: 0,
-  },
-  {
-    name: 'Congleton',
-    value: 0,
-  },
-  {
-    name: 'Copeland',
-    value: 3,
-  },
-  {
-    name: 'Corby',
-    value: 0,
-  },
-  {
-    name: 'Coventry North East',
-    value: 0,
-  },
-  {
-    name: 'Coventry North West',
-    value: 0,
-  },
-  {
-    name: 'Coventry South',
-    value: 0,
-  },
-  {
-    name: 'Crawley',
-    value: 0,
-  },
-  {
-    name: 'Crewe and Nantwich',
-    value: 0,
-  },
-  {
-    name: 'Croydon Central',
-    value: 0,
-  },
-  {
-    name: 'Croydon North',
-    value: 0,
-  },
-  {
-    name: 'Croydon South',
-    value: 3,
-  },
-  {
-    name: 'Dagenham and Rainham',
-    value: 3,
-  },
-  {
-    name: 'Darlington',
-    value: 0,
-  },
-  {
-    name: 'Dartford',
-    value: 0,
-  },
-  {
-    name: 'Daventry',
-    value: 0,
-  },
-  {
-    name: 'Denton and Reddish',
-    value: 0,
-  },
-  {
-    name: 'Derby North',
-    value: 0,
-  },
-  {
-    name: 'Derby South',
-    value: 0,
-  },
-  {
-    name: 'Derbyshire Dales',
-    value: 0,
-  },
-  {
-    name: 'Devizes',
-    value: 0,
-  },
-  {
-    name: 'Dewsbury',
-    value: 0,
-  },
-  {
-    name: 'Don Valley',
-    value: 0,
-  },
-  {
-    name: 'Doncaster Central',
-    value: 0,
-  },
-  {
-    name: 'Doncaster North',
-    value: 0,
-  },
-  {
-    name: 'Dover',
     value: 2,
   },
   {
+    name: 'Colchester',
+    value: 1,
+  },
+  {
+    name: 'Colne Valley',
+    value: 1,
+  },
+  {
+    name: 'Congleton',
+    value: 1,
+  },
+  {
+    name: 'Copeland',
+    value: 1,
+  },
+  {
+    name: 'Corby',
+    value: 1,
+  },
+  {
+    name: 'Coventry North East',
+    value: 1,
+  },
+  {
+    name: 'Coventry North West',
+    value: 1,
+  },
+  {
+    name: 'Coventry South',
+    value: 1,
+  },
+  {
+    name: 'Crawley',
+    value: 1,
+  },
+  {
+    name: 'Crewe and Nantwich',
+    value: 1,
+  },
+  {
+    name: 'Croydon Central',
+    value: 1,
+  },
+  {
+    name: 'Croydon North',
+    value: 1,
+  },
+  {
+    name: 'Croydon South',
+    value: 1,
+  },
+  {
+    name: 'Dagenham and Rainham',
+    value: 1,
+  },
+  {
+    name: 'Darlington',
+    value: 1,
+  },
+  {
+    name: 'Dartford',
+    value: 1,
+  },
+  {
+    name: 'Daventry',
+    value: 1,
+  },
+  {
+    name: 'Denton and Reddish',
+    value: 1,
+  },
+  {
+    name: 'Derby North',
+    value: 1,
+  },
+  {
+    name: 'Derby South',
+    value: 1,
+  },
+  {
+    name: 'Derbyshire Dales',
+    value: 1,
+  },
+  {
+    name: 'Devizes',
+    value: 1,
+  },
+  {
+    name: 'Dewsbury',
+    value: 1,
+  },
+  {
+    name: 'Don Valley',
+    value: 1,
+  },
+  {
+    name: 'Doncaster Central',
+    value: 1,
+  },
+  {
+    name: 'Doncaster North',
+    value: 1,
+  },
+  {
+    name: 'Dover',
+    value: 1,
+  },
+  {
     name: 'Dudley North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Dudley South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Dulwich and West Norwood',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ealing Central and Acton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ealing North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ealing, Southall',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Easington',
-    value: 0,
+    value: 5,
   },
   {
     name: 'East Devon',
@@ -589,11 +589,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'East Ham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'East Hampshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'East Surrey',
@@ -601,63 +601,63 @@ export const gradsComeFromData = [
   },
   {
     name: 'East Worthing and Shoreham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'East Yorkshire',
-    value: 0,
-  },
-  {
-    name: 'Eastbourne',
     value: 2,
   },
   {
+    name: 'Eastbourne',
+    value: 1,
+  },
+  {
     name: 'Eastleigh',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Eddisbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Edmonton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ellesmere Port and Neston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Elmet and Rothwell',
-    value: 0,
+    value: 4,
   },
   {
     name: 'Eltham',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Enfield North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Enfield, Southgate',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Epping Forest',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Epsom and Ewell',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Erewash',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Erith and Thamesmead',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Esher and Walton',
@@ -665,47 +665,47 @@ export const gradsComeFromData = [
   },
   {
     name: 'Exeter',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Fareham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Faversham and Mid Kent',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Feltham and Heston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Filton and Bradley Stoke',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Finchley and Golders Green',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Folkestone and Hythe',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Forest of Dean',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Fylde',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Gainsborough',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Garston and Halewood',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Gateshead',
@@ -713,103 +713,103 @@ export const gradsComeFromData = [
   },
   {
     name: 'Gedling',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Gillingham and Rainham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Gloucester',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Gosport',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Grantham and Stamford',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Gravesham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Great Grimsby',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Great Yarmouth',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Greenwich and Woolwich',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Guildford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hackney North and Stoke Newington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hackney South and Shoreditch',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Halesowen and Rowley Regis',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Halifax',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Haltemprice and Howden',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Halton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hammersmith',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hampstead and Kilburn',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Harborough',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Harlow',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Harrogate and Knaresborough',
-    value: 0,
+    value: 4,
   },
   {
     name: 'Harrow East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Harrow West',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hartlepool',
-    value: 3,
+    value: 5,
   },
   {
     name: 'Harwich and North Essex',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hastings and Rye',
@@ -817,31 +817,31 @@ export const gradsComeFromData = [
   },
   {
     name: 'Havant',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hayes and Harlington',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hazel Grove',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hemel Hempstead',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hemsworth',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hendon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Henley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hereford and South Herefordshire',
@@ -849,39 +849,39 @@ export const gradsComeFromData = [
   },
   {
     name: 'Hertford and Stortford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hertsmere',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hexham',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Heywood and Middleton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'High Peak',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hitchin and Harpenden',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Holborn and St Pancras',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hornchurch and Upminster',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hornsey and Wood Green',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Horsham',
@@ -889,35 +889,35 @@ export const gradsComeFromData = [
   },
   {
     name: 'Houghton and Sunderland South',
-    value: 3,
+    value: 5,
   },
   {
     name: 'Hove',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Huddersfield',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Huntingdon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hyndburn',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ilford North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ilford South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ipswich',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Isle of Wight',
@@ -925,31 +925,31 @@ export const gradsComeFromData = [
   },
   {
     name: 'Islington North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Islington South and Finsbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Jarrow',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Keighley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Kenilworth and Southam',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Kensington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Kettering',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Kingston and Surbiton',
@@ -957,115 +957,115 @@ export const gradsComeFromData = [
   },
   {
     name: 'Kingston upon Hull East',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Kingston upon Hull North',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Kingston upon Hull West and Hessle',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Kingswood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Knowsley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Lancaster and Fleetwood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Leeds Central',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leeds East',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leeds North East',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leeds North West',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leeds West',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leicester East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Leicester South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Leicester West',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Leigh',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Lewes',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Lewisham East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Lewisham West and Penge',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Lewisham, Deptford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Leyton and Wanstead',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Lichfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Lincoln',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Liverpool, Riverside',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Liverpool, Walton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Liverpool, Wavertree',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Liverpool, West Derby',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Loughborough',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Louth and Horncastle',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Ludlow',
@@ -1073,19 +1073,19 @@ export const gradsComeFromData = [
   },
   {
     name: 'Luton North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Luton South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Macclesfield',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Maidenhead',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Maidstone and The Weald',
@@ -1093,47 +1093,47 @@ export const gradsComeFromData = [
   },
   {
     name: 'Makerfield',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Maldon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Manchester Central',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Manchester, Gorton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Manchester, Withington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mansfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Meon Valley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Meriden',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Bedfordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Derbyshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Dorset and North Poole',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Norfolk',
@@ -1145,27 +1145,27 @@ export const gradsComeFromData = [
   },
   {
     name: 'Mid Worcestershire',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Middlesbrough',
-    value: 2,
+    value: 5,
   },
   {
     name: 'Middlesbrough South and East Cleveland',
-    value: 2,
+    value: 5,
   },
   {
     name: 'Milton Keynes North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Milton Keynes South',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Mitcham and Morden',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Mole Valley',
@@ -1173,11 +1173,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Morecambe and Lunesdale',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Morley and Outwood',
-    value: 0,
+    value: 3,
   },
   {
     name: 'New Forest East',
@@ -1189,27 +1189,27 @@ export const gradsComeFromData = [
   },
   {
     name: 'Newark',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Newbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Newcastle upon Tyne Central',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Newcastle upon Tyne East',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Newcastle upon Tyne North',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Newcastle-under-Lyme',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Newton Abbot',
@@ -1217,11 +1217,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Normanton, Pontefract and Castleford',
-    value: 3,
+    value: 1,
   },
   {
     name: 'North Cornwall',
-    value: 2,
+    value: 0,
   },
   {
     name: 'North Devon',
@@ -1229,7 +1229,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'North Dorset',
-    value: 2,
+    value: 0,
   },
   {
     name: 'North Durham',
@@ -1237,15 +1237,15 @@ export const gradsComeFromData = [
   },
   {
     name: 'North East Bedfordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North East Cambridgeshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North East Derbyshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North East Hampshire',
@@ -1253,11 +1253,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'North East Hertfordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North East Somerset',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North Herefordshire',
@@ -1265,7 +1265,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'North Norfolk',
-    value: 2,
+    value: 0,
   },
   {
     name: 'North Shropshire',
@@ -1273,7 +1273,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'North Somerset',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North Swindon',
@@ -1281,7 +1281,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'North Thanet',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North Tyneside',
@@ -1289,11 +1289,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'North Warwickshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North West Cambridgeshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North West Durham',
@@ -1301,11 +1301,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'North West Hampshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North West Leicestershire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North West Norfolk',
@@ -1313,223 +1313,223 @@ export const gradsComeFromData = [
   },
   {
     name: 'North Wiltshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Northampton North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Northampton South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Norwich North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Norwich South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Nottingham East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Nottingham North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Nottingham South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Nuneaton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Old Bexley and Sidcup',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Oldham East and Saddleworth',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Oldham West and Royton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Orpington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Oxford East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Oxford West and Abingdon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Pendle',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Penistone and Stocksbridge',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Penrith and The Border',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Peterborough',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Plymouth, Moor View',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Plymouth, Sutton and Devonport',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Poole',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Poplar and Limehouse',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Portsmouth North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Portsmouth South',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Preston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Pudsey',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Putney',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rayleigh and Wickford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Reading East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Reading West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Redcar',
-    value: 3,
+    value: 5,
   },
   {
     name: 'Redditch',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Reigate',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ribble Valley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Richmond (Yorks)',
-    value: 0,
+    value: 4,
   },
   {
     name: 'Richmond Park',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rochdale',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Rochester and Strood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rochford and Southend East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Romford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Romsey and Southampton North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rossendale and Darwen',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rother Valley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Rotherham',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Rugby',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ruislip, Northwood and Pinner',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Runnymede and Weybridge',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rushcliffe',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rutland and Melton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Saffron Walden',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Salford and Eccles',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Salisbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Scarborough and Whitby',
-    value: 3,
+    value: 4,
   },
   {
     name: 'Scunthorpe',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Sedgefield',
@@ -1537,43 +1537,43 @@ export const gradsComeFromData = [
   },
   {
     name: 'Sefton Central',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Selby and Ainsty',
-    value: 0,
+    value: 4,
   },
   {
     name: 'Sevenoaks',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Sheffield Central',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Sheffield South East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Sheffield, Brightside and Hillsborough',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Sheffield, Hallam',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Sheffield, Heeley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Sherwood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Shipley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Shrewsbury and Atcham',
@@ -1581,39 +1581,39 @@ export const gradsComeFromData = [
   },
   {
     name: 'Sittingbourne and Sheppey',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Skipton and Ripon',
-    value: 0,
+    value: 4,
   },
   {
     name: 'Sleaford and North Hykeham',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Slough',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Solihull',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Somerton and Frome',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Basildon and East Thurrock',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Cambridgeshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Derbyshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Dorset',
@@ -1621,7 +1621,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'South East Cambridgeshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South East Cornwall',
@@ -1629,11 +1629,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'South Holland and The Deepings',
-    value: 0,
+    value: 2,
   },
   {
     name: 'South Leicestershire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Norfolk',
@@ -1641,23 +1641,23 @@ export const gradsComeFromData = [
   },
   {
     name: 'South Northamptonshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Ribble',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Shields',
-    value: 3,
+    value: 1,
   },
   {
     name: 'South Staffordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Suffolk',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Swindon',
@@ -1665,19 +1665,19 @@ export const gradsComeFromData = [
   },
   {
     name: 'South Thanet',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South West Bedfordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South West Devon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South West Hertfordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South West Norfolk',
@@ -1685,35 +1685,35 @@ export const gradsComeFromData = [
   },
   {
     name: 'South West Surrey',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South West Wiltshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Southampton, Itchen',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Southampton, Test',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Southend West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Southport',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Spelthorne',
-    value: 0,
+    value: 1,
   },
   {
     name: 'St Albans',
-    value: 0,
+    value: 1,
   },
   {
     name: 'St Austell and Newquay',
@@ -1721,11 +1721,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'St Helens North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'St Helens South and Whiston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'St Ives',
@@ -1733,99 +1733,99 @@ export const gradsComeFromData = [
   },
   {
     name: 'Stafford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Staffordshire Moorlands',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stalybridge and Hyde',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stevenage',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stockport',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stockton North',
-    value: 3,
+    value: 5,
   },
   {
     name: 'Stockton South',
-    value: 3,
+    value: 5,
   },
   {
     name: 'Stoke-on-Trent Central',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stoke-on-Trent North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stoke-on-Trent South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stone',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stourbridge',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stratford-on-Avon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Streatham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stretford and Urmston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stroud',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Suffolk Coastal',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Sunderland Central',
-    value: 3,
+    value: 5,
   },
   {
     name: 'Surrey Heath',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Sutton and Cheam',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Sutton Coldfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tamworth',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tatton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Taunton Deane',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Telford',
@@ -1833,11 +1833,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Tewkesbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'The Cotswolds',
-    value: 0,
+    value: 1,
   },
   {
     name: 'The Wrekin',
@@ -1845,7 +1845,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Thirsk and Malton',
-    value: 3,
+    value: 4,
   },
   {
     name: 'Thornbury and Yate',
@@ -1853,19 +1853,19 @@ export const gradsComeFromData = [
   },
   {
     name: 'Thurrock',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tiverton and Honiton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tonbridge and Malling',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tooting',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Torbay',
@@ -1873,7 +1873,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Torridge and West Devon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Totnes',
@@ -1881,7 +1881,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Tottenham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Truro and Falmouth',
@@ -1893,7 +1893,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Twickenham',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Tynemouth',
@@ -1901,67 +1901,67 @@ export const gradsComeFromData = [
   },
   {
     name: 'Uxbridge and South Ruislip',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Vauxhall',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wakefield',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Wallasey',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Walsall North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Walsall South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Walthamstow',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wansbeck',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Wantage',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Warley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Warrington North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Warrington South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Warwick and Leamington',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Washington and Sunderland West',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Watford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Waveney',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wealden',
@@ -1969,11 +1969,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Weaver Vale',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Wellingborough',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wells',
@@ -1981,19 +1981,19 @@ export const gradsComeFromData = [
   },
   {
     name: 'Welwyn Hatfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wentworth and Dearne',
-    value: 3,
+    value: 1,
   },
   {
     name: 'West Bromwich East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'West Bromwich West',
-    value: 3,
+    value: 1,
   },
   {
     name: 'West Dorset',
@@ -2001,27 +2001,27 @@ export const gradsComeFromData = [
   },
   {
     name: 'West Ham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'West Lancashire',
-    value: 3,
+    value: 0,
   },
   {
     name: 'West Suffolk',
-    value: 0,
+    value: 1,
   },
   {
     name: 'West Worcestershire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Westminster North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Westmorland and Lonsdale',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Weston-Super-Mare',
@@ -2029,35 +2029,35 @@ export const gradsComeFromData = [
   },
   {
     name: 'Wigan',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Wimbledon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Winchester',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Windsor',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wirral South',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Wirral West',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Witham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Witney',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Woking',
@@ -2065,31 +2065,31 @@ export const gradsComeFromData = [
   },
   {
     name: 'Wokingham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wolverhampton North East',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Wolverhampton South East',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Wolverhampton South West',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Worcester',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Workington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Worsley and Eccles South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Worthing West',
@@ -2097,23 +2097,23 @@ export const gradsComeFromData = [
   },
   {
     name: 'Wycombe',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wyre and Preston North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wyre Forest',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wythenshawe and Sale East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Yeovil',
-    value: 0,
+    value: 1,
   },
   {
     name: 'York Central',
@@ -2126,7 +2126,7 @@ export const gradsComeFromData = [
   // ****-----------N. Ireland-------------***
   {
     name: 'Belfast East',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Belfast North',
@@ -2134,15 +2134,15 @@ export const gradsComeFromData = [
   },
   {
     name: 'Belfast South',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Belfast West',
-    value: 2,
+    value: 0,
   },
   {
     name: 'East Antrim',
-    value: 0,
+    value: 1,
   },
   {
     name: 'East Londonderry',
@@ -2150,31 +2150,31 @@ export const gradsComeFromData = [
   },
   {
     name: 'Fermanagh and South Tyrone',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Foyle',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Lagan Valley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Ulster',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Newry and Armagh',
-    value: 3,
+    value: 1,
   },
   {
     name: 'North Antrim',
-    value: 2,
+    value: 1,
   },
   {
     name: 'North Down',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Antrim',
@@ -2182,28 +2182,28 @@ export const gradsComeFromData = [
   },
   {
     name: 'South Down',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Strangford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Upper Bann',
-    value: 0,
+    value: 1,
   },
   {
     name: 'West Tyrone',
-    value: 0,
+    value: 1,
   },
   // ****-----------Scotland-------------***
   {
     name: 'Aberdeen North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Aberdeen South',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Airdrie and Shotts',
@@ -2211,19 +2211,19 @@ export const gradsComeFromData = [
   },
   {
     name: 'Angus',
-    value: 1,
+    value: 0,
   },
   {
     name: 'Argyll and Bute',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ayr, Carrick and Cumnock',
-    value: 2,
+    value: 0,
   },
   {
     name: 'Banff and Buchan',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Berwickshire, Roxburgh and Selkirk',
@@ -2231,11 +2231,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Caithness, Sutherland and Easter Ross',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Central Ayrshire',
-    value: 2,
+    value: 0,
   },
   {
     name: 'Coatbridge, Chryston and Bellshill',
@@ -2247,7 +2247,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Dumfries and Galloway',
-    value: 1,
+    value: 0,
   },
   {
     name: 'Dumfriesshire, Clydesdale and Tweeddale',
@@ -2255,15 +2255,15 @@ export const gradsComeFromData = [
   },
   {
     name: 'Dundee East',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Dundee West',
-    value: 2,
+    value: 0,
   },
   {
     name: 'Dunfermline and West Fife',
-    value: 1,
+    value: 0,
   },
   {
     name: 'East Dunbartonshire',
@@ -2271,15 +2271,15 @@ export const gradsComeFromData = [
   },
   {
     name: 'East Kilbride, Strathaven and Lesmahagow',
-    value: 2,
+    value: 0,
   },
   {
     name: 'East Lothian',
-    value: 1,
+    value: 0,
   },
   {
     name: 'East Renfrewshire',
-    value: 2,
+    value: 0,
   },
   {
     name: 'Edinburgh East',
@@ -2303,47 +2303,47 @@ export const gradsComeFromData = [
   },
   {
     name: 'Na h-Eileanan an Iar',
-    value: 0,
-  },
-  {
-    name: 'Falkirk',
     value: 1,
   },
   {
-    name: 'Glasgow Central',
+    name: 'Falkirk',
     value: 0,
+  },
+  {
+    name: 'Glasgow Central',
+    value: 1,
   },
   {
     name: 'Glasgow East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Glasgow North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Glasgow North East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Glasgow North West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Glasgow South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Glasgow South West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Glenrothes',
-    value: 2,
+    value: 0,
   },
   {
     name: 'Gordon',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Inverclyde',
@@ -2351,7 +2351,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Inverness, Nairn, Badenoch and Strathspey',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Kilmarnock and Loudoun',
@@ -2379,11 +2379,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Moray',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Motherwell and Wishaw',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North Ayrshire and Arran',
@@ -2399,7 +2399,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Orkney and Shetland',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Paisley and Renfrewshire North',
@@ -2411,11 +2411,11 @@ export const gradsComeFromData = [
   },
   {
     name: 'Perth and North Perthshire',
-    value: 1,
+    value: 0,
   },
   {
     name: 'Ross, Skye and Lochaber',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rutherglen and Hamilton West',
@@ -2427,7 +2427,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'West Aberdeenshire and Kincardine',
-    value: 0,
+    value: 1,
   },
   {
     name: 'West Dunbartonshire',
@@ -2436,55 +2436,55 @@ export const gradsComeFromData = [
   // ****-----------Wales-------------***
   {
     name: 'Ynys Mon',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Delyn',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Alyn and Deeside',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Wrexham',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Llanelli',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Gower',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Swansea West',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Swansea East',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Aberavon',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Cardiff Central',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Cardiff North',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Rhondda',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Torfaen',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Monmouth',
@@ -2492,35 +2492,35 @@ export const gradsComeFromData = [
   },
   {
     name: 'Newport East',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Newport West',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Arfon',
-    value: 1,
+    value: 0,
   },
   {
     name: 'Aberconwy',
-    value: 0,
-  },
-  {
-    name: 'Clwyd West',
-    value: 0,
-  },
-  {
-    name: 'Vale of Clwyd',
-    value: 3,
-  },
-  {
-    name: 'Dwyfor Meirionnydd',
     value: 1,
   },
   {
+    name: 'Clwyd West',
+    value: 1,
+  },
+  {
+    name: 'Vale of Clwyd',
+    value: 0,
+  },
+  {
+    name: 'Dwyfor Meirionnydd',
+    value: 0,
+  },
+  {
     name: 'Clwyd South',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Montgomeryshire',
@@ -2528,7 +2528,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Ceredigion',
-    value: 1,
+    value: 0,
   },
   {
     name: 'Preseli Pembrokeshire',
@@ -2540,7 +2540,7 @@ export const gradsComeFromData = [
   },
   {
     name: 'Carmarthen East and Dinefwr',
-    value: 1,
+    value: 0,
   },
   {
     name: 'Brecon and Radnorshire',
@@ -2548,39 +2548,39 @@ export const gradsComeFromData = [
   },
   {
     name: 'Neath',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Cynon Valley',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Merthyr Tydfil and Rhymney',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Blaenau Gwent',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Bridgend',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Ogmore',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Pontypridd',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Caerphilly',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Islwyn',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Vale of Glamorgan',
@@ -2588,27 +2588,26 @@ export const gradsComeFromData = [
   },
   {
     name: 'Cardiff West',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Cardiff South and Penarth',
-    value: 3,
+    value: 0,
   },
 ];
-
 
 export const gradsGoToData = [
   {
     name: 'Altrincham and Sale West',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Amber Valley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Arundel and South Downs',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Ashfield',
@@ -2620,71 +2619,71 @@ export const gradsGoToData = [
   },
   {
     name: 'Ashton-under-Lyne',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Aylesbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Banbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Barking',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Barnsley Central',
-    value: 3,
-  },
-  {
-    name: 'Barnsley East',
-    value: 3,
-  },
-  {
-    name: 'Barrow and Furness',
-    value: 3,
-  },
-  {
-    name: 'Basildon and Billericay',
-    value: 0,
-  },
-  {
-    name: 'Basingstoke',
-    value: 0,
-  },
-  {
-    name: 'Bassetlaw',
-    value: 3,
-  },
-  {
-    name: 'Bath',
     value: 2,
   },
   {
+    name: 'Barnsley East',
+    value: 2,
+  },
+  {
+    name: 'Barrow and Furness',
+    value: 2,
+  },
+  {
+    name: 'Basildon and Billericay',
+    value: 1,
+  },
+  {
+    name: 'Basingstoke',
+    value: 1,
+  },
+  {
+    name: 'Bassetlaw',
+    value: 1,
+  },
+  {
+    name: 'Bath',
+    value: 1,
+  },
+  {
     name: 'Batley and Spen',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Battersea',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Beaconsfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Beckenham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bedford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bermondsey and Old Southwark',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Berwick-upon-Tweed',
@@ -2692,11 +2691,11 @@ export const gradsGoToData = [
   },
   {
     name: 'Bethnal Green and Bow',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Beverley and Holderness',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Bexhill and Battle',
@@ -2704,47 +2703,47 @@ export const gradsGoToData = [
   },
   {
     name: 'Bexleyheath and Crayford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birkenhead',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Birmingham, Edgbaston',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Erdington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Hall Green',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Hodge Hill',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Ladywood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Northfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Perry Barr',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Selly Oak',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Birmingham, Yardley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bishop Auckland',
@@ -2752,23 +2751,23 @@ export const gradsGoToData = [
   },
   {
     name: 'Blackburn',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Blackley and Broughton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Blackpool North and Cleveleys',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Blackpool South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Blaydon',
-    value: 5,
+    value: 4,
   },
   {
     name: 'Blyth Valley',
@@ -2776,75 +2775,75 @@ export const gradsGoToData = [
   },
   {
     name: 'Bognor Regis and Littlehampton',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Bolsover',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bolton North East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Bolton South East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Bolton West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bootle',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Boston and Skegness',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bosworth',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bournemouth East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bournemouth West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bracknell',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bradford East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Bradford South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Bradford West',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Braintree',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Brent Central',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Brent North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Brentford and Isleworth',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Brentwood and Ongar',
@@ -2856,7 +2855,7 @@ export const gradsGoToData = [
   },
   {
     name: 'Brigg and Goole',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Brighton, Kemptown',
@@ -2868,67 +2867,67 @@ export const gradsGoToData = [
   },
   {
     name: 'Bristol East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bristol North West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bristol South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bristol West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Broadland',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Bromley and Chislehurst',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bromsgrove',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Broxbourne',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Broxtowe',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Buckingham',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Burnley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Burton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bury North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bury South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Bury St Edmunds',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Calder Valley',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Camberwell and Peckham',
@@ -2940,27 +2939,27 @@ export const gradsGoToData = [
   },
   {
     name: 'Cambridge',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cannock Chase',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Canterbury',
-    value: 3,
+    value: 0,
   },
   {
     name: 'Carlisle',
-    value: 3,
-  },
-  {
-    name: 'Carshalton and Wallington',
     value: 2,
   },
   {
+    name: 'Carshalton and Wallington',
+    value: 1,
+  },
+  {
     name: 'Castle Point',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Central Devon',
@@ -2972,67 +2971,67 @@ export const gradsGoToData = [
   },
   {
     name: 'Charnwood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chatham and Aylesford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cheadle',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chelmsford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chelsea and Fulham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cheltenham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chesham and Amersham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chesterfield',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Chichester',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Chingford and Woodford Green',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chippenham',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Chipping Barnet',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Chorley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Christchurch',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cities of London and Westminster',
-    value: 0,
+    value: 1,
   },
   {
     name: 'City of Chester',
-    value: 0,
+    value: 1,
   },
   {
     name: 'City of Durham',
@@ -3040,67 +3039,67 @@ export const gradsGoToData = [
   },
   {
     name: 'Clacton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Cleethorpes',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Colchester',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Colne Valley',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Congleton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Copeland',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Corby',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Coventry North East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Coventry North West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Coventry South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Crawley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Crewe and Nantwich',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Croydon Central',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Croydon North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Croydon South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Dagenham and Rainham',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Darlington',
@@ -3108,47 +3107,47 @@ export const gradsGoToData = [
   },
   {
     name: 'Dartford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Daventry',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Denton and Reddish',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Derby North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Derby South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Derbyshire Dales',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Devizes',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Dewsbury',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Don Valley',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Doncaster Central',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Doncaster North',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Dover',
@@ -3156,27 +3155,27 @@ export const gradsGoToData = [
   },
   {
     name: 'Dudley North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Dudley South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Dulwich and West Norwood',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ealing Central and Acton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ealing North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ealing, Southall',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Easington',
@@ -3188,59 +3187,59 @@ export const gradsGoToData = [
   },
   {
     name: 'East Ham',
-    value: 3,
+    value: 1,
   },
   {
     name: 'East Hampshire',
-    value: 2,
+    value: 1,
   },
   {
     name: 'East Surrey',
-    value: 0,
+    value: 1,
   },
   {
     name: 'East Worthing and Shoreham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'East Yorkshire',
-    value: 0,
-  },
-  {
-    name: 'Eastbourne',
     value: 2,
   },
   {
+    name: 'Eastbourne',
+    value: 1,
+  },
+  {
     name: 'Eastleigh',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Eddisbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Edmonton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ellesmere Port and Neston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Elmet and Rothwell',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Eltham',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Enfield North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Enfield, Southgate',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Epping Forest',
@@ -3248,19 +3247,19 @@ export const gradsGoToData = [
   },
   {
     name: 'Epsom and Ewell',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Erewash',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Erith and Thamesmead',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Esher and Walton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Exeter',
@@ -3268,7 +3267,7 @@ export const gradsGoToData = [
   },
   {
     name: 'Fareham',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Faversham and Mid Kent',
@@ -3276,15 +3275,15 @@ export const gradsGoToData = [
   },
   {
     name: 'Feltham and Heston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Filton and Bradley Stoke',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Finchley and Golders Green',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Folkestone and Hythe',
@@ -3296,47 +3295,47 @@ export const gradsGoToData = [
   },
   {
     name: 'Fylde',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Gainsborough',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Garston and Halewood',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Gateshead',
-    value: 5,
+    value: 4,
   },
   {
     name: 'Gedling',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Gillingham and Rainham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Gloucester',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Gosport',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Grantham and Stamford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Gravesham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Great Grimsby',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Great Yarmouth',
@@ -3344,63 +3343,63 @@ export const gradsGoToData = [
   },
   {
     name: 'Greenwich and Woolwich',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Guildford',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Hackney North and Stoke Newington',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Hackney South and Shoreditch',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Halesowen and Rowley Regis',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Halifax',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Haltemprice and Howden',
-    value: 0,
+    value: 2,
   },
   {
     name: 'Halton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hammersmith',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hampstead and Kilburn',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Harborough',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Harlow',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Harrogate and Knaresborough',
-    value: 3,
+    value: 4,
   },
   {
     name: 'Harrow East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Harrow West',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hartlepool',
@@ -3408,51 +3407,51 @@ export const gradsGoToData = [
   },
   {
     name: 'Harwich and North Essex',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hastings and Rye',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Havant',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hayes and Harlington',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hazel Grove',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hemel Hempstead',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hemsworth',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Hendon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Henley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hereford and South Herefordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hertford and Stortford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hertsmere',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hexham',
@@ -3460,31 +3459,31 @@ export const gradsGoToData = [
   },
   {
     name: 'Heywood and Middleton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'High Peak',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Hitchin and Harpenden',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Holborn and St Pancras',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Hornchurch and Upminster',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hornsey and Wood Green',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Horsham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Houghton and Sunderland South',
@@ -3492,31 +3491,31 @@ export const gradsGoToData = [
   },
   {
     name: 'Hove',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Huddersfield',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Huntingdon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Hyndburn',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ilford North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ilford South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Ipswich',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Isle of Wight',
@@ -3524,95 +3523,95 @@ export const gradsGoToData = [
   },
   {
     name: 'Islington North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Islington South and Finsbury',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Jarrow',
-    value: 5,
+    value: 1,
   },
   {
     name: 'Keighley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Kenilworth and Southam',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Kensington',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Kettering',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Kingston and Surbiton',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Kingston upon Hull East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Kingston upon Hull North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Kingston upon Hull West and Hessle',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Kingswood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Knowsley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Lancaster and Fleetwood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Leeds Central',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leeds East',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leeds North East',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leeds North West',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leeds West',
-    value: 0,
+    value: 3,
   },
   {
     name: 'Leicester East',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Leicester South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Leicester West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Leigh',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Lewes',
@@ -3620,51 +3619,51 @@ export const gradsGoToData = [
   },
   {
     name: 'Lewisham East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Lewisham West and Penge',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Lewisham, Deptford',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Leyton and Wanstead',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Lichfield',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Lincoln',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Liverpool, Riverside',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Liverpool, Walton',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Liverpool, Wavertree',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Liverpool, West Derby',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Loughborough',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Louth and Horncastle',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Ludlow',
@@ -3672,19 +3671,19 @@ export const gradsGoToData = [
   },
   {
     name: 'Luton North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Luton South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Macclesfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Maidenhead',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Maidstone and The Weald',
@@ -3692,27 +3691,27 @@ export const gradsGoToData = [
   },
   {
     name: 'Makerfield',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Maldon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Manchester Central',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Manchester, Gorton',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Manchester, Withington',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Mansfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Meon Valley',
@@ -3720,15 +3719,15 @@ export const gradsGoToData = [
   },
   {
     name: 'Meriden',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Bedfordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Derbyshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Dorset and North Poole',
@@ -3736,11 +3735,11 @@ export const gradsGoToData = [
   },
   {
     name: 'Mid Norfolk',
-    value: 2,
+    value: 0,
   },
   {
     name: 'Mid Sussex',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mid Worcestershire',
@@ -3756,43 +3755,43 @@ export const gradsGoToData = [
   },
   {
     name: 'Milton Keynes North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Milton Keynes South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mitcham and Morden',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Mole Valley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Morecambe and Lunesdale',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Morley and Outwood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'New Forest East',
-    value: 2,
+    value: 1,
   },
   {
     name: 'New Forest West',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Newark',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Newbury',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Newcastle upon Tyne Central',
@@ -3808,7 +3807,7 @@ export const gradsGoToData = [
   },
   {
     name: 'Newcastle-under-Lyme',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Newton Abbot',
@@ -3816,7 +3815,7 @@ export const gradsGoToData = [
   },
   {
     name: 'Normanton, Pontefract and Castleford',
-    value: 0,
+    value: 2,
   },
   {
     name: 'North Cornwall',
@@ -3836,19 +3835,19 @@ export const gradsGoToData = [
   },
   {
     name: 'North East Bedfordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North East Cambridgeshire',
-    value: 2,
+    value: 1,
   },
   {
     name: 'North East Derbyshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North East Hampshire',
-    value: 2,
+    value: 1,
   },
   {
     name: 'North East Hertfordshire',
@@ -3856,15 +3855,15 @@ export const gradsGoToData = [
   },
   {
     name: 'North East Somerset',
-    value: 2,
+    value: 1,
   },
   {
     name: 'North Herefordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North Norfolk',
-    value: 2,
+    value: 1,
   },
   {
     name: 'North Shropshire',
@@ -3876,7 +3875,7 @@ export const gradsGoToData = [
   },
   {
     name: 'North Swindon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North Thanet',
@@ -3888,11 +3887,11 @@ export const gradsGoToData = [
   },
   {
     name: 'North Warwickshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North West Cambridgeshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North West Durham',
@@ -3900,27 +3899,27 @@ export const gradsGoToData = [
   },
   {
     name: 'North West Hampshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North West Leicestershire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'North West Norfolk',
-    value: 2,
+    value: 1,
   },
   {
     name: 'North Wiltshire',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Northampton North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Northampton South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Norwich North',
@@ -3932,59 +3931,59 @@ export const gradsGoToData = [
   },
   {
     name: 'Nottingham East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Nottingham North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Nottingham South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Nuneaton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Old Bexley and Sidcup',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Oldham East and Saddleworth',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Oldham West and Royton',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Orpington',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Oxford East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Oxford West and Abingdon',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Pendle',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Penistone and Stocksbridge',
-    value: 3,
-  },
-  {
-    name: 'Penrith and The Border',
     value: 2,
   },
   {
+    name: 'Penrith and The Border',
+    value: 1,
+  },
+  {
     name: 'Peterborough',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Plymouth, Moor View',
@@ -3996,31 +3995,31 @@ export const gradsGoToData = [
   },
   {
     name: 'Poole',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Poplar and Limehouse',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Portsmouth North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Portsmouth South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Preston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Pudsey',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Putney',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rayleigh and Wickford',
@@ -4028,11 +4027,11 @@ export const gradsGoToData = [
   },
   {
     name: 'Reading East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Reading West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Redcar',
@@ -4040,15 +4039,15 @@ export const gradsGoToData = [
   },
   {
     name: 'Redditch',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Reigate',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ribble Valley',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Richmond (Yorks)',
@@ -4056,11 +4055,11 @@ export const gradsGoToData = [
   },
   {
     name: 'Richmond Park',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rochdale',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Rochester and Strood',
@@ -4072,63 +4071,63 @@ export const gradsGoToData = [
   },
   {
     name: 'Romford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Romsey and Southampton North',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Rossendale and Darwen',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rother Valley',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Rotherham',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Rugby',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Ruislip, Northwood and Pinner',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Runnymede and Weybridge',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rushcliffe',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Rutland and Melton',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Saffron Walden',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Salford and Eccles',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Salisbury',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Scarborough and Whitby',
-    value: 3,
+    value: 4,
   },
   {
     name: 'Scunthorpe',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Sedgefield',
@@ -4136,11 +4135,11 @@ export const gradsGoToData = [
   },
   {
     name: 'Sefton Central',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Selby and Ainsty',
-    value: 0,
+    value: 4,
   },
   {
     name: 'Sevenoaks',
@@ -4148,31 +4147,31 @@ export const gradsGoToData = [
   },
   {
     name: 'Sheffield Central',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Sheffield South East',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Sheffield, Brightside and Hillsborough',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Sheffield, Hallam',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Sheffield, Heeley',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Sherwood',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Shipley',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Shrewsbury and Atcham',
@@ -4184,19 +4183,19 @@ export const gradsGoToData = [
   },
   {
     name: 'Skipton and Ripon',
-    value: 3,
+    value: 4,
   },
   {
     name: 'Sleaford and North Hykeham',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Slough',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Solihull',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Somerton and Frome',
@@ -4208,11 +4207,11 @@ export const gradsGoToData = [
   },
   {
     name: 'South Cambridgeshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Derbyshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Dorset',
@@ -4220,7 +4219,7 @@ export const gradsGoToData = [
   },
   {
     name: 'South East Cambridgeshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South East Cornwall',
@@ -4228,31 +4227,31 @@ export const gradsGoToData = [
   },
   {
     name: 'South Holland and The Deepings',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Leicestershire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Norfolk',
-    value: 2,
+    value: 0,
   },
   {
     name: 'South Northamptonshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Ribble',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Shields',
-    value: 3,
+    value: 1,
   },
   {
     name: 'South Staffordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Suffolk',
@@ -4260,7 +4259,7 @@ export const gradsGoToData = [
   },
   {
     name: 'South Swindon',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South Thanet',
@@ -4268,7 +4267,7 @@ export const gradsGoToData = [
   },
   {
     name: 'South West Bedfordshire',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South West Devon',
@@ -4280,39 +4279,39 @@ export const gradsGoToData = [
   },
   {
     name: 'South West Norfolk',
-    value: 2,
+    value: 0,
   },
   {
     name: 'South West Surrey',
-    value: 0,
+    value: 1,
   },
   {
     name: 'South West Wiltshire',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Southampton, Itchen',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Southampton, Test',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Southend West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Southport',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Spelthorne',
-    value: 0,
+    value: 1,
   },
   {
     name: 'St Albans',
-    value: 0,
+    value: 1,
   },
   {
     name: 'St Austell and Newquay',
@@ -4320,11 +4319,11 @@ export const gradsGoToData = [
   },
   {
     name: 'St Helens North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'St Helens South and Whiston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'St Ives',
@@ -4332,23 +4331,23 @@ export const gradsGoToData = [
   },
   {
     name: 'Stafford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Staffordshire Moorlands',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stalybridge and Hyde',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stevenage',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stockport',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stockton North',
@@ -4360,39 +4359,39 @@ export const gradsGoToData = [
   },
   {
     name: 'Stoke-on-Trent Central',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stoke-on-Trent North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stoke-on-Trent South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stone',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stourbridge',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Stratford-on-Avon',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Streatham',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stretford and Urmston',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Stroud',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Suffolk Coastal',
@@ -4404,23 +4403,23 @@ export const gradsGoToData = [
   },
   {
     name: 'Surrey Heath',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Sutton and Cheam',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Sutton Coldfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tamworth',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tatton',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Taunton Deane',
@@ -4428,7 +4427,7 @@ export const gradsGoToData = [
   },
   {
     name: 'Telford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tewkesbury',
@@ -4436,7 +4435,7 @@ export const gradsGoToData = [
   },
   {
     name: 'The Cotswolds',
-    value: 0,
+    value: 1,
   },
   {
     name: 'The Wrekin',
@@ -4444,19 +4443,19 @@ export const gradsGoToData = [
   },
   {
     name: 'Thirsk and Malton',
-    value: 3,
+    value: 4,
   },
   {
     name: 'Thornbury and Yate',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Thurrock',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Tiverton and Honiton',
-    value: 1,
+    value: 0,
   },
   {
     name: 'Tonbridge and Malling',
@@ -4464,11 +4463,11 @@ export const gradsGoToData = [
   },
   {
     name: 'Tooting',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Torbay',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Torridge and West Devon',
@@ -4480,7 +4479,7 @@ export const gradsGoToData = [
   },
   {
     name: 'Tottenham',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Truro and Falmouth',
@@ -4492,7 +4491,7 @@ export const gradsGoToData = [
   },
   {
     name: 'Twickenham',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Tynemouth',
@@ -4500,63 +4499,63 @@ export const gradsGoToData = [
   },
   {
     name: 'Uxbridge and South Ruislip',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Vauxhall',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Wakefield',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Wallasey',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Walsall North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Walsall South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Walthamstow',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Wansbeck',
-    value: 3,
+    value: 4,
   },
   {
     name: 'Wantage',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Warley',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Warrington North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Warrington South',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Warwick and Leamington',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Washington and Sunderland West',
-    value: 5,
+    value: 1,
   },
   {
     name: 'Watford',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Waveney',
@@ -4568,11 +4567,11 @@ export const gradsGoToData = [
   },
   {
     name: 'Weaver Vale',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Wellingborough',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wells',
@@ -4580,19 +4579,19 @@ export const gradsGoToData = [
   },
   {
     name: 'Welwyn Hatfield',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wentworth and Dearne',
-    value: 3,
+    value: 2,
   },
   {
     name: 'West Bromwich East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'West Bromwich West',
-    value: 3,
+    value: 1,
   },
   {
     name: 'West Dorset',
@@ -4600,11 +4599,11 @@ export const gradsGoToData = [
   },
   {
     name: 'West Ham',
-    value: 3,
+    value: 1,
   },
   {
     name: 'West Lancashire',
-    value: 3,
+    value: 1,
   },
   {
     name: 'West Suffolk',
@@ -4616,11 +4615,11 @@ export const gradsGoToData = [
   },
   {
     name: 'Westminster North',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Westmorland and Lonsdale',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Weston-Super-Mare',
@@ -4628,55 +4627,55 @@ export const gradsGoToData = [
   },
   {
     name: 'Wigan',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Wimbledon',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Winchester',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Windsor',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wirral South',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Wirral West',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Witham',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Witney',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Woking',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wokingham',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wolverhampton North East',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Wolverhampton South East',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Wolverhampton South West',
-    value: 2,
+    value: 1,
   },
   {
     name: 'Worcester',
@@ -4684,31 +4683,31 @@ export const gradsGoToData = [
   },
   {
     name: 'Workington',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Worsley and Eccles South',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Worthing West',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wycombe',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wyre and Preston North',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wyre Forest',
-    value: 0,
+    value: 1,
   },
   {
     name: 'Wythenshawe and Sale East',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Yeovil',
@@ -4716,36 +4715,36 @@ export const gradsGoToData = [
   },
   {
     name: 'York Central',
-    value: 2,
+    value: 3,
   },
   {
     name: 'York Outer',
-    value: 2,
+    value: 3,
   },
   // ****-----------N. Ireland-------------***
   {
     name: 'Belfast East',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Belfast North',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Belfast South',
-    value: 3,
+    value: 2,
   },
   {
     name: 'Belfast West',
-    value: 3,
+    value: 2,
   },
   {
     name: 'East Antrim',
-    value: 3,
+    value: 1,
   },
   {
     name: 'East Londonderry',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Fermanagh and South Tyrone',
@@ -4753,7 +4752,7 @@ export const gradsGoToData = [
   },
   {
     name: 'Foyle',
-    value: 3,
+    value: 1,
   },
   {
     name: 'Lagan Valley',
@@ -4769,7 +4768,7 @@ export const gradsGoToData = [
   },
   {
     name: 'North Antrim',
-    value: 3,
+    value: 1,
   },
   {
     name: 'North Down',
@@ -4793,7 +4792,7 @@ export const gradsGoToData = [
   },
   {
     name: 'West Tyrone',
-    value: 2,
+    value: 1,
   },
   // ****-----------Scotland-------------***
   {
