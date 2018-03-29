@@ -154,7 +154,7 @@ class Page extends React.PureComponent {
     const tabbedPanelData = [
       {
         title: 'STEM vs Non-STEM subjects',
-        globalID: 'stem-pie-1',
+        globalID: 'stem-overview-1',
         type: 'echarts',
         drawData: { options: echartsData1 },
       },
@@ -202,7 +202,7 @@ class Page extends React.PureComponent {
 
             <TabbedGraphPanel
               title="Average Salary per STEM Subject"
-              globalID="stem-line-1"
+              globalID="stem-overview-2"
               content={[
                        {
                          title: '',
@@ -233,7 +233,7 @@ class Page extends React.PureComponent {
 
             <TabbedGraphPanel
               title="List of all STEM subjects average salaries"
-              globalID="stem-vxy"
+              globalID="stem-overview-3"
               content={[
                 {
                   title: 'STEM subjects',

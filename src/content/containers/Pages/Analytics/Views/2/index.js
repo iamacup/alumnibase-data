@@ -259,7 +259,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('My current work is meaningful and important to me',
-              'view-3-1',
+              'view-3-2',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
               false)}
@@ -269,7 +269,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, how satisfied are you with your life now',
-              'view-3-1',
+              'view-3-3',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
               false)}
@@ -280,7 +280,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, to what extent do you feel the things you do in your life are worthwhile',
-              'view-1-5',
+              'view-3-4',
               this.getOptions2(),
               ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
               false)}
@@ -290,7 +290,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, how happy did you feel yesterday',
-              'view-1-5',
+              'view-3-5',
               this.getOptions2(),
               ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
               false)}

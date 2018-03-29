@@ -37,9 +37,11 @@ class Page extends React.PureComponent {
 
   render() {
     const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
+
     const options1 = {
       STEM: 10, 'Non-STEM': 20, 'High Skilled': 19, 'Not High Skilled': 11,
     };
+
     const rows1 = [
       ['STEM', 'High Skilled', 6],
       ['STEM', 'Not High Skilled', 4],
@@ -71,9 +73,11 @@ class Page extends React.PureComponent {
       ['Not High Skilled', 'Not Alligned to Industrial Strategy', 8],
       ['Not High Skilled', 'Alligned to Industrial Strategy', 8],
     ];
+
     const options2 = {
       White: 16, Mixed: 4, Asian: 8, 'Black / African / Caribbean': 7, Other: 4, STEM: 14, 'Non-STEM': 25, 'High Skilled': 23, 'Not High Skilled': 16,
     };
+
     const rows3 = [
       ['Female', 'STEM', 2],
       ['Female', 'Non-STEM', 3],
@@ -88,6 +92,7 @@ class Page extends React.PureComponent {
       ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
       ['Not High Skilled', 'Not Alligned to Industrial Strategy', 6],
     ];
+
     const options3 = {
       Female: 5, Male: 15, STEM: 10, 'Non-STEM': 10, 'High Skilled': 11, 'Not High Skilled': 9,
     };
@@ -99,23 +104,24 @@ class Page extends React.PureComponent {
     const tabbedPanelData = [
       {
         title: 'Stem Destinations of Graduates',
-        globalID: 'stem-sankey-1',
+        globalID: 'stem-destinations-1',
         type: 'googlecharts',
         drawData: { ...googleData1 },
       },
       {
         title: 'Ethnicity split of graduates going into soc.1-3 jobs',
-        globalID: 'stem-sankey-2',
+        globalID: 'stem-destinations-2',
         type: 'googlecharts',
         drawData: { ...googleData2 },
       },
       {
         title: 'Gender split of graduates going into soc.1-3 jobs',
-        globalID: 'stem-sankey-3',
+        globalID: 'stem-destinations-3',
         type: 'googlecharts',
         drawData: { ...googleData3 },
       },
     ];
+
     const content = (
       <div id="page-content">
         <StandardFilters />

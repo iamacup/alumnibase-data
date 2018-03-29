@@ -139,13 +139,13 @@ class Page extends React.PureComponent {
     const tabData1 = [
       {
         title: 'Percentage of People who Believe their Course Offered Value for Money',
-        globalID: 'VFM-1',
+        globalID: 'subjects-vfm-1',
         options: bar1,
         text: text1,
       },
       {
         title: 'Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money',
-        globalID: 'VFM-2',
+        globalID: 'subjects-vfm-2',
         options: bar2,
         text: '',
       },
@@ -154,7 +154,7 @@ class Page extends React.PureComponent {
     const tabData2 = [
       {
         title: 'Average Time Taken for Graduates to Pay Back Student Loans',
-        globalID: 'VFM-4',
+        globalID: 'subjects-vfm-3',
         options: lineData,
         text: <div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>,
       },
@@ -164,7 +164,7 @@ class Page extends React.PureComponent {
     const tabData3 = [
       {
         title: 'University Impact vs Life Salary',
-        globalID: 'VFM-3',
+        globalID: 'subjects-vfm-4',
         options: scatterData,
         text: '',
       },

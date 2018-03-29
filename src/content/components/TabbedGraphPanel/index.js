@@ -42,7 +42,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import { dNc } from '../../../content/scripts/custom/utilities';
 import { drawOrRedrawChart } from '../../../content/scripts/custom/echarts/utilities';
@@ -53,12 +52,12 @@ class TabbedGraphPanel extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { content } = this.props;
+    const { content, globalID } = this.props;
 
     const currentActive = this.getCurrentActiveTab(content);
 
     this.state = {
-      id: _.uniqueId(),
+      id: globalID,
       currentActive,
     };
   }

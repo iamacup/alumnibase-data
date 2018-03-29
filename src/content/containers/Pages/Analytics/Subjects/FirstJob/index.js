@@ -161,7 +161,7 @@ class Page extends React.PureComponent {
     const panel = (
       <TabbedGraphPanel
         title="High level subject salaries"
-        globalID="salary-1-6"
+        globalID="subject-first-job-1"
         content={[
           {
             title: 'Average Salary',

@@ -182,19 +182,19 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(genderData, 'Average pay, split by gender', 'salary-0-1')}
+            {this.getBoxPlot(genderData, 'Average pay, split by gender', 'salary-ranges-1')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(ethnicityData, 'Average pay, split by ethnicity', 'salary-0-2')}
+            {this.getBoxPlot(ethnicityData, 'Average pay, split by ethnicity', 'salary-ranges-2')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(religionData, 'Average pay, split by religion', 'salary-0-3')}
+            {this.getBoxPlot(religionData, 'Average pay, split by religion', 'salary-ranges-3')}
           </div>
         </div>
 

@@ -93,7 +93,7 @@ class Page extends React.PureComponent {
     const panel = (
       <TabbedGraphPanel
         title="Salary Distribution"
-        globalID="salary-1-1"
+        globalID="salary-overview-1"
         content={[
             {
               title: '',
@@ -161,7 +161,7 @@ class Page extends React.PureComponent {
     const panel = (
       <TabbedGraphPanel
         title="Gender salary splits for graduates over a 15 year span"
-        globalID="salary-1-2"
+        globalID="salary-overview-2"
         content={[
             {
               title: 'First Year',
@@ -267,7 +267,7 @@ class Page extends React.PureComponent {
     const panel = (
       <TabbedGraphPanel
         title="Salary vs National Average over time"
-        globalID="salary-1-3"
+        globalID="salary-overview-3"
         content={[
             {
               title: 'All Data',
@@ -359,7 +359,7 @@ class Page extends React.PureComponent {
     const panel = (
       <TabbedGraphPanel
         title="High level subject salaries"
-        globalID="salary-1-6"
+        globalID="salary-overview-4"
         content={[
             {
               title: 'Non Graph',
@@ -416,7 +416,7 @@ class Page extends React.PureComponent {
     const panel = (
       <TabbedGraphPanel
         title="Salary over time"
-        globalID="salary-1-7"
+        globalID="salary-overview-5"
         content={[
             {
               title: 'All Data',

@@ -53,7 +53,7 @@ class Page extends React.PureComponent {
     const panel = (
       <TabbedGraphPanel
         title="Graduate Destinations"
-        globalID="geo-2"
+        globalID="salary-geo-2b-1"
         content={[
             {
               title: 'County of Origin',

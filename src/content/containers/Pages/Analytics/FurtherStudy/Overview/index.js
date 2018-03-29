@@ -64,7 +64,7 @@ class Page extends React.PureComponent {
 
             <TabbedGraphPanel
               title="Further Study Among Graduates"
-              globalID="RQ-105-pie-1"
+              globalID="further-study-overview-1"
               content={[
                 {
                   title: '',
