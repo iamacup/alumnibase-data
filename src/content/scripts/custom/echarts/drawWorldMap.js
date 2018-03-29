@@ -287,7 +287,7 @@ const drawWorldMap = (mapData, type, value) => {
     geo: {
       type: 'map',
       map: 'world',
-      roam: true, // this is the zoom!
+      // roam: true, // this is the zoom!
       label: {
         emphasis: {
           show: false, // the label of the country
