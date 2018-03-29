@@ -116,7 +116,14 @@ class Page extends React.PureComponent {
   }
 
   getOptions2() {
+
+    const option = {
+      x: 'Age',
+      y: 'Average Response',
+    };
+
     const age = [];
+    const first = [];
     const plotted = [];
 
     const start = 9.1;
@@ -130,12 +137,12 @@ class Page extends React.PureComponent {
 
     for (let a = firstAge; a < lastAge; a++) {
       age.push(a);
-      plotted.push(Number(current.toPrecision(2)));
+      first.push(Number(current.toPrecision(2)));
 
       current -= increment;
-
-      console.log(increment);
     }
+
+    plotted.push(first)
 
     const data = {
       age,
@@ -143,7 +150,7 @@ class Page extends React.PureComponent {
       name: ['test'],
     };
 
-    const options = drawLineChart(data, 'Age', 'Average Response');
+    const options = drawLineChart(data, option);
 
     return options;
   }

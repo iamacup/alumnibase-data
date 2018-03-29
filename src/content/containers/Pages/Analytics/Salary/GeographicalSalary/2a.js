@@ -13,6 +13,7 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 
 import drawWorldMap from '../../../../../../content/scripts/custom/echarts/drawWorldMap';
 import worldMapData from '../../../../../../content/scripts/custom/echarts/worldMapData';
+import drawNewPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -41,6 +42,83 @@ class Page extends React.PureComponent {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
+  }
+  getOriginGraph() {
+    const data = [
+      { name: 'EU', value: 40 },
+      { name: 'Non-EU', value: 30 },
+      { name: 'UK', value: 30 },
+    ];
+
+    const options = drawNewPieChart(data, false, 'pie', false);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Country of Origin"
+        globalID="overview-2"
+        content={[
+            {
+              title: '',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+    return panel
+  }
+
+    getResidenceGraph() {
+    const data = [
+      { name: 'EU', value: 20 },
+      { name: 'Non-EU', value: 30 },
+      { name: 'UK', value: 50 },
+    ];
+
+    const options = drawNewPieChart(data, true, 'doughnut', true);
+
+    // the actual panel stuff
+    const panel = (
+      <TabbedGraphPanel
+        title="Current Country of Destination"
+        globalID="overview-2"
+        content={[
+            {
+              title: '',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: false,
+                  seeData: false,
+                  pinGraph: false,
+                },
+                width: '100%',
+                height: '250px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+        seperator
+      />
+    );
+    return panel
   }
 
   getMap() {
@@ -120,6 +198,16 @@ class Page extends React.PureComponent {
             <hr className="new-section-xs" />
           </div>
         </div>
+
+            <div className="row">
+              <div className="col-md-4 col-md-push-2">
+                {this.getOriginGraph()}
+              </div>
+
+              <div className="col-md-4 col-md-push-2">
+                {this.getResidenceGraph()}
+              </div>
+            </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">

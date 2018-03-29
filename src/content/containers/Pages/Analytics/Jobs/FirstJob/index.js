@@ -6,7 +6,7 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
-import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
+import getSalaryRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
@@ -348,7 +348,7 @@ class Page extends React.PureComponent {
       },
     ];
 
-    const react1 = jobs.map(element => getPercentRow(element.job, element.salary, true, true));
+    const react1 = jobs.map(element => getSalaryRow(element.job, element.salary, true, true));
 
     const react2 = jobs.map(element => (
       <div key={element.job}>
@@ -358,8 +358,8 @@ class Page extends React.PureComponent {
           </div>
         </div>
         <div>
-          {getPercentRow('Male', element.male)}
-          {getPercentRow('Female', element.female)}
+          {getSalaryRow('Male', element.male, true, true)}
+          {getSalaryRow('Female', element.female, true, true)}
         </div>
       </div>
     ));
