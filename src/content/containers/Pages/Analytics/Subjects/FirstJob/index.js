@@ -153,8 +153,8 @@ class Page extends React.PureComponent {
             <p>{element.name}</p>
           </div>
         </div>
-        {getPercentRow('Male', element.male)}
-        {getPercentRow('Female', element.female)}
+        {getPercentRow('Male', element.male, true, true)}
+        {getPercentRow('Female', element.female, true, true)}
       </div>
     ));
 
