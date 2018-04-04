@@ -61,28 +61,6 @@ export function redrawCharts() {
     }
   });
 }
-
-export function redrawChart(domTarget) {
-  const { domNode } = getNodes(domTarget);
-
-  if (dNc(domNode)) {
-    const myChart = echarts.getInstanceByDom(domNode);
-
-    if (dNc(myChart) && dNc(myChart.resize)) {
-      myChart.resize();
-      return true;
-    }
-  }
-
-  return false;
-}
-
-export function drawOrRedrawChart(domTarget, optionsObject) {
-  if (redrawChart(domTarget) === false) {
-    renderChartToTarget(domTarget, optionsObject);
-  }
-}
-
 export function updateChartOptions(domTarget, optionsObject) {
   const { domNode } = getNodes(domTarget);
 
@@ -94,3 +72,27 @@ export function updateChartOptions(domTarget, optionsObject) {
 
   return null;
 }
+
+// TODO
+export function redrawChart(domTarget, optionsObject) {
+  const { domNode } = getNodes(domTarget);
+  if (dNc(domNode)) {
+    const myChart = echarts.getInstanceByDom(domNode);
+
+    if (dNc(myChart) && dNc(myChart.resize)) {
+      // this is a poor function because it is being used to 'resize' and 'redraw' at the same time - inefficient.
+      updateChartOptions(domTarget, optionsObject);
+      myChart.resize();
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export function drawOrRedrawChart(domTarget, optionsObject) {
+  if (redrawChart(domTarget, optionsObject) === false) {
+    renderChartToTarget(domTarget, optionsObject);
+  }
+}
+
