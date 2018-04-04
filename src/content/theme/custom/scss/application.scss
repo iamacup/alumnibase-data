@@ -32,3 +32,9 @@
 .bg-on-white {
   background-color: #ecf0f5;
 }
+
+.cls-content.error {
+  input {
+    border-color: red;
+  }
+}

@@ -17,6 +17,7 @@ import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
 import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 
 import SplashPage from '../../content/containers/Pages/Splash';
+import LoginPage from '../../content/containers/Pages/Login';
 
 import SalaryRangesPage from '../../content/containers/Pages/Analytics/Salary/Ranges';
 import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
@@ -49,6 +50,11 @@ export default [
     path: '/',
     exact: true,
     component: CampaignOverviewPage,
+  },
+  {
+    path: '/login',
+    exact: true,
+    component: LoginPage,
   },
   {
     path: '/data-control/export',
