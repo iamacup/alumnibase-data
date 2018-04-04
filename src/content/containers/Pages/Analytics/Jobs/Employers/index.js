@@ -9,6 +9,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
+import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
 
 
 class Page extends React.PureComponent {
@@ -43,8 +44,12 @@ class Page extends React.PureComponent {
     };
 
 let labels = '';
+let topLabel = '';
 if (label) {
-labels = <p>Small and medium-sized enterprises (SMEs) employ fewer than 250 people.<br />SMEs are further subdivided into <strong>Micro enterprises</strong> (fewer than 10 employees),<br /><strong>Small enterprises</strong> (10 to 49 employees).<br /><strong>Medium-sized enterprises</strong> (50 to 249 employees).<br /><strong>Large enterprises</strong> employ 250 or more people</p>
+labels = <p>Small and medium-sized enterprises (SMEs) employ fewer than 250 people.<br />SMEs are further subdivided into <strong>Micro enterprises</strong> (fewer than 10 employees).<br /><strong>Small enterprises</strong> (10 to 49 employees).<br /><strong>Medium-sized enterprises</strong> (50 to 249 employees).<br /><strong>Large enterprises</strong> employ 250 or more people.</p>
+}
+else {
+topLabel = <p>Percentage of graduates in employment afetr completing a sandwich course.</p>
 }
     const options = drawGroupedBarChart(titles, data, obj);
 
@@ -54,6 +59,7 @@ labels = <p>Small and medium-sized enterprises (SMEs) employ fewer than 250 peop
       content={[
             {
               title: '',
+              preContent: <p>{topLabel}</p>,
               postContent: <p>{labels}</p>,
               active: true,
               graphData: {
@@ -76,6 +82,64 @@ labels = <p>Small and medium-sized enterprises (SMEs) employ fewer than 250 peop
 
     return panel;
   }
+
+
+getSankeyGraph(columns, rows, options) {
+      const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
+
+    // const options1 = {
+    //   Graduates: 100, 'Private': 40, 'Public': 60,
+    // };
+
+    const rows1 = [
+      // ['Graduates', 'Private', 40],
+      ['Graduates', 'Public', 100],
+
+      // ['Private', 'NHS', 10],
+      // ['Private', 'Defence', 9],
+      // ['Private', 'Social Care', 9],
+      // ['Private', 'Not NHS', 9],
+
+      ['Public', 'NHS', 34],
+      ['Public', 'Defence', 23],
+      ['Public', 'Social Care', 11],
+      ['Public', 'Other', 32],
+    ];
+
+    const googleData1 = drawSankeyChart(columns1, rows1);
+
+    const data = {
+        title: 'Destinations of Graduates Working in the Public Sector',
+        globalID: 'stem-destinations-1',
+        type: 'googlecharts',
+        drawData: { ...googleData1 },
+      }
+
+      const panel = ( <TabbedGraphPanel
+                title={data.title}
+                globalID={data.globalID}
+                content={[
+                  {
+                    title: '',
+                    active: true,
+                    graphData: {
+                      type: data.type,
+                      tools: {
+                        allowDownload: true,
+                        seeData: false,
+                        pinGraph: true,
+                      },
+                      width: '100%',
+                      height: '250px',
+                      data: data.drawData,
+                    },
+                  },
+                ]}
+                seperator
+              />)
+      return panel;
+}
+
 
   render() {
 
@@ -107,7 +171,7 @@ labels = <p>Small and medium-sized enterprises (SMEs) employ fewer than 250 peop
         </div>
             <div className="row">
           <div className="col-md-6 col-md-push-3">
-            {this.getGroupedBarchart('Employment rate of graduates after 6 months, after completing a sandwich course.',
+            {this.getGroupedBarchart('Employment rate of graduates after 6 months',
               '',
               'vertical',
               'tuesday-graphs-3',
@@ -118,6 +182,11 @@ labels = <p>Small and medium-sized enterprises (SMEs) employ fewer than 250 peop
 
           </div>
         </div>
+           <div className="row">
+          <div className="col-md-8 col-md-push-2">
+          {this.getSankeyGraph()}
+      </div>
+      </div>
       </div>
     );
 
