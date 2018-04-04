@@ -266,7 +266,6 @@ class TabbedGraphPanel extends React.PureComponent {
 
   redrawActives() {
     const { content } = this.props;
-
     if (content[this.state.currentActive].graphData.type === 'echarts') {
       drawOrRedrawChart(this['graph' + this.state.currentActive], content[this.state.currentActive].graphData.data.options);
     } else if (content[this.state.currentActive].graphData.type === 'googlecharts') {

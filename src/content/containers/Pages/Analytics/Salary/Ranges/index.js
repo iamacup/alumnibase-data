@@ -46,7 +46,7 @@ class Page extends React.PureComponent {
       // make the checkbox look nice with switchery
       const elem = document.querySelector('#switchery-switch');
 
-      // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef, no-unused-vars
       const init = new Switchery(elem);
 
       elem.onchange = () => {
@@ -56,10 +56,7 @@ class Page extends React.PureComponent {
   }
 
   getBoxPlot(input, title, id) {
-    // const colours = [['#ff7311', '#ffbb7d'], ['#d02224', '#ff8d8b'], ['#11293b', '#0b6623'], ['#1c6cab', '#a4c0e5']];
-
     const options = drawBoxplotChart(input.values, input.categories, 40000);
-
     const panel = (
       <TabbedGraphPanel
         title={title}
@@ -87,7 +84,6 @@ class Page extends React.PureComponent {
         seperator
       />
     );
-
     return panel;
   }
 
@@ -96,8 +92,6 @@ class Page extends React.PureComponent {
   }
 
   render() {
-    console.log(this.state);
-
     const genderData = {
       categories: ['Female', 'Male'],
       values: [
@@ -132,7 +126,7 @@ class Page extends React.PureComponent {
     };
 
     if (this.state.showNationalAverage === true) {
-      const nationalAverageSalaryData = [26000, 28700];
+      const nationalAverageSalaryData = [26000, 240000];
 
       genderData.categories.push('National Average');
       genderData.values.push(nationalAverageSalaryData);
@@ -142,7 +136,7 @@ class Page extends React.PureComponent {
 
       religionData.categories.push('National Average');
       religionData.values.push(nationalAverageSalaryData);
-    }
+    } 
 
     const content = (
       <div id="page-content">
@@ -179,7 +173,6 @@ class Page extends React.PureComponent {
             />
           </div>
         </div>
-
         <div className="row">
           <div className="col-md-10 col-md-push-1">
             {this.getBoxPlot(genderData, 'Average pay, split by gender', 'salary-ranges-1')}

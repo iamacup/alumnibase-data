@@ -83,22 +83,11 @@ class Page extends React.PureComponent {
   }
 
 
-  getSankeyGraph(columns, rows, options) {
+  getSankeyGraph() {
     const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
 
-    // const options1 = {
-    //   Graduates: 100, 'Private': 40, 'Public': 60,
-    // };
-
     const rows1 = [
-      // ['Graduates', 'Private', 40],
       ['Graduates', 'Public', 100],
-
-      // ['Private', 'NHS', 10],
-      // ['Private', 'Defence', 9],
-      // ['Private', 'Social Care', 9],
-      // ['Private', 'Not NHS', 9],
-
       ['Public', 'NHS', 34],
       ['Public', 'Defence', 23],
       ['Public', 'Social Care', 11],

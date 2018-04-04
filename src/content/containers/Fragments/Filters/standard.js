@@ -13,7 +13,7 @@ class Graph extends React.PureComponent {
       $(document).trigger('nifty.ready');
       // make the checkbox look nice with switchery
       const elem = document.querySelector('#demo-sw-unchecked1');
-      // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef, no-unused-vars
       const init = new Switchery(elem);
       elem.onchange = () => {
         this.clickShowNationalAverage();
@@ -22,7 +22,7 @@ class Graph extends React.PureComponent {
       $(document).trigger('nifty.ready');
       // make the checkbox look nice with switchery
       const elem2 = document.querySelector('#demo-sw-unchecked2');
-      // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef, no-unused-vars
       const init2 = new Switchery(elem2);
       elem2.onchange = () => {
         this.clickShowNationalAverage();
