@@ -1,7 +1,9 @@
-const drawLineChart = (data, options) => {
+const drawLineChart = (data, options, titles) => {
   // data sould be in the form [{age: [], plotted: []}]
   // options can have value (bool) and trendline (bool)
+  const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
   let value = false;
+  let labels = [];
   let yLabel = 90;
   let location = 'center';
   let gap = 50;
@@ -11,14 +13,33 @@ const drawLineChart = (data, options) => {
     location = 'end';
     gap = 20;
   }
-  // lineStyle: { normal: { color: '#8e1600', width: 2, type: 'dotted' }}
 
-  const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
+if (titles) {
+  const x = titles.x.map(title => (
+ {
+      text: title,
+      x: '45%',
+      y: '95%',
+      textStyle: { fontSize: 12 },
+    }
+    ))
+const y = titles.y.map((title, i) => (
+ {
+      text: title,
+      x: '5%',
+      y: `${(i * 4) + 4}%`,
+      textStyle: { fontSize: 12 },
+    }
+    ))
+  labels = x.concat(y);
+}
+
 
   const option = {
     legend: {
       data: data.name,
     },
+    title: labels,
     tooltip: {
       trigger: 'item',
       axisPointer: {
