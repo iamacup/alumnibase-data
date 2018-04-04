@@ -102,7 +102,7 @@ class Page extends React.PureComponent {
             />
 
             <TabbedGraphPanel
-              title="Sector Employment"
+              title="Sector Employment over Time"
               globalID="tuesday-graphs-2"
               content={[
                 {
