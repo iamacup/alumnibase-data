@@ -49,12 +49,12 @@ class Page extends React.PureComponent {
       { name: 'Tertiary', value: 58 },
     ];
 
-  const axisData = { y: ['Social Sciences', 'Mathematics', 'Arts & Humanities'], x: '' };
-  const data = {
-    1:[{ name: 'Employment', data: [50, 45, 70] }, { name: 'Further Study', data: [30, 35, 15] }, { name: 'Other', data: [20, 20, 15] }],
-    2:[{ name: 'Employment', data: [60, 57, 76] }, { name: 'Further Study', data: [15, 32, 7] }, { name: 'Other', data: [25, 11, 17] }],
-    3:[{ name: 'Employment', data: [70, 70, 89] }, { name: 'Further Study', data: [5, 10, 3] }, { name: 'Other', data: [25, 20, 8] }]
-  }
+    const axisData = { y: ['Social Sciences', 'Mathematics', 'Arts & Humanities'], x: '' };
+    const data = {
+      1: [{ name: 'Employment', data: [50, 45, 70] }, { name: 'Further Study', data: [30, 35, 15] }, { name: 'Other', data: [20, 20, 15] }],
+      2: [{ name: 'Employment', data: [60, 57, 76] }, { name: 'Further Study', data: [15, 32, 7] }, { name: 'Other', data: [25, 11, 17] }],
+      3: [{ name: 'Employment', data: [70, 70, 89] }, { name: 'Further Study', data: [5, 10, 3] }, { name: 'Other', data: [25, 20, 8] }],
+    };
     const echartsData1 = drawPieChart(pieData1, true, 'doughnut', false);
     const echartsData2 = drawPieChart(pieData2, true, 'pie', false);
     const barChartsData1 = drawStackedBarChart(axisData, data[1]);
@@ -77,12 +77,12 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
 
-<div className="row">
-<div className="col-md-6">
-            <TabbedGraphPanel
-              title="Public vs Private Sector"
-              globalID="tuesday-graphs-1"
-              content={[
+            <div className="row">
+              <div className="col-md-6">
+                <TabbedGraphPanel
+                  title="Public vs Private Sector"
+                  globalID="tuesday-graphs-1"
+                  content={[
                 {
                   title: '',
                   preContent: <p>The percentage of graduates who, straight out of education find jobs in either public or private sectors of work.</p>,
@@ -102,14 +102,14 @@ class Page extends React.PureComponent {
                   },
                 },
               ]}
-              seperator
-            />
-            </div>
-            <div className="col-md-6">
-            <TabbedGraphPanel
-              title="Sector Employment"
-              globalID="tuesday-graphs-2"
-              content={[
+                  seperator
+                />
+              </div>
+              <div className="col-md-6">
+                <TabbedGraphPanel
+                  title="Sector Employment"
+                  globalID="tuesday-graphs-2"
+                  content={[
                 {
                   title: '',
                   preContent: <p>Percentage of graduates straight out of education, split into different sectors of work.</p>,
@@ -129,11 +129,11 @@ class Page extends React.PureComponent {
                   },
                 },
               ]}
-              seperator
-            />
-</div>
-</div>
-                 <TabbedGraphPanel
+                  seperator
+                />
+              </div>
+            </div>
+            <TabbedGraphPanel
               title="Status of graduates according to subject area over time "
               globalID="tuesday-graphs-3"
               content={[

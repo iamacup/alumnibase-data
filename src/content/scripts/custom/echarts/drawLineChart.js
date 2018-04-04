@@ -14,25 +14,25 @@ const drawLineChart = (data, options, titles) => {
     gap = 20;
   }
 
-if (titles) {
-  const x = titles.x.map(title => (
- {
-      text: title,
-      x: '45%',
-      y: '95%',
-      textStyle: { fontSize: 12 },
-    }
-    ))
-const y = titles.y.map((title, i) => (
- {
-      text: title,
-      x: '5%',
-      y: `${(i * 4) + 4}%`,
-      textStyle: { fontSize: 12 },
-    }
-    ))
-  labels = x.concat(y);
-}
+  if (titles) {
+    const x = titles.x.map(title => (
+      {
+        text: title,
+        x: '45%',
+        y: '95%',
+        textStyle: { fontSize: 12 },
+      }
+    ));
+    const y = titles.y.map((title, i) => (
+      {
+        text: title,
+        x: '5%',
+        y: `${(i * 4) + 4}%`,
+        textStyle: { fontSize: 12 },
+      }
+    ));
+    labels = x.concat(y);
+  }
 
 
   const option = {

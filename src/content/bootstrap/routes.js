@@ -105,7 +105,7 @@ export default [
     exact: true,
     component: SubjectFirstJobPage,
   },
-    {
+  {
     path: '/analytics/subjects/3',
     exact: true,
     component: SubjectLongtermOutcomesPage,
@@ -120,12 +120,12 @@ export default [
     exact: true,
     component: JobsFirstYearPage,
   },
-    {
+  {
     path: '/analytics/jobs/overview',
     exact: true,
     component: JobsOverviewPage,
   },
-      {
+  {
     path: '/analytics/jobs/employers',
     exact: true,
     component: JobsEmployersPage,

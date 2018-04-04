@@ -25,22 +25,22 @@ const drawMixGraph = (rawData, names, titles) => {
   const option = {
     title: [
       {
-      text: 'Salary',
-      x: '7%',
-      y: '5%',
-      textStyle: textstyle,
-    }, {
-      text: '% Change in Salary',
-      x: '80%',
-      y: '4%',
-      textStyle: textstyle,
-    },
-    {
-      text: 'between 1 Year After Graduating',
-      x: '75%',
-      y: '8%',
-      textStyle: textstyle,
-    }],
+        text: 'Salary',
+        x: '7%',
+        y: '5%',
+        textStyle: textstyle,
+      }, {
+        text: '% Change in Salary',
+        x: '80%',
+        y: '4%',
+        textStyle: textstyle,
+      },
+      {
+        text: 'between 1 Year After Graduating',
+        x: '75%',
+        y: '8%',
+        textStyle: textstyle,
+      }],
 
     tooltip: {
       trigger: 'axis',

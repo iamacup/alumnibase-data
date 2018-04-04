@@ -38,7 +38,6 @@ class Page extends React.PureComponent {
   }
 
   render() {
-
     const lineData = {
       name: ['Natural Sciences', 'Mathematics', 'Arts & Humanities'],
       age: ['1 Year', '5 Years', '10 Years', '20 Years'],
@@ -50,13 +49,13 @@ class Page extends React.PureComponent {
     };
 
     const lineOptions = {
-      value: false
-    }
+      value: false,
+    };
 
-    const lineTitles = {x: ['Years After Graduating'], y: ['% of Graduates in Highly Skilled', 'professions (SOC1 - 3)']}
+    const lineTitles = { x: ['Years After Graduating'], y: ['% of Graduates in Highly Skilled', 'professions (SOC1 - 3)'] };
     const rawData = [{ data: [25000, 26000, 27000, 28000], name: '1 Year' }, { data: [50000, 55000, 60000, 70000], name: '10 Years' }];
     const names = rawData.map(element => element.name);
-  const titles = ['Mathematics', 'Arts & Humanities', 'Law', 'Engineering'];
+    const titles = ['Mathematics', 'Arts & Humanities', 'Law', 'Engineering'];
 
     const lineChartData = drawLineChart(lineData, lineOptions, lineTitles);
     const mixGraphData = drawMixGraph(rawData, names, titles);
@@ -66,7 +65,7 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-       <div className="row">
+        <div className="row">
           <div className="col-md-10 col-md-push-1">
             <h3 className="text-main text-normal text-2x mar-no">Subjects - Longterm Outcomes</h3>
             <hr className="new-section-xs" />

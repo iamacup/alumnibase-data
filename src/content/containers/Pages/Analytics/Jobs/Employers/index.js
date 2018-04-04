@@ -43,14 +43,13 @@ class Page extends React.PureComponent {
       value,
     };
 
-let labels = '';
-let topLabel = '';
-if (label) {
-labels = <p>Small and medium-sized enterprises (SMEs) employ fewer than 250 people.<br />SMEs are further subdivided into <strong>Micro enterprises</strong> (fewer than 10 employees).<br /><strong>Small enterprises</strong> (10 to 49 employees).<br /><strong>Medium-sized enterprises</strong> (50 to 249 employees).<br /><strong>Large enterprises</strong> employ 250 or more people.</p>
-}
-else {
-topLabel = <p>Percentage of graduates in employment afetr completing a sandwich course.</p>
-}
+    let labels = '';
+    let topLabel = '';
+    if (label) {
+      labels = <p>Small and medium-sized enterprises (SMEs) employ fewer than 250 people.<br />SMEs are further subdivided into <strong>Micro enterprises</strong> (fewer than 10 employees).<br /><strong>Small enterprises</strong> (10 to 49 employees).<br /><strong>Medium-sized enterprises</strong> (50 to 249 employees).<br /><strong>Large enterprises</strong> employ 250 or more people.</p>;
+    } else {
+      topLabel = <p>Percentage of graduates in employment afetr completing a sandwich course.</p>;
+    }
     const options = drawGroupedBarChart(titles, data, obj);
 
     const panel = (<TabbedGraphPanel
@@ -84,8 +83,8 @@ topLabel = <p>Percentage of graduates in employment afetr completing a sandwich 
   }
 
 
-getSankeyGraph(columns, rows, options) {
-      const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
+  getSankeyGraph(columns, rows, options) {
+    const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
 
     // const options1 = {
     //   Graduates: 100, 'Private': 40, 'Public': 60,
@@ -109,16 +108,16 @@ getSankeyGraph(columns, rows, options) {
     const googleData1 = drawSankeyChart(columns1, rows1);
 
     const data = {
-        title: 'Destinations of Graduates Working in the Public Sector',
-        globalID: 'stem-destinations-1',
-        type: 'googlecharts',
-        drawData: { ...googleData1 },
-      }
+      title: 'Destinations of Graduates Working in the Public Sector',
+      globalID: 'stem-destinations-1',
+      type: 'googlecharts',
+      drawData: { ...googleData1 },
+    };
 
-      const panel = ( <TabbedGraphPanel
-                title={data.title}
-                globalID={data.globalID}
-                content={[
+    const panel = (<TabbedGraphPanel
+      title={data.title}
+      globalID={data.globalID}
+      content={[
                   {
                     title: '',
                     active: true,
@@ -135,14 +134,13 @@ getSankeyGraph(columns, rows, options) {
                     },
                   },
                 ]}
-                seperator
-              />)
-      return panel;
-}
+      seperator
+    />);
+    return panel;
+  }
 
 
   render() {
-
     const content = (
       <div id="page-content">
 
@@ -167,9 +165,9 @@ getSankeyGraph(columns, rows, options) {
                 { name: '5 Years', data: [85, 156, 500, 356] },
                 { name: '10 Years', data: [135, 376, 300, 209] },
               ], true)}
-                    </div>
+          </div>
         </div>
-            <div className="row">
+        <div className="row">
           <div className="col-md-6 col-md-push-3">
             {this.getGroupedBarchart('Employment rate of graduates after 6 months',
               '',
@@ -182,11 +180,11 @@ getSankeyGraph(columns, rows, options) {
 
           </div>
         </div>
-           <div className="row">
+        <div className="row">
           <div className="col-md-8 col-md-push-2">
-          {this.getSankeyGraph()}
-      </div>
-      </div>
+            {this.getSankeyGraph()}
+          </div>
+        </div>
       </div>
     );
 

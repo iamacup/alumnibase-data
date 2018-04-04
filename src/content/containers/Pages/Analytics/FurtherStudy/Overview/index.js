@@ -38,7 +38,6 @@ class Page extends React.PureComponent {
   }
 
 
-
   render() {
     const pieData1 = [
       { name: 'No Further Study', value: 60 },
@@ -54,23 +53,23 @@ class Page extends React.PureComponent {
       direction: 'vertical',
       value: '',
     };
-  const titles = {1:['Stayed at the same Uni', 'Moved to a Different Uni'], 2: ['Related', 'Not Related']}
-  const data = {1:[{ name: '', data: [45, 55] }], 2:[{ name: '', data: [65, 35] }]};
+    const titles = { 1: ['Stayed at the same Uni', 'Moved to a Different Uni'], 2: ['Related', 'Not Related'] };
+    const data = { 1: [{ name: '', data: [45, 55] }], 2: [{ name: '', data: [65, 35] }] };
     const options = drawGroupedBarChart(titles[1], data[1], obj);
     const options2 = drawGroupedBarChart(titles[2], data[2], obj);
 
-  const progressBarData = [
-  {name: 'King\'s College London (KCL)', percentage: [62]},
-  {name: 'University of Manchester', percentage: [58]},
-  {name: 'University College London (UCL)', percentage: [53]},
-  {name: 'University of Bristol', percentage: [47]},
-  {name: 'University of Warwick', percentage: [41]},
-  {name: 'University od Durham', percentage: [39]},
-  {name: 'University of Edinburgh', percentage: [36]},
-  {name: 'University of York', percentage: [27]},
-  {name: 'University of Leeds', percentage: [25]},
-  {name: 'Lancaster University', percentage: [21]},
-  ]
+    const progressBarData = [
+      { name: 'King\'s College London (KCL)', percentage: [62] },
+      { name: 'University of Manchester', percentage: [58] },
+      { name: 'University College London (UCL)', percentage: [53] },
+      { name: 'University of Bristol', percentage: [47] },
+      { name: 'University of Warwick', percentage: [41] },
+      { name: 'University od Durham', percentage: [39] },
+      { name: 'University of Edinburgh', percentage: [36] },
+      { name: 'University of York', percentage: [27] },
+      { name: 'University of Leeds', percentage: [25] },
+      { name: 'Lancaster University', percentage: [21] },
+    ];
     const progressBarOption = progressBarData.map(element => drawPercentRow(element.name, element.percentage, true));
 
 
@@ -89,13 +88,13 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
+            <div className="row">
+              <div className="col-md-8 col-md-push-2">
 
-            <TabbedGraphPanel
-              title="Further Study Among Graduates"
-              globalID="further-study-overview-1"
-              content={[
+                <TabbedGraphPanel
+                  title="Further Study Among Graduates"
+                  globalID="further-study-overview-1"
+                  content={[
                 {
                   title: '',
                   active: true,
@@ -114,16 +113,16 @@ class Page extends React.PureComponent {
                   },
                 },
               ]}
-              seperator
-            />
-</div>
-</div>
+                  seperator
+                />
+              </div>
+            </div>
             <div className="row">
-          <div className="col-md-6">
-<TabbedGraphPanel
-      title='Further Study University Destination'
-      globalID="further-study-overview-2"
-      content={[
+              <div className="col-md-6">
+                <TabbedGraphPanel
+                  title="Further Study University Destination"
+                  globalID="further-study-overview-2"
+                  content={[
             {
               title: 'stay/go',
               preContent: <p>Percentage of Graduates who Stayed at their Original<br />University to Further Study.</p>,
@@ -143,14 +142,14 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-      seperator
-    />
-          </div>
-    <div className="col-md-6">
-    <TabbedGraphPanel
-      title='Further Study Relevance to Undergraduate'
-      globalID="further-study-overview-2"
-      content={[
+                  seperator
+                />
+              </div>
+              <div className="col-md-6">
+                <TabbedGraphPanel
+                  title="Further Study Relevance to Undergraduate"
+                  globalID="further-study-overview-2"
+                  content={[
             {
               title: 'stay/go',
               preContent: <p>Percentage of Graduates who went on to Study<br />Something Related to their Undergraduate.</p>,
@@ -170,14 +169,14 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-      seperator
-    />
-        </div>
-      </div>
-      <TabbedGraphPanel
-        title="Top 10 Destinations for Further Study to an Alternate University"
-        globalID="subject-first-job-1"
-        content={[
+                  seperator
+                />
+              </div>
+            </div>
+            <TabbedGraphPanel
+              title="Top 10 Destinations for Further Study to an Alternate University"
+              globalID="subject-first-job-1"
+              content={[
           {
             title: 'Average Salary',
             active: true,
@@ -196,10 +195,10 @@ class Page extends React.PureComponent {
             },
           },
           ]}
-          />
-      </div>                    
-       </div>
+            />
+          </div>
         </div>
+      </div>
     );
 
     const { location } = this.props;
