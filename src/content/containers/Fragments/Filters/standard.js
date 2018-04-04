@@ -739,20 +739,20 @@ class Graph extends React.PureComponent {
                   </div>
                 </div>
 
-<div className="pad-ver">
-                <div className="row">
-                  <div className="col-sm-3">
+                <div className="pad-ver">
+                  <div className="row">
+                    <div className="col-sm-3">
                     Age Range
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        id="age-slider"
+                      />
+                    </div>
                   </div>
-                  <div className="col-sm-9">
-                    <input
-                      style={{ width: '100%' }}
-                      type="text"
-                      value=""
-                      id="age-slider"
-                    />
-                  </div>
-                </div>
 
                   <div className="row">
                     <div className="col-sm-3">
@@ -766,7 +766,7 @@ class Graph extends React.PureComponent {
                         id="date-slider"
                       />
                     </div>
-                </div>
+                  </div>
 
                   <div className="row">
                     <div className="col-sm-3">
@@ -780,7 +780,7 @@ class Graph extends React.PureComponent {
                         id="salary-slider"
                       />
                     </div>
-                </div>
+                  </div>
                 </div>
 
                 <div className="row">
