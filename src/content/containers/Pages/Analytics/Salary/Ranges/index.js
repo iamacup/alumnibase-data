@@ -47,7 +47,7 @@ class Page extends React.PureComponent {
       const elem = document.querySelector('#switchery-switch');
 
       // eslint-disable-next-line no-undef
-      // const init = new Switchery(elem);
+      const init = new Switchery(elem);
 
       elem.onchange = () => {
         this.clickShowNationalAverage();
