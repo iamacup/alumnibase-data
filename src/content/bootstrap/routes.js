@@ -25,8 +25,11 @@ import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/Over
 
 import SubjectFirstYearPage from '../../content/containers/Pages/Analytics/Subjects/FirstYear';
 import SubjectFirstJobPage from '../../content/containers/Pages/Analytics/Subjects/FirstJob';
+import SubjectLongtermOutcomesPage from '../../content/containers/Pages/Analytics/Subjects/LongtermOutcomes';
 import JobsFirstYearPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
 import JobsFirstJobPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
+import JobsOverviewPage from '../../content/containers/Pages/Analytics/Jobs/Overview';
+import JobsEmployersPage from '../../content/containers/Pages/Analytics/Jobs/Employers';
 import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Subjects/ValueForMoney';
 import StemOverviewPage from '../../content/containers/Pages/Analytics/STEM/Overview';
 import StemDestinationsPage from '../../content/containers/Pages/Analytics/STEM/Destinations';
@@ -102,6 +105,11 @@ export default [
     exact: true,
     component: SubjectFirstJobPage,
   },
+    {
+    path: '/analytics/subjects/3',
+    exact: true,
+    component: SubjectLongtermOutcomesPage,
+  },
   {
     path: '/analytics/jobs/first-job',
     exact: true,
@@ -111,6 +119,16 @@ export default [
     path: '/analytics/jobs/first-year',
     exact: true,
     component: JobsFirstYearPage,
+  },
+    {
+    path: '/analytics/jobs/overview',
+    exact: true,
+    component: JobsOverviewPage,
+  },
+      {
+    path: '/analytics/jobs/employers',
+    exact: true,
+    component: JobsEmployersPage,
   },
   {
     path: '/analytics/subjects/vfm',
