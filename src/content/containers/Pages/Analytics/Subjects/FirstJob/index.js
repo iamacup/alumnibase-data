@@ -36,113 +36,49 @@ class Page extends React.PureComponent {
   }
 
   getGraphs() {
+
     const data = [
-      {
-        name: 'Clinical Medicine', salary: [18], male: [18], female: [18],
+ {
+        name: 'Medicine & dentistry and veterinary science', salary: [1], male: [1], female: [1],
       },
-      {
-        name: 'Public Health, Health Services and Primary Care', salary: [9], male: [9], female: [9],
-      },
-      {
-        name: 'Allied Health Professions, Dentistry, Nursing and Pharmacy', salary: [9], male: [9], female: [9],
-      },
-      {
-        name: 'Psychology, Psychiatry and Neuroscience', salary: [16], male: [16], female: [16],
-      },
-      {
-        name: 'Biological Sciences', salary: [16], male: [16], female: [16],
-      },
-      {
-        name: 'Agriculture, Veterinary and Food Science', salary: [12], male: [12], female: [12],
-      },
-      {
-        name: 'Earth Systems and Environmental Sciences', salary: [12], male: [12], female: [12],
-      },
-      {
-        name: 'Chemistry', salary: [9], male: [9], female: [9],
-      },
-      {
-        name: 'Physics', salary: [9], male: [9], female: [9],
-      },
-      {
-        name: 'Mathematical Sciences', salary: [9], male: [9], female: [9],
-      },
-      {
-        name: 'Computer Science and Informatics', salary: [6], male: [6], female: [6],
-      },
-      {
-        name: 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering', salary: [12], male: [12], female: [12],
-      },
-      {
-        name: 'Electrical and Electronic Engineereing, Metallurgy and Materials', salary: [6], male: [6], female: [6],
-      },
-      {
-        name: 'Civil and Construction Engineereing', salary: [6], male: [6], female: [6],
-      },
-      {
-        name: 'General Engineering', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'Architecture, Built Environmental Studies and Archaeology', salary: [6], male: [6], female: [6],
-      },
-      {
-        name: 'Economics and Econometrics', salary: [9], male: [9], female: [9],
-      },
-      {
-        name: 'Business and Management Studies', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'Law', salary: [6], male: [6], female: [6],
-      },
-      {
-        name: 'Politics and International Studies', salary: [6], male: [6], female: [6],
-      },
-      {
-        name: 'Social Work and Social Policy', salary: [4], male: [4], female: [4],
-      },
-      {
-        name: 'Sociology', salary: [4], male: [4], female: [4],
-      },
-      {
-        name: 'Anthropology and Development Studies', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'Education', salary: [4], male: [4], female: [4],
-      },
-      {
-        name: 'Sport and Exercise Sciences, Leisure and Tourism', salary: [1], male: [1], female: [1],
-      },
-      {
-        name: 'Area Studies', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'Modern Languages and Linguistics', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'English Language and Literature', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'History', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'Classics', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'Philosophy', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'Theology and Religious Studies', salary: [6], male: [6], female: [6],
-      },
-      {
-        name: 'Art and Design: History, Practice and Theory', salary: [3], male: [3], female: [3],
-      },
-      {
-        name: 'Music, Drama, Dance and Performing Arts', salary: [4], male: [4], female: [4],
-      },
-      {
-        name: 'Communication, Cultural and Media Studies, Library and Information Management', salary: [1], male: [1], female: [1],
-      },
-    ];
+       {
+        name: 'Subjects allied to medicine', salary: [6], male: [2], female: [7],
+      },  {
+        name: 'Biological sciences', salary: [12], male: [11], female: [13],
+      },  {
+        name: 'Veterinary Science', salary: [1], male: [1], female: [1],
+      },{
+        name: 'Agriculture & related subjects', salary: [1], male: [1], female: [1],
+      },  {
+        name: 'Physical sciences', salary: [7], male: [10], female: [4],
+      },  {
+        name: 'Mathematical sciences', salary: [3], male: [5], female: [1],
+      },  {
+        name: 'Computer sciences', salary: [7], male: [13], female: [2],
+      },  {
+        name: 'Engineering & technology', salary: [8], male: [14], female: [2],
+      },  {
+        name: 'Architecture, building, and planning', salary: [3], male: [3], female: [2],
+      },  {
+        name: 'Social studies', salary: [12], male: [11], female: [14],
+      },  {
+        name: 'Law', salary: [3], male: [3], female: [4],
+      },  {
+        name: 'Business & administrative studies', salary: [13], male: [16], female: [12],
+      },{
+        name: 'Mass communications & documentation', salary: [4], male: [4], female: [4],
+      },{
+        name: 'Languages', salary: [7], male: [5], female: [9],
+      },{
+        name: 'Historical & philosophical studies', salary: [5], male: [6], female: [5],
+      },{
+        name: 'Creative arts & design', salary: [3], male: [12], female: [15],
+      },{
+        name: 'Education', salary: [3], male: [1], female: [4],
+      },{
+        name: 'Combined Sujects', salary: [1], male: [1], female: [1],
+      }
+    ]
 
     const react1 = data.map(element => getPercentRow(element.name, element.salary, true, true));
 

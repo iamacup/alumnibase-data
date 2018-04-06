@@ -148,9 +148,9 @@ class Page extends React.PureComponent {
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/first-year', 'active-link')}>
                         <Link href="/analytics/jobs/first-year" to="/analytics/jobs/first-year">First Year Salary</Link>
                       </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/jobs/first-job', 'active-link')}>
-                        <Link href="/analytics/jobs/first-job" to="/analytics/jobs/first-job">Time to First Job</Link>
-                      </li>
+                 {/*     <li className={this.classNameBasedOnLocation('/analytics/jobs/first-job', 'active-link')}>
+                                         <Link href="/analytics/jobs/first-job" to="/analytics/jobs/first-job">Time to First Job</Link>
+                                       </li>*/}
                     </ul>
                   </li>
 

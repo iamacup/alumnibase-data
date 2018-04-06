@@ -95,38 +95,39 @@ class Page extends React.PureComponent {
     const genderData = {
       categories: ['Female', 'Male'],
       values: [
-        [28000, 200000],
-        [26000, 250000],
+        [19200, 64000, 200000],
+        [23000, 80000, 250000],
       ],
     };
 
     const ethnicityData = {
-      categories: ['White', 'Mixed', 'Asian', 'Black / African / Caribbean', 'Other'],
+      categories: ['White', 'Mixed', 'Other', 'Asian', 'Black / African / Caribbean'],
       values: [
-        [29000, 250000],
-        [26000, 240000],
-        [26000, 230000],
-        [26000, 240000],
-        [29000, 230000],
+        [18000, 35000, 70000, 150000, 300000],
+        [17000, 34000, 68000, 150000, 280000],
+        [15000, 35000, 63000, 150000, 270000],
+        [16000, 35000, 66000, 150000, 260000],
+        [14000, 25000, 60000, 100000, 250000],
       ],
     };
 
     const religionData = {
-      categories: ['No Religion', 'Chrstian', 'Buddhist', 'Hindu', 'Jewish', 'Muslim', 'Sikh', 'Other'],
+      categories: ['No Religion', 'Chrstian', 'Other', 'Jewish', 'Buddhist', 'Hindu', 'Sikh', 'Muslim'],
       values: [
-        [29000, 250000],
-        [29000, 250000],
-        [26000, 240000],
-        [26000, 250000],
-        [29000, 230000],
-        [29000, 250000],
-        [26000, 240000],
-        [26000, 250000],
+        [18000, 35000, 70000, 150000, 300000],
+        [18000, 35000, 65000, 150000, 295000],
+        [17000, 32000, 60000, 135000, 275000],
+        [18000, 34000, 60000, 140000, 270000],
+        [18000, 33000, 59000, 137000, 265000],
+
+        [17000, 30000, 50000, 120000, 250000],
+        [16000, 28000, 47000, 120000, 250000],
+        [16000, 28000, 45000, 120000, 240000],
       ],
     };
 
     if (this.state.showNationalAverage === true) {
-      const nationalAverageSalaryData = [26000, 240000];
+      const nationalAverageSalaryData = [23000, 240000];
 
       genderData.categories.push('National Average');
       genderData.values.push(nationalAverageSalaryData);

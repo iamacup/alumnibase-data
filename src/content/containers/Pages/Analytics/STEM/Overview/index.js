@@ -47,7 +47,7 @@ class Page extends React.PureComponent {
 
     const data1 = [
       {
-        job: 'Science', salary: [14.352], male: [16], female: [14],
+        job: 'Science', salary: [21.352], male: [23], female: [21],
       },
       {
         job: 'Advanced Science', salary: [25.594], male: [27], female: [23],
@@ -56,7 +56,7 @@ class Page extends React.PureComponent {
         job: 'Physics', salary: [28], male: [30], female: [27],
       },
       {
-        job: 'Chemistry', salary: [14.806], male: [15], female: [12],
+        job: 'Chemistry', salary: [24.806], male: [25], female: [21],
       },
       {
         job: 'Biology', salary: [29.751], male: [29], female: [27],
@@ -148,12 +148,12 @@ class Page extends React.PureComponent {
       </div>
     ));
 
-    const lineData = { name: ['Average STEM', 'National Average', 'University Average'], age: ['First Job', 'Year 1', '5 Years', '10 Years', '10+'], plotted: [/* STEM */[26000, 46000, 65000, 90000, 110000], /* National */[21000, 35000, 50000, 70000, 90000], /* UNI */[18000, 30000, 40000, 60000, 80000]] };
+    const lineData = { name: ['Average STEM', 'University Average', 'National Average'], age: ['First Job', 'Year 1', '5 Years', '10 Years', '10+'], plotted: [/* STEM */ [25000, 40000, 60000, 80000, 100000], /* UNI */[26000, 46000, 65000, 90000, 110000],/* National */[24000, 35000, 50000, 70000, 90000]] };
     const lineChartData = drawLineChart(lineData, 'Years');
 
     const tabbedPanelData = [
       {
-        title: 'STEM vs Non-STEM subjects',
+        title: '% of respondants working in STEM jobs',
         globalID: 'stem-overview-1',
         type: 'echarts',
         drawData: { options: echartsData1 },
@@ -201,7 +201,7 @@ class Page extends React.PureComponent {
   ))}
 
             <TabbedGraphPanel
-              title="Average Salary per STEM Subject"
+              title="Average Salary of respondants working in STEM jobs"
               globalID="stem-overview-2"
               content={[
                        {

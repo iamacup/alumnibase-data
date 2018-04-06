@@ -54,7 +54,7 @@ class Page extends React.PureComponent {
       value: '',
     };
     const titles = { 1: ['Stayed at the same Uni', 'Moved to a Different Uni'], 2: ['Related', 'Not Related'] };
-    const data = { 1: [{ name: '', data: [45, 55] }], 2: [{ name: '', data: [65, 35] }] };
+    const data = { 1: [{ name: '', data: [45, 55] }], 2: [{ name: '', data: [75, 25] }] };
     const options = drawGroupedBarChart(titles[1], data[1], obj);
     const options2 = drawGroupedBarChart(titles[2], data[2], obj);
 

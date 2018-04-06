@@ -246,7 +246,7 @@ class Page extends React.PureComponent {
 
     const data1 = {
       name: ['Average Salary', 'National Average'],
-      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
+      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
       age: [1, 2, 3, 4, 5, 6, 7],
     };
     const options1 = drawLineChart(data1, optionsA);
@@ -258,7 +258,7 @@ class Page extends React.PureComponent {
 
     const data2 = {
       name: ['Male', 'Female', 'Other', 'National Average'],
-      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [0, 0, 0, 0, 0, 0, 5], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
+      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [22000, 25000, 31000, 39000, 49000, 59000, 69000], [0, 0, 0, 0, 0, 0, 5], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
       age: [1, 2, 3, 4, 5, 6, 7],
     };
 
@@ -409,7 +409,7 @@ class Page extends React.PureComponent {
     const data2 = {
       age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       name: ['Female', 'Male'],
-      plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000],[23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]],
+      plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000], [23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]],
     };
 
     const options2 = drawLineChart(data2, optionsB);
@@ -422,7 +422,7 @@ class Page extends React.PureComponent {
             {
               title: 'All Data',
               active: true,
-              preContent: <p>The national average salary of graduates in work</p>,                            
+              preContent: <p>The national average salary of graduates in work</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -440,7 +440,7 @@ class Page extends React.PureComponent {
             {
               title: 'Gender Split',
               active: false,
-              preContent: <p>The national average salary of graduates in work</p>,              
+              preContent: <p>The national average salary of graduates in work</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
