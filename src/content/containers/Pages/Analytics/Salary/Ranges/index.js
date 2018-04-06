@@ -136,7 +136,7 @@ class Page extends React.PureComponent {
 
       religionData.categories.push('National Average');
       religionData.values.push(nationalAverageSalaryData);
-    } 
+    }
 
     const content = (
       <div id="page-content">

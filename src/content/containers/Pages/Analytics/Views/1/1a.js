@@ -110,11 +110,11 @@ class Page extends React.PureComponent {
   getOptions1() {
     const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
     const dataSeries = [
-      { name: 'Strongly agree', data: [20, 16, 14, 12, 10] },
-      { name: 'Agree', data: [20, 16, 14, 12, 10] },
-      { name: 'Neither agree or disagree', data: [40, 44, 44, 44, 40] },
+      { name: 'Strongly agree', data: [25, 16, 14, 12, 10] },
+      { name: 'Agree', data: [30, 16, 14, 12, 10] },
+      { name: 'Neither agree or disagree', data: [15, 44, 44, 44, 40] },
       { name: 'Disagree', data: [10, 12, 14, 16, 20] },
-      { name: 'Strongly disagree', data: [10, 12, 14, 16, 20] },
+      { name: 'Strongly disagree', data: [20, 12, 14, 16, 20] },
     ];
 
     const options = drawNewBarChart(axisData, dataSeries);
