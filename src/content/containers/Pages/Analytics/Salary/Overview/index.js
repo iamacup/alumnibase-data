@@ -322,15 +322,15 @@ class Page extends React.PureComponent {
             </div>
           </div>
           <div>
-            {getSalaryRow('Male', [26.420])}
-            {getSalaryRow('Female', [25.420])}
+            {getSalaryRow('Male', [49.420])}
+            {getSalaryRow('Female', [47.720])}
             <div className="row">
               <div className="col-md-4 col-md-push-2">
                 <p>Medical Sciences</p>
               </div>
             </div>
-            {getSalaryRow('Male', [26.535])}
-            {getSalaryRow('Female', [25.535])}
+            {getSalaryRow('Male', [52.535])}
+            {getSalaryRow('Female', [50.065])}
 
             <h4 className="panel-title">Art Degrees</h4>
             <div className="row">
@@ -338,15 +338,15 @@ class Page extends React.PureComponent {
                 <p>Fine Arts / Art History</p>
               </div>
             </div>
-            {getSalaryRow('Male', [11.020])}
-            {getSalaryRow('Female', [13.020])}
+            {getSalaryRow('Male', [32.220])}
+            {getSalaryRow('Female', [31.720])}
             <div className="row">
               <div className="col-md-4 col-md-push-2">
                 <p>Design</p>
               </div>
             </div>
-            {getSalaryRow('Male', [11.420])}
-            {getSalaryRow('Female', [12.420])}
+            {getSalaryRow('Male', [38.420])}
+            {getSalaryRow('Female', [37.620])}
           </div>
         </div>
         <div className="text-center">
@@ -364,7 +364,7 @@ class Page extends React.PureComponent {
             {
               title: 'Non Graph',
               active: true,
-              preContent: <p>Data taken from graduates straight from university.</p>,
+              preContent: <p>Data taken from average graduate salaries</p>,
               graphData: {
                 type: 'react',
                 width: '100%',
