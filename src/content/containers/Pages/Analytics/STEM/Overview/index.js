@@ -148,7 +148,7 @@ class Page extends React.PureComponent {
       </div>
     ));
 
-    const lineData = { name: ['Average STEM', 'University Average', 'National Average'], age: ['First Job', 'Year 1', '5 Years', '10 Years', '10+'], plotted: [/* STEM */ [25000, 40000, 60000, 80000, 100000], /* UNI */[26000, 46000, 65000, 90000, 110000],/* National */[24000, 35000, 50000, 70000, 90000]] };
+    const lineData = { name: ['Average STEM', 'University Average', 'National Average'], age: ['First Job', 'Year 1', '5 Years', '10 Years', '10+'], plotted: [[25000, 40000, 60000, 80000, 100000], /* UNI */[26000, 46000, 65000, 90000, 110000], /* National */[24000, 35000, 50000, 70000, 90000]] };
     const lineChartData = drawLineChart(lineData, 'Years');
 
     const tabbedPanelData = [

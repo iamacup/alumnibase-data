@@ -155,18 +155,18 @@ class Page extends React.PureComponent {
                     <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.<br /><br />
                   </p>
 
-                  <div className="row">
-                    <div className="col-sm-4 col-sm-push-4">
-                      <div className="panel media middle">
-                        <div className="media-left bg-primary pad-all">
-                          <input id="switchery-switch" type="checkbox" />
-                        </div>
-                        <div className="media-body pad-lft bg-on-white">
-                          <p className="text-muted mar-no">Show national average on graphs - <strong style={{ color: 'red' }}>NEED TO DISCUSS IF WE KEEP THIS</strong></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+       {/*           <div className="row">
+                           <div className="col-sm-4 col-sm-push-4">
+                             <div className="panel media middle">
+                               <div className="media-left bg-primary pad-all">
+                                 <input id="switchery-switch" type="checkbox" />
+                               </div>
+                               <div className="media-body pad-lft bg-on-white">
+                                 <p className="text-muted mar-no">Show national average on graphs - <strong style={{ color: 'red' }}>NEED TO DISCUSS IF WE KEEP THIS</strong></p>
+                               </div>
+                             </div>
+                           </div>
+                         </div> */}
 
                 </div>
 

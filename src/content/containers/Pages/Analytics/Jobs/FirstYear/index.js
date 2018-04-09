@@ -349,22 +349,18 @@ class Page extends React.PureComponent {
       },
     ];
 
-// functions work to change data, but doesn't refresh the page to change the graphs.
-function handleLowest(e) {
-  // e.preventDefault()
-  jobs = jobs.sort(function (a, b) {
-  return a.salary - b.salary;
-});
-   return jobs;
-}
+    // functions work to change data, but doesn't refresh the page to change the graphs.
+    function handleLowest(e) {
+      // e.preventDefault()
+      jobs = jobs.sort((a, b) => a.salary - b.salary);
+      return jobs;
+    }
 
-function handleHighest(e) {
-  // e.preventDefault()
-  jobs = jobs.sort(function (a, b) {
-  return b.salary - a.salary;
-});
-   return jobs;
-}
+    function handleHighest(e) {
+      // e.preventDefault()
+      jobs = jobs.sort((a, b) => b.salary - a.salary);
+      return jobs;
+    }
 
     const react1 = jobs.map(element => getSalaryRow(element.job, element.salary));
 
@@ -383,15 +379,15 @@ function handleHighest(e) {
     ));
 
 
-const filter = (
-<div>
-<h5>Filter Data by:</h5>
-<button type="button" class="btn btn-outline-secondary" onClick={(e) => { handleHighest(e); }}>Highest to Lowest Salary</button>
-<button type="button" class="btn btn-outline-secondary" onClick={(e) => { handleLowest(e); }}>Lowest to Highest Salary</button>
-<br />
-<br />
-</div>
- )
+    const filter = (
+      <div>
+        <h5>Filter Data by:</h5>
+        <button type="button" className="btn btn-outline-secondary" onClick={(e) => { handleHighest(e); }}>Highest to Lowest Salary</button>
+        <button type="button" className="btn btn-outline-secondary" onClick={(e) => { handleLowest(e); }}>Lowest to Highest Salary</button>
+        <br />
+        <br />
+      </div>
+    );
 
     const panel = (
       <TabbedGraphPanel

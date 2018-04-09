@@ -39,7 +39,7 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
   max += valueGapMaxMin;
   min -= valueGapMaxMin;
 
-if (Math.sign(min) === -1 ) min = 0;
+  if (Math.sign(min) === -1) min = 0;
 
   // make the formatted data
   const data = [];
@@ -61,7 +61,7 @@ if (Math.sign(min) === -1 ) min = 0;
         'lower: ' + param.data[1],
       ].join('<br/>');
 
-console.log(min);
+    console.log(min);
     series.push(
       {
         name: cats[a],

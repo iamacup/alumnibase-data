@@ -121,7 +121,7 @@ class Page extends React.PureComponent {
     return options;
   }
 
-  getTabbed(title, id, options, arr, collapsed) {
+  getTabbed(title, id, options, arr, collapsed, data) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}

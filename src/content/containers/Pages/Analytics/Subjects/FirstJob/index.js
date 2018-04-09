@@ -36,49 +36,48 @@ class Page extends React.PureComponent {
   }
 
   getGraphs() {
-
     const data = [
- {
+      {
         name: 'Medicine & dentistry and veterinary science', salary: [1], male: [1], female: [1],
       },
-       {
+      {
         name: 'Subjects allied to medicine', salary: [6], male: [2], female: [7],
-      },  {
+      }, {
         name: 'Biological sciences', salary: [12], male: [11], female: [13],
-      },  {
+      }, {
         name: 'Veterinary Science', salary: [1], male: [1], female: [1],
-      },{
+      }, {
         name: 'Agriculture & related subjects', salary: [1], male: [1], female: [1],
-      },  {
+      }, {
         name: 'Physical sciences', salary: [7], male: [10], female: [4],
-      },  {
+      }, {
         name: 'Mathematical sciences', salary: [3], male: [5], female: [1],
-      },  {
+      }, {
         name: 'Computer sciences', salary: [7], male: [13], female: [2],
-      },  {
+      }, {
         name: 'Engineering & technology', salary: [8], male: [14], female: [2],
-      },  {
+      }, {
         name: 'Architecture, building, and planning', salary: [3], male: [3], female: [2],
-      },  {
+      }, {
         name: 'Social studies', salary: [12], male: [11], female: [14],
-      },  {
+      }, {
         name: 'Law', salary: [3], male: [3], female: [4],
-      },  {
+      }, {
         name: 'Business & administrative studies', salary: [13], male: [16], female: [12],
-      },{
+      }, {
         name: 'Mass communications & documentation', salary: [4], male: [4], female: [4],
-      },{
+      }, {
         name: 'Languages', salary: [7], male: [5], female: [9],
-      },{
+      }, {
         name: 'Historical & philosophical studies', salary: [5], male: [6], female: [5],
-      },{
+      }, {
         name: 'Creative arts & design', salary: [3], male: [12], female: [15],
-      },{
+      }, {
         name: 'Education', salary: [3], male: [1], female: [4],
-      },{
+      }, {
         name: 'Combined Sujects', salary: [1], male: [1], female: [1],
-      }
-    ]
+      },
+    ];
 
     const react1 = data.map(element => getPercentRow(element.name, element.salary, true, true));
 
