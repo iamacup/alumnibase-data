@@ -1,8 +1,11 @@
-const colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
+let colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
 
-const drawNewBarChart = (axisData, dataArray) => {
+const drawNewBarChart = (axisData, dataArray, colours) => {
   // axisData sould be in the form {x: [1, 2, 3], y: '%'}
   // dataArray sould be in the form [{name: 'string', data: []}]
+  // console.log(colours)
+if (colours) colourScheme = colours
+  else colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b']
   const options = {
     tooltip: {
       trigger: 'axis',

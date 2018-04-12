@@ -310,7 +310,7 @@ class Page extends React.PureComponent {
               'view-1-5',
               this.getOptions2(),
               ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
-              false, [10, 10, 10, 10, 10, 10, 10, 10, 10, 10])}
+              false, [5, 7, 6, 8, 11, 14, 13, 12, 14, 9])}
           </div>
         </div>
 

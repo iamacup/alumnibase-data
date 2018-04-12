@@ -161,7 +161,8 @@ class Page extends React.PureComponent {
   }
 
 
-  getOptions3() {
+  getOptions3(colours) {
+    console.log(colours)
     const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
     const dataSeries = [
       { name: 'Very Likely', data: [20, 16, 14, 12, 10] },
@@ -171,7 +172,7 @@ class Page extends React.PureComponent {
       { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
     ];
 
-    const options = drawNewBarChart(axisData, dataSeries);
+    const options = drawNewBarChart(axisData, dataSeries, colours);
 
     return options;
   }
@@ -348,7 +349,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Work towards a different type of qualification',
               'view-1-8',
-              this.getOptions3(),
+              this.getOptions3(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
               true, [11, 18, 21, 28, 22])}
           </div>
@@ -358,7 +359,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Decide to do something completely different',
               'view-1-9',
-              this.getOptions3(),
+              this.getOptions3(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
               true, [10, 15, 25, 30, 20])}
           </div>
