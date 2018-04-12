@@ -48,7 +48,7 @@ const drawUKMap = (data, pieces) => {
         showLegendSymbol: false,
         name: '',
         tooltip: {
-          formatter: '{c}% in {b}',
+          formatter: '{c}% <br /> {b}',
         },
         label: {
           emphasis: {
