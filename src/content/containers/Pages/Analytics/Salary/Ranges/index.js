@@ -155,7 +155,7 @@ class Page extends React.PureComponent {
                     <strong>Remember</strong> to use the filters above to narrow your analytics to specific <strong>year groups, subjects, or other areas</strong>.<br /><br />
                   </p>
 
-       {/*           <div className="row">
+                  {/*           <div className="row">
                            <div className="col-sm-4 col-sm-push-4">
                              <div className="panel media middle">
                                <div className="media-left bg-primary pad-all">
