@@ -124,7 +124,7 @@ class Page extends React.PureComponent {
 
     const optionsA = {
       x: 'Years',
-      y: '# of People Over the Threshold',
+      y: '# of  People Over the Threshold',
       yLabel: 'horizontal',
     };
 
@@ -132,7 +132,7 @@ class Page extends React.PureComponent {
       name: ['Plan 2', 'Plan 3'],
       plotted: [[20000, 25000, 43000],
         [10000, 12000, 16000, 23000, 37000]],
-      age: ['New Graduate - 2 Years', '2 - 5 Years', '5 - 10 Years', '10 - 15 Years', '15 - 20 Years'],
+      age: ['New Graduate - 2 Yrs', '2 - 5 Yrs', '5 - 10 Yrs', '10 - 15 Yrs', '15 - 20 Yrs', '20 - 30 Yrs'],
     };
     const lineData = drawLineChart(data1, optionsA);
 
