@@ -22,11 +22,24 @@ const drawScatterGraph = (data) => {
       y: '53%',
     },
     {
+      text: 'Neutral',
+      x: '91%',
+      y: '46%',
+      textStyle: textstyle,
+    },
+    {
       text: 'Positive',
       x: '3%',
       y: '10%',
       textStyle: textstyle,
-    }, {
+    },
+    {
+      text: 'Positive',
+      x: '91%',
+      y: '10%',
+      textStyle: textstyle,
+    },
+    {
       text: 'Negative',
       x: '3%',
       y: '80%',
@@ -42,6 +55,12 @@ const drawScatterGraph = (data) => {
       text: 'High',
       x: '85%',
       y: '90%',
+      textStyle: textstyle,
+    },
+    {
+      text: 'High',
+      x: '85%',
+      y: '7%',
       textStyle: textstyle,
     }],
     xAxis: {
@@ -71,6 +90,20 @@ const drawScatterGraph = (data) => {
       },
       formatter: '{c0}',
     },
+    visualMap: {
+      show: false,
+      min: -10,
+      max: 10,
+      dimension: 1,
+      orient: 'vertical',
+      right: 10,
+      top: 'center',
+      text: ['HIGH', 'LOW'],
+      calculable: true,
+      inRange: {
+        color: ['#f74a4a', '#337a28'],
+      },
+    },
     series: [{
       symbolSize: 20,
       data,
@@ -93,6 +126,7 @@ const drawScatterGraph = (data) => {
       //   ],
       // },
     }],
+
   };
 
   return option;

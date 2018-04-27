@@ -148,9 +148,9 @@ class Page extends React.PureComponent {
                       <li className={this.classNameBasedOnLocation('/analytics/jobs/first-year', 'active-link')}>
                         <Link href="/analytics/jobs/first-year" to="/analytics/jobs/first-year">First Year Salary</Link>
                       </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/jobs/first-job', 'active-link')}>
-                        <Link href="/analytics/jobs/first-job" to="/analytics/jobs/first-job">Time to First Job</Link>
-                      </li>
+                      {/*     <li className={this.classNameBasedOnLocation('/analytics/jobs/first-job', 'active-link')}>
+                                         <Link href="/analytics/jobs/first-job" to="/analytics/jobs/first-job">Time to First Job</Link>
+                                       </li> */}
                     </ul>
                   </li>
 
@@ -224,7 +224,7 @@ class Page extends React.PureComponent {
                     </a>
 
                     {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/stem', 'in')} >
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/further-study', 'in')} >
                       <li className={this.classNameBasedOnLocation('/analytics/further-study/overview', 'active-link')}>
                         <Link href="/analytics/further-study/overview" to="/analytics/further-study/overview">Overview</Link>
                       </li>

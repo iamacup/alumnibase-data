@@ -9,6 +9,7 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
+import drawPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
 
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 
@@ -43,70 +44,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  getPercentageBlock(arr) {
-    const randombetween = (min, max) => Math.floor(Math.random() * ((max - (min + 1)) + min));
-
-    const generate = (max, thecount) => {
-      const r = [];
-      let currsum = 0;
-      for (let i = 0; i < thecount - 1; i++) {
-        r[i] = randombetween(1, max - (thecount - i - 1) - currsum);
-        currsum += r[i];
-      }
-      r[thecount - 1] = max - currsum;
-      return r;
-    };
-
-    const rands = generate(100, arr.length);
-
-    const rowArr = [];
-
-    for (let a = 0; a < arr.length; a++) {
-      rowArr.push(this.getPercentRow(arr[a], rands[a]));
-    }
-
-    return rowArr;
-  }
-
-  getPercentRow(title, percentage, bottomMargin) {
-    const barStyle = { height: '4px' };
-
-    if (bottomMargin === false) {
-      barStyle.marginBottom = '0';
-    }
-
-    const obj = (
-      <div key={title} className="row">
-        <div className="col-sm-4">
-          <div className="text-left visible-xs-block">
-            <h6 style={{ marginTop: '0' }}>{title}</h6>
-          </div>
-          <div className="text-right hidden-xs">
-            <h6 style={{ marginTop: '0' }}>{title}</h6>
-          </div>
-        </div>
-        <div className="col-sm-8">
-          <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{percentage}%</h6>
-          <div className="progress" style={barStyle}>
-            <div
-              className="progress-bar"
-              role="progressbar"
-              aria-valuenow="70"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              style={{ width: percentage + '%' }}
-            >
-              <span className="sr-only">{percentage}% Complete</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-    return obj;
-  }
-
-  getOptions1() {
+  getOptions1(colours) {
     const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
     const dataSeries = [
       { name: 'Strongly agree', data: [20, 16, 14, 12, 10] },
@@ -116,12 +54,12 @@ class Page extends React.PureComponent {
       { name: 'Strongly disagree', data: [10, 12, 14, 16, 20] },
     ];
 
-    const options = drawNewBarChart(axisData, dataSeries);
+    const options = drawNewBarChart(axisData, dataSeries, colours);
 
     return options;
   }
 
-  getTabbed(title, id, options, arr, collapsed) {
+  getTabbed(title, id, options, arr, collapsed, data) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
@@ -129,6 +67,7 @@ class Page extends React.PureComponent {
       content={[
             {
               title: 'Overall',
+              preContent: <p>To what extent do you believe undertaking professional qualifications will advance your career?</p>,
               postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               active: true,
               graphData: {
@@ -141,13 +80,14 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: this.getPercentageBlock(arr),
+                  reactData: data.map((element, i) => drawPercentRow(arr[i], element, true)),
                 },
               },
             },
             {
               title: 'Trends',
               active: false,
+              preContent: <p>To what extent do you believe undertaking professional qualifications will advance your career?</p>,
               postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
               graphData: {
                 type: 'echarts',
@@ -197,11 +137,11 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getTabbed('To what extent do you believe undertaking professional qualifications will advance your career?',
+            {this.getTabbed('Belief undertaking professional qualifications will advance your career',
               'view-2-1',
-              this.getOptions1(),
+              this.getOptions1(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false)}
+              false, [28, 43, 15, 9, 5])}
           </div>
         </div>
 

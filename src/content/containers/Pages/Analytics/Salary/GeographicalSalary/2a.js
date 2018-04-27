@@ -55,7 +55,7 @@ class Page extends React.PureComponent {
     // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
-        title="Country of Origin"
+        title="Domicile of Origin"
         globalID="overview-2"
         content={[
             {
@@ -94,7 +94,7 @@ class Page extends React.PureComponent {
     // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
-        title="Current Country of Destination"
+        title="Current Domicile"
         globalID="overview-2"
         content={[
             {
@@ -140,7 +140,7 @@ class Page extends React.PureComponent {
     // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
-        title="Graduate Destinations"
+        title="Detailed Country Breakdown for Graduate Origins and Destinations"
         globalID="salary-geo-2a-1"
         content={[
             {

@@ -39,21 +39,22 @@ class Page extends React.PureComponent {
 
   render() {
     const pieData1 = [
-      { name: 'Public', value: 37 },
-      { name: 'Private', value: 63 },
+      { name: 'Public', value: 16.67 },
+      { name: 'Private', value: 83.33 },
     ];
 
     const pieData2 = [
-      { name: 'Primary', value: 10 },
-      { name: 'Secondary', value: 15 },
-      { name: 'Tertiary', value: 58 },
+      { name: 'Primary', value: 4 },
+      { name: 'Secondary', value: 35 },
+      { name: 'Tertiary', value: 53 },
+      { name: 'Quaternary', value: 8 },
     ];
 
-    const axisData = { y: ['Social Sciences', 'Mathematics', 'Arts & Humanities'], x: '' };
+    const axisData = { y: ['Social Studies', 'Mathematical Sciences', 'Arts & Humanities'], x: '' };
     const data = {
-      1: [{ name: 'Employment', data: [50, 45, 70] }, { name: 'Further Study', data: [30, 35, 15] }, { name: 'Other', data: [20, 20, 15] }],
-      2: [{ name: 'Employment', data: [60, 57, 76] }, { name: 'Further Study', data: [15, 32, 7] }, { name: 'Other', data: [25, 11, 17] }],
-      3: [{ name: 'Employment', data: [70, 70, 89] }, { name: 'Further Study', data: [5, 10, 3] }, { name: 'Other', data: [25, 20, 8] }],
+      1: [{ name: 'Employment', data: [60, 55, 70] }, { name: 'Further Study', data: [15, 20, 9] }, { name: 'Other', data: [20, 20, 15] }, { name: 'unemployed', data: [5, 5, 6] }],
+      2: [{ name: 'Employment', data: [75, 73, 77] }, { name: 'Further Study', data: [11, 12, 4] }, { name: 'Other', data: [10, 11, 13] }, { name: 'unemployed', data: [4, 4, 5] }],
+      3: [{ name: 'Employment', data: [85, 80, 89] }, { name: 'Further Study', data: [4, 7, 0] }, { name: 'Other', data: [8, 10, 7] }, { name: 'unemployed', data: [3, 3, 4] }],
     };
     const echartsData1 = drawPieChart(pieData1, true, 'doughnut', false);
     const echartsData2 = drawPieChart(pieData2, true, 'pie', false);

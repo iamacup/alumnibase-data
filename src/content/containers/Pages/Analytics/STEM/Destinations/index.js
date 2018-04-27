@@ -43,13 +43,15 @@ class Page extends React.PureComponent {
     };
 
     const rows1 = [
-      ['STEM', 'High Skilled', 6],
-      ['STEM', 'Not High Skilled', 4],
+      ['STEM', 'High Skilled', 8.5],
+      ['STEM', 'Not High Skilled', 1.5],
       ['Non-STEM', 'High Skilled', 13],
       ['Non-STEM', 'Not High Skilled', 7],
-      ['High Skilled', 'Alligned to Industrial Strategy', 10],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 9],
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 8],
+
+      ['High Skilled', 'Alligned to Industrial Strategy', 11.5],
+      ['High Skilled', 'Not Alligned to Industrial Strategy', 10],
+
+      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 5.5],
       ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
     ];
 
@@ -64,14 +66,14 @@ class Page extends React.PureComponent {
       ['Black / African / Caribbean', 'STEM', 2],
       ['Other', 'Non-STEM', 3],
       ['Other', 'STEM', 1],
-      ['STEM', 'High Skilled', 8],
-      ['STEM', 'Not High Skilled', 6],
+      ['STEM', 'High Skilled', 12],
+      ['STEM', 'Not High Skilled', 2],
       ['Non-STEM', 'High Skilled', 15],
       ['Non-STEM', 'Not High Skilled', 10],
-      ['High Skilled', 'Alligned to Industrial Strategy', 15],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 8],
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 8],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 8],
+      ['High Skilled', 'Alligned to Industrial Strategy', 17],
+      ['High Skilled', 'Not Alligned to Industrial Strategy', 10],
+      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 6],
+      ['Not High Skilled', 'Alligned to Industrial Strategy', 6],
     ];
 
     const options2 = {
@@ -83,14 +85,16 @@ class Page extends React.PureComponent {
       ['Female', 'Non-STEM', 3],
       ['Male', 'STEM', 8],
       ['Male', 'Non-STEM', 7],
-      ['STEM', 'High Skilled', 4],
-      ['STEM', 'Not High Skilled', 6],
+
+      ['STEM', 'High Skilled', 7],
+      ['STEM', 'Not High Skilled', 3],
       ['Non-STEM', 'High Skilled', 7],
       ['Non-STEM', 'Not High Skilled', 3],
-      ['High Skilled', 'Alligned to Industrial Strategy', 8],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 3],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 6],
+
+      ['High Skilled', 'Alligned to Industrial Strategy', 9],
+      ['High Skilled', 'Not Alligned to Industrial Strategy', 5],
+      ['Not High Skilled', 'Alligned to Industrial Strategy', 2],
+      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 4],
     ];
 
     const options3 = {

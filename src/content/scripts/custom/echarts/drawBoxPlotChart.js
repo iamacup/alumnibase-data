@@ -13,7 +13,6 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
   const cats = ['female', 'male', 'other', 'other']; */
 
   // the valueGapMaxMin is a value that will be added to the maximum and minimum values to provide spacing above and below the box plots
-
   let colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b', '#0b6623', '#000'];
   if (colours) colourScheme = colours;
 
@@ -40,6 +39,8 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
   max += valueGapMaxMin;
   min -= valueGapMaxMin;
 
+  if (Math.sign(min) === -1) min = 0;
+
   // make the formatted data
   const data = [];
 
@@ -59,7 +60,6 @@ const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
         'Q1: ' + param.data[2],
         'lower: ' + param.data[1],
       ].join('<br/>');
-
 
     series.push(
       {

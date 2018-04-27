@@ -238,11 +238,11 @@ class Page extends React.PureComponent {
 
   getEthnicitySplitGraph() {
     const data = [
-      { name: 'White', value: 40 },
-      { name: 'Chinese', value: 20 },
-      { name: 'Mixed/ Other', value: 10 },
-      { name: 'Asian', value: 20 },
-      { name: 'Black', value: 10 },
+      { name: 'White', value: 62 },
+      { name: 'Chinese', value: 8 },
+      { name: 'Mixed/ Other', value: 8 },
+      { name: 'Asian', value: 8 },
+      { name: 'Black', value: 4 },
     ];
     const label = false;
     const chart = 'pie';
@@ -283,9 +283,9 @@ class Page extends React.PureComponent {
 
   getGenderSplitGraph() {
     const data = [
-      { name: 'Male', value: 55 },
-      { name: 'Female', value: 40 },
-      { name: 'Other', value: 5 },
+      { name: 'Male', value: 52 },
+      { name: 'Female', value: 51 },
+      { name: 'Other', value: 3 },
     ];
     const label = true;
     const chart = 'doughnut';
@@ -326,13 +326,13 @@ class Page extends React.PureComponent {
 
   getReligionSplitGraph() {
     const data = [
-      { name: 'No Religion', value: 1000 },
-      { name: 'Christian', value: 700 },
-      { name: 'Buddhist', value: 200 },
-      { name: 'Hindu', value: 400 },
-      { name: 'Jewish', value: 600 },
-      { name: 'Muslim', value: 600 },
-      { name: 'Sikh', value: 400 },
+      { name: 'No Religion', value: 40 },
+      { name: 'Christian', value: 20 },
+      { name: 'Buddhist', value: 8 },
+      { name: 'Hindu', value: 6 },
+      { name: 'Jewish', value: 10 },
+      { name: 'Muslim', value: 10 },
+      { name: 'Sikh', value: 6 },
 
     ];
     const label = true;
@@ -788,7 +788,7 @@ class Page extends React.PureComponent {
               <div className="col-sm-push-2 col-sm-4 col-lg-push-2 col-lg-4">
 
                 {/* <!--Sparkline Area Chart--> */}
-                <Link href="/splash/analytics" to="/splash/analytics">
+                <Link href="/analytics/salary/overview" to="/splash/analytics">
                   <div className="panel panel-success panel-colorful text-center">
                     <div className="pad-all">
                       <p className="text-lg text-semibold">Analytics</p>
@@ -803,7 +803,7 @@ class Page extends React.PureComponent {
 
               <div className="col-sm-push-2 col-sm-4 col-lg-push-2 col-lg-4">
                 {/* <!--Sparkline bar chart --> */}
-                <Link href="/splash/regulatory" to="/splash/regulatory">
+                <Link href="/analytics/dlhe-like/2-3" to="/splash/regulatory">
                   <div className="panel panel-purple panel-colorful text-center">
                     <div className="pad-all">
                       <p className="text-lg text-semibold">Regulatory Outputs</p>

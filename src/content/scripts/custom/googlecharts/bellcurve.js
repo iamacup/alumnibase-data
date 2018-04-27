@@ -2,8 +2,9 @@
 export default function drawBellcurveChart() {
   const options = {
     curveType: 'function',
-    lineWidth: 4,
+    lineWidth: 3,
     legend: 'none',
+    pointSize: 8,
     tooltip: { trigger: 'focus' },
     vAxis: { title: '# of people' },
     hAxis: { title: 'Salary' },
@@ -25,11 +26,11 @@ export default function drawBellcurveChart() {
       data.addColumn({ type: 'boolean', role: 'scope' });
       data.addColumn({ type: 'string', role: 'style' });
       data.addRows([
-        [10000, 130, false, string],
-        [20000, 329, false, string],
-        [30000, 931, true, string],
-        [40000, 300, false, string],
-        [50000, 100, false, string],
+        [10000, 2800, false, string],
+        [30000, 6780, false, string],
+        [55000, 20620, true, string],
+        [75000, 8000, false, string],
+        [95000, 4000, false, string],
       ]);
 
       function createLine(x1, y1, x2, y2, color, w) {
@@ -54,7 +55,7 @@ export default function drawBellcurveChart() {
 
       const chart = new google.visualization.LineChart(targetDiv);
       chart.draw(data, options);
-      drawVAxisLine(chart, 30000);
+      drawVAxisLine(chart, 40000);
     },
   };
 }

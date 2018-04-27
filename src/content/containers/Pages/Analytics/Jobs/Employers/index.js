@@ -150,9 +150,9 @@ class Page extends React.PureComponent {
               'tuesday-graphs-3',
               ['Micro', 'Small', 'Medium', 'Large'],
               [
-                { name: '1 Year', data: [50, 243, 365, 674] },
-                { name: '5 Years', data: [85, 156, 500, 356] },
-                { name: '10 Years', data: [135, 376, 300, 209] },
+                { name: '1 Year', data: [11, 16, 19, 54] },
+                { name: '5 Years', data: [19, 14, 16, 51] },
+                { name: '10 Years', data: [6, 12, 13, 69] },
               ], true)}
           </div>
         </div>

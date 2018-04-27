@@ -56,9 +56,9 @@ class Page extends React.PureComponent {
         globalID="salary-geo-2b-1"
         content={[
             {
-              title: 'County of Origin',
+              title: 'Constituency Origin',
               active: true,
-              preContent: <p>Use the mouse wheel to scroll, click and drag to move the map. You can also filter the results by clicking on them in the legend.</p>,
+              preContent: <p><strong>Use the mouse wheel to scroll, click and drag to move the map. You can also filter the results by clicking on them in the legend.</strong></p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -74,9 +74,9 @@ class Page extends React.PureComponent {
               },
             },
             {
-              title: 'County of Residence',
+              title: 'Constituency of Residence',
               active: false,
-              preContent: <p>Use the mouse wheel to scroll, click and drag to move the map. You can also filter the results by clicking on them in the legend.</p>,
+              preContent: <p><strong>Use the mouse wheel to scroll, click and drag to move the map. You can also filter the results by clicking on them in the legend.</strong></p>,
               graphData: {
                 type: 'echarts',
                 tools: {

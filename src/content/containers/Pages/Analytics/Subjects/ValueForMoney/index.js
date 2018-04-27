@@ -44,10 +44,10 @@ class Page extends React.PureComponent {
     // *** Electrical and Electronic Engineering, Metallurgy and Materials
     // **** Communication, Cultural and Media Studies, Library and Information Management
     const barData = {
-      titles1: ['Education', 'Anthropology & Development Studies', '****', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Area Studies', '***', '**', 'Mathematical Sciences', 'Physics', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', '*', 'Clinical Medicine'],
-      titles2: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Theology and Religious Studies', 'Public Health, Health Services and Primary Care', 'Architecture, Built Environment and Planning', 'Clinical Medicine'],
-      data2: [{ data: [27, 34, 48, 97, 99, 100] }],
-      data1: [{ data: [34, 38, 45, 50, 54, 58, 62, 64, 65, 72, 76, 78, 80, 82, 84, 88, 92, 100] }],
+      titles1: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Anthropology & Development Studies', '****', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Physics', 'Area Studies', '***', 'Mathematical Sciences', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', '**', 'Architecture, Built Environment and Planning', 'Clinical Medicine', '*'],
+      titles2: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Anthropology & Development Studies', 'Architecture, Built Environment and Planning', 'Clinical Medicine', 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering'],
+      data2: [{ data: [27, 34, 38, 92, 97, 100] }],
+      data1: [{ data: [27, 34, 38, 45, 50, 54, 58, 62, 64, 65, 72, 76, 78, 80, 82, 84, 88, 92, 97, 100] }],
       options1: { direction: 'horizontal', value: '' },
       options2: { direction: 'horizontal', value: '', colours: ['#1c6cab', '#d02224'] },
     };
@@ -119,20 +119,20 @@ class Page extends React.PureComponent {
     const bar2 = drawBarChart(barData.titles2, barData.data2, barData.options2);
     const scatterData = drawScatterGraph(data);
 
-    const postContent = [['* Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['** Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
+    const postContent = [['* Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['** Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
     const text1 = <p>{postContent[0]}<br />{postContent[1]}<br />{postContent[2]}<br />{postContent[3]}</p>;
 
     const optionsA = {
       x: 'Years',
-      y: 'Number of People Over the Threshold',
+      y: '# of  People Over the Threshold',
       yLabel: 'horizontal',
     };
 
     const data1 = {
       name: ['Plan 2', 'Plan 3'],
       plotted: [[20000, 25000, 43000],
-        [10000, 12000, 16000, 23000, 43000]],
-      age: ['New Graduate - 2 Years', '2 - 5 Years', '5 - 10 Years', '10 - 15 Years', '15 - 20 Years'],
+        [10000, 12000, 16000, 23000, 37000]],
+      age: ['New Graduate - 2 Yrs', '2 - 5 Yrs', '5 - 10 Yrs', '10 - 15 Yrs', '15 - 20 Yrs', '20 - 30 Yrs'],
     };
     const lineData = drawLineChart(data1, optionsA);
 
@@ -163,7 +163,7 @@ class Page extends React.PureComponent {
 
     const tabData3 = [
       {
-        title: 'University Impact vs Life Salary',
+        title: 'University and Salary Impacts on Happiness in Life',
         globalID: 'subjects-vfm-4',
         options: scatterData,
         text: '',
@@ -202,7 +202,7 @@ class Page extends React.PureComponent {
                           pinGraph: true,
                         },
                         width: '100%',
-                        height: '400px',
+                        height: '450px',
                         data: {
                           options: element.options,
                         },
@@ -275,6 +275,7 @@ class Page extends React.PureComponent {
                     {
                       title: '',
                       postContent: element.text,
+                      preContent: <p>This graph maps a cross-section of happiness indicator questions to give a "happiness measure", which we map against salary.<br />1 dot represents 100 people</p>,
                       active: true,
                       graphData: {
                         type: 'echarts',

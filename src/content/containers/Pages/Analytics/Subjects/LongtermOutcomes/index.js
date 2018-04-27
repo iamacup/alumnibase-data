@@ -39,7 +39,7 @@ class Page extends React.PureComponent {
 
   render() {
     const lineData = {
-      name: ['Natural Sciences', 'Mathematics', 'Arts & Humanities'],
+      name: ['Social Studies', 'Mathematical Sciences', 'Arts & Humanities'],
       age: ['1 Year', '5 Years', '10 Years', '20 Years'],
       plotted: [
         [79, 85, 84, 87],
@@ -55,7 +55,7 @@ class Page extends React.PureComponent {
     const lineTitles = { x: ['Years After Graduating'], y: ['% of Graduates in Highly Skilled', 'professions (SOC1 - 3)'] };
     const rawData = [{ data: [25000, 26000, 27000, 28000], name: '1 Year' }, { data: [50000, 55000, 60000, 70000], name: '10 Years' }];
     const names = rawData.map(element => element.name);
-    const titles = ['Mathematics', 'Arts & Humanities', 'Law', 'Engineering'];
+    const titles = ['Mathematical Sciences', 'Arts & Humanities', 'Law', 'Engineering & Technology'];
 
     const lineChartData = drawLineChart(lineData, lineOptions, lineTitles);
     const mixGraphData = drawMixGraph(rawData, names, titles);
@@ -76,7 +76,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
 
             <TabbedGraphPanel
-              title="Average Salary per STEM Subject"
+              title=""
               globalID="stem-overview-2"
               content={[
                        {
@@ -101,7 +101,7 @@ class Page extends React.PureComponent {
             />
 
             <TabbedGraphPanel
-              title="Sector Employment over Time"
+              title="Change in Salary between 1 Year After Graduating"
               globalID="tuesday-graphs-2"
               content={[
                 {

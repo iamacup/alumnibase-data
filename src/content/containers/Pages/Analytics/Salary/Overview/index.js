@@ -55,7 +55,7 @@ class Page extends React.PureComponent {
               <i className="fas fa-arrow-down icon-3x" />
             </div>
             <div className="media-body pad-all bg-on-white">
-              <p className="text-2x mar-no text-semibold text-main">£20,000</p>
+              <p className="text-2x mar-no text-semibold text-main">£30,000</p>
               <p className="text-muted mar-no">The lower quartile for all applied filters</p>
             </div>
           </div>
@@ -68,7 +68,7 @@ class Page extends React.PureComponent {
               <i className="fas fa-arrows-alt-h icon-3x" />
             </div>
             <div className="media-body pad-all bg-on-white">
-              <p className="text-2x mar-no text-semibold text-main">£30,000</p>
+              <p className="text-2x mar-no text-semibold text-main">£40,000</p>
               <p className="text-muted mar-no">The median salary for all applied filters</p>
             </div>
           </div>
@@ -81,7 +81,7 @@ class Page extends React.PureComponent {
               <i className="fas fa-arrow-up icon-3x" />
             </div>
             <div className="media-body pad-all bg-on-white">
-              <p className="text-2x mar-no text-semibold text-main">£40,000</p>
+              <p className="text-2x mar-no text-semibold text-main">£75,000</p>
               <p className="text-muted mar-no">The upper quartile for all applied filters</p>
             </div>
           </div>
@@ -124,25 +124,25 @@ class Page extends React.PureComponent {
       1: {
         categories: ['Male', 'Female', 'Other'],
         values: [
-          [18000, 25000],
-          [17000, 24000],
-          [17500, 24500],
+          [18000, 30000],
+          [17280, 28800],
+          [17640, 29400],
         ],
       },
       2: {
         categories: ['Male', 'Female', 'Other'],
         values: [
-          [26000, 35000],
-          [24000, 33000],
-          [25000, 34000],
+          [26000, 40000],
+          [24960, 38400],
+          [25480, 39200],
         ],
       },
       3: {
         categories: ['Male', 'Female', 'Other'],
         values: [
-          [38000, 48000],
-          [34000, 44000],
-          [36000, 46000],
+          [38000, 60000],
+          [36480, 57600],
+          [37240, 58800],
         ],
       },
       4: {
@@ -246,7 +246,7 @@ class Page extends React.PureComponent {
 
     const data1 = {
       name: ['Average Salary', 'National Average'],
-      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
+      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
       age: [1, 2, 3, 4, 5, 6, 7],
     };
     const options1 = drawLineChart(data1, optionsA);
@@ -258,7 +258,7 @@ class Page extends React.PureComponent {
 
     const data2 = {
       name: ['Male', 'Female', 'Other', 'National Average'],
-      plotted: [[15000, 20000, 30000, 40000, 50000, 60000, 70000], [14000, 19000, 28000, 36000, 45000, 52000, 68000], [0, 0, 0, 0, 0, 0, 5], [10000, 15000, 20000, 25000, 30000, 35000, 40000]],
+      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [22000, 25000, 31000, 39000, 49000, 59000, 69000], [0, 0, 0, 0, 0, 0, 5], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
       age: [1, 2, 3, 4, 5, 6, 7],
     };
 
@@ -322,15 +322,15 @@ class Page extends React.PureComponent {
             </div>
           </div>
           <div>
-            {getSalaryRow('Male', [26.420])}
-            {getSalaryRow('Female', [25.420])}
+            {getSalaryRow('Male', [49.420])}
+            {getSalaryRow('Female', [47.720])}
             <div className="row">
               <div className="col-md-4 col-md-push-2">
                 <p>Medical Sciences</p>
               </div>
             </div>
-            {getSalaryRow('Male', [26.535])}
-            {getSalaryRow('Female', [25.535])}
+            {getSalaryRow('Male', [52.535])}
+            {getSalaryRow('Female', [50.065])}
 
             <h4 className="panel-title">Art Degrees</h4>
             <div className="row">
@@ -338,15 +338,15 @@ class Page extends React.PureComponent {
                 <p>Fine Arts / Art History</p>
               </div>
             </div>
-            {getSalaryRow('Male', [11.020])}
-            {getSalaryRow('Female', [13.020])}
+            {getSalaryRow('Male', [32.220])}
+            {getSalaryRow('Female', [31.720])}
             <div className="row">
               <div className="col-md-4 col-md-push-2">
                 <p>Design</p>
               </div>
             </div>
-            {getSalaryRow('Male', [11.420])}
-            {getSalaryRow('Female', [12.420])}
+            {getSalaryRow('Male', [38.420])}
+            {getSalaryRow('Female', [37.620])}
           </div>
         </div>
         <div className="text-center">
@@ -364,6 +364,7 @@ class Page extends React.PureComponent {
             {
               title: 'Non Graph',
               active: true,
+              preContent: <p>Data taken from average graduate salaries</p>,
               graphData: {
                 type: 'react',
                 width: '100%',
@@ -390,7 +391,7 @@ class Page extends React.PureComponent {
     const data1 = {
       age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       name: ['Average'],
-      plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000]],
+      plotted: [[23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]],
     };
 
     const optionsA = {
@@ -408,7 +409,7 @@ class Page extends React.PureComponent {
     const data2 = {
       age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       name: ['Female', 'Male'],
-      plotted: [[17000, 19000, 25000, 30000, 35000, 38000, 40000, 45000, 50000, 60000], [17000, 20000, 27000, 33000, 39000, 43000, 46000, 52000, 58000, 69000]],
+      plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000], [23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]],
     };
 
     const options2 = drawLineChart(data2, optionsB);
@@ -421,6 +422,7 @@ class Page extends React.PureComponent {
             {
               title: 'All Data',
               active: true,
+              preContent: <p>The national average salary of graduates in work</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -438,6 +440,7 @@ class Page extends React.PureComponent {
             {
               title: 'Gender Split',
               active: false,
+              preContent: <p>The national average salary of graduates in work</p>,
               graphData: {
                 type: 'echarts',
                 tools: {

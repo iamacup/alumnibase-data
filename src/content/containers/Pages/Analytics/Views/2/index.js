@@ -11,6 +11,7 @@ import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
+import drawPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -35,69 +36,6 @@ class Page extends React.PureComponent {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
     });
-  }
-
-  getPercentageBlock(arr) {
-    const randombetween = (min, max) => Math.floor(Math.random() * ((max - (min + 1)) + min));
-
-    const generate = (max, thecount) => {
-      const r = [];
-      let currsum = 0;
-      for (let i = 0; i < thecount - 1; i++) {
-        r[i] = randombetween(1, max - (thecount - i - 1) - currsum);
-        currsum += r[i];
-      }
-      r[thecount - 1] = max - currsum;
-      return r;
-    };
-
-    const rands = generate(100, arr.length);
-
-    const rowArr = [];
-
-    for (let a = 0; a < arr.length; a++) {
-      rowArr.push(this.getPercentRow(arr[a], rands[a]));
-    }
-
-    return rowArr;
-  }
-
-  getPercentRow(title, percentage, bottomMargin) {
-    const barStyle = { height: '4px' };
-
-    if (bottomMargin === false) {
-      barStyle.marginBottom = '0';
-    }
-
-    const obj = (
-      <div key={title} className="row">
-        <div className="col-sm-4">
-          <div className="text-left visible-xs-block">
-            <h6 style={{ marginTop: '0' }}>{title}</h6>
-          </div>
-          <div className="text-right hidden-xs">
-            <h6 style={{ marginTop: '0' }}>{title}</h6>
-          </div>
-        </div>
-        <div className="col-sm-8">
-          <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{percentage}%</h6>
-          <div className="progress" style={barStyle}>
-            <div
-              className="progress-bar"
-              role="progressbar"
-              aria-valuenow="70"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              style={{ width: percentage + '%' }}
-            >
-              <span className="sr-only">{percentage}% Complete</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-    return obj;
   }
 
   getOptions1() {
@@ -185,7 +123,7 @@ class Page extends React.PureComponent {
     return options;
   }
 
-  getTabbed(title, id, options, arr, collapsed) {
+  getTabbed(title, id, options, arr, collapsed, data) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
@@ -205,7 +143,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: this.getPercentageBlock(arr),
+                  reactData: data.map((element, i) => drawPercentRow(arr[i], element, true)),
                 },
               },
             },
@@ -258,7 +196,7 @@ class Page extends React.PureComponent {
               'view-3-1',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false)}
+              false, [23, 15, 26, 16, 17])}
           </div>
         </div>
 
@@ -268,7 +206,7 @@ class Page extends React.PureComponent {
               'view-3-2',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false)}
+              false, [25, 30, 15, 10, 20])}
           </div>
         </div>
 
@@ -278,7 +216,7 @@ class Page extends React.PureComponent {
               'view-3-3',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false)}
+              false, [32, 46, 6, 11, 5])}
           </div>
         </div>
 
@@ -288,8 +226,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Overall, to what extent do you feel the things you do in your life are worthwhile',
               'view-3-4',
               this.getOptions2(),
-              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
-              false)}
+              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+              false, [18, 12, 8, 5, 12, 15, 7, 5, 15, 8])}
           </div>
         </div>
 
@@ -298,8 +236,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Overall, how happy did you feel yesterday',
               'view-3-5',
               this.getOptions2(),
-              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
-              false)}
+              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+              false, [7, 13, 12, 13, 15, 13, 5, 4, 6, 4])}
           </div>
         </div>
 
@@ -308,8 +246,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Overall, how anxious did you feel yesterday',
               'view-1-5',
               this.getOptions2(),
-              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
-              false)}
+              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+              false, [5, 7, 6, 8, 11, 14, 13, 12, 14, 9])}
           </div>
         </div>
 

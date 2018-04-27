@@ -12,6 +12,7 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
+import drawPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
 
 import SubNav from './subNav';
 
@@ -44,77 +45,14 @@ class Page extends React.PureComponent {
     });
   }
 
-  getPercentageBlock(arr) {
-    const randombetween = (min, max) => Math.floor(Math.random() * ((max - (min + 1)) + min));
-
-    const generate = (max, thecount) => {
-      const r = [];
-      let currsum = 0;
-      for (let i = 0; i < thecount - 1; i++) {
-        r[i] = randombetween(1, max - (thecount - i - 1) - currsum);
-        currsum += r[i];
-      }
-      r[thecount - 1] = max - currsum;
-      return r;
-    };
-
-    const rands = generate(100, arr.length);
-
-    const rowArr = [];
-
-    for (let a = 0; a < arr.length; a++) {
-      rowArr.push(this.getPercentRow(arr[a], rands[a]));
-    }
-
-    return rowArr;
-  }
-
-  getPercentRow(title, percentage, bottomMargin) {
-    const barStyle = { height: '4px' };
-
-    if (bottomMargin === false) {
-      barStyle.marginBottom = '0';
-    }
-
-    const obj = (
-      <div key={title} className="row">
-        <div className="col-sm-4">
-          <div className="text-left visible-xs-block">
-            <h6 style={{ marginTop: '0' }}>{title}</h6>
-          </div>
-          <div className="text-right hidden-xs">
-            <h6 style={{ marginTop: '0' }}>{title}</h6>
-          </div>
-        </div>
-        <div className="col-sm-8">
-          <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{percentage}%</h6>
-          <div className="progress" style={barStyle}>
-            <div
-              className="progress-bar"
-              role="progressbar"
-              aria-valuenow="70"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              style={{ width: percentage + '%' }}
-            >
-              <span className="sr-only">{percentage}% Complete</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-    return obj;
-  }
-
   getOptions1() {
     const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
     const dataSeries = [
-      { name: 'Strongly agree', data: [20, 16, 14, 12, 10] },
-      { name: 'Agree', data: [20, 16, 14, 12, 10] },
-      { name: 'Neither agree or disagree', data: [40, 44, 44, 44, 40] },
+      { name: 'Strongly agree', data: [25, 16, 14, 12, 10] },
+      { name: 'Agree', data: [30, 16, 14, 12, 10] },
+      { name: 'Neither agree or disagree', data: [15, 44, 44, 44, 40] },
       { name: 'Disagree', data: [10, 12, 14, 16, 20] },
-      { name: 'Strongly disagree', data: [10, 12, 14, 16, 20] },
+      { name: 'Strongly disagree', data: [20, 12, 14, 16, 20] },
     ];
 
     const options = drawNewBarChart(axisData, dataSeries);
@@ -160,7 +98,7 @@ class Page extends React.PureComponent {
   }
 
 
-  getOptions3() {
+  getOptions3(colours) {
     const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
     const dataSeries = [
       { name: 'Very Likely', data: [20, 16, 14, 12, 10] },
@@ -170,7 +108,7 @@ class Page extends React.PureComponent {
       { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
     ];
 
-    const options = drawNewBarChart(axisData, dataSeries);
+    const options = drawNewBarChart(axisData, dataSeries, colours);
 
     return options;
   }
@@ -190,7 +128,7 @@ class Page extends React.PureComponent {
     return options;
   }
 
-  getTabbed(title, id, options, arr, collapsed) {
+  getTabbed(title, id, options, arr, collapsed, data) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
@@ -210,7 +148,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: this.getPercentageBlock(arr),
+                  reactData: data.map((element, i) => drawPercentRow(arr[i], element, true)), // this.getPercentageBlock(arr), //map over data and use i for arr[i] -- see how it's done on another page!
                 },
               },
             },
@@ -269,7 +207,8 @@ class Page extends React.PureComponent {
               'view-1-1',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false)}
+              false,
+              [25, 30, 15, 10, 20])}
           </div>
         </div>
 
@@ -279,7 +218,7 @@ class Page extends React.PureComponent {
               'view-1-2',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false)}
+              false, [30, 40, 5, 15, 10])}
           </div>
         </div>
 
@@ -289,7 +228,7 @@ class Page extends React.PureComponent {
               'view-1-3',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false)}
+              false, [35, 45, 10, 8, 2])}
           </div>
         </div>
 
@@ -299,7 +238,7 @@ class Page extends React.PureComponent {
               'view-1-4',
               this.getOptions1(),
               ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false)}
+              false, [35, 20, 2, 32, 11])}
           </div>
         </div>
 
@@ -309,8 +248,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('How likely are you to recommend your HE provider to a friend or a colleague',
               'view-1-5',
               this.getOptions2(),
-              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
-              false)}
+              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+              false, [18, 12, 8, 5, 13, 15, 7, 5, 10, 8])}
           </div>
         </div>
 
@@ -328,7 +267,7 @@ class Page extends React.PureComponent {
               'view-1-6',
               this.getOptions3(),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
-              true)}
+              true, [10, 7, 14, 39, 30])}
           </div>
         </div>
 
@@ -338,7 +277,7 @@ class Page extends React.PureComponent {
               'view-1-7',
               this.getOptions3(),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
-              true)}
+              true, [4, 8, 21, 37, 30])}
           </div>
         </div>
 
@@ -346,9 +285,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Work towards a different type of qualification',
               'view-1-8',
-              this.getOptions3(),
+              this.getOptions3(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
-              true)}
+              true, [11, 18, 21, 28, 22])}
           </div>
         </div>
 
@@ -356,9 +295,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Decide to do something completely different',
               'view-1-9',
-              this.getOptions3(),
+              this.getOptions3(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
               ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
-              true)}
+              true, [10, 15, 25, 30, 20])}
           </div>
         </div>
 
@@ -376,7 +315,7 @@ class Page extends React.PureComponent {
               'view-1-10',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              true, [32, 39, 14, 16, 4])}
           </div>
         </div>
 
@@ -386,7 +325,7 @@ class Page extends React.PureComponent {
               'view-1-11',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              true, [26, 35, 20, 15, 4])}
           </div>
         </div>
 
@@ -396,7 +335,7 @@ class Page extends React.PureComponent {
               'view-1-12',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              true, [16, 35, 25, 10, 4])}
           </div>
         </div>
 
@@ -406,7 +345,7 @@ class Page extends React.PureComponent {
               'view-1-13',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              true, [20, 31, 15, 30, 4])}
           </div>
         </div>
 
@@ -416,7 +355,7 @@ class Page extends React.PureComponent {
               'view-1-14',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              true, [28, 31, 27, 10, 4])}
           </div>
         </div>
 
@@ -426,7 +365,7 @@ class Page extends React.PureComponent {
               'view-1-15',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              true, [21, 25, 23, 26, 4])}
           </div>
         </div>
 
@@ -436,7 +375,7 @@ class Page extends React.PureComponent {
               'view-1-16',
               this.getOptions4(),
               ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              true, [19, 35, 33, 9, 4])}
           </div>
         </div>
 
@@ -445,8 +384,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Enhance your social and intellectual capabilities beyond employment',
               'view-1-17',
               this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know'],
+              true, [26, 35, 22, 17])}
           </div>
         </div>
 
@@ -455,8 +394,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Enhance the quality of your life generally',
               'view-1-18',
               this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true)}
+              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know'],
+              true, [33, 39, 11, 17])}
           </div>
         </div>
 
