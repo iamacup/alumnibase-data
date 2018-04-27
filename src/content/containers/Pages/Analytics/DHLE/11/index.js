@@ -8,8 +8,10 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
 
-import GroupedBarChart from '../../../../../../content/containers/Fragments/Graphs/groupedBarChart';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
+
+import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -44,56 +46,69 @@ class Page extends React.PureComponent {
     });
   }
 
+  getGroupedBarchart(title, value, direction, globalID, titles, data) {
+    const obj = {
+      direction,
+      value,
+      // colours: this.props.data[0].colours,
+    };
+
+    const options = drawGroupedBarChart(titles, data, obj);
+
+    const panel = (<TabbedGraphPanel
+      title={title}
+      globalID={globalID}
+      content={[
+            {
+              title: '',
+              active: true,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '350px',
+                data: {
+                  options,
+                },
+              },
+            },
+          ]}
+      seperator
+    />);
+
+    return panel;
+  }
+
   render() {
     const content = (
       <div id="page-content">
 
         <StandardFilters />
 
-
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <GroupedBarChart
-              title="Male /Female Earning by Salary Band"
-              direction="vertical"
-              value=""
-              globalID="grouperdBar-7"
-              titles={['Less than £15,000', '£15,000-£19,999', '£20,000-£24,999', '£25,000-£29,999', '£30,000-£34,999', '£35,000-£39,999', '£40,000+', 'Unkown']}
-              data={[
-                    { name: 'Other', data: [0, 0, 0, 0, 0, 0, 0, 5] },
-                    { name: 'Male', data: [3590, 9885, 10975, 7725, 3640, 1060, 1100, 14920] },
-                    { name: 'Female', data: [6390, 16445, 21145, 7000, 2910, 580, 480, 21425] },
-                ]}
-            />
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">First Time Graduates in full time work</h3>
+            <h5 className="text-muted text-normal">Data for graduates 6 months after leaving university.</h5>
+            <hr className="new-section-xs" />
           </div>
         </div>
 
-
         <div className="row">
-          <div className="col-md-6">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
-              </div>
-            </div>
-
-          </div>
-          <div className="col-md-6">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./3.png')} />
-              </div>
-
-            </div>
-
+          <div className="col-md-8 col-md-push-2">
+            {this.getGroupedBarchart('Male /Female Earning by Salary Band',
+              '',
+              'horizontal',
+              'DHLE-11-1',
+              ['Less than £15,000', '£15,000-£19,999', '£20,000-£24,999', '£25,000-£29,999', '£30,000-£34,999', '£35,000-£39,999', '£40,000+', 'Unkown'],
+              [
+                { name: 'Other', data: [0, 0, 0, 0, 0, 0, 0, 5] },
+                { name: 'Male', data: [3590, 9885, 10975, 7725, 3640, 1060, 1100, 14920] },
+                { name: 'Female', data: [6390, 16445, 21145, 7000, 2910, 580, 480, 21425] },
+              ])}
           </div>
         </div>
 

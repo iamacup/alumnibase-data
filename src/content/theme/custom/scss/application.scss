@@ -19,3 +19,22 @@
   background-color: #2c1e31;
   background-image: none;
 }
+
+.is_stuck {
+  z-index: 99999;
+
+  .sticky-effects {
+    box-shadow: 0 1px 1px darken(#9979ad, 20%);
+    border-bottom: 4px solid lighten(#25476a, 50%);
+  }
+}
+
+.bg-on-white {
+  background-color: #ecf0f5;
+}
+
+.cls-content.error {
+  input {
+    border-color: red;
+  }
+}

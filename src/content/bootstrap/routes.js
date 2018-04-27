@@ -1,5 +1,5 @@
 
-import CampaignOverviewPage from '../../content/containers/Pages/CampaignOverview';
+import CampaignOverviewPage from '../../content/containers/Pages/CampaignOverview/main';
 
 import NotFoundPage from '../../content/containers/Pages/NotFound';
 
@@ -14,25 +14,62 @@ import DHLE11Page from '../../content/containers/Pages/Analytics/DHLE/11';
 
 import Views1PageA from '../../content/containers/Pages/Analytics/Views/1/1a';
 import Views1PageB from '../../content/containers/Pages/Analytics/Views/1/1b';
-
 import Views2Page from '../../content/containers/Pages/Analytics/Views/2';
 
-import Salary1Page from '../../content/containers/Pages/Analytics/Salary/1';
-import Salary2Page from '../../content/containers/Pages/Analytics/Salary/2';
-import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/2/2a';
-import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/2/2b';
+import SplashPage from '../../content/containers/Pages/Splash';
+import LoginPage from '../../content/containers/Pages/Login';
 
-import FurtherStudy105Page from '../../content/containers/Pages/Analytics/FurtherStudy/105';
-import FurtherStudyMultiPage from '../../content/containers/Pages/Analytics/FurtherStudy/10-6-7-8-9';
+import SalaryRangesPage from '../../content/containers/Pages/Analytics/Salary/Ranges';
+import Salary2WorldPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2a';
+import Salary2UkPage from '../../content/containers/Pages/Analytics/Salary/GeographicalSalary/2b';
+import SalaryOverview from '../../content/containers/Pages/Analytics/Salary/Overview';
+
+import SubjectFirstYearPage from '../../content/containers/Pages/Analytics/Subjects/FirstYear';
+import SubjectFirstJobPage from '../../content/containers/Pages/Analytics/Subjects/FirstJob';
+import SubjectLongtermOutcomesPage from '../../content/containers/Pages/Analytics/Subjects/LongtermOutcomes';
+import JobsFirstYearPage from '../../content/containers/Pages/Analytics/Jobs/FirstYear';
+import JobsFirstJobPage from '../../content/containers/Pages/Analytics/Jobs/FirstJob';
+import JobsOverviewPage from '../../content/containers/Pages/Analytics/Jobs/Overview';
+import JobsEmployersPage from '../../content/containers/Pages/Analytics/Jobs/Employers';
+import ValueForMoneyPage from '../../content/containers/Pages/Analytics/Subjects/ValueForMoney';
+import StemOverviewPage from '../../content/containers/Pages/Analytics/STEM/Overview';
+import StemDestinationsPage from '../../content/containers/Pages/Analytics/STEM/Destinations';
+import PolarOverviewPage from '../../content/containers/Pages/Analytics/Polar/Overview';
+
+import FurtherStudyOverviewPage from '../../content/containers/Pages/Analytics/FurtherStudy/Overview';
 
 import WPBMEEPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-Economic';
 import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-POLAR3';
+
+import DataExportPage from '../../content/containers/Pages/DataControl/Export';
+
+import TestsPage from '../../content/containers/Pages/Tests';
 
 export default [
   {
     path: '/',
     exact: true,
     component: CampaignOverviewPage,
+  },
+  {
+    path: '/login',
+    exact: true,
+    component: LoginPage,
+  },
+  {
+    path: '/data-control/export',
+    exact: true,
+    component: DataExportPage,
+  },
+  {
+    path: '/splash',
+    exact: true,
+    component: SplashPage,
+  },
+  {
+    path: '/tests',
+    exact: true,
+    component: TestsPage,
   },
   {
     path: '/analytics/views/1',
@@ -55,22 +92,77 @@ export default [
     component: Views2Page,
   },
   {
-    path: '/analytics/salary/1',
+    path: '/analytics/salary/ranges',
     exact: true,
-    component: Salary1Page,
+    component: SalaryRangesPage,
   },
   {
-    path: '/analytics/salary/2',
+    path: '/analytics/salary/overview',
     exact: true,
-    component: Salary2Page,
+    component: SalaryOverview,
   },
   {
-    path: '/analytics/salary/2/world',
+    path: '/analytics/subjects/first-year',
+    exact: true,
+    component: SubjectFirstYearPage,
+  },
+  {
+    path: '/analytics/subjects/first-job',
+    exact: true,
+    component: SubjectFirstJobPage,
+  },
+  {
+    path: '/analytics/subjects/3',
+    exact: true,
+    component: SubjectLongtermOutcomesPage,
+  },
+  {
+    path: '/analytics/jobs/first-job',
+    exact: true,
+    component: JobsFirstJobPage,
+  },
+  {
+    path: '/analytics/jobs/first-year',
+    exact: true,
+    component: JobsFirstYearPage,
+  },
+  {
+    path: '/analytics/jobs/overview',
+    exact: true,
+    component: JobsOverviewPage,
+  },
+  {
+    path: '/analytics/jobs/employers',
+    exact: true,
+    component: JobsEmployersPage,
+  },
+  {
+    path: '/analytics/subjects/vfm',
+    exact: true,
+    component: ValueForMoneyPage,
+  },
+  {
+    path: '/analytics/polar',
+    exact: true,
+    component: PolarOverviewPage,
+  },
+  {
+    path: '/analytics/stem/overview',
+    exact: true,
+    component: StemOverviewPage,
+  },
+  {
+    path: '/analytics/stem/destinations',
+    exact: true,
+    component: StemDestinationsPage,
+  },
+  {
+    path: '/analytics/destination/1',
     exact: true,
     component: Salary2WorldPage,
   },
   {
-    path: '/analytics/salary/2/uk',
+    path: '/analytics/destination/2',
     exact: true,
     component: Salary2UkPage,
   },
@@ -120,14 +212,9 @@ export default [
     component: DHLE11Page,
   },
   {
-    path: '/analytics/further-study/105',
+    path: '/analytics/further-study/overview',
     exact: true,
-    component: FurtherStudy105Page,
-  },
-  {
-    path: '/analytics/further-study/106-109',
-    exact: true,
-    component: FurtherStudyMultiPage,
+    component: FurtherStudyOverviewPage,
   },
   {
     path: '/analytics/widening-participation/bme-economic-achievement',

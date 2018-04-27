@@ -1,27 +1,56 @@
-export function drawLineChart(data, xLabel, yLabel) {
-  const colours = [{ gt: 0, lte: 2, color: '#88b7dc' }, { gt: 2, lte: 4, color: '#62a0d0' }, { gt: 4, lte: 6, color: '#3a88c4' }, { gt: 6, lte: 8, color: '#2f6d9d' }, { gt: 8, lte: 10, color: '#235175' }];
-  const options = {
-    visualMap: [{
-      show: false,
-      type: 'piecewise',
-      seriesIndex: 0,
-      pieces: colours,
-    }],
+const drawLineChart = (data, options, titles) => {
+  // data sould be in the form [{age: [], plotted: []}]
+  // options can have value (bool) and trendline (bool)
+  const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
+  let value = false;
+  let labels = [];
+  let yLabel = 90;
+  let location = 'center';
+  let gap = 50;
+  if (options.value !== false) value = true;
+  if (options.yLabel) {
+    yLabel = 0;
+    location = 'end';
+    gap = 20;
+  }
+
+  if (titles) {
+    const x = titles.x.map(title => (
+      {
+        text: title,
+        x: '45%',
+        y: '95%',
+        textStyle: { fontSize: 12 },
+      }
+    ));
+    const y = titles.y.map((title, i) => (
+      {
+        text: title,
+        x: '5%',
+        y: `${(i * 4) + 4}%`,
+        textStyle: { fontSize: 12 },
+      }
+    ));
+    labels = x.concat(y);
+  }
+
+
+  const option = {
+    legend: {
+      data: data.name,
+    },
+    title: labels,
     tooltip: {
       trigger: 'item',
       axisPointer: {
         type: 'shadow',
         textStyle: {
-          color: '#fff',
+          color: '#000',
         },
       },
     },
-    grid: {
-      top: 110,
-      bottom: 95,
-    },
     xAxis: [{
-      name: xLabel,
+      name: options.x,
       nameLocation: 'center',
       nameGap: 50,
       type: 'category',
@@ -33,13 +62,13 @@ export function drawLineChart(data, xLabel, yLabel) {
       data: data.age,
     }],
     yAxis: [{
-      name: yLabel,
-      nameLocation: 'center',
-      nameGap: 50,
-      nameRotate: 90,
+      name: options.y,
+      nameLocation: location,
+      nameGap: gap,
+      nameRotate: yLabel,
       type: 'value',
       splitLine: {
-        show: false,
+        show: true,
       },
       axisLine: {
         lineStyle: {
@@ -56,26 +85,53 @@ export function drawLineChart(data, xLabel, yLabel) {
         show: false,
       },
     }],
-    series: [{
-      type: 'line',
-      symbolSize: 10,
-      symbol: 'circle',
-      itemStyle: {
-        normal: {
-          color: '#235175',
-          barBorderRadius: 0,
-          label: {
-            show: true,
-            position: 'top',
-            formatter(p) {
-              return p.value > 0 ? (p.value) : '';
+    series: data.plotted.map((element, i) => {
+      const colour = colours[i];
+      if (data.name[i] === 'National Average') {
+        return {
+          name: data.name[i],
+          type: 'line',
+          symbolSize: 0,
+          lineStyle: {
+            normal: {
+              color: '#8e1600',
+              type: 'dotted',
+            },
+          },
+          itemStyle: {
+            normal: {
+              label: {
+                show: value,
+                position: 'top',
+              },
+            },
+          },
+          smooth: false,
+          data: element,
+        };
+      } return {
+        name: data.name[i],
+        type: 'line',
+        label: { formatter: '{b}: {d}' },
+        symbolSize: 15,
+        itemStyle: {
+          normal: {
+            color: colour,
+            label: {
+              show: value,
+              position: 'top',
+              formatter(p) {
+                return p.value > 0 ? (p.value) : '';
+              },
             },
           },
         },
-      },
-      data: data.plotted,
-    },
-    ],
+        smooth: true,
+        data: element,
+      };
+    }),
   };
-  return options;
-}
+  return option;
+};
+
+export default drawLineChart;

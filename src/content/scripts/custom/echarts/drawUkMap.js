@@ -1,6 +1,8 @@
-import ukData from '../../../../content/containers/Fragments/Graphs/ukData';
 
-export function drawUKMap(data, pieces) {
+import ukData from './ukData';
+
+const drawUKMap = (data, pieces) => {
+  // pieces sould be in the form {max: #, label: "", min: # }
   const option = {
     series_id: 4242979,
     backgroundColor: '#c5d6e7',
@@ -34,9 +36,9 @@ export function drawUKMap(data, pieces) {
     series: [
       {
         itemStyle: {
-          emphasis: {
-            borderColor: 'black',
-          },
+          // emphasis: {
+          //   borderColor: 'black',
+          // },
           normal: {
             borderColor: 'white',
           },
@@ -46,7 +48,7 @@ export function drawUKMap(data, pieces) {
         showLegendSymbol: false,
         name: '',
         tooltip: {
-          formatter: '{b}',
+          formatter: '{c}% <br /> {b}',
         },
         label: {
           emphasis: {
@@ -111,7 +113,7 @@ export function drawUKMap(data, pieces) {
       showLabel: true,
       max: 1,
       inRange: {
-        color: ['#1c6cab', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'],
+        color: ['#fff', '#e2efe2', '#c6ddc4', '#a9cca7', '#4a9150', '#11612c'],
       },
       type: 'piecewise',
       dimension: null,
@@ -119,4 +121,6 @@ export function drawUKMap(data, pieces) {
     },
   };
   return option;
-}
+};
+
+export default drawUKMap;

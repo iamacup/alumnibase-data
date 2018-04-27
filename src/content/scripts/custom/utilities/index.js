@@ -64,7 +64,7 @@ export function debounce(callback, wait, context = this) {
 
 export function fireDebouncedResizeEvents(eventName = 'debouncedResizeEvent') {
   const executeFunction = debounce(() => {
-    $.event.trigger({ type: eventName }, []);
+    $.event.trigger({ type: eventName });
   }, 201);
 
   $(window).resize(executeFunction);
@@ -493,4 +493,12 @@ export function nFormatter(num, digits) {
   }
 
   return (num / si[i].value).toFixed(digits).replace(rx, '$1') + si[i].symbol;
+}
+
+export function whenLoaded(callback) {
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    callback();
+  } else {
+    document.addEventListener('DOMContentLoaded', callback);
+  }
 }

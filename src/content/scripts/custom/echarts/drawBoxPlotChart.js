@@ -1,8 +1,7 @@
 import prepareBoxplotData from './dataTool';
 
-const colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
 
-export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
+const drawBoxplotChart = (inData, cats, valueGapMaxMin, colours) => {
   // example data for the inputs - note that indata can contain arrays of any length, the boxplot calculation is performed on the data
   /* const inData = [
     [20, 300, 300, 200, 100],
@@ -14,6 +13,8 @@ export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
   const cats = ['female', 'male', 'other', 'other']; */
 
   // the valueGapMaxMin is a value that will be added to the maximum and minimum values to provide spacing above and below the box plots
+  let colourScheme = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b', '#0b6623', '#000'];
+  if (colours) colourScheme = colours;
 
   if (inData.length !== cats.length) {
     console.log('warning - number of categories is not the same as number of data items in drawBoxplotChart');
@@ -38,6 +39,8 @@ export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
   max += valueGapMaxMin;
   min -= valueGapMaxMin;
 
+  if (Math.sign(min) === -1) min = 0;
+
   // make the formatted data
   const data = [];
 
@@ -57,7 +60,6 @@ export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
         'Q1: ' + param.data[2],
         'lower: ' + param.data[1],
       ].join('<br/>');
-
 
     series.push(
       {
@@ -100,7 +102,7 @@ export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
 
   const option = {
     legend: {
-      y: '10%',
+      y: '90%',
       data: cats,
     },
     tooltip: {
@@ -111,7 +113,7 @@ export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
     },
     grid: {
       left: '10%',
-      top: '20%',
+      top: '10%',
       right: '10%',
       bottom: '15%',
     },
@@ -142,4 +144,6 @@ export function drawBoxplotChart(inData, cats, valueGapMaxMin) {
   };
 
   return option;
-}
+};
+
+export default drawBoxplotChart;

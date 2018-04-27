@@ -53,8 +53,8 @@ result.headTop.push(<link key="9" href="https://cdnjs.cloudflare.com/ajax/libs/b
 
 result.headTop.push(<link key="nn9" href="https://storage.googleapis.com/files.sliips.com/nifty-v2.9/demo/plugins/switchery/switchery.min.css" rel="stylesheet" />);
 
-result.headTop.push(<link key="fa1" rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-+iHwwKZGTdlVFbv4fsKmLkogfdKlp47zQGkSMDN3ANc8kXjyKudKvQwinI5VH+2C" crossorigin="anonymous" />);
-result.headTop.push(<link key="fa2" rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-+5VkSw5C1wIu2iUZEfX77QSYRb5fhjmEsRn8u4r9Ma8mvu/GvTag4LDSEAw7RjXl" crossorigin="anonymous" />);
+result.headTop.push(<link key="fa1" rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-+iHwwKZGTdlVFbv4fsKmLkogfdKlp47zQGkSMDN3ANc8kXjyKudKvQwinI5VH+2C" crossOrigin="anonymous" />);
+result.headTop.push(<link key="fa2" rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-+5VkSw5C1wIu2iUZEfX77QSYRb5fhjmEsRn8u4r9Ma8mvu/GvTag4LDSEAw7RjXl" crossOrigin="anonymous" />);
 
 
 
@@ -95,7 +95,7 @@ result.bodyBottom.push(<script key="19" src="https://cdnjs.cloudflare.com/ajax/l
 
 // google charts JS
 result.bodyBottom.push(<script key ="new" type="text/javascript" src="https://www.gstatic.com/charts/loader.js" />);
-
+// <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
 
 //this does not work properly with the webpack config
 //result.bodyBottom.push(<script key ="new2" type="text/javascript" src="https://files.alumnibaseapp.com/assets/dataTool.min.js" />);
@@ -116,6 +116,11 @@ result.bodyBottom.push(<script key="nn23" src="https://storage.googleapis.com/fi
 //result.bodyBottom.push(<script key="nn223" src="https://storage.googleapis.com/files.alumnibaseapp.com/assets/echarts.min.js" />);
 
 result.bodyBottom.push(<script key="new2" type="text/javascript" src="https://files.alumnibaseapp.com/assets/echarts-uk-map-data.js" />);
+
+//stickykit
+
+
+result.bodyBottom.push(<script key="skit" type="text/javascript" src="https://unpkg.com/sticky-kit@1.1.2/dist/sticky-kit.min.js" />);
 
 
 export default result;

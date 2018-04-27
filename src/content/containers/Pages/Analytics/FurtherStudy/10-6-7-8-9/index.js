@@ -52,15 +52,8 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-6">
+            <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
 
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
-              </div>
-            </div>
 
           </div>
           <div className="col-md-6">

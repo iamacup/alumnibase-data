@@ -4,11 +4,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { dNc, debounce } from '../../../../content/scripts/custom/utilities';
+import { dNc, debounce, initialiseNonMobileSticky } from '../../../../content/scripts/custom/utilities';
 
 class Graph extends React.PureComponent {
   componentDidMount() {
     $(() => {
+      // need to re-initialise the framework here when pages change
+      $(document).trigger('nifty.ready');
+      // make the checkbox look nice with switchery
+      const elem = document.querySelector('#demo-sw-unchecked1');
+      // eslint-disable-next-line no-undef, no-unused-vars
+      const init = new Switchery(elem);
+      elem.onchange = () => {
+        this.clickShowNationalAverage();
+      };
+      // need to re-initialise the framework here when pages change
+      $(document).trigger('nifty.ready');
+      // make the checkbox look nice with switchery
+      const elem2 = document.querySelector('#demo-sw-unchecked2');
+      // eslint-disable-next-line no-undef, no-unused-vars
+      const init2 = new Switchery(elem2);
+      elem2.onchange = () => {
+        this.clickShowNationalAverage();
+      };
+
       $('#sel1').select2({
         width: '100%',
         multiple: true,
@@ -38,6 +57,42 @@ class Graph extends React.PureComponent {
 
       // remove the empty option
       $('#sel2')
+        .find('option')
+        .each((index, vertex) => {
+          if (!dNc($(vertex).text())) {
+            $(vertex).remove();
+          }
+        });
+
+      $('#sel3').select2({
+        width: '100%',
+        multiple: true,
+        allowClear: true,
+        tags: true,
+        tokenSeparators: [',', ' '],
+        placeholder: 'Filter by Subject',
+      });
+
+      // remove the empty option
+      $('#sel3')
+        .find('option')
+        .each((index, vertex) => {
+          if (!dNc($(vertex).text())) {
+            $(vertex).remove();
+          }
+        });
+
+      $('#sel4').select2({
+        width: '100%',
+        multiple: true,
+        allowClear: true,
+        tags: true,
+        tokenSeparators: [',', ' '],
+        placeholder: 'Filter by Subject',
+      });
+
+      // remove the empty option
+      $('#sel4')
         .find('option')
         .each((index, vertex) => {
           if (!dNc($(vertex).text())) {
@@ -78,14 +133,38 @@ class Graph extends React.PureComponent {
       }, 250);
 
       $('#date-slider').on('slideStop', executeFunction2);
+
+
+      // salary slider
+      $('#salary-slider').slider({
+        min: 0,
+        max: 1000000,
+        step: 1,
+        value: [
+          0,
+          1000000,
+        ],
+      });
+
+      const executeFunction3 = debounce(() => {
+        console.log('change 3');
+      }, 250);
+
+      $('#salary-slider').on('slideStop', executeFunction3);
+
+      this.initSticky();
     });
+  }
+
+  initSticky() {
+    initialiseNonMobileSticky(this.parentContainer, {});
   }
 
   render() {
     return (
-      <div className="row">
+      <div className="row" ref={(div) => { this.parentContainer = div; }}>
         <div className="col-sm-8 col-sm-push-2">
-          <div className="panel panel-sliips-purple">
+          <div className="panel panel-sliips-purple sticky-effects">
             <div className="panel-heading">
               <div className="panel-control">
                 <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
@@ -660,21 +739,21 @@ class Graph extends React.PureComponent {
                   </div>
                 </div>
 
-                <div className="row">
-                  <div className="col-sm-3">
-                    Age Range
-                  </div>
-                  <div className="col-sm-9">
-                    <input
-                      style={{ width: '100%' }}
-                      type="text"
-                      value=""
-                      id="age-slider"
-                    />
-                  </div>
-                </div>
-
                 <div className="pad-ver">
+                  <div className="row">
+                    <div className="col-sm-3">
+                    Age Range
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        id="age-slider"
+                      />
+                    </div>
+                  </div>
+
                   <div className="row">
                     <div className="col-sm-3">
                     Graduation Date Range
@@ -688,9 +767,99 @@ class Graph extends React.PureComponent {
                       />
                     </div>
                   </div>
+
+                  <div className="row">
+                    <div className="col-sm-3">
+                    Salary Range
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        id="salary-slider"
+                      />
+                    </div>
+                  </div>
                 </div>
 
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="sel3">Subjects:</label>
+                      <select className="form-control" name="sel3" id="sel3">
+                        <option />
+                        <option>Agriculture</option>
+                        <option>Anthropology</option>
+                        <option>Archaeology</option>
+                        <option>Art and Design</option>
+                        <option>Biosciences</option>
+                        <option>Business</option>
+                        <option>Chemistry</option>
+                        <option>Classics & Ancient History</option>
+                        <option>Clinical Medicine</option>
+                        <option>Communication, Cultural and Media Studies</option>
+                        <option>Computer Science</option>
+                        <option>Economics</option>
+                        <option>Education</option>
+                        <option>Engineering</option>
+                        <option>English Language and Literature</option>
+                        <option>Geography</option>
+                        <option>History</option>
+                        <option>Leisure and Tourism</option>
+                        <option>Law</option>
+                        <option>Mathematical Sciences</option>
+                        <option>Modern Languages and Linguistics</option>
+                        <option>Music, Drama, Dance and Performing Arts</option>
+                        <option>Natural Sciences</option>
+                        <option>Philosophy</option>
+                        <option>Physics</option>
+                        <option>Politics</option>
+                        <option>Psychology</option>
+                        <option>Social Sciences</option>
+                        <option>Sociology</option>
+                        <option>Sport and Exercise Sciences</option>
+                        <option>Law</option>
+                        <option>Theology & Religion</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="sel4">Degree Type:</label>
+                      <select className="form-control" name="sel3" id="sel4">
+                        <option />
+                        <option>Undergraduate Bachelors Degree</option>
+                        <option>Undergraduate Masters Degree</option>
+                        <option>Masters</option>
+                        <option>Doctorate</option>
+                        <option>Other Degree</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
+                <div className="form-group">
+                  <div className="row">
+                    <div className="col-md-4">
+                      <p className="text-main text-bold">Other Options</p>
+                      <div className="col-sm-10 col-sm-push-1">
+                        <div className="col-sm-8">
+                          <label htmlFor="stem-1">STEM subjects only</label>
+                        </div>
+                        <div className="col-sm-4">
+                          <input id="demo-sw-unchecked1" type="checkbox" />
+                        </div>
+                        <div className="col-sm-8">
+                          <label htmlFor="polar-2">POLAR areas only</label>
+                        </div>
+                        <div className="col-sm-4">
+                          <input id="demo-sw-unchecked2" type="checkbox" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

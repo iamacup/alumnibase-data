@@ -50,30 +50,42 @@ class Page extends React.PureComponent {
         <StandardFilters />
 
         <div className="row">
-          <div className="col-md-6">
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
-              </div>
-            </div>
-
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">UK Graduates</h3>
+            <h5 className="text-muted text-normal">Data for UK Graduates 6 months after leaving university.</h5>
+            <hr className="new-section-xs" />
           </div>
-          <div className="col-md-6">
+        </div>
 
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 className="panel-title"> - </h3>
-              </div>
-              <div className="pad-all">
-                <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
-              </div>
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <div className="row">
+              <div className="col-md-6">
 
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h3 className="panel-title"> - </h3>
+                  </div>
+                  <div className="pad-all">
+                    <img alt="Graph" className="img-responsive center-block" src={require('./1.png')} />
+                  </div>
+                </div>
+
+              </div>
+              <div className="col-md-6">
+
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h3 className="panel-title"> - </h3>
+                  </div>
+                  <div className="pad-all">
+                    <img alt="Graph" className="img-responsive center-block" src={require('./2.png')} />
+                  </div>
+
+                </div>
+
+              </div>
             </div>
-
           </div>
         </div>
 
