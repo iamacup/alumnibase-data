@@ -43,24 +43,24 @@ class Page extends React.PureComponent {
       $(document).trigger('nifty.ready');
     });
   }
-    // functions work to change data, but doesn't refresh the page to change the graphs.
+  // functions work to change data, but doesn't refresh the page to change the graphs.
   handleLowest = (e) => {
-      e.preventDefault();
-      this.setState({
-        jobs: this.state.jobs.sort((a, b) => a.salary - b.salary),
-      });
-    }
+    e.preventDefault();
+    this.setState({
+      jobs: this.state.jobs.sort((a, b) => a.salary - b.salary),
+    });
+  }
 
   handleHighest = (e) => {
-      e.preventDefault();
-      this.setState({
-        jobs: this.state.jobs.sort((a, b) => b.salary - a.salary),
-      });     
-    }
+    e.preventDefault();
+    this.setState({
+      jobs: this.state.jobs.sort((a, b) => b.salary - a.salary),
+    });
+  }
 
 
   render() {
-     const react1 = this.state.jobs.map(element => getSalaryRow(element.job, element.salary));
+    const react1 = this.state.jobs.map(element => getSalaryRow(element.job, element.salary));
 
     const react2 = this.state.jobs.map(element => (
       <div key={element.job}>
@@ -87,11 +87,11 @@ class Page extends React.PureComponent {
     //   </div>
     // );
 
-    const panel = (
-      <TabbedGraphPanel
-        title="High level job salaries"
-        globalID="jobs-first-year-1"
-        content={[
+      const panel = (
+        <TabbedGraphPanel
+          title="High level job salaries"
+          globalID="jobs-first-year-1"
+          content={[
           {
             title: 'Average Salary',
             active: true,
@@ -128,12 +128,12 @@ class Page extends React.PureComponent {
             },
           },
         ]}
-        seperator
-      />
-    );
+          seperator
+        />
+      );
 
-    return panel;
-  }
+      return panel;
+    };
 
     const content = (
       <div id="page-content">
