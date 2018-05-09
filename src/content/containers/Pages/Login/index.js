@@ -1,30 +1,131 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import LoadingArea from '../../../../content/components/Loading';
 
+import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../content/scripts/custom/utilities';
-import Authentication from '../../../../content/containers/Fragments/LoginAuthentication';
+
+import * as fetchActions from '../../../../foundation/redux/globals/DataTransactions/actions';
+
+const dataStoreID = 'login';
+const FetchData = fetchDataBuilder('login');
 
 class Login extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: '',
+      password: '',
+    };
+  }
+
   componentDidMount() {
+    require('formvalidation');
+    require('../../../../../node_modules/formvalidation/dist/js/framework/bootstrap.js');
+
     $(() => {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
+      // this.handleValidation()''
+
+      $(this.form).formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            username: {
+                validators: {
+                    notEmpty: {
+                        message: 'The username is required'
+                    },
+                    emailAddress: {
+                            onError: function(e, data) {
+                                console.log('error')
+                            },
+                            onSuccess: function(e, data) {
+                                console.log('success')
+                            },
+                        },
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required'
+                    }
+                }
+            }
+        }
+    }).on('success.form.fv', (e) => {
+      e.preventDefault();
+       this.handleSubmit();
     });
+  });
+}
+
+
+handleSubmit() {
+  let username = this.username;
+  let password = this.password;
+
+  if (dNc(this.username)) {
+    username = this.username.value;
+    password = this.password.value;
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const username = this.username.value;
-    const password = this.password.value;
+  let generalStatus = null;
+  let payload = null;
 
-    if (dNc(password) && username === 'patrick@alumnibase.com') {
-      this.context.router.history.push('/campaign/overview');
-    } else {
-      $(this.errorDiv).addClass('error');
+  let content='';
+
+  if (dNc(this.props.reduxState_fetchDataTransaction.default)) {
+    ({ generalStatus, payload } = this.props.reduxState_fetchDataTransaction.default);
+  }
+
+  if (dNc(password) && dNc(username)) {
+    this.setState({
+      username,
+      password,
+    });
+  } else if (generalStatus === 'error' || generalStatus === 'fatal') {
+    content = (<div><h3 style={{ color: 'red', fontSize: '15px' }}>*{payload}</h3></div>)
+  }
+
+  return content
+}
+
+
+render() {
+  let generalStatus = null;
+  let payload = null;
+  let started = null;
+  let finished = null;
+
+  if (dNc(this.props.reduxState_fetchDataTransaction.default)) {
+    ({ generalStatus, payload, started, finished } = this.props.reduxState_fetchDataTransaction.default);
+  }
+
+    const { username, password } = this.state;
+    const sendData = { username, password };
+
+    let active = false;
+    if (dNc(username) && dNc(password)) active = true;
+
+    if (started === true && finished === false) {
+      return (
+        <LoadingArea />
+      );
     }
-  }
 
-  render() {
+    if (generalStatus === 'success') {
+      this.context.router.history.push('/campaign/overview');
+    }
+
     return (
       <div id="container" className="cls-container">
         <div classNameName="row">
@@ -36,14 +137,35 @@ class Login extends React.PureComponent {
                     <h1 className="h3">AlumniBase Login</h1>
                     <p>Sign In to your account</p>
                   </div>
-                  <form>
+                  <form ref={(element) => { this.form = element; }}>
                     <div className="form-group">
-                      <input type="text" className="form-control" placeholder="Username" ref={(element) => { this.username = element; }} />
+                      <input 
+                      type="text" 
+                      className="form-control" 
+                      placeholder="Username" 
+                      name="username"
+                      id="username"
+                      ref={(element) => { this.username = element; }} 
+                      />
                     </div>
                     <div className="form-group">
-                      <input type="password" className="form-control" placeholder="Password" ref={(element) => { this.password = element; }} />
+                      <input 
+                      type="password" 
+                      className="form-control" 
+                      placeholder="Password" 
+                      name="password"
+                      id="password"
+                      ref={(element) => { this.password = element; }}
+                       />
                     </div>
-                    <button className="btn btn-primary btn-lg btn-block" type="submit" onClick={(e) => { this.handleSubmit(e); }}>Sign In</button>
+                        {this.handleSubmit()}
+                    <button className="btn btn-primary btn-lg btn-block" type="submit">Sign In</button>
+                    <FetchData
+                      active={active}
+                      fetchURL="api/AB/data/login"
+                      sendData={sendData}
+                      noRender
+                    />
                   </form>
                 </div>
 
@@ -55,7 +177,8 @@ class Login extends React.PureComponent {
             </div>
           </div>
         </div>
-      </div>);
+      </div>
+      );
   }
 }
 
@@ -64,4 +187,19 @@ Login.contextTypes = {
   router: PropTypes.object,
 };
 
-export default Login;
+Login.propTypes = {
+  reduxState_fetchDataTransaction: PropTypes.object,
+};
+
+Login.defaultProps = {
+  reduxState_fetchDataTransaction: {},
+};
+
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
