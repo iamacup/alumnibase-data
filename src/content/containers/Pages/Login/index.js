@@ -33,82 +33,63 @@ class Login extends React.PureComponent {
       $(this.form).formValidation({
         framework: 'bootstrap',
         icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh',
         },
         fields: {
-            username: {
-                validators: {
-                    notEmpty: {
-                        message: 'The username is required'
-                    },
-                    emailAddress: {
-                            onError: function(e, data) {
-                                console.log('error')
-                            },
-                            onSuccess: function(e, data) {
-                                console.log('success')
-                            },
-                        },
-                }
+          username: {
+            validators: {
+              notEmpty: {
+                message: 'The username is required',
+              },
+              emailAddress: {
+                onError(e, data) {
+                },
+                onSuccess(e, data) {
+                },
+              },
             },
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: 'The password is required'
-                    }
-                }
-            }
-        }
-    }).on('success.form.fv', (e) => {
-      e.preventDefault();
-       this.handleSubmit();
+          },
+          password: {
+            validators: {
+              notEmpty: {
+                message: 'The password is required',
+              },
+            },
+          },
+        },
+      }).on('success.form.fv', (e) => {
+        e.preventDefault();
+        this.handleSubmit();
+      });
     });
-  });
-}
-
-
-handleSubmit() {
-  let username = this.username;
-  let password = this.password;
-
-  if (dNc(this.username)) {
-    username = this.username.value;
-    password = this.password.value;
   }
 
-  let generalStatus = null;
-  let payload = null;
 
-  let content='';
+  handleSubmit() {
+    let username = this.username;
+    let password = this.password;
 
-  if (dNc(this.props.reduxState_fetchDataTransaction.default)) {
-    ({ generalStatus, payload } = this.props.reduxState_fetchDataTransaction.default);
+    if (dNc(this.username)) {
+      username = this.username.value;
+      password = this.password.value;
+    }
+
+      this.setState({
+        username,
+        password,
+      });
   }
 
-  if (dNc(password) && dNc(username)) {
-    this.setState({
-      username,
-      password,
-    });
-  } else if (generalStatus === 'error' || generalStatus === 'fatal') {
-    content = (<div><h3 style={{ color: 'red', fontSize: '15px' }}>*{payload}</h3></div>)
-  }
 
-  return content
-}
+  render() {
+    let generalStatus = null;
+    let payload = null;
 
-
-render() {
-  let generalStatus = null;
-  let payload = null;
-  let started = null;
-  let finished = null;
-
-  if (dNc(this.props.reduxState_fetchDataTransaction.default)) {
-    ({ generalStatus, payload, started, finished } = this.props.reduxState_fetchDataTransaction.default);
-  }
+    if (dNc(this.props.reduxState_fetchDataTransaction.default)) {
+      ({ generalStatus, payload } = this.props.reduxState_fetchDataTransaction.default);
+    }
 
     const { username, password } = this.state;
     const sendData = { username, password };
@@ -116,14 +97,8 @@ render() {
     let active = false;
     if (dNc(username) && dNc(password)) active = true;
 
-    if (started === true && finished === false) {
-      return (
-        <LoadingArea />
-      );
-    }
-
-    if (generalStatus === 'success') {
-      this.context.router.history.push('/campaign/overview');
+    const errorHandler = () => {
+      $(this.errorText).toggleClass('d-block');
     }
 
     return (
@@ -139,32 +114,35 @@ render() {
                   </div>
                   <form ref={(element) => { this.form = element; }}>
                     <div className="form-group">
-                      <input 
-                      type="text" 
-                      className="form-control" 
-                      placeholder="Username" 
-                      name="username"
-                      id="username"
-                      ref={(element) => { this.username = element; }} 
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Username"
+                        name="username"
+                        id="username"
+                        ref={(element) => { this.username = element; }}
                       />
                     </div>
                     <div className="form-group">
-                      <input 
-                      type="password" 
-                      className="form-control" 
-                      placeholder="Password" 
-                      name="password"
-                      id="password"
-                      ref={(element) => { this.password = element; }}
-                       />
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Password"
+                        name="password"
+                        id="password"
+                        ref={(element) => { this.password = element; }}
+                      />
                     </div>
-                        {this.handleSubmit()}
+                   <div className="d-none" ref={(element) => { this.errorText = element; }} style={{ color: 'red', fontSize: '13px', marginBottom: '10px' }}>{payload}</div>
                     <button className="btn btn-primary btn-lg btn-block" type="submit">Sign In</button>
                     <FetchData
                       active={active}
                       fetchURL="api/AB/data/login"
                       sendData={sendData}
                       noRender
+                      errorCallback={payLoad => errorHandler(payLoad)}
+                      fatalCallback={() => errorHandler('The backend was broken')}
+                      successCallback={() => { this.context.router.history.push('/campaign/overview'); }}
                     />
                   </form>
                 </div>
@@ -178,7 +156,7 @@ render() {
           </div>
         </div>
       </div>
-      );
+    );
   }
 }
 
@@ -199,7 +177,4 @@ const mapStateToProps = state => ({
   reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
 });
 
-const mapDispatchToProps = dispatch => ({
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(Login);
