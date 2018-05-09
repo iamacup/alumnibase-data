@@ -12,6 +12,14 @@ import SideBar from '../../../../content/containers/Fragments/Template/sidebar';
 import Aside from '../../../../content/containers/Fragments/Template/aside';
 
 class Wrapper extends React.PureComponent {
+  componentDidUpdate() {
+    console.log(this.props.authenticationData.loggedIn);
+
+    if (this.props.authenticationData.loggedIn === false) {
+      this.context.router.history.push('/login');
+    }
+  }
+
   getBreadcrumbs() {
     const { breadcrumbs } = this.props.pageData;
     const crumbs = [];
@@ -35,6 +43,7 @@ class Wrapper extends React.PureComponent {
 
     return result;
   }
+
 
   render() {
     return (
@@ -74,10 +83,15 @@ class Wrapper extends React.PureComponent {
   }
 }
 
+Wrapper.contextTypes = {
+  router: PropTypes.object,
+};
+
 Wrapper.propTypes = {
   theLocation: PropTypes.object.isRequired,
   pageData: PropTypes.object,
   content: PropTypes.object.isRequired,
+  authenticationData: PropTypes.object,
 };
 
 Wrapper.defaultProps = {
@@ -93,12 +107,16 @@ Wrapper.defaultProps = {
         link: '/campaign/overview',
       }],
   },
+  authenticationData: {
+    loggedIn: false,
+  },
 };
 
 // we have to bind the location to the state of this component so navigation updates work properly (i.e. so it detects a change in the location props and thus re renderds the app)
 const mapStateToProps = state => ({
   location: state.router.location,
   pageData: state.dataStoreSingle.pageData,
+  authenticationData: state.dataStoreSingle.authenticationData,
 });
 
 const mapDispatchToProps = null;

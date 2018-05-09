@@ -47,7 +47,7 @@ class Page extends React.PureComponent {
                 <div id="mainnav-profile" className="mainnav-profile">
                   <div className="profile-wrap text-center">
                     <div className="pad-btm">
-                      <img className="img-circle img-md" src={require('../../../../../src/includes/nifty-v2.9/img/profile-photos/1.png')} alt="Profile" />
+                      <img className="img-circle img-md" src={this.props.authenticationData.profileImage} alt="Profile" />
 
 
                     </div>
@@ -55,8 +55,8 @@ class Page extends React.PureComponent {
                       <span className="pull-right dropdown-toggle">
                         <i className="dropdown-caret" />
                       </span>
-                      <p className="mnp-name">Patrick McConnell</p>
-                      <span className="mnp-desc">patrick@alumnibaseapp.com</span>
+                      <p className="mnp-name">{this.props.authenticationData.fullName}</p>
+                      <span className="mnp-desc">{this.props.authenticationData.username}</span>
                     </a>
                   </div>
                   <div id="profile-nav" className="collapse list-group bg-trans">
@@ -494,9 +494,12 @@ old advanced analytics
 
 Page.propTypes = {
   theLocation: PropTypes.object.isRequired,
+  authenticationData: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  authenticationData: state.dataStoreSingle.authenticationData,
+});
 
 const mapDispatchToProps = null;
 
