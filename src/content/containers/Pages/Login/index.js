@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { dNc } from '../../../../content/scripts/custom/utilities';
+import Authentication from '../../../../content/containers/Fragments/LoginAuthentication';
 
 class Login extends React.PureComponent {
   componentDidMount() {

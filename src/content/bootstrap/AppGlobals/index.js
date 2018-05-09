@@ -23,7 +23,7 @@ import '../../../../src/includes/fontawesome-pro-5.0.4/web-fonts-with-css/css/fo
 // our custom styles
 import '../../../content/theme/custom/scss/application.scss';
 
-// TODO used?
+// form validation for email login.
 import '../../../content/theme/vendor/formValidation-0.7.1.min.css';
 
 const listenersList = {};
