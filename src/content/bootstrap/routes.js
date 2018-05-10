@@ -51,11 +51,11 @@ export default [
     exact: true,
     component: CampaignOverviewPage,
   },
-  {
-    path: '/login',
-    exact: true,
-    component: LoginPage,
-  },
+  // {
+  //   path: '/login',
+  //   exact: true,
+  //   component: LoginPage,
+  // },
   {
     path: '/data-control/export',
     exact: true,

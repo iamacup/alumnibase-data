@@ -15,9 +15,9 @@ class Wrapper extends React.PureComponent {
   componentDidUpdate() {
     console.log(this.props.authenticationData.loggedIn);
 
-    if (this.props.authenticationData.loggedIn === false) {
-      this.context.router.history.push('/login');
-    }
+    // if (this.props.authenticationData.loggedIn === false) {
+    //   this.context.router.history.push('/login');
+    // }
   }
 
   getBreadcrumbs() {
