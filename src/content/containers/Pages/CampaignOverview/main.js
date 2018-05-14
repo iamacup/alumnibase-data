@@ -52,9 +52,9 @@ class Page extends React.PureComponent {
       // http://omnipotent.net/jquery.sparkline/#s-about
       // =================================================================
       const hddSparkline = () => {
-        $('#demo-sparkline-area').sparkline([57, 69, 70, 62, 73, 79, 76, 77, 73, 52, 57, 50, 60, 55, 70, 68, 57, 62, 53, 69, 59, 67, 69, 58, 50, 47, 65], {
+        $('#demo-sparkline-area').sparkline([57, 69, 70, 62, 73, 79, 76, 77, 73, 52, 57, 50, 60, 55, 70, 68, 57, 62, 53, 69, 59, 67, 69, 58, 50, 47], {
           type: 'line',
-          width: '100%',
+          width: '98%',
           height: '60',
           lineWidth: 2,
           lineColor: 'rgba(255,255,255,.85)',
@@ -77,7 +77,7 @@ class Page extends React.PureComponent {
       // =================================================================
 
       const barEl = $('#demo-sparkline-bar');
-      const barValues = [40, 32, 65, 53, 62, 55, 24, 67, 45, 70, 45, 56, 34, 67, 76, 32, 65, 53, 62, 55, 24, 67, 45, 70, 45, 56, 70, 45, 56, 34, 67, 76, 32, 65];
+      const barValues = [40, 32, 65, 53, 62, 55, 24, 67, 45, 70, 45, 56, 34, 67, 76, 32, 65, 53, 62, 55, 24, 67, 45, 70, 45, 56, 70, 45, 56, 34, 67, 76, 32];
       const barValueCount = barValues.length;
       const barSpacing = 1;
       const salesSparkline = () => {
@@ -655,7 +655,7 @@ class Page extends React.PureComponent {
 
                 {/* <!--Sparkline Area Chart--> */}
                 <Link href="/analytics/salary/overview" to="/splash/analytics">
-                  <div className="panel panel-success panel-colorful text-center">
+                  <div className="panel panel-success panel-colorful text-center" style={{ height: '140px' }}>
                     <div className="pad-all">
                       <p className="text-lg text-semibold">Analytics</p>
                     </div>
@@ -670,7 +670,7 @@ class Page extends React.PureComponent {
               <div className="col-sm-push-2 col-sm-4 col-lg-push-2 col-lg-4">
                 {/* <!--Sparkline bar chart --> */}
                 <Link href="/analytics/dlhe-like/2-3" to="/splash/regulatory">
-                  <div className="panel panel-purple panel-colorful text-center">
+                  <div className="panel panel-purple panel-colorful text-center" style={{ height: '140px' }}>
                     <div className="pad-all">
                       <p className="text-lg text-semibold">Regulatory Outputs</p>
                     </div>
