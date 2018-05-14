@@ -45,92 +45,6 @@ class Page extends React.PureComponent {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
 
-      // NETWORK CHART
-      // =================================================================
-      // Require Flot Charts
-      // -----------------------------------------------------------------
-      // http://www.flotcharts.org/
-      // =================================================================
-
-      // const dwData = [[1, 24], [2, 34], [3, 33], [4, 22], [5, 28], [6, 60], [7, 60], [8, 70], [9, 67], [10, 86], [11, 86], [12, 113], [13, 130], [14, 114], [15, 80], [16, 109], [17, 100], [18, 105], [19, 110], [20, 102], [21, 107], [22, 60], [23, 67], [24, 76], [25, 73], [26, 94], [27, 135], [28, 154], [29, 120], [30, 100], [31, 130], [32, 100], [33, 60], [34, 70], [35, 67], [36, 86], [37, 86], [38, 113], [39, 130], [40, 114], [41, 80], [42, 109], [43, 100], [44, 105], [45, 110], [46, 102], [47, 107], [48, 60], [49, 67], [50, 76], [51, 73], [52, 94], [53, 79]];
-      // const upData = [[1, 2], [2, 22], [3, 7], [4, 6], [5, 17], [6, 15], [7, 17], [8, 7], [9, 18], [10, 18], [11, 18], [12, 29], [13, 23], [14, 10], [15, 22], [16, 7], [17, 6], [18, 17], [19, 15], [20, 17], [21, 7], [22, 18], [23, 18], [24, 18], [25, 29], [26, 13], [27, 2], [28, 22], [29, 7], [30, 6], [31, 17], [32, 15], [33, 17], [34, 7], [35, 18], [36, 18], [37, 18], [38, 29], [39, 23], [40, 10], [41, 22], [42, 7], [43, 6], [44, 17], [45, 15], [46, 17], [47, 7], [48, 18], [49, 18], [50, 18], [51, 29], [52, 13], [53, 24]];
-
-      // const plot = $.plot('#demo-chart-network', [
-      //   {
-      //     label: 'Email Opens',
-      //     data: dwData,
-      //     lines: {
-      //       show: true,
-      //       lineWidth: 0,
-      //       fill: true,
-      //       fillColor: {
-      //         colors: [{
-      //           opacity: 0.2,
-      //         }, {
-      //           opacity: 0.2,
-      //         }],
-      //       },
-      //     },
-      //     points: {
-      //       show: false,
-      //     },
-      //   },
-      //   {
-      //     label: 'Completed Responses',
-      //     data: upData,
-      //     lines: {
-      //       show: true,
-      //       lineWidth: 0,
-      //       fill: true,
-      //       fillColor: {
-      //         colors: [{
-      //           opacity: 0.9,
-      //         }, {
-      //           opacity: 0.9,
-      //         }],
-      //       },
-      //     },
-      //     points: {
-      //       show: false,
-      //     },
-      //   },
-      // ], {
-      //   series: {
-      //     lines: {
-      //       show: true,
-      //     },
-      //     points: {
-      //       show: true,
-      //     },
-      //     shadowSize: 0, // Drawing is faster without shadows
-      //   },
-      //   colors: ['#b5bfc5', '#25476a'],
-      //   legend: {
-      //     show: true,
-      //     position: 'nw',
-      //     margin: [0, 0],
-      //   },
-      //   grid: {
-      //     borderWidth: 0,
-      //     hoverable: true,
-      //     clickable: true,
-      //   },
-      //   yaxis: {
-      //     show: false,
-      //     ticks: 5,
-      //     tickColor: 'rgba(0,0,0,.1)',
-      //   },
-      //   xaxis: {
-      //     show: true,
-      //     ticks: 10,
-      //     tickColor: 'transparent',
-      //   },
-      //   tooltip: {
-      //     show: true,
-      //     content: "<div class='flot-tooltip text-center'><h5 class='text-main'>%s</h5>%y.0</div>",
-      //   },
-      // });
-
       // HDD USAGE - SPARKLINE LINE AREA CHART
       // =================================================================
       // Require sparkline
@@ -142,44 +56,15 @@ class Page extends React.PureComponent {
           type: 'line',
           width: '100%',
           height: '60',
-          spotRadius: 4,
           lineWidth: 2,
           lineColor: 'rgba(255,255,255,.85)',
           fillColor: 'rgba(0,0,0,0.1)',
-          spotColor: 'rgba(255,255,255,.5)',
-          minSpotColor: 'rgba(255,255,255,.5)',
-          maxSpotColor: 'rgba(255,255,255,.5)',
-          highlightLineColor: '#ffffff',
-          highlightSpotColor: '#ffffff',
-        });
-      };
-
-
-      // EARNING - SPARKLINE LINE CHART
-      // =================================================================
-      // Require sparkline
-      // -----------------------------------------------------------------
-      // http://omnipotent.net/jquery.sparkline/#s-about
-      // =================================================================
-      const earningSparkline = () => {
-        $('#demo-sparkline-line').sparkline([2, 2, 3, 9, 7, 10, 12, 24, 19, 22, 28], {
-          type: 'line',
-          width: '95%',
-          height: '60',
-          spotRadius: 0,
-          lineWidth: 2,
-          lineColor: '#ffffff',
-          fillColor: false,
+          spotColor: false,
           minSpotColor: false,
           maxSpotColor: false,
-          highlightLineColor: '#ffffff',
-          highlightSpotColor: '#ffffff',
-          // tooltipChartTitle: 'Earning',
-          // tooltipPrefix: '$ ',
-          spotColor: '#ffffff',
-          valueSpots: {
-            '0:': '#ffffff',
-          },
+          highlightLineColor: false,
+          highlightSpotColor: false,
+          disableTooltips: true,
         });
       };
 
@@ -201,38 +86,19 @@ class Page extends React.PureComponent {
           height: 78,
           barWidth: Math.round((barEl.parent().width() - ((barValueCount - 1) * barSpacing)) / barValueCount),
           barSpacing,
+          disableTooltips: true,
           zeroAxis: false,
           barColor: 'rgba(0,0,0,.15)',
         });
       };
 
-      const barEl2 = $('#my-advanced-chart');
-      const barValues2 = [40, -32, -65, -53, -62, 55, 24, 67, 45, -70, -45, -56, -34, 67, 76, 32, -65, -53, 62, 55, 24, 67, 45, 70, -45, -56, -70, -45, 56, 34, 67, 76, 32, -65];
-      const barValueCount2 = barValues2.length;
-      const barSpacing2 = 1;
-      const salesSparkline2 = () => {
-        barEl2.sparkline(barValues2, {
-          type: 'bar',
-          height: 78,
-          barWidth: Math.round((barEl2.parent().width() - ((barValueCount2 - 1) * barSpacing2)) / barValueCount2),
-          barSpacing2,
-          zeroAxis: true,
-          barColor: 'rgba(0,0,0,.15)',
-          negBarColor: 'rgba(0,0,0,.45)',
-        });
-      };
-
       $(window).on('resizeEnd', () => {
         hddSparkline();
-        earningSparkline();
         salesSparkline();
-        salesSparkline2();
       });
 
       hddSparkline();
-      earningSparkline();
       salesSparkline();
-      salesSparkline2();
     });
   }
 
