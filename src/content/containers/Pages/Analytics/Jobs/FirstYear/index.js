@@ -38,31 +38,34 @@ class Page extends React.PureComponent {
         }],
     });
 
-    $(() => {
+    // $(() => {
       // need to re-initialise the framework here when pages change
-      $(document).trigger('nifty.ready');
-    });
-  }
-  // functions work to change data, but doesn't refresh the page to change the graphs.
-  handleLowest = (e) => {
-    e.preventDefault();
-    this.setState({
-      jobs: this.state.jobs.sort((a, b) => a.salary - b.salary),
-    });
-  }
+      // $(document).trigger('nifty.ready');
 
-  handleHighest = (e) => {
-    e.preventDefault();
-    this.setState({
-      jobs: this.state.jobs.sort((a, b) => b.salary - a.salary),
-    });
-  }
+// functions change the state correctly but aren't showing change on screen
+      // $(this.lowest).on('click', () => {
+      //   this.setState({
+      //     jobs: jobData.sort((a, b) => a.salary - b.salary),
+      //   });
+      // });
 
+      // $(this.highest).on('click', () => {
+      //   this.setState({
+      //     jobs: jobData.sort((a, b) => b.salary - a.salary),
+      //   });
+      // });
+
+    // });
+    
+  }
 
   render() {
-    const react1 = this.state.jobs.map(element => getSalaryRow(element.job, element.salary));
+    // this couldn't be here if buttons were working correcty, jobs would just be this.state.jobs.
+    let jobs = this.state.jobs.sort((a, b) => a.salary - b.salary);
 
-    const react2 = this.state.jobs.map(element => (
+    const react1 = jobs.map(element => getSalaryRow(element.job, element.salary));
+
+    const react2 = jobs.map(element => (
       <div key={element.job}>
         <div className="row">
           <div className="col-md-4 col-md-push-2">
@@ -77,15 +80,15 @@ class Page extends React.PureComponent {
     ));
 
     const getGraphs = () => {
-    // const filter = (
-    //   <div>
-    //     <h5>Filter Data by:</h5>
-    //     <button type="button" className="btn btn-outline-secondary" onClick={(e) => { this.handleHighest(e); }}>Highest to Lowest Salary</button>
-    //     <button type="button" className="btn btn-outline-secondary" onClick={(e) => { this.handleLowest(e); }}>Lowest to Highest Salary</button>
-    //     <br />
-    //     <br />
-    //   </div>
-    // );
+    const filter = (
+      <div className="row">
+        <h5>Filter Data by:</h5>
+        <button type="button" className="btn btn-default" ref={(element) => {this.highest = element}} style={{ marginRight: '10px' }}>Highest to Lowest Salary</button>
+        <button type="button" className="btn btn-default" ref={(element) => {this.lowest = element}}>Lowest to Highest Salary</button>
+        <br />
+        <br />
+      </div>
+    );
 
       const panel = (
         <TabbedGraphPanel
@@ -95,7 +98,7 @@ class Page extends React.PureComponent {
           {
             title: 'Average Salary',
             active: true,
-            // preContent: filter,
+            preContent: filter,
             graphData: {
               type: 'react',
               width: '100%',
