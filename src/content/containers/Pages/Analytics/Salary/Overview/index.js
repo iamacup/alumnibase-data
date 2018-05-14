@@ -48,7 +48,7 @@ class Page extends React.PureComponent {
 
     const postContent = (
       <div className="row text-center">
-        <div className="col-sm-4" style={{ color: 'red' }}>
+        <div className="col-lg-4" style={{ color: 'red' }}>
 
           <div className="panel media middle">
             <div className="media-left bg-mint pad-all">
@@ -61,7 +61,7 @@ class Page extends React.PureComponent {
           </div>
 
         </div>
-        <div className="col-sm-4" style={{ color: 'red' }}>
+        <div className="col-lg-4" style={{ color: 'red' }}>
 
           <div className="panel media middle">
             <div className="media-left bg-mint pad-all">
@@ -74,7 +74,7 @@ class Page extends React.PureComponent {
           </div>
 
         </div>
-        <div className="col-sm-4" style={{ color: 'red' }}>
+        <div className="col-lg-4" style={{ color: 'red' }}>
 
           <div className="panel media middle">
             <div className="media-left bg-mint pad-all">
