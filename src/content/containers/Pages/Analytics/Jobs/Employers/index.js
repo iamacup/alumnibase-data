@@ -58,8 +58,8 @@ class Page extends React.PureComponent {
       content={[
             {
               title: '',
-              preContent: <p>{topLabel}</p>,
-              postContent: <p>{labels}</p>,
+              preContent: topLabel,
+              postContent: labels,
               active: true,
               graphData: {
                 type: 'echarts',

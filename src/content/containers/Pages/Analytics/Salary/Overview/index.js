@@ -350,7 +350,7 @@ class Page extends React.PureComponent {
           </div>
         </div>
         <div className="text-center">
-          <Link href="#" to="/analytics/subjects/early" className="btn btn-primary">Detailed Breakdown</Link>
+          <Link href="#" to="/analytics/subjects/first-year" className="btn btn-primary">Detailed Breakdown</Link>
         </div>
       </div>
     );

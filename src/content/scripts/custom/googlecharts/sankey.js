@@ -1,7 +1,6 @@
+import { dNc } from '../../../../content/scripts/custom/utilities';
 
 export default function drawSankeyChart(columns, rows, totals) {
-  // const colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
-  //   '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
 
   const colors = ['#2f6d9d', '#54aece', '#66cbf0', '#9fb743', '#62a0d0'];
 
@@ -9,10 +8,6 @@ export default function drawSankeyChart(columns, rows, totals) {
     height: '100%',
     allowHtml: 'true',
     tooltip: { isHtml: true },
-    // textStyle: {
-    //   color: '#fff'
-    // }
-    // },
     sankey: {
       node: {
         colors,
@@ -24,6 +19,16 @@ export default function drawSankeyChart(columns, rows, totals) {
     },
   };
 
+  const finalRow = rows.map((row) => {
+    let percentage = 0;
+    if (dNc(totals)) {
+      percentage = (row[2] / totals[row[0]]) * 100;
+      row.push(`${row[0]} to ${row[1]} Jobs <br /> <strong>%${percentage.toFixed(2)}</strong><br /> <strong>#${row[2]}</strong>`);
+    } else row.push(`${row[0]} -> ${row[1]} <br /> <strong>${row[2]}</strong>`);
+
+    return row;
+  });
+
   return {
     load: [
       'current',
@@ -31,17 +36,6 @@ export default function drawSankeyChart(columns, rows, totals) {
     ],
     drawCallback: (targetDiv) => {
       const { google } = window;
-      const finalRow = rows.map((row) => {
-        let percentage = 0;
-        if (totals) {
-          percentage = (row[2] / totals[row[0]]) * 100;
-          row.push(`${row[0]} to ${row[1]} Jobs <br /> <strong>%${percentage.toFixed(2)}</strong><br /> <strong>#${row[2]}</strong>`);
-        } else row.push(`${row[0]} -> ${row[1]} <br /> <strong>${row[2]}</strong>`);
-
-        return row;
-      },
-
-      );
 
       const data = new google.visualization.DataTable();
       columns.map(column => data.addColumn(column[0], column[1]));

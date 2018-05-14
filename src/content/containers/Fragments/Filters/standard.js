@@ -16,7 +16,7 @@ class Graph extends React.PureComponent {
       // eslint-disable-next-line no-undef, no-unused-vars
       const init = new Switchery(elem);
       elem.onchange = () => {
-        this.clickShowNationalAverage();
+        // this.clickShowNationalAverage();
       };
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
@@ -25,7 +25,7 @@ class Graph extends React.PureComponent {
       // eslint-disable-next-line no-undef, no-unused-vars
       const init2 = new Switchery(elem2);
       elem2.onchange = () => {
-        this.clickShowNationalAverage();
+        // this.clickShowNationalAverage();
       };
 
       $('#sel1').select2({

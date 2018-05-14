@@ -44,14 +44,14 @@ class Page extends React.PureComponent {
       $(document).trigger('nifty.ready');
 
       // make the checkbox look nice with switchery
-      const elem = document.querySelector('#switchery-switch');
+      // const elem = document.querySelector('#switchery-switch');
 
       // eslint-disable-next-line no-undef, no-unused-vars
-      const init = new Switchery(elem);
+      // const init = new Switchery(elem);
 
-      elem.onchange = () => {
-        this.clickShowNationalAverage();
-      };
+      // elem.onchange = () => {
+      //   this.clickShowNationalAverage();
+      // };
     });
   }
 

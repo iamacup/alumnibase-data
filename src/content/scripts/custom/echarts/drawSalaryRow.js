@@ -18,7 +18,7 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
   }
 
   const obj = (
-    <div className="row">
+    <div key={title + salary} className="row">
       <div className="col-sm-4">
         <div className="text-left visible-xs-block">
           <h6 style={{ marginTop: '0' }}>{title}</h6>

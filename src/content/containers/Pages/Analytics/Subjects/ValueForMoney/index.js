@@ -189,6 +189,7 @@ class Page extends React.PureComponent {
               <TabbedGraphPanel
                 title={element.title}
                 globalID={element.globalID}
+                key={element.globalID}
                 content={[
                     {
                       title: '',
@@ -230,6 +231,7 @@ class Page extends React.PureComponent {
               <TabbedGraphPanel
                 title={element.title}
                 globalID={element.globalID}
+                key={element.globalID}
                 content={[
                     {
                       title: '',
@@ -271,6 +273,7 @@ class Page extends React.PureComponent {
               <TabbedGraphPanel
                 title={element.title}
                 globalID={element.globalID}
+                key={element.globalID}
                 content={[
                     {
                       title: '',

@@ -64,7 +64,6 @@ class Page extends React.PureComponent {
     // this is the percentage numbers
     const options2 = drawNewBarChart(axisDataPercentage, dataSeriesPercentage);
 
-
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}

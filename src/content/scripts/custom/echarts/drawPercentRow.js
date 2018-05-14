@@ -8,7 +8,7 @@ const getPercentRow = (title, percentage, bottomMargin) => {
   }
 
   const obj = (
-    <div className="row">
+    <div key={title + percentage} className="row">
       <div className="col-sm-4">
         <div className="text-left visible-xs-block">
           <h6 style={{ marginTop: '0' }}>{title}</h6>

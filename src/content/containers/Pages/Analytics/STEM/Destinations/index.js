@@ -143,6 +143,7 @@ class Page extends React.PureComponent {
               <TabbedGraphPanel
                 title={data.title}
                 globalID={data.globalID}
+                key={data.globalID}
                 content={[
                   {
                     title: '',

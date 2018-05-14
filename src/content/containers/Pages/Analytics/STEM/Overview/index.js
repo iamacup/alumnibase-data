@@ -135,7 +135,7 @@ class Page extends React.PureComponent {
     const subjectsData = data1.map(data => getPercentRow(data.job, data.salary));
 
     const genderSubjectsData = data1.map(data => (
-      <div>
+      <div key={data.job}>
         <div className="row">
           <div className="col-md-4 col-md-push-2">
             <p>{data.job}</p>
@@ -177,6 +177,7 @@ class Page extends React.PureComponent {
               <TabbedGraphPanel
                 title={data.title}
                 globalID={data.globalID}
+                key={data.globalID}
                 content={[
             {
               title: '',
