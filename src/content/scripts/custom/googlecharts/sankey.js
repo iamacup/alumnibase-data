@@ -1,7 +1,6 @@
 import { dNc } from '../../../../content/scripts/custom/utilities';
 
 export default function drawSankeyChart(columns, rows, totals) {
-
   const colors = ['#2f6d9d', '#54aece', '#66cbf0', '#9fb743', '#62a0d0'];
 
   const options = {

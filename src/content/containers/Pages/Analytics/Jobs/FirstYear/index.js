@@ -39,29 +39,28 @@ class Page extends React.PureComponent {
     });
 
     // $(() => {
-      // need to re-initialise the framework here when pages change
-      // $(document).trigger('nifty.ready');
+    // need to re-initialise the framework here when pages change
+    // $(document).trigger('nifty.ready');
 
-// functions change the state correctly but aren't showing change on screen
-      // $(this.lowest).on('click', () => {
-      //   this.setState({
-      //     jobs: jobData.sort((a, b) => a.salary - b.salary),
-      //   });
-      // });
+    // functions change the state correctly but aren't showing change on screen
+    // $(this.lowest).on('click', () => {
+    //   this.setState({
+    //     jobs: jobData.sort((a, b) => a.salary - b.salary),
+    //   });
+    // });
 
-      // $(this.highest).on('click', () => {
-      //   this.setState({
-      //     jobs: jobData.sort((a, b) => b.salary - a.salary),
-      //   });
-      // });
+    // $(this.highest).on('click', () => {
+    //   this.setState({
+    //     jobs: jobData.sort((a, b) => b.salary - a.salary),
+    //   });
+    // });
 
     // });
-    
   }
 
   render() {
     // this couldn't be here if buttons were working correcty, jobs would just be this.state.jobs.
-    let jobs = this.state.jobs.sort((a, b) => a.salary - b.salary);
+    const jobs = this.state.jobs.sort((a, b) => a.salary - b.salary);
 
     const react1 = jobs.map(element => getSalaryRow(element.job, element.salary));
 
@@ -80,15 +79,15 @@ class Page extends React.PureComponent {
     ));
 
     const getGraphs = () => {
-    const filter = (
-      <div className="row">
-        <h5>Filter Data by:</h5>
-        <button type="button" className="btn btn-default" ref={(element) => {this.highest = element}} style={{ marginRight: '10px' }}>Highest to Lowest Salary</button>
-        <button type="button" className="btn btn-default" ref={(element) => {this.lowest = element}}>Lowest to Highest Salary</button>
-        <br />
-        <br />
-      </div>
-    );
+      const filter = (
+        <div className="row">
+          <h5>Filter Data by:</h5>
+          <button type="button" className="btn btn-default" ref={(element) => { this.highest = element; }} style={{ marginRight: '10px' }}>Highest to Lowest Salary</button>
+          <button type="button" className="btn btn-default" ref={(element) => { this.lowest = element; }}>Lowest to Highest Salary</button>
+          <br />
+          <br />
+        </div>
+      );
 
       const panel = (
         <TabbedGraphPanel
