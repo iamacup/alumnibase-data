@@ -2,12 +2,35 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { dNc, debounce, initialiseNonMobileSticky } from '../../../../content/scripts/custom/utilities';
 
+import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
+
+
 class Graph extends React.PureComponent {
+  constructor(props){ 
+    super(props)
+
+    this.state = ({
+      applicationLocation: null,
+      currentLocation: null,
+      gender: null,
+      ethnicity: null,
+      ageRange: null,
+      graduactionRange: null,
+      salaryRange: null,
+      subjects: null,
+      degreeType: null,
+      stem: null,
+      polar: null,
+    })
+  }
+
   componentDidMount() {
+
     $(() => {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
@@ -37,6 +60,7 @@ class Graph extends React.PureComponent {
         placeholder: 'Using all locations...',
       });
 
+
       // remove the empty option
       $('#sel1')
         .find('option')
@@ -45,6 +69,10 @@ class Graph extends React.PureComponent {
             $(vertex).remove();
           }
         });
+        //set in state
+        $('#sel1').on('change', () => {
+          this.setStateWithValue('applicationLocation', $('#sel1').val())
+        })
 
       $('#sel2').select2({
         width: '100%',
@@ -64,6 +92,10 @@ class Graph extends React.PureComponent {
           }
         });
 
+        $('#sel2').on('change', () => {
+          this.setStateWithValue('currentLocation', $('#sel2').val())
+        })
+
       $('#sel3').select2({
         width: '100%',
         multiple: true,
@@ -81,6 +113,10 @@ class Graph extends React.PureComponent {
             $(vertex).remove();
           }
         });
+
+        $('#sel3').on('change', () => {
+          this.setStateWithValue('subjects', $('#sel3').val())
+        })
 
       $('#sel4').select2({
         width: '100%',
@@ -100,6 +136,11 @@ class Graph extends React.PureComponent {
           }
         });
 
+
+        $('#sel4').on('change', () => {
+          this.setStateWithValue('degreeType', $('#sel4').val())
+        })
+
       // age slider
       $('#age-slider').slider({
         min: 18,
@@ -113,6 +154,7 @@ class Graph extends React.PureComponent {
 
       const executeFunction = debounce(() => {
         console.log('change 1');
+        this.setStateWithValue('ageRange', $('#age-slider').val().split(','))
       }, 250);
 
       $('#age-slider').on('slideStop', executeFunction);
@@ -130,6 +172,7 @@ class Graph extends React.PureComponent {
 
       const executeFunction2 = debounce(() => {
         console.log('change 2');
+        this.setStateWithValue('graduactionRange', $('#date-slider').val().split(','))
       }, 250);
 
       $('#date-slider').on('slideStop', executeFunction2);
@@ -148,12 +191,85 @@ class Graph extends React.PureComponent {
 
       const executeFunction3 = debounce(() => {
         console.log('change 3');
+        this.setStateWithValue('salaryRange', $('#salary-slider').val().split(','))
       }, 250);
 
       $('#salary-slider').on('slideStop', executeFunction3);
 
       this.initSticky();
+
+
+// setting state for gender, ethnicity, polar and stem.
+
+    const gender = [];
+      $('#gender-boxes')
+      .find('input')
+      .on('click', (e) => {
+        const data = e.target.value;
+
+        if (gender.includes(data)) {
+          const index = gender.indexOf(data)
+          gender.splice(index, 1)
+        } else {
+          gender.push(data);
+        }
+
+      if (gender.length > 0) {
+          this.setStateWithValue('gender', gender)
+        } else {
+          this.setStateWithValue('gender', null)
+        }
+      })
+
+const ethnicity = [];
+      $('#ethnicity')
+      .find('input')
+      .on('click', (e) => {
+        const data = e.target.value;
+        
+        if (!ethnicity.includes(data)) {
+          ethnicity.push(data);
+        } else {
+          const index = ethnicity.indexOf(data)
+          ethnicity.splice(index, 1);
+        }
+
+        if (ethnicity.length === 0) {
+          this.setStateWithValue('ethnicity', null)
+        } else this.setStateWithValue('ethnicity', ethnicity)
+      })
+
+      $('#switches')
+      .find('input')
+      .on('change', (e) => {
+        const data = e.target.value;
+
+        if (this.state[data] !== true) this.setStateWithValue(data, true)
+          else this.setStateWithValue(data, null)
+      })
+
     });
+  }
+
+  setStateWithValue(id, value) {
+    this.setState({
+      [id]: value,
+    })
+
+      this.props.reduxAction_doUpdate("filterData", {
+    applicationLocation: this.state.applicationLocation, 
+    currentLocation: this.state.currentLocation, 
+    gender: this.state.gender, 
+    ethnicity: this.state.ethnicity, 
+    ageRange: this.state.ageRange, 
+    graduactionRange: this.state.graduactionRange, 
+    salaryRange: this.state.salaryRange, 
+    subjects: this.state.subjects, 
+    degreeType: this.state.degreeType, 
+    stem: this.state.stem,
+    polar: this.state.polar,
+  });
+
   }
 
   initSticky() {
@@ -161,6 +277,7 @@ class Graph extends React.PureComponent {
   }
 
   render() {
+
     return (
       <div className="row" ref={(div) => { this.parentContainer = div; }}>
         <div className="col-sm-8 col-sm-push-2">
@@ -700,39 +817,39 @@ class Graph extends React.PureComponent {
                 <div className="form-group">
                   <div className="row">
                     <label className="col-sm-2 control-label">Gender</label>
-                    <div className="col-sm-10">
-                      <input id="gender-male" className="magic-checkbox" type="checkbox" />
+                    <div className="col-sm-10" id="gender-boxes">
+                      <input id="gender-male" className="magic-checkbox" type="checkbox" value="male" ref={ element => { this.male = element } } />
                       <label htmlFor="gender-male">Male</label>
-                      <input id="gender-female" className="magic-checkbox" type="checkbox" />
+                      <input id="gender-female" className="magic-checkbox" type="checkbox" value="female" ref={ element => { this.female = element } } />
                       <label htmlFor="gender-female">Female</label>
-                      <input id="gender-other" className="magic-checkbox" type="checkbox" />
+                      <input id="gender-other" className="magic-checkbox" type="checkbox" value="other" ref={ element => { this.other = element } } />
                       <label htmlFor="gender-other">Other</label>
                     </div>
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <div className="row">
+                  <div className="row" id="ethnicity">
                     <label className="col-sm-2 control-label">Ethnicity</label>
                     <div className="col-sm-10">
                       <div className="checkbox">
-                        <input id="eth-1" className="magic-checkbox" type="checkbox" />
+                        <input id="eth-1" className="magic-checkbox" type="checkbox" value="white" />
                         <label htmlFor="eth-1">White</label>
                       </div>
                       <div className="checkbox">
-                        <input id="eth-2" className="magic-checkbox" type="checkbox" />
+                        <input id="eth-2" className="magic-checkbox" type="checkbox" value="mixed" />
                         <label htmlFor="eth-2">Mixed / Multiple ethnic groups</label>
                       </div>
                       <div className="checkbox">
-                        <input id="eth-3" className="magic-checkbox" type="checkbox" />
+                        <input id="eth-3" className="magic-checkbox" type="checkbox" value="asian" />
                         <label htmlFor="eth-3">Asian / Asian British</label>
                       </div>
                       <div className="checkbox">
-                        <input id="eth-4" className="magic-checkbox" type="checkbox" />
+                        <input id="eth-4" className="magic-checkbox" type="checkbox" value="black" />
                         <label htmlFor="eth-4">Black / African / Caribbean / Black British</label>
                       </div>
                       <div className="checkbox">
-                        <input id="eth-5" className="magic-checkbox" type="checkbox" />
+                        <input id="eth-5" className="magic-checkbox" type="checkbox" value="other" />
                         <label htmlFor="eth-5">Other ethnic group</label>
                       </div>
                     </div>
@@ -843,18 +960,18 @@ class Graph extends React.PureComponent {
                   <div className="row">
                     <div className="col-md-4">
                       <p className="text-main text-bold">Other Options</p>
-                      <div className="col-sm-10 col-sm-push-1">
+                      <div className="col-sm-10 col-sm-push-1" id="switches">
                         <div className="col-sm-8">
                           <label htmlFor="stem-1">STEM subjects only</label>
                         </div>
                         <div className="col-sm-4">
-                          <input id="demo-sw-unchecked1" type="checkbox" />
+                          <input id="demo-sw-unchecked1" type="checkbox" value="stem" />
                         </div>
                         <div className="col-sm-8">
                           <label htmlFor="polar-2">POLAR areas only</label>
                         </div>
                         <div className="col-sm-4">
-                          <input id="demo-sw-unchecked2" type="checkbox" />
+                          <input id="demo-sw-unchecked2" type="checkbox" value="polar" />
                         </div>
                       </div>
                     </div>
@@ -869,9 +986,19 @@ class Graph extends React.PureComponent {
   }
 }
 
+Graph.propTypes = {
+  reduxAction_doUpdate: PropTypes.func,
+}
+
+Graph.defaultProps = {
+  reduxAction_doUpdate: () => {},
+}
+
 const mapStateToProps = null;
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = dispatch => ({
+  reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Graph);
 
