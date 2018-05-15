@@ -90,7 +90,7 @@ Wrapper.contextTypes = {
 Wrapper.propTypes = {
   theLocation: PropTypes.object.isRequired,
   pageData: PropTypes.object,
-  content: PropTypes.object.isRequired,
+  content: PropTypes.any.isRequired,
   // authenticationData: PropTypes.object,
 };
 
