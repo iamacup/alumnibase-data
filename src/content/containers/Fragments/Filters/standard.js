@@ -31,6 +31,16 @@ class Graph extends React.PureComponent {
 
   componentDidMount() {
 
+    if (dNc(this.props.filterData)) {
+      Object.keys(this.props.filterData).forEach(filter => {
+        if (dNc(this.props.filterData[filter])) {
+          this.setState({
+            [filter]: this.props.filterData[filter],
+          })
+        }
+      })
+    }
+
     $(() => {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
@@ -51,6 +61,7 @@ class Graph extends React.PureComponent {
       // this.clickShowNationalAverage();
       // };
 
+
       $('#sel1').select2({
         width: '100%',
         multiple: true,
@@ -60,6 +71,10 @@ class Graph extends React.PureComponent {
         placeholder: 'Using all locations...',
       });
 
+// set the input box to hold whats already in the state.
+     $('#sel1')
+    .val(this.state.applicationLocation)
+    .trigger("paste"); 
 
       // remove the empty option
       $('#sel1')
@@ -83,6 +98,11 @@ class Graph extends React.PureComponent {
         placeholder: 'Using all locations',
       });
 
+      // set the input box to hold whats already in the state.
+     $('#sel2')
+    .val(this.state.currentLocation)
+    .trigger("paste"); 
+
       // remove the empty option
       $('#sel2')
         .find('option')
@@ -104,6 +124,11 @@ class Graph extends React.PureComponent {
         tokenSeparators: [',', ' '],
         placeholder: 'Filter by Subject',
       });
+
+// set the input box to hold whats already in the state.
+     $('#sel3')
+    .val(this.state.subjects)
+    .trigger("paste"); 
 
       // remove the empty option
       $('#sel3')
@@ -127,6 +152,11 @@ class Graph extends React.PureComponent {
         placeholder: 'Filter by Subject',
       });
 
+// set the input box to hold whats already in the state.
+     $('#sel4')
+    .val(this.state.degreeType)
+    .trigger("paste"); 
+
       // remove the empty option
       $('#sel4')
         .find('option')
@@ -143,11 +173,14 @@ class Graph extends React.PureComponent {
 
 
       // age slider
+      let age = [18, 85];
+      if (dNc(this.state.ageRange)) age = this.state.ageRange;
+
       $('#age-slider').slider({
         min: 18,
         max: 85,
         step: 1,
-        value: [18, 85],
+        value: [+age[0], +age[1]],
       });
 
       const executeFunction = debounce(() => {
@@ -159,11 +192,14 @@ class Graph extends React.PureComponent {
 
 
       // date slider
+      let date = [1920, 2018];
+      if (dNc(this.state.graduactionRange)) date = this.state.graduactionRange;
+
       $('#date-slider').slider({
         min: 1920,
         max: 2018,
         step: 1,
-        value: [1920, 2018],
+        value: [+date[0], +date[1]],
       });
 
       const executeFunction2 = debounce(() => {
@@ -175,11 +211,14 @@ class Graph extends React.PureComponent {
 
 
       // salary slider
+      let salary = [0, 1000000];
+      if (dNc(this.state.salaryRange)) salary = this.state.salaryRange;
+
       $('#salary-slider').slider({
         min: 0,
         max: 1000000,
         step: 1,
-        value: [0, 1000000],
+        value: [+salary[0], +salary[1]],
       });
 
       const executeFunction3 = debounce(() => {
@@ -195,6 +234,12 @@ class Graph extends React.PureComponent {
       // setting state for gender, ethnicity, polar and stem.
       let gender = [];
 
+      if (dNc(this.state.gender)) gender = this.state.gender;
+
+      if (gender.includes('male')) $('#gender-male').attr('checked', true)
+      if (gender.includes('female')) $('#gender-female').attr('checked', true)
+      if (gender.includes('other')) $('#gender-other').attr('checked', true)
+
       $('#gender-boxes')
         .find('input')
         .on('click', (e) => {
@@ -206,14 +251,25 @@ class Graph extends React.PureComponent {
           } else {
             gender.push(data);
           }
-          if (gender.length > 0) {
-            this.setStateWithValue('gender', gender);
-          } else {
+
+          if (gender.length === 0) {
             this.setStateWithValue('gender', null);
+          } else {
+            this.setStateWithValue('gender', gender);
           }
         });
 
       let ethnicity = [];
+
+
+      if (dNc(this.state.ethnicity)) ethnicity = this.state.ethnicity;
+
+      if (ethnicity.includes('white')) $('#eth-1').attr('checked', true)
+      if (ethnicity.includes('mixed')) $('#eth-2').attr('checked', true)
+      if (ethnicity.includes('asian')) $('#eth-3').attr('checked', true)
+      if (ethnicity.includes('black')) $('#eth-4').attr('checked', true)
+      if (ethnicity.includes('other')) $('#eth-5').attr('checked', true)
+
 
       $('#ethnicity')
         .find('input')
@@ -232,6 +288,7 @@ class Graph extends React.PureComponent {
           } else this.setStateWithValue('ethnicity', ethnicity);
         });
 
+
       $('#switches')
         .find('input')
         .on('change', (e) => {
@@ -244,14 +301,16 @@ class Graph extends React.PureComponent {
   }
 
   setStateWithValue(id, value) {
-    console.log(id, value)
+    let val = value;
+    if (value === null || value.length === 0 ) val = null;
+
     this.setState({
-      [id]: value,
+      [id]: val,
     });
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    if (dNc(e)) e.preventDefault();
 
     this.props.reduxAction_doUpdate('filterData', {
       applicationLocation: this.state.applicationLocation,
@@ -273,6 +332,11 @@ class Graph extends React.PureComponent {
   }
 
   render() {
+    let polarChecked = false;
+    let stemChecked = false;
+    if (this.state.polar === true) polarChecked = true;
+    if (this.state.stem === true) stemChecked = true;
+
     return (
       <div className="row" ref={(div) => { this.parentContainer = div; }}>
         <div className="col-sm-8 col-sm-push-2">
@@ -960,13 +1024,13 @@ class Graph extends React.PureComponent {
                           <label htmlFor="stem-1">STEM subjects only</label>
                         </div>
                         <div className="col-sm-4">
-                          <input id="demo-sw-unchecked1" type="checkbox" value="stem" />
+                          <input id="demo-sw-unchecked1" type="checkbox" value="stem" checked={stemChecked} />
                         </div>
                         <div className="col-sm-8">
                           <label htmlFor="polar-2">POLAR areas only</label>
                         </div>
                         <div className="col-sm-4">
-                          <input id="demo-sw-unchecked2" type="checkbox" value="polar" />
+                          <input id="demo-sw-unchecked2" type="checkbox" value="polar" checked={polarChecked} />
                         </div>
                       </div>
                     </div>
