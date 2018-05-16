@@ -31,31 +31,30 @@ class Page extends React.PureComponent {
     });
 
 
-
     $(() => {
     // need to re-initialise the framework here when pages change
-    $(document).trigger('nifty.ready');
+      $(document).trigger('nifty.ready');
 
-// const htmlVariable = this.getGraphs(jobData.sort((a, b) => b.salary - a.salary));
+      // const htmlVariable = this.getGraphs(jobData.sort((a, b) => b.salary - a.salary));
 
-// const logOut = $('.graph-highest').html(htmlVariable);
+      // const logOut = $('.graph-highest').html(htmlVariable);
 
 
-$(this.highestButton).click(() => {
-  console.log('****Highest Button*****')
-  $(this.highestButton).toggle();
-  $(this.lowestButton).removeClass('hidden');
-  // $('.graph-lowest').html(htmlVariable);
-});
+      $(this.highestButton).click(() => {
+        console.log('****Highest Button*****');
+        $(this.highestButton).toggle();
+        $(this.lowestButton).removeClass('hidden');
+        // $('.graph-lowest').html(htmlVariable);
+      });
 
-$(this.lowestButton).click(() => {
-  console.log('*****Lowest Button****')
-  $(this.highestButton).toggle();
-  $(this.lowestButton).addClass('hidden');
-  $('.graph-highest').replaceWith(`<div className="graph-lowest">${this.getGraphs(jobData.sort((a, b) => a.salary - b.salary))}</div>`);
-});
-          
-// $(this.highest).attr('hidden', true);
+      $(this.lowestButton).click(() => {
+        console.log('*****Lowest Button****');
+        $(this.highestButton).toggle();
+        $(this.lowestButton).addClass('hidden');
+        $('.graph-highest').replaceWith(`<div className="graph-lowest">${this.getGraphs(jobData.sort((a, b) => a.salary - b.salary))}</div>`);
+      });
+
+      // $(this.highest).attr('hidden', true);
 
       //     $(this.highestButton).click(() => {
       //       console.log('**********H')
@@ -68,12 +67,10 @@ $(this.lowestButton).click(() => {
       //   $(this.highest).attr('hidden', true);
       //   $(this.lowest).toggle();
       // });
-
     });
   }
 
   getGraphs(jobs) {
- 
     const react1 = jobs.map(element => getSalaryRow(element.job, element.salary));
 
     const react2 = jobs.map(element => (
@@ -90,21 +87,21 @@ $(this.lowestButton).click(() => {
       </div>
     ));
 
-      const filter = (
-        <div className="row">
-          <h5>Filter Data by:</h5>
-          <button type="button" className="btn btn-default" ref={(element) => { this.highestButton = element; }} style={{ marginRight: '10px' }}>Highest to Lowest Salary</button>
-          <button type="button" className="btn btn-default hidden" ref={(element) => { this.lowestButton = element; }}>Lowest to Highest Salary</button>
-          <br />
-          <br />
-        </div>
-      );
+    const filter = (
+      <div className="row">
+        <h5>Filter Data by:</h5>
+        <button type="button" className="btn btn-default" ref={(element) => { this.highestButton = element; }} style={{ marginRight: '10px' }}>Highest to Lowest Salary</button>
+        <button type="button" className="btn btn-default hidden" ref={(element) => { this.lowestButton = element; }}>Lowest to Highest Salary</button>
+        <br />
+        <br />
+      </div>
+    );
 
-      const panel = (
-        <TabbedGraphPanel
-          title="High level job salaries"
-          globalID="jobs-first-year-1"
-          content={[
+    const panel = (
+      <TabbedGraphPanel
+        title="High level job salaries"
+        globalID="jobs-first-year-1"
+        content={[
           {
             title: 'Average Salary',
             active: true,
@@ -141,12 +138,12 @@ $(this.lowestButton).click(() => {
             },
           },
         ]}
-          seperator
-        />
-      );
+        seperator
+      />
+    );
 
-      return panel;
-    };
+    return panel;
+  }
 
   render() {
     // this couldn't be here if buttons were working correcty, jobs would just be this.state.jobs.
@@ -167,25 +164,25 @@ $(this.lowestButton).click(() => {
         </div>
 
         <div className="row" ref={(element) => { this.lowest = element; }}>
-             <div className="col-md-10 col-md-push-1">
-             <div className="graph-lowest">
-               {this.getGraphs(lowest)}
-             </div>
-         {    // <div className="graph-highest hidden">
+          <div className="col-md-10 col-md-push-1">
+            <div className="graph-lowest">
+              {this.getGraphs(lowest)}
+            </div>
+            { // <div className="graph-highest hidden">
                       // {this.getGraphs(highest)}
                       // </div>
                     }
-             </div>
-           </div>
-    
-  { 
+          </div>
+        </div>
+
+        {
        // <div className="row hidden" id="highest">
  //                <div className="col-md-10 col-md-push-1">
  //                  {getGraphs(highest)}
  //                </div>
  //              </div>
 }
-  
+
       </div>
     );
 

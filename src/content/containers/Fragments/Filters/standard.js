@@ -30,15 +30,14 @@ class Graph extends React.PureComponent {
   }
 
   componentDidMount() {
-
     if (dNc(this.props.filterData)) {
-      Object.keys(this.props.filterData).forEach(filter => {
+      Object.keys(this.props.filterData).forEach((filter) => {
         if (dNc(this.props.filterData[filter])) {
           this.setState({
             [filter]: this.props.filterData[filter],
-          })
+          });
         }
-      })
+      });
     }
 
     $(() => {
@@ -71,10 +70,10 @@ class Graph extends React.PureComponent {
         placeholder: 'Using all locations...',
       });
 
-// set the input box to hold whats already in the state.
-     $('#sel1')
-    .val(this.state.applicationLocation)
-    .trigger("paste"); 
+      // set the input box to hold whats already in the state.
+      $('#sel1')
+        .val(this.state.applicationLocation)
+        .trigger('paste');
 
       // remove the empty option
       $('#sel1')
@@ -99,9 +98,9 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
-     $('#sel2')
-    .val(this.state.currentLocation)
-    .trigger("paste"); 
+      $('#sel2')
+        .val(this.state.currentLocation)
+        .trigger('paste');
 
       // remove the empty option
       $('#sel2')
@@ -125,10 +124,10 @@ class Graph extends React.PureComponent {
         placeholder: 'Filter by Subject',
       });
 
-// set the input box to hold whats already in the state.
-     $('#sel3')
-    .val(this.state.subjects)
-    .trigger("paste"); 
+      // set the input box to hold whats already in the state.
+      $('#sel3')
+        .val(this.state.subjects)
+        .trigger('paste');
 
       // remove the empty option
       $('#sel3')
@@ -152,10 +151,10 @@ class Graph extends React.PureComponent {
         placeholder: 'Filter by Subject',
       });
 
-// set the input box to hold whats already in the state.
-     $('#sel4')
-    .val(this.state.degreeType)
-    .trigger("paste"); 
+      // set the input box to hold whats already in the state.
+      $('#sel4')
+        .val(this.state.degreeType)
+        .trigger('paste');
 
       // remove the empty option
       $('#sel4')
@@ -236,9 +235,9 @@ class Graph extends React.PureComponent {
 
       if (dNc(this.state.gender)) gender = this.state.gender;
 
-      if (gender.includes('male')) $('#gender-male').attr('checked', true)
-      if (gender.includes('female')) $('#gender-female').attr('checked', true)
-      if (gender.includes('other')) $('#gender-other').attr('checked', true)
+      if (gender.includes('male')) $('#gender-male').attr('checked', true);
+      if (gender.includes('female')) $('#gender-female').attr('checked', true);
+      if (gender.includes('other')) $('#gender-other').attr('checked', true);
 
       $('#gender-boxes')
         .find('input')
@@ -264,11 +263,11 @@ class Graph extends React.PureComponent {
 
       if (dNc(this.state.ethnicity)) ethnicity = this.state.ethnicity;
 
-      if (ethnicity.includes('white')) $('#eth-1').attr('checked', true)
-      if (ethnicity.includes('mixed')) $('#eth-2').attr('checked', true)
-      if (ethnicity.includes('asian')) $('#eth-3').attr('checked', true)
-      if (ethnicity.includes('black')) $('#eth-4').attr('checked', true)
-      if (ethnicity.includes('other')) $('#eth-5').attr('checked', true)
+      if (ethnicity.includes('white')) $('#eth-1').attr('checked', true);
+      if (ethnicity.includes('mixed')) $('#eth-2').attr('checked', true);
+      if (ethnicity.includes('asian')) $('#eth-3').attr('checked', true);
+      if (ethnicity.includes('black')) $('#eth-4').attr('checked', true);
+      if (ethnicity.includes('other')) $('#eth-5').attr('checked', true);
 
 
       $('#ethnicity')
@@ -302,7 +301,7 @@ class Graph extends React.PureComponent {
 
   setStateWithValue(id, value) {
     let val = value;
-    if (value === null || value.length === 0 ) val = null;
+    if (value === null || value.length === 0) val = null;
 
     this.setState({
       [id]: val,
@@ -1037,9 +1036,9 @@ class Graph extends React.PureComponent {
                   </div>
                 </div>
                 <div className="row justify-content-center">
-                <div className="panel-control" style={{ width: '100%' }}>
-                <button class="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
-                </div>
+                  <div className="panel-control" style={{ width: '100%' }}>
+                    <button className="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
+                  </div>
                 </div>
               </div>
             </div>
