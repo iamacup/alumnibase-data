@@ -12,14 +12,6 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import jobData from './jobData';
 
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      jobs: jobData,
-    };
-  }
-
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -38,30 +30,50 @@ class Page extends React.PureComponent {
         }],
     });
 
-    // $(() => {
+
+
+    $(() => {
     // need to re-initialise the framework here when pages change
-    // $(document).trigger('nifty.ready');
+    $(document).trigger('nifty.ready');
 
-    // functions change the state correctly but aren't showing change on screen
-    // $(this.lowest).on('click', () => {
-    //   this.setState({
-    //     jobs: jobData.sort((a, b) => a.salary - b.salary),
-    //   });
-    // });
+// const htmlVariable = this.getGraphs(jobData.sort((a, b) => b.salary - a.salary));
 
-    // $(this.highest).on('click', () => {
-    //   this.setState({
-    //     jobs: jobData.sort((a, b) => b.salary - a.salary),
-    //   });
-    // });
+// const logOut = $('.graph-highest').html(htmlVariable);
 
-    // });
+
+$(this.highestButton).click(() => {
+  console.log('****Highest Button*****')
+  $(this.highestButton).toggle();
+  $(this.lowestButton).removeClass('hidden');
+  // $('.graph-lowest').html(htmlVariable);
+});
+
+$(this.lowestButton).click(() => {
+  console.log('*****Lowest Button****')
+  $(this.highestButton).toggle();
+  $(this.lowestButton).addClass('hidden');
+  $('.graph-highest').replaceWith(`<div className="graph-lowest">${this.getGraphs(jobData.sort((a, b) => a.salary - b.salary))}</div>`);
+});
+          
+// $(this.highest).attr('hidden', true);
+
+      //     $(this.highestButton).click(() => {
+      //       console.log('**********H')
+      //   $(this.lowest).toggle();
+      //   // $(this.highest).attr('hidden', false);
+      // });
+
+      // $(this.lowestButton).click(() => {
+      //             console.log('**********L')
+      //   $(this.highest).attr('hidden', true);
+      //   $(this.lowest).toggle();
+      // });
+
+    });
   }
 
-  render() {
-    // this couldn't be here if buttons were working correcty, jobs would just be this.state.jobs.
-    const jobs = this.state.jobs.sort((a, b) => a.salary - b.salary);
-
+  getGraphs(jobs) {
+ 
     const react1 = jobs.map(element => getSalaryRow(element.job, element.salary));
 
     const react2 = jobs.map(element => (
@@ -78,12 +90,11 @@ class Page extends React.PureComponent {
       </div>
     ));
 
-    const getGraphs = () => {
       const filter = (
         <div className="row">
           <h5>Filter Data by:</h5>
-          <button type="button" className="btn btn-default" ref={(element) => { this.highest = element; }} style={{ marginRight: '10px' }}>Highest to Lowest Salary</button>
-          <button type="button" className="btn btn-default" ref={(element) => { this.lowest = element; }}>Lowest to Highest Salary</button>
+          <button type="button" className="btn btn-default" ref={(element) => { this.highestButton = element; }} style={{ marginRight: '10px' }}>Highest to Lowest Salary</button>
+          <button type="button" className="btn btn-default hidden" ref={(element) => { this.lowestButton = element; }}>Lowest to Highest Salary</button>
           <br />
           <br />
         </div>
@@ -137,6 +148,11 @@ class Page extends React.PureComponent {
       return panel;
     };
 
+  render() {
+    // this couldn't be here if buttons were working correcty, jobs would just be this.state.jobs.
+    const lowest = jobData.sort((a, b) => a.salary - b.salary);
+    const highest = jobData.sort((a, b) => b.salary - a.salary);
+
     const content = (
       <div id="page-content">
 
@@ -150,13 +166,26 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            {getGraphs()}
-          </div>
-        </div>
-
-
+        <div className="row" ref={(element) => { this.lowest = element; }}>
+             <div className="col-md-10 col-md-push-1">
+             <div className="graph-lowest">
+               {this.getGraphs(lowest)}
+             </div>
+         {    // <div className="graph-highest hidden">
+                      // {this.getGraphs(highest)}
+                      // </div>
+                    }
+             </div>
+           </div>
+    
+  { 
+       // <div className="row hidden" id="highest">
+ //                <div className="col-md-10 col-md-push-1">
+ //                  {getGraphs(highest)}
+ //                </div>
+ //              </div>
+}
+  
       </div>
     );
 

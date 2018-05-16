@@ -32,6 +32,7 @@ class Page extends React.PureComponent {
     $(() => {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
+
     });
   }
 
