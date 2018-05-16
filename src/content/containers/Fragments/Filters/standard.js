@@ -1038,7 +1038,7 @@ class Graph extends React.PureComponent {
                 </div>
                 <div className="row justify-content-center">
                 <div className="panel-control" style={{ width: '100%' }}>
-                <button class="btn btn-primary" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
+                <button class="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
                 </div>
                 </div>
               </div>
