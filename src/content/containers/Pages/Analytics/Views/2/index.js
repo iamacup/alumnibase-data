@@ -178,27 +178,27 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getData(item, collapsed){
+  getData(item, collapsed) {
     const titles = [];
     const data = [];
 
-  if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-    this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
-      if (item === element.item) {
-        element.data.forEach((value) => {
-          titles.push(value.value);
-          data.push(value.percentage);
-        })
-      }
-    });
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
+        if (item === element.item) {
+          element.data.forEach((value) => {
+            titles.push(value.value);
+            data.push(value.percentage);
+          });
+        }
+      });
+    }
+
+    return { titles, collapsed, data };
   }
 
-    return { titles, collapsed, data }
-  }
-
-  getContent(){
-  const content = (
-      <div id="page-content">
+  getContent() {
+    const content = (
+      <div id="page-content" key="content-2">
 
         <StandardFilters />
 
@@ -284,15 +284,25 @@ class Page extends React.PureComponent {
       content = this.getContent();
     }
 
-  const dataTransaction = (
-    <FetchData
-    active
-    key="transaction-2"
-    fetchURL="/api/analytics/views"
-    />
+    const sendData = { data: [] };
+
+
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
+
+    const dataTransaction = (
+      <FetchData
+        active
+        key="transaction-2"
+        fetchURL="/api/analytics/views"
+        sendData={sendData}
+      />
     );
 
-  const output = [dataTransaction, content];
+    const output = [dataTransaction, content];
 
     const { location } = this.props;
 
@@ -306,15 +316,18 @@ Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
   reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
   reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
 const mapStateToProps = state => ({
   reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
 });
 
 const mapDispatchToProps = dispatch => ({

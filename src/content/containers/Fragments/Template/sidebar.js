@@ -499,7 +499,7 @@ Page.propTypes = {
 
 const mapStateToProps = null;
 // state => ({
-  // authenticationData: state.dataStoreSingle.authenticationData,
+// authenticationData: state.dataStoreSingle.authenticationData,
 // });
 
 const mapDispatchToProps = null;

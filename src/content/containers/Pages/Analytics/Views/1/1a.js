@@ -22,7 +22,6 @@ const dataStoreID = 'views';
 const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
-
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Views on Education Impact',
@@ -187,8 +186,7 @@ class Page extends React.PureComponent {
     const titles = [];
     const data = [];
 
-    if(dNc(this.props.reduxState_fetchDataTransaction) && dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) 
-    {
+    if (dNc(this.props.reduxState_fetchDataTransaction) && dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
       this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
         if (item === element.item) {
           element.data.forEach((value) => {
@@ -203,7 +201,6 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-
     const content = (
       <div id="page-content" key="content">
         <StandardFilters />
@@ -413,21 +410,29 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if(this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
     }
 
-    const dataTransaction = (
-      <BasicPanel   // put the fetch in a different pane/panel.
-      content={
-        <FetchData
-          key="transaction-1a"
-          active
-          fetchURL="/api/analytics/views"
-        />
+
+    const sendData = { data: [] };
+
+
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
       }
+    });
+
+    const dataTransaction = (
+      // put the fetch in a different pane/panel.
+      <FetchData
+        key="transaction-1a"
+        active
+        fetchURL="/api/analytics/views"
+        sendData={sendData}
       />
-      );
+    );
 
     const output = [
       dataTransaction,
@@ -437,7 +442,7 @@ class Page extends React.PureComponent {
     const { location } = this.props;
     return (
       <div>
-        <Wrapper content={output} theLocation={location} /> 
+        <Wrapper content={output} theLocation={location} />
       </div>
     );
   }
@@ -447,15 +452,18 @@ Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
   reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
-  reduxState_fetchDataTransaction: { default: {}},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
 const mapStateToProps = state => ({
   reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
 });
 
 const mapDispatchToProps = dispatch => ({

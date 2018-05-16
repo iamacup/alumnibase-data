@@ -11,8 +11,8 @@ import * as storeAction from '../../../../foundation/redux/globals/DataStoreSing
 
 
 class Graph extends React.PureComponent {
-  constructor(props){ 
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = ({
       applicationLocation: null,
@@ -26,7 +26,7 @@ class Graph extends React.PureComponent {
       degreeType: null,
       stem: null,
       polar: null,
-    })
+    });
   }
 
   componentDidMount() {
@@ -38,18 +38,18 @@ class Graph extends React.PureComponent {
       const elem = document.querySelector('#demo-sw-unchecked1');
       // eslint-disable-next-line no-undef, no-unused-vars
       const init = new Switchery(elem);
-      elem.onchange = () => {
-        // this.clickShowNationalAverage();
-      };
+      // elem.onchange = () => {
+      // this.clickShowNationalAverage();
+      // };
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
       // make the checkbox look nice with switchery
       const elem2 = document.querySelector('#demo-sw-unchecked2');
       // eslint-disable-next-line no-undef, no-unused-vars
       const init2 = new Switchery(elem2);
-      elem2.onchange = () => {
-        // this.clickShowNationalAverage();
-      };
+      // elem2.onchange = () => {
+      // this.clickShowNationalAverage();
+      // };
 
       $('#sel1').select2({
         width: '100%',
@@ -69,10 +69,10 @@ class Graph extends React.PureComponent {
             $(vertex).remove();
           }
         });
-        //set in state
-        $('#sel1').on('change', () => {
-          this.setStateWithValue('applicationLocation', $('#sel1').val())
-        })
+      // set in state
+      $('#sel1').on('change', () => {
+        this.setStateWithValue('applicationLocation', $('#sel1').val());
+      });
 
       $('#sel2').select2({
         width: '100%',
@@ -92,9 +92,9 @@ class Graph extends React.PureComponent {
           }
         });
 
-        $('#sel2').on('change', () => {
-          this.setStateWithValue('currentLocation', $('#sel2').val())
-        })
+      $('#sel2').on('change', () => {
+        this.setStateWithValue('currentLocation', $('#sel2').val());
+      });
 
       $('#sel3').select2({
         width: '100%',
@@ -114,9 +114,9 @@ class Graph extends React.PureComponent {
           }
         });
 
-        $('#sel3').on('change', () => {
-          this.setStateWithValue('subjects', $('#sel3').val())
-        })
+      $('#sel3').on('change', () => {
+        this.setStateWithValue('subjects', $('#sel3').val());
+      });
 
       $('#sel4').select2({
         width: '100%',
@@ -137,42 +137,38 @@ class Graph extends React.PureComponent {
         });
 
 
-        $('#sel4').on('change', () => {
-          this.setStateWithValue('degreeType', $('#sel4').val())
-        })
+      $('#sel4').on('change', () => {
+        this.setStateWithValue('degreeType', $('#sel4').val());
+      });
+
 
       // age slider
       $('#age-slider').slider({
         min: 18,
         max: 85,
         step: 1,
-        value: [
-          18,
-          85,
-        ],
+        value: [18, 85],
       });
 
       const executeFunction = debounce(() => {
         console.log('change 1');
-        this.setStateWithValue('ageRange', $('#age-slider').val().split(','))
+        this.setStateWithValue('ageRange', $('#age-slider').val().split(','));
       }, 250);
 
       $('#age-slider').on('slideStop', executeFunction);
 
-      // age slider
+
+      // date slider
       $('#date-slider').slider({
         min: 1920,
         max: 2018,
         step: 1,
-        value: [
-          1920,
-          2018,
-        ],
+        value: [1920, 2018],
       });
 
       const executeFunction2 = debounce(() => {
         console.log('change 2');
-        this.setStateWithValue('graduactionRange', $('#date-slider').val().split(','))
+        this.setStateWithValue('graduactionRange', $('#date-slider').val().split(','));
       }, 250);
 
       $('#date-slider').on('slideStop', executeFunction2);
@@ -183,15 +179,12 @@ class Graph extends React.PureComponent {
         min: 0,
         max: 1000000,
         step: 1,
-        value: [
-          0,
-          1000000,
-        ],
+        value: [0, 1000000],
       });
 
       const executeFunction3 = debounce(() => {
         console.log('change 3');
-        this.setStateWithValue('salaryRange', $('#salary-slider').val().split(','))
+        this.setStateWithValue('salaryRange', $('#salary-slider').val().split(','));
       }, 250);
 
       $('#salary-slider').on('slideStop', executeFunction3);
@@ -199,77 +192,80 @@ class Graph extends React.PureComponent {
       this.initSticky();
 
 
-// setting state for gender, ethnicity, polar and stem.
+      // setting state for gender, ethnicity, polar and stem.
+      let gender = [];
 
-    const gender = [];
       $('#gender-boxes')
-      .find('input')
-      .on('click', (e) => {
-        const data = e.target.value;
+        .find('input')
+        .on('click', (e) => {
+          const data = e.target.value;
 
-        if (gender.includes(data)) {
-          const index = gender.indexOf(data)
-          gender.splice(index, 1)
-        } else {
-          gender.push(data);
-        }
+          if (gender.includes(data)) {
+            const index = gender.indexOf(data);
+            gender.splice(index, 1);
+          } else {
+            gender.push(data);
+          }
+          if (gender.length > 0) {
+            this.setStateWithValue('gender', gender);
+          } else {
+            this.setStateWithValue('gender', null);
+          }
+        });
 
-      if (gender.length > 0) {
-          this.setStateWithValue('gender', gender)
-        } else {
-          this.setStateWithValue('gender', null)
-        }
-      })
+      let ethnicity = [];
 
-const ethnicity = [];
       $('#ethnicity')
-      .find('input')
-      .on('click', (e) => {
-        const data = e.target.value;
-        
-        if (!ethnicity.includes(data)) {
-          ethnicity.push(data);
-        } else {
-          const index = ethnicity.indexOf(data)
-          ethnicity.splice(index, 1);
-        }
+        .find('input')
+        .on('click', (e) => {
+          const data = e.target.value;
 
-        if (ethnicity.length === 0) {
-          this.setStateWithValue('ethnicity', null)
-        } else this.setStateWithValue('ethnicity', ethnicity)
-      })
+          if (!ethnicity.includes(data)) {
+            ethnicity.push(data);
+          } else {
+            const index = ethnicity.indexOf(data);
+            ethnicity.splice(index, 1);
+          }
+
+          if (ethnicity.length === 0) {
+            this.setStateWithValue('ethnicity', null);
+          } else this.setStateWithValue('ethnicity', ethnicity);
+        });
 
       $('#switches')
-      .find('input')
-      .on('change', (e) => {
-        const data = e.target.value;
+        .find('input')
+        .on('change', (e) => {
+          const data = e.target.value;
 
-        if (this.state[data] !== true) this.setStateWithValue(data, true)
-          else this.setStateWithValue(data, null)
-      })
-
+          if (this.state[data] === true) this.setStateWithValue(data, null);
+          else this.setStateWithValue(data, true);
+        });
     });
   }
 
   setStateWithValue(id, value) {
+    console.log(id, value)
     this.setState({
       [id]: value,
-    })
+    });
+  }
 
-      this.props.reduxAction_doUpdate("filterData", {
-    applicationLocation: this.state.applicationLocation, 
-    currentLocation: this.state.currentLocation, 
-    gender: this.state.gender, 
-    ethnicity: this.state.ethnicity, 
-    ageRange: this.state.ageRange, 
-    graduactionRange: this.state.graduactionRange, 
-    salaryRange: this.state.salaryRange, 
-    subjects: this.state.subjects, 
-    degreeType: this.state.degreeType, 
-    stem: this.state.stem,
-    polar: this.state.polar,
-  });
+  handleSubmit(e) {
+    e.preventDefault();
 
+    this.props.reduxAction_doUpdate('filterData', {
+      applicationLocation: this.state.applicationLocation,
+      currentLocation: this.state.currentLocation,
+      gender: this.state.gender,
+      ethnicity: this.state.ethnicity,
+      ageRange: this.state.ageRange,
+      graduactionRange: this.state.graduactionRange,
+      salaryRange: this.state.salaryRange,
+      subjects: this.state.subjects,
+      degreeType: this.state.degreeType,
+      stem: this.state.stem,
+      polar: this.state.polar,
+    });
   }
 
   initSticky() {
@@ -277,7 +273,6 @@ const ethnicity = [];
   }
 
   render() {
-
     return (
       <div className="row" ref={(div) => { this.parentContainer = div; }}>
         <div className="col-sm-8 col-sm-push-2">
@@ -818,11 +813,11 @@ const ethnicity = [];
                   <div className="row">
                     <label className="col-sm-2 control-label">Gender</label>
                     <div className="col-sm-10" id="gender-boxes">
-                      <input id="gender-male" className="magic-checkbox" type="checkbox" value="male" ref={ element => { this.male = element } } />
+                      <input id="gender-male" className="magic-checkbox" type="checkbox" value="male" ref={(element) => { this.male = element; }} />
                       <label htmlFor="gender-male">Male</label>
-                      <input id="gender-female" className="magic-checkbox" type="checkbox" value="female" ref={ element => { this.female = element } } />
+                      <input id="gender-female" className="magic-checkbox" type="checkbox" value="female" ref={(element) => { this.female = element; }} />
                       <label htmlFor="gender-female">Female</label>
-                      <input id="gender-other" className="magic-checkbox" type="checkbox" value="other" ref={ element => { this.other = element } } />
+                      <input id="gender-other" className="magic-checkbox" type="checkbox" value="other" ref={(element) => { this.other = element; }} />
                       <label htmlFor="gender-other">Other</label>
                     </div>
                   </div>
@@ -977,6 +972,9 @@ const ethnicity = [];
                     </div>
                   </div>
                 </div>
+                <div className="panel-control">
+                  <button onClick={e => this.handleSubmit(e)}>Save</button>
+                </div>
               </div>
             </div>
           </div>
@@ -988,16 +986,20 @@ const ethnicity = [];
 
 Graph.propTypes = {
   reduxAction_doUpdate: PropTypes.func,
-}
+  filterData: PropTypes.object,
+};
 
 Graph.defaultProps = {
   reduxAction_doUpdate: () => {},
-}
+  filterData: {},
+};
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
-  reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data))
+  reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Graph);

@@ -8,7 +8,6 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
 
-import LoadingArea from '../../../../../../content/components/Loading';
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import drawPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
@@ -121,103 +120,115 @@ class Page1b extends React.PureComponent {
     const titles = [];
     const data = [];
 
-	if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-		this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
-			if (item === element.item) {
-				element.data.forEach((value) => {
-					titles.push(value.value);
-          data.push(value.percentage);
-        })
-      }
-    });
-	}
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
+        if (item === element.item) {
+          element.data.forEach((value) => {
+            titles.push(value.value);
+            data.push(value.percentage);
+          });
+        }
+      });
+    }
 
-    return { titles, collapsed, data }
+    return { titles, collapsed, data };
   }
 
   getContent() {
-	const content = (
-            <div id="page-content" key="content-1b">
+    const content = (
+      <div id="page-content" key="content-1b">
 
-              <StandardFilters />
+        <StandardFilters />
 
-              <SubNav
-                active="2"
-              />
+        <SubNav
+          active="2"
+        />
 
-              <div className="row">
-                <div className="col-md-6 col-md-push-3">
-                  <BasicPanel
-                    content={
-                      <p>
+        <div className="row">
+          <div className="col-md-6 col-md-push-3">
+            <BasicPanel
+              content={
+                <p>
                         Data from section 5 of the respondent survey is collated here. For ease of access this data is split into three areas: <br /><br />
-                        <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life, <br />
-                        <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
-                      </p>
+                  <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life, <br />
+                  <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
+                </p>
                     }
-                  />
-                </div>
-              </div>
+            />
+          </div>
+        </div>
 
-              <div className="row">
-                <div className="col-md-8 col-md-push-2">
-                  {this.getTabbed('Belief undertaking professional qualifications will advance your career',
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {this.getTabbed('Belief undertaking professional qualifications will advance your career',
                     'view-2-1',
                     this.getOptions1(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-                    this.getData("furtherStudyAdvancesCareer", false))}
-                </div>
-              </div>
+                    this.getData('furtherStudyAdvancesCareer', false))}
+          </div>
+        </div>
 
 
-            </div>
-          );
+      </div>
+    );
 
     return content;
   }
 
   render() {
-	let content = null
+    let content = null;
 
-	if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
-		content = this.getContent();
-	}
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+      content = this.getContent();
+    }
+
+    const sendData = { data: [] };
 
 
-	const dataTransaction = (
-		<FetchData
-		key="transaction-1b"
-		active 
-		fetchURL="/api/analytics/views"
-		/>
-		)
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
 
-	const output = [
-			dataTransaction,
-			content
-		];
+    const dataTransaction = (
+      <FetchData
+        key="transaction-1b"
+        active
+        fetchURL="/api/analytics/views"
+        sendData={sendData}
+      />
+    );
 
-	const { location } = this.props;
+    const output = [
+      dataTransaction,
+      content,
+    ];
 
-	return (
-	  <div>
-	  <Wrapper content={output} theLocation={location} />
-	  </div>
-	);
-	}
+    const { location } = this.props;
+
+    return (
+      <div>
+        <Wrapper content={output} theLocation={location} />
+      </div>
+    );
+  }
 }
 
 Page1b.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  filterData: PropTypes.object,
   reduxState_fetchDataTransaction: PropTypes.object,
 };
 
 Page1b.defaultProps = {
   reduxAction_doUpdate: () => {},
+  filterData: {},
   reduxState_fetchDataTransaction: { default: {} },
 };
 
 const mapStateToProps = state => ({
+  filterData: state.dataStoreSingle.filterData,
   reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
 });
 
