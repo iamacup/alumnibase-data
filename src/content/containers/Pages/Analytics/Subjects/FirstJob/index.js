@@ -7,10 +7,18 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
-
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import { highest, lowest } from './data';
 
 class Page extends React.PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.state = ({
+      jobs: highest,
+    })
+  }
+
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -32,56 +40,32 @@ class Page extends React.PureComponent {
     $(() => {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
+
+      $(this.highest).click(() => {
+        this.setState({
+          jobs: highest,
+        })
+        $(this.highest).addClass('hidden');
+        $(this.lowest).toggle();
+      });
+
+      $(this.lowest).click(() => {
+        this.setState({
+          jobs: lowest,
+        })
+        $(this.highest).removeClass('hidden');
+        $(this.lowest).toggle();
+      });
+
     });
   }
 
   getGraphs() {
-    const data = [
-      {
-        name: 'Medicine & dentistry and veterinary science', salary: [1], male: [1], female: [1],
-      },
-      {
-        name: 'Subjects allied to medicine', salary: [6], male: [2], female: [7],
-      }, {
-        name: 'Biological sciences', salary: [12], male: [11], female: [13],
-      }, {
-        name: 'Veterinary Science', salary: [1], male: [1], female: [1],
-      }, {
-        name: 'Agriculture & related subjects', salary: [1], male: [1], female: [1],
-      }, {
-        name: 'Physical sciences', salary: [7], male: [10], female: [4],
-      }, {
-        name: 'Mathematical sciences', salary: [3], male: [5], female: [1],
-      }, {
-        name: 'Computer sciences', salary: [7], male: [13], female: [2],
-      }, {
-        name: 'Engineering & technology', salary: [8], male: [14], female: [2],
-      }, {
-        name: 'Architecture, building, and planning', salary: [3], male: [3], female: [2],
-      }, {
-        name: 'Social studies', salary: [12], male: [11], female: [14],
-      }, {
-        name: 'Law', salary: [3], male: [3], female: [4],
-      }, {
-        name: 'Business & administrative studies', salary: [13], male: [16], female: [12],
-      }, {
-        name: 'Mass communications & documentation', salary: [4], male: [4], female: [4],
-      }, {
-        name: 'Languages', salary: [7], male: [5], female: [9],
-      }, {
-        name: 'Historical & philosophical studies', salary: [5], male: [6], female: [5],
-      }, {
-        name: 'Creative arts & design', salary: [3], male: [12], female: [15],
-      }, {
-        name: 'Education', salary: [3], male: [1], female: [4],
-      }, {
-        name: 'Combined Sujects', salary: [1], male: [1], female: [1],
-      },
-    ];
+const { jobs } = this.state;
 
-    const react1 = data.map(element => getPercentRow(element.name, element.salary, true, true));
+    const react1 = jobs.map(element => getPercentRow(element.name, element.salary, true, true));
 
-    const react2 = data.map(element => (
+    const react2 = jobs.map(element => (
       <div key={element.name}>
         <div className="row">
           <div className="col-md-4 col-md-push-2">
@@ -93,14 +77,24 @@ class Page extends React.PureComponent {
       </div>
     ));
 
+    const filters = (
+      <div className="row text-right">
+      <button type="button" className="btn btn-default hidden" ref={(element) => { this.highest = element } } style={{ marginRight: '10px' }}>See Highest to Lowest</button>
+      <button type="button" className="btn btn-default" ref={(element) => { this.lowest = element } }>See Lowest to Highest</button>
+      <br />
+      <br />
+      </div>
+      )
+
     const panel = (
       <TabbedGraphPanel
-        title="High level subject salaries"
+        title="High level time taken for employment by subject"
         globalID="subject-first-job-1"
         content={[
           {
             title: 'Average Salary',
             active: true,
+            preContent: filters,
             graphData: {
               type: 'react',
               width: '100%',

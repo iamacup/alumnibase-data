@@ -7,10 +7,19 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
+import { data1, data2 } from './data';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
 class Page extends React.PureComponent {
+  constructor(props){
+    super(props)
+
+    this.state = ({
+      jobs: data1,
+    })
+  }
+
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
@@ -32,56 +41,32 @@ class Page extends React.PureComponent {
     $(() => {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
+
+      $(this.highest).click(() => {
+        this.setState({
+          jobs: data2,
+        })
+        $(this.highest).toggle();
+        $(this.lowest).removeClass('hidden');
+      });
+
+      $(this.lowest).click(() => {
+        this.setState({
+          jobs: data1,
+        })
+        $(this.highest).toggle();
+        $(this.lowest).addClass('hidden');
+      });
+
     });
   }
 
   getGraphs() {
-    const data = [
-      {
-        name: 'Medicine & dentistry and veterinary science', salary: [38], male: [38], female: [37.5],
-      },
-      {
-        name: 'Subjects allied to medicine', salary: [27], male: [27], female: [28],
-      }, {
-        name: 'Biological sciences', salary: [23], male: [23], female: [23.5],
-      }, {
-        name: 'Veterinary Science', salary: [33], male: [33], female: [32],
-      }, {
-        name: 'Agriculture & related subjects', salary: [19], male: [20], female: [19],
-      }, {
-        name: 'Physical sciences', salary: [23], male: [22], female: [23],
-      }, {
-        name: 'Mathematical sciences', salary: [26], male: [26], female: [26.5],
-      }, {
-        name: 'Computer sciences', salary: [25], male: [26], female: [25],
-      }, {
-        name: 'Engineering & technology', salary: [28], male: [29], female: [28],
-      }, {
-        name: 'Architecture, building, and planning', salary: [26], male: [26], female: [25],
-      }, {
-        name: 'Social studies', salary: [22], male: [22], female: [22],
-      }, {
-        name: 'Law', salary: [23], male: [25], female: [23],
-      }, {
-        name: 'Business & administrative studies', salary: [24], male: [25], female: [24],
-      }, {
-        name: 'Mass communications & documentation', salary: [20], male: [20], female: [20],
-      }, {
-        name: 'Languages', salary: [24], male: [24], female: [25],
-      }, {
-        name: 'Historical & philosophical studies', salary: [21], male: [21], female: [21],
-      }, {
-        name: 'Creative arts & design', salary: [18], male: [18], female: [18],
-      }, {
-        name: 'Education', salary: [22], male: [22], female: [21.5],
-      }, {
-        name: 'Combined Sujects', salary: [20], male: [20], female: [20],
-      },
-    ];
+    const { jobs } = this.state;
 
-    const react1 = data.map(element => getPercentRow(element.name, element.salary));
+    const react1 = jobs.map(element => getPercentRow(element.name, element.salary));
 
-    const react2 = data.map(element => (
+    const react2 = jobs.map(element => (
       <div key={element.name}>
         <div className="row">
           <div className="col-md-4 col-md-push-2">
@@ -93,6 +78,15 @@ class Page extends React.PureComponent {
       </div>
     ));
 
+    const filters = (
+      <div className="row text-right">
+      <button type="button" className="btn btn-default" ref={(element) => { this.highest = element } } style={{ marginRight: '10px' }}>See Highest to Lowest</button>
+      <button type="button" className="btn btn-default hidden" ref={(element) => { this.lowest = element } }>See Lowest to Highest</button>
+      <br />
+      <br />
+      </div>
+      )
+
     const panel = (
       <TabbedGraphPanel
         title="High level subject salaries"
@@ -101,6 +95,7 @@ class Page extends React.PureComponent {
           {
             title: 'Average Salary',
             active: true,
+            preContent: filters,
             graphData: {
               type: 'react',
               width: '100%',
