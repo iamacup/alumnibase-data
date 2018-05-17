@@ -104,13 +104,16 @@ class Page1b extends React.PureComponent {
   getData(item, collapsed) {
     const titles = [];
     const data = [];
+    const agree = ["Strongly agree", "Agree", "Neither agree or disagree", "Disagree", "Strongly disagree"];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
       this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
         if (item === element.item) {
           element.data.forEach((value) => {
-            titles.push(value.value);
-            data.push(value.percentage);
+            const index = agree.indexOf(value.value);
+
+            titles[index] = (value.value);
+            data[index] = (value.percentage);
           });
         }
       });

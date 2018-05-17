@@ -99,16 +99,25 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getData(item, collapsed) {
+  getData(item, collapsed, type) {
     const titles = [];
     const data = [];
+    const agree = ["Strongly agree", "Agree", "Neither agree or disagree", "Disagree", "Strongly disagree"];
+    const extent = ["A great extent", "Some extent", "Don't know", "Not at all", "Have not worked since finishing course"];
+    const likely = ["Very likely", "Likely", "Don't know", "Not very likely", "Not likely at all"];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
       this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
         if (item === element.item) {
           element.data.forEach((value) => {
-            titles.push(value.value);
-            data.push(value.percentage);
+            let index = null;          
+            if (type === 'agree') index = agree.indexOf(value.value)
+            if (type === 'extent') index = extent.indexOf(value.value)
+            if (type === 'likely') index = likely.indexOf(value.value)
+            if (type === 'number') index = +value.value
+
+            titles[index] = value.value;
+            data[index] = value.percentage;
           });
         }
       });
@@ -216,7 +225,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('I apply the knowledge from my degree(s) to my work often',
               'view-1-1',
               this.getTrends('applyDegreeToWork', 'bar'),
-              this.getData('applyDegreeToWork', false))}
+              this.getData('applyDegreeToWork', false, 'agree'))}
           </div>
         </div>
 
@@ -225,7 +234,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('I apply the skills, methods or techniques I learnt from undertaking my degree to my work often',
               'view-1-2',
               this.getTrends('applySkillsToWork', 'bar'),
-             this.getData('applySkillsToWork', false))}
+             this.getData('applySkillsToWork', false, 'agree'))}
           </div>
         </div>
 
@@ -234,7 +243,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('I apply the things I learnt from extra-curricular activities to my work often',
               'view-1-3',
               this.getTrends('applyExtraCurricularToWork', 'bar'),
-              this.getData('applyExtraCurricularToWork', false))}
+              this.getData('applyExtraCurricularToWork', false, 'agree'))}
           </div>
         </div>
 
@@ -243,7 +252,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Overall, all the things I did or learnt have contributed meaningfully to my life today',
               'view-1-4',
               this.getTrends('contributeMeaningfullyToLife', 'bar'),
-              this.getData('contributeMeaningfullyToLife', false))}
+              this.getData('contributeMeaningfullyToLife', false, 'agree'))}
           </div>
         </div>
 
@@ -253,7 +262,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('How likely are you to recommend your HE provider to a friend or a colleague',
               'view-1-5',
               this.getTrends('recommendToFriendOrColleague', 'line'),
-              this.getData('recommendToFriendOrColleague', false))}
+              this.getData('recommendToFriendOrColleague', false, 'number'))}
           </div>
         </div>
 
@@ -270,7 +279,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Do a different subject',
               'view-1-6',
               this.getTrends('viewsOnCourseDifferentSubject', 'bar', 'likely'),
-              this.getData('viewsOnCourseDifferentSubject', true))}
+              this.getData('viewsOnCourseDifferentSubject', true, 'likely'))}
           </div>
         </div>
 
@@ -279,7 +288,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Study at a different institution',
               'view-1-7',
               this.getTrends('viewsOnCourseDifferentInstitution', 'bar', 'likely'),
-              this.getData('viewsOnCourseDifferentInstitution', true))}
+              this.getData('viewsOnCourseDifferentInstitution', true, 'likely'))}
           </div>
         </div>
 
@@ -288,7 +297,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Work towards a different type of qualification',
               'view-1-8',
               this.getTrends('viewsOnCourseDifferentQualification', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-              this.getData('viewsOnCourseDifferentQualification', true))}
+              this.getData('viewsOnCourseDifferentQualification', true, 'likely'))}
           </div>
         </div>
 
@@ -297,7 +306,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Decide to do something completely different',
               'view-1-9',
               this.getTrends('viewsOnCourseTotallyDifferent', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-              this.getData('viewsOnCourseTotallyDifferent', true))}
+              this.getData('viewsOnCourseTotallyDifferent', true, 'likely'))}
           </div>
         </div>
 
@@ -314,7 +323,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Be innovative in the workplace',
               'view-1-10',
               this.getTrends('viewsOnHEInnovative', 'bar', 'extent'),
-              this.getData('viewsOnHEInnovative', true))}
+              this.getData('viewsOnHEInnovative', true, 'extent'))}
           </div>
         </div>
 
@@ -323,7 +332,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Make a difference in the workplace',
               'view-1-11',
               this.getTrends('viewsOnHEDifferenceInWorkplace', 'bar', 'extent'),
-              this.getData('viewsOnHEDifferenceInWorkplace', true))}
+              this.getData('viewsOnHEDifferenceInWorkplace', true, 'extent'))}
           </div>
         </div>
 
@@ -332,7 +341,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Change organisational culture and/or working practices',
               'view-1-12',
               this.getTrends('viewsOnHEChangeOrganisation', 'bar', 'extent'),
-              this.getData('viewsOnHEChangeOrganisation', true))}
+              this.getData('viewsOnHEChangeOrganisation', true, 'extent'))}
           </div>
         </div>
 
@@ -341,7 +350,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Influence the work of others in the workplace',
               'view-1-13',
               this.getTrends('viewsOnHEInfluenceWork', 'bar', 'extent'),
-              this.getData('viewsOnHEInfluenceWork', true))}
+              this.getData('viewsOnHEInfluenceWork', true, 'extent'))}
           </div>
         </div>
 
@@ -350,7 +359,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Access immediate or short-term job opportunities in your chosen career',
               'view-1-14',
               this.getTrends('viewsOnHEAccessJobOppts', 'bar', 'extent'),
-              this.getData('viewsOnHEAccessJobOppts', true))}
+              this.getData('viewsOnHEAccessJobOppts', true, 'extent'))}
           </div>
         </div>
 
@@ -359,7 +368,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Enhance your credibility or standing in the workplace',
               'view-1-15',
               this.getTrends('viewsOnHEEnhanceCredibility', 'bar', 'extent'),
-              this.getData('viewsOnHEEnhanceCredibility', true))}
+              this.getData('viewsOnHEEnhanceCredibility', true, 'extent'))}
           </div>
         </div>
 
@@ -368,7 +377,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Progress towards your long term career aspirations',
               'view-1-16',
               this.getTrends('viewsOnHEProgressLongTerm', 'bar', 'extent'),
-              this.getData('viewsOnHEProgressLongTerm', true))}
+              this.getData('viewsOnHEProgressLongTerm', true, 'extent'))}
           </div>
         </div>
 
@@ -377,7 +386,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Enhance your social and intellectual capabilities beyond employment',
               'view-1-17',
               this.getTrends('viewsOnHEEnhanceSocialCapeabilities', 'bar', 'extent'),
-              this.getData('viewsOnHEEnhanceSocialCapeabilities', true))}
+              this.getData('viewsOnHEEnhanceSocialCapeabilities', true, 'extent'))}
           </div>
         </div>
 
@@ -386,7 +395,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('Enhance the quality of your life generally',
               'view-1-18',
               this.getTrends('viewsOnHEEnhanceQualityOfLife', 'bar', 'extent'),
-              this.getData('viewsOnHEEnhanceQualityOfLife', true))}
+              this.getData('viewsOnHEEnhanceQualityOfLife', true, 'extent'))}
           </div>
         </div>
 

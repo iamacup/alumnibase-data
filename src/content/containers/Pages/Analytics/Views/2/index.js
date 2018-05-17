@@ -44,60 +44,6 @@ class Page extends React.PureComponent {
     });
   }
 
-  getOptions1() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'Strongly agree', data: [20, 16, 14, 12, 10] },
-      { name: 'Agree', data: [20, 16, 14, 12, 10] },
-      { name: 'Neither agree or disagree', data: [40, 44, 44, 44, 40] },
-      { name: 'Disagree', data: [10, 12, 14, 16, 20] },
-      { name: 'Strongly disagree', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    return options;
-  }
-
-  getOptions2() {
-    const option = {
-      x: 'Age',
-      y: 'Average Response',
-    };
-
-    const age = [];
-    const first = [];
-    const plotted = [];
-
-    const start = 9.1;
-    const end = 5.6;
-
-    const firstAge = 21;
-    const lastAge = 61;
-
-    let current = start;
-    const increment = (start - end) / (lastAge - firstAge);
-
-    for (let a = firstAge; a < lastAge; a++) {
-      age.push(a);
-      first.push(Number(current.toPrecision(2)));
-
-      current -= increment;
-    }
-
-    plotted.push(first);
-
-    const data = {
-      age,
-      plotted,
-      name: ['test'],
-    };
-
-    const options = drawLineChart(data, option);
-
-    return options;
-  }
-
   getTabbed(title, id, options, dataObj) {
     const panel = (<TabbedGraphPanel
       title={title}
@@ -147,16 +93,21 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getData(item, collapsed) {
+  getData(item, collapsed, type) {
     const titles = [];
     const data = [];
+    const agree = ["Strongly agree", "Agree", "Neither agree or disagree", "Disagree", "Strongly disagree"];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)  && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
       this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
         if (item === element.item) {
           element.data.forEach((value) => {
-            titles.push(value.value);
-            data.push(value.percentage);
+            let index = null;          
+            if (type === 'agree') index = agree.indexOf(value.value);
+              else index = +value.value;
+
+            titles[index] = (value.value);
+            data[index] = (value.percentage);
           });
         }
       });
@@ -249,7 +200,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('My current work fits with my future plans',
               'view-3-1',
               this.getTrends('currentWorkFitsWithFuturePlans', 'bar'),
-              this.getData('currentWorkFitsWithFuturePlans', false))}
+              this.getData('currentWorkFitsWithFuturePlans', false, 'agree'))}
           </div>
         </div>
 
@@ -258,7 +209,7 @@ class Page extends React.PureComponent {
             {this.getTabbed('My current work is meaningful and important to me',
               'view-3-2',
               this.getTrends('currentWorkMeaningfulAndImportant', 'bar'),
-              this.getData('currentWorkMeaningfulAndImportant', false))}
+              this.getData('currentWorkMeaningfulAndImportant', false, 'agree'))}
           </div>
         </div>
 
