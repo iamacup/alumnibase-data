@@ -104,7 +104,7 @@ class Page1b extends React.PureComponent {
   getData(item, collapsed) {
     const titles = [];
     const data = [];
-    const agree = ["Strongly agree", "Agree", "Neither agree or disagree", "Disagree", "Strongly disagree"];
+    const agree = ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
       this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
@@ -137,19 +137,19 @@ class Page1b extends React.PureComponent {
         if (name === element.item) {
           element.data.forEach((elem) => {
             const str = elem.yearGroupEnd + '';
-            axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
+            axisData.y.push(elem.yearGroupStart + '-' + str.slice(2));
 
             elem.data.data.forEach((value) => {
-                 dataSeries.forEach((val) => {
-              if (value.value === val.name) {
-                val.data.push(value.percentage.toFixed(2))
+              dataSeries.forEach((val) => {
+                if (value.value === val.name) {
+                  val.data.push(value.percentage.toFixed(2));
                 }
-              })
-          })
-      })
+              });
+            });
+          });
+        }
+      });
     }
-  })
-}
 
     const options = drawNewBarChart(axisData, dataSeries, colours);
     return options;

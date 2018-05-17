@@ -159,7 +159,7 @@ class Page extends React.PureComponent {
                     </ul>
                   </li>
 
-              {/*  <!--Menu list item--> */}
+                  {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/salary', 'active-sub')}>
                     <a href="#">
                       <i className="fas fa-money-bill-alt" style={{ color: '#8bc34a' }} />

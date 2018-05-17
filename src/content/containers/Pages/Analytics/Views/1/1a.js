@@ -102,19 +102,19 @@ class Page extends React.PureComponent {
   getData(item, collapsed, type) {
     const titles = [];
     const data = [];
-    const agree = ["Strongly agree", "Agree", "Neither agree or disagree", "Disagree", "Strongly disagree"];
-    const extent = ["A great extent", "Some extent", "Don't know", "Not at all", "Have not worked since finishing course"];
-    const likely = ["Very likely", "Likely", "Don't know", "Not very likely", "Not likely at all"];
+    const agree = ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'];
+    const extent = ['A great extent', 'Some extent', "Don't know", 'Not at all', 'Have not worked since finishing course'];
+    const likely = ['Very likely', 'Likely', "Don't know", 'Not very likely', 'Not likely at all'];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
       this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
         if (item === element.item) {
           element.data.forEach((value) => {
-            let index = null;          
-            if (type === 'agree') index = agree.indexOf(value.value)
-            if (type === 'extent') index = extent.indexOf(value.value)
-            if (type === 'likely') index = likely.indexOf(value.value)
-            if (type === 'number') index = +value.value
+            let index = null;
+            if (type === 'agree') index = agree.indexOf(value.value);
+            if (type === 'extent') index = extent.indexOf(value.value);
+            if (type === 'likely') index = likely.indexOf(value.value);
+            if (type === 'number') index = +value.value;
 
             titles[index] = value.value;
             data[index] = value.percentage;
@@ -129,75 +129,71 @@ class Page extends React.PureComponent {
   getTrends(item, chart, type, colours) {
     let options = null;
 
-  if (chart === 'bar') {
+    if (chart === 'bar') {
+      const axisData = { y: [], x: '%' };
+      let dataSeries = [{ name: 'Strongly agree', data: [] }, { name: 'Agree', data: [] }, { name: 'Neither agree or disagree', data: [] }, { name: 'Disagree', data: [] }, { name: 'Strongly disagree', data: [] }];
+      if (type === 'extent') dataSeries = [{ name: 'A great extent', data: [] }, { name: 'Some extent', data: [] }, { name: "Don't know", data: [] }, { name: 'Not at all', data: [] }, { name: 'Have not worked since finishing course', data: [] }];
+      if (type === 'likely') dataSeries = [{ name: 'Very Likely', data: [] }, { name: 'Likely', data: [] }, { name: 'Not very likely', data: [] }, { name: 'Not likely at all', data: [] }, { name: "Don't know", data: [] }];
 
-  const axisData = {y: [], x: '%'};
-  let dataSeries = [{name: 'Strongly agree', data: []}, {name: 'Agree', data: []}, {name: 'Neither agree or disagree', data: []}, {name: 'Disagree', data: []}, {name: 'Strongly disagree', data: []}];
-    if (type === 'extent') dataSeries = [{name: 'A great extent', data: []}, {name: 'Some extent', data: []}, {name: "Don't know", data: []}, {name: 'Not at all', data: []}, {name: 'Have not worked since finishing course', data: []}];
-    if (type === 'likely') dataSeries = [{name: 'Very Likely', data: []}, {name: 'Likely', data: []}, {name: "Not very likely", data: []}, {name: 'Not likely at all', data: []}, {name: "Don't know", data: []}];
+      if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+        this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+          if (item === element.item) {
+            element.data.forEach((elem) => {
+            // setting axis data;
+              const str = elem.yearGroupEnd + '';
+              axisData.y.push(elem.yearGroupStart + '-' + str.slice(2));
+              // let count = 0;
 
-    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
-      this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
-        if (item === element.item) {
-          element.data.forEach((elem) => {
-            //setting axis data;
-            const str = elem.yearGroupEnd + '';
-            axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
-            // let count = 0;
-
-            elem.data.data.forEach((value) => {
+              elem.data.data.forEach((value) => {
               // count += value.percentage;
 
-            // removing the count remainder from the last value to make sure it adds to 100;
-            // if (i === 4 && count > 100) {
-            //   let remainder = count - 100;
-            //   value.percentage -= remainder; // eslint-disable-line no-param-reassign
-            // }
+                // removing the count remainder from the last value to make sure it adds to 100;
+                // if (i === 4 && count > 100) {
+                //   let remainder = count - 100;
+                //   value.percentage -= remainder; // eslint-disable-line no-param-reassign
+                // }
 
-            // setting the dataSeries data with all the correct numbers for it's name.
-            dataSeries.forEach((val) => {
-              if (value.value === val.name) {
-                val.data.push(value.percentage.toFixed(2))
-                }
-              })
-            })
-          })
-        }
-      })
+                // setting the dataSeries data with all the correct numbers for it's name.
+                dataSeries.forEach((val) => {
+                  if (value.value === val.name) {
+                    val.data.push(value.percentage.toFixed(2));
+                  }
+                });
+              });
+            });
+          }
+        });
+      }
+      options = drawNewBarChart(axisData, dataSeries, colours);
+    } else if (chart === 'line') {
+      const optionsObj = { x: 'Scale', y: 'Average Response' };
+      const data = {
+        age: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        name: [],
+        plotted: [],
+      };
+
+      if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+        this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+          if (item === element.item) {
+            element.data.forEach((elem) => {
+              const str = elem.yearGroupEnd + '';
+              data.name.push(elem.yearGroupStart + '-' + str.slice(2));
+
+              const arr = [];
+              elem.data.data.forEach((value) => {
+                arr[+value.value] = value.percentage;
+              });
+              data.plotted.push(arr);
+            });
+          }
+        });
+      }
+      options = drawLineChart(data, optionsObj);
     }
-    options = drawNewBarChart(axisData, dataSeries, colours);
-
-  } else if (chart === 'line') {
-
-    const optionsObj = { x: 'Scale', y: 'Average Response'}
-    const data = {
-      age: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
-      name: [],
-      plotted: [],
-    };
-
-    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
-      this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
-        if (item === element.item) {
-          element.data.forEach(elem => {
-          const str = elem.yearGroupEnd + '';
-          data.name.push(elem.yearGroupStart + '-' + str.slice(2))
-
-        const arr = [];
-        elem.data.data.forEach((value) => {
-              arr[+value.value] = value.percentage;
-          })
-          data.plotted.push(arr);
-          })
-        }
-      })
-    }
-    options = drawLineChart(data, optionsObj);
-
-  } 
 
     return options;
-  } 
+  }
 
   getContent() {
     const content = (
@@ -456,7 +452,7 @@ Page.propTypes = {
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
-  reduxState_fetchDataTransaction: { default: {}, },
+  reduxState_fetchDataTransaction: { default: {} },
   filterData: {},
 };
 

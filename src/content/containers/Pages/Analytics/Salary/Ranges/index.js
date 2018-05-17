@@ -13,7 +13,7 @@ import fetchDataBuilder from '../../../../../../foundation/redux/Factories/Fetch
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
 
-import { dNc } from '../../../../../../content/scripts/custom/utilities'
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
 
 
 const dataStoreID = 'salary-ranges';
@@ -95,22 +95,21 @@ class Page extends React.PureComponent {
   }
 
   getData(name) {
-    const data = { categories: [], values: [] }
+    const data = { categories: [], values: [] };
     if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-
-      this.props.reduxState_fetchDataTransaction.default.payload.forEach(element => {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
         if (name === element.splitItem) {
-          element.split.forEach(value => {
+          element.split.forEach((value) => {
             data.categories.push(value.gender);
             data.values.push(value.salaries);
-          })
+          });
         }
-      })
+      });
     }
-    
+
     // get national average to work.
 
-        // if (this.state.showNationalAverage === true) {
+    // if (this.state.showNationalAverage === true) {
     //   const nationalAverageSalaryData = [23000, 240000];
 
     //   genderData.categories.push('National Average');
@@ -127,9 +126,8 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-
-     const content = (
-      <div id="page-content" key="ranges-content">
+    const content = (
+      <div className="ranges" id="page-content" key="ranges-content">
 
         <StandardFilters />
 
@@ -170,7 +168,7 @@ class Page extends React.PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-10 col-md-push-1" id="ranges-ethnicity">
             {this.getBoxPlot(this.getData('ethnicity'), 'Average pay, split by ethnicity', 'salary-ranges-2', '500px')}
           </div>
         </div>
@@ -185,15 +183,15 @@ class Page extends React.PureComponent {
     );
 
 
-     return content;
+    return content;
   }
 
-    clickShowNationalAverage() {
+  clickShowNationalAverage() {
     this.setState({ showNationalAverage: !this.state.showNationalAverage });
   }
 
   render() {
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -212,10 +210,10 @@ class Page extends React.PureComponent {
         active
         fetchURL="/api/analytics/salary/ranges"
         sendData={sendData}
-        />
-      )
+      />
+    );
 
-    const output = [dataTransaction, content]
+    const output = [dataTransaction, content];
     const { location } = this.props;
 
     return (
