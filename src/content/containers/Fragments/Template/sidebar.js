@@ -111,25 +111,6 @@ class Page extends React.PureComponent {
 
 
                   {/*  <!--Menu list item--> */}
-                  <li className={this.classNameBasedOnLocation('/analytics/salary', 'active-sub')}>
-                    <a href="#">
-                      <i className="fas fa-money-bill-alt" style={{ color: '#8bc34a' }} />
-                      <span className="menu-title">Salary Data</span>
-                      <i className="arrow" />
-                    </a>
-                    {/*  <!--Submenu--> */}
-                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary', 'in')} >
-                      <li className={this.classNameBasedOnLocation('/analytics/salary/overview', 'active-link')}>
-                        <Link href="/analytics/salary/overview" to="/analytics/salary/overview">Overview</Link>
-                      </li>
-                      <li className={this.classNameBasedOnLocation('/analytics/salary/ranges', 'active-link')}>
-                        <Link href="/analytics/salary/ranges" to="/analytics/salary/ranges">Ranges</Link>
-                      </li>
-                    </ul>
-                  </li>
-
-
-                  {/*  <!--Menu list item--> */}
                   <li className={this.classNameBasedOnLocation('/analytics/jobs', 'active-sub')}>
                     <a href="#">
                       <i className="fas fa-user-md" style={{ color: '#8bc34a' }} />
@@ -175,6 +156,24 @@ class Page extends React.PureComponent {
                       </li>
                       <li className={this.classNameBasedOnLocation('/analytics/subjects/first-job', 'active-link')}>
                         <Link href="/analytics/subjects/first-job" to="/analytics/subjects/first-job">Time to First Job</Link>
+                      </li>
+                    </ul>
+                  </li>
+
+                                    {/*  <!--Menu list item--> */}
+                  <li className={this.classNameBasedOnLocation('/analytics/salary', 'active-sub')}>
+                    <a href="#">
+                      <i className="fas fa-money-bill-alt" style={{ color: '#8bc34a' }} />
+                      <span className="menu-title">Salary Data</span>
+                      <i className="arrow" />
+                    </a>
+                    {/*  <!--Submenu--> */}
+                    <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/salary', 'in')} >
+                      <li className={this.classNameBasedOnLocation('/analytics/salary/overview', 'active-link')}>
+                        <Link href="/analytics/salary/overview" to="/analytics/salary/overview">Overview</Link>
+                      </li>
+                      <li className={this.classNameBasedOnLocation('/analytics/salary/ranges', 'active-link')}>
+                        <Link href="/analytics/salary/ranges" to="/analytics/salary/ranges">Ranges</Link>
                       </li>
                     </ul>
                   </li>
