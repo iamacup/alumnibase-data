@@ -160,7 +160,7 @@ class Page extends React.PureComponent {
 
   } else if (chart === 'line') {
 
-    const optionsObj = { x: 'Age', y: 'Average Response'}
+    const optionsObj = { x: 'Scale', y: 'Average Response'}
     const data = {
       age: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
       name: [],

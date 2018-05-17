@@ -98,37 +98,6 @@ class Page extends React.PureComponent {
     return options;
   }
 
-
-  getOptions3() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'Very Likely', data: [20, 16, 14, 12, 10] },
-      { name: 'Likely', data: [20, 16, 14, 12, 10] },
-      { name: 'Not very likely', data: [40, 44, 44, 44, 40] },
-      { name: 'Not likely at all', data: [10, 12, 14, 16, 20] },
-      { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    return options;
-  }
-
-  getOptions4() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'A great extent', data: [20, 16, 14, 12, 10] },
-      { name: 'Some extent', data: [20, 16, 14, 12, 10] },
-      { name: 'Not at all', data: [40, 44, 44, 44, 40] },
-      { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
-      { name: 'Have not worked since finishing course', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    return options;
-  }
-
   getTabbed(title, id, options, dataObj) {
     const panel = (<TabbedGraphPanel
       title={title}
@@ -196,6 +165,67 @@ class Page extends React.PureComponent {
     return { titles, collapsed, data };
   }
 
+  getTrends(item, chart) { 
+        let options = null;
+
+  if (chart === 'bar') {
+
+  const axisData = {y: [], x: '%'};
+  let dataSeries = [{name: 'Strongly agree', data: []}, {name: 'Agree', data: []}, {name: 'Neither agree or disagree', data: []}, {name: 'Disagree', data: []}, {name: 'Strongly disagree', data: []}];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+        if (item === element.item) {
+          element.data.forEach((elem) => {
+            const str = elem.yearGroupEnd + '';
+            axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
+
+            elem.data.data.forEach((value, i) => {
+ 
+            dataSeries.forEach((val) => {
+              if (value.value === val.name) {
+                val.data.push(value.percentage.toFixed(2))
+                }
+              })
+            })
+          })
+        }
+      })
+    }
+    options = drawNewBarChart(axisData, dataSeries);
+
+  } else if (chart === 'line') {
+
+    const optionsObj = { x: 'Scale', y: 'Average Response'}
+    const data = {
+      age: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+      name: [],
+      plotted: [],
+    };
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+        if (item === element.item) {
+          element.data.forEach(elem => {
+          const str = elem.yearGroupEnd + '';
+          data.name.push(elem.yearGroupStart + '-' + str.slice(2))
+
+        const arr = [];
+        elem.data.data.forEach((value, i) => {
+              arr[+value.value] = value.percentage;
+          })
+          data.plotted.push(arr);
+          })
+        }
+      })
+    }
+    options = drawLineChart(data, optionsObj);
+
+  } 
+
+    return options;
+  }
+
   getContent() {
     const content = (
       <div id="page-content" key="content-2">
@@ -218,7 +248,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('My current work fits with my future plans',
               'view-3-1',
-              this.getOptions1(),
+              this.getTrends('currentWorkFitsWithFuturePlans', 'bar'),
               this.getData('currentWorkFitsWithFuturePlans', false))}
           </div>
         </div>
@@ -227,7 +257,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('My current work is meaningful and important to me',
               'view-3-2',
-              this.getOptions1(),
+              this.getTrends('currentWorkMeaningfulAndImportant', 'bar'),
               this.getData('currentWorkMeaningfulAndImportant', false))}
           </div>
         </div>
@@ -236,7 +266,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, how satisfied are you with your life now',
               'view-3-3',
-              this.getOptions1(),
+              this.getTrends('lifeSatisfaction', 'line'),
               this.getData('lifeSatisfaction', false))}
           </div>
         </div>
@@ -246,7 +276,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, to what extent do you feel the things you do in your life are worthwhile',
               'view-3-4',
-              this.getOptions2(),
+              this.getTrends('lifeWorthwhile', 'line'),
               this.getData('lifeWorthwhile', false))}
           </div>
         </div>
@@ -255,7 +285,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, how happy did you feel yesterday',
               'view-3-5',
-              this.getOptions2(),
+              this.getTrends('lifeHappy', 'line'),
               this.getData('lifeHappy', false))}
           </div>
         </div>
@@ -264,7 +294,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, how anxious did you feel yesterday',
               'view-1-5',
-              this.getOptions2(),
+              this.getTrends('lifeAnxious', 'line'),
               this.getData('lifeAnxious', false))}
           </div>
         </div>
