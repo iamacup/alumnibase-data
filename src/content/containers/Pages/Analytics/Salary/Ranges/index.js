@@ -8,9 +8,16 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/drawBoxPlotChart';
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
+
+import { dNc } from '../../../../../../content/scripts/custom/utilities'
+
+
+const dataStoreID = 'salary-ranges';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   constructor(props) {
@@ -87,60 +94,42 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
+  getData(name) {
+    const data = { categories: [], values: [] }
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach(element => {
+        if (name === element.splitItem) {
+          element.split.forEach(value => {
+            data.categories.push(value.gender);
+            data.values.push(value.salaries);
+          })
+        }
+      })
+    }
+    
+    // get national average to work.
+
+        // if (this.state.showNationalAverage === true) {
+    //   const nationalAverageSalaryData = [23000, 240000];
+
+    //   genderData.categories.push('National Average');
+    //   genderData.values.push(nationalAverageSalaryData);
+
+    //   ethnicityData.categories.push('National Average');
+    //   ethnicityData.values.push(nationalAverageSalaryData);
+
+    //   religionData.categories.push('National Average');
+    //   religionData.values.push(nationalAverageSalaryData);
+    // }
+
+    return data;
   }
 
-  render() {
-    const genderData = {
-      categories: ['Female', 'Male'],
-      values: [
-        [19200, 64000, 200000],
-        [23000, 80000, 250000],
-      ],
-    };
+  getContent() {
 
-    const ethnicityData = {
-      categories: ['White', 'Mixed', 'Other', 'Asian', 'Black / African / Caribbean'],
-      values: [
-        [18000, 35000, 70000, 150000, 300000],
-        [17000, 34000, 68000, 150000, 280000],
-        [15000, 35000, 63000, 150000, 270000],
-        [16000, 35000, 66000, 150000, 260000],
-        [14000, 25000, 60000, 100000, 250000],
-      ],
-    };
-
-    const religionData = {
-      categories: ['No Religion', 'Chrstian', 'Other', 'Jewish', 'Buddhist', 'Hindu', 'Sikh', 'Muslim'],
-      values: [
-        [18000, 35000, 70000, 150000, 300000],
-        [18000, 35000, 65000, 150000, 295000],
-        [17000, 32000, 60000, 135000, 275000],
-        [18000, 34000, 60000, 140000, 270000],
-        [18000, 33000, 59000, 137000, 265000],
-
-        [17000, 30000, 50000, 120000, 250000],
-        [16000, 28000, 47000, 120000, 250000],
-        [16000, 28000, 45000, 120000, 240000],
-      ],
-    };
-
-    if (this.state.showNationalAverage === true) {
-      const nationalAverageSalaryData = [23000, 240000];
-
-      genderData.categories.push('National Average');
-      genderData.values.push(nationalAverageSalaryData);
-
-      ethnicityData.categories.push('National Average');
-      ethnicityData.values.push(nationalAverageSalaryData);
-
-      religionData.categories.push('National Average');
-      religionData.values.push(nationalAverageSalaryData);
-    }
-
-    const content = (
-      <div id="page-content">
+     const content = (
+      <div id="page-content" key="ranges-content">
 
         <StandardFilters />
 
@@ -176,29 +165,61 @@ class Page extends React.PureComponent {
         </div>
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(genderData, 'Average pay, split by gender', 'salary-ranges-1')}
+            {this.getBoxPlot(this.getData('gender'), 'Average pay, split by gender', 'salary-ranges-1')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(ethnicityData, 'Average pay, split by ethnicity', 'salary-ranges-2')}
+            {this.getBoxPlot(this.getData('ethnicity'), 'Average pay, split by ethnicity', 'salary-ranges-2')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(religionData, 'Average pay, split by religion', 'salary-ranges-3')}
+            {this.getBoxPlot(this.getData('religion'), 'Average pay, split by religion', 'salary-ranges-3')}
           </div>
         </div>
 
       </div>
     );
 
+
+     return content;
+  }
+
+    clickShowNationalAverage() {
+    this.setState({ showNationalAverage: !this.state.showNationalAverage });
+  }
+
+  render() {
+   let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+      content = this.getContent();
+    }
+
+    const sendData = { data: [] };
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
+
+    const dataTransaction = (
+      <FetchData
+        key="transaction-ranges"
+        active
+        fetchURL="/api/analytics/salary/ranges"
+        sendData={sendData}
+        />
+      )
+
+    const output = [dataTransaction, content]
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -206,13 +227,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
