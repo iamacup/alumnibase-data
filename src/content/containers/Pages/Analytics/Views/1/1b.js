@@ -139,7 +139,7 @@ class Page1b extends React.PureComponent {
             const str = elem.yearGroupEnd + '';
             axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
 
-            elem.data.data.forEach((value, i) => {
+            elem.data.data.forEach((value) => {
                  dataSeries.forEach((val) => {
               if (value.value === val.name) {
                 val.data.push(value.percentage.toFixed(2))

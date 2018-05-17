@@ -131,7 +131,7 @@ class Page extends React.PureComponent {
             const str = elem.yearGroupEnd + '';
             axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
 
-            elem.data.data.forEach((value, i) => {
+            elem.data.data.forEach((value) => {
  
             dataSeries.forEach((val) => {
               if (value.value === val.name) {
@@ -162,7 +162,7 @@ class Page extends React.PureComponent {
           data.name.push(elem.yearGroupStart + '-' + str.slice(2))
 
         const arr = [];
-        elem.data.data.forEach((value, i) => {
+        elem.data.data.forEach((value) => {
               arr[+value.value] = value.percentage;
           })
           data.plotted.push(arr);

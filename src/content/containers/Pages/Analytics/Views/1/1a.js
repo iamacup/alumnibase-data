@@ -145,7 +145,7 @@ class Page extends React.PureComponent {
             axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
             // let count = 0;
 
-            elem.data.data.forEach((value, i) => {
+            elem.data.data.forEach((value) => {
               // count += value.percentage;
 
             // removing the count remainder from the last value to make sure it adds to 100;
@@ -184,7 +184,7 @@ class Page extends React.PureComponent {
           data.name.push(elem.yearGroupStart + '-' + str.slice(2))
 
         const arr = [];
-        elem.data.data.forEach((value, i) => {
+        elem.data.data.forEach((value) => {
               arr[+value.value] = value.percentage;
           })
           data.plotted.push(arr);

@@ -233,7 +233,7 @@ class Graph extends React.PureComponent {
       // setting state for gender, ethnicity, polar and stem.
       let gender = [];
 
-      if (dNc(this.state.gender)) gender = this.state.gender;
+      if (dNc(this.state.gender)) ({ gender } = this.state);
 
       if (gender.includes('male')) $('#gender-male').attr('checked', true);
       if (gender.includes('female')) $('#gender-female').attr('checked', true);
@@ -261,7 +261,7 @@ class Graph extends React.PureComponent {
       let ethnicity = [];
 
 
-      if (dNc(this.state.ethnicity)) ethnicity = this.state.ethnicity;
+      if (dNc(this.state.ethnicity)) ({ ethnicity } = this.state);
 
       if (ethnicity.includes('white')) $('#eth-1').attr('checked', true);
       if (ethnicity.includes('mixed')) $('#eth-2').attr('checked', true);
