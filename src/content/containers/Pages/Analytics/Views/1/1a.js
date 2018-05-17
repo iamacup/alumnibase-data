@@ -81,7 +81,6 @@ class Page extends React.PureComponent {
       name: ['test'],
       plotted,
     };
-console.log(data, optionsA)
     const options = drawLineChart(data, optionsA);
 
     return options;
@@ -154,7 +153,7 @@ console.log(data, optionsA)
                   pinGraph: false,
                 },
                 width: '100%',
-                height: '300px',
+                height: '350px',
                 data: {
                   options,
                 },
@@ -187,8 +186,6 @@ console.log(data, optionsA)
 
   getTrends(item, chart) {
     let options = null;
-
-    console.log(chart)
 
 if (chart === 'bar') {
   const axisData = {y: [], x: '%'};
@@ -226,26 +223,33 @@ if (chart === 'bar') {
     options = drawNewBarChart(axisData, dataSeries);
 
   } 
-  // else if (chart === 'line') {
-  //   const data = {
-  //     age: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 
-  //     name: ['test'], 
-  //     plotted: [9.1, 9, 8.9, 8.8, 8.7, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2, 8.1, 8, 8, 7.9, 7.8, 7.7, 7.6, 7.5, 7.4, 7.3, 7.3, 7.2, 7.1, 7, 6.9, 6.8, 6.7, 6.6, 6.6, 6.5, 6.4, 6.3, 6.2, 6.1, 6, 5.9, 5.9, 5.8, 5.7],
-  //   }
-  //   const optionsObj = { x: 'Age', y: 'Average Response'}
+  else if (chart === 'line') {
 
-  // console.log(data, optionsObj)
+    const optionsObj = { x: 'Age', y: 'Average Response'}
+    const data = {
+      age: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+      name: [],
+      plotted: [],
+    };
 
-  //   if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
-  //     this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
-  //       if (item === element.item) {
-  //         console.log(element)
-  //       }
-  //     })
-  //   }
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+        if (item === element.item) {
+          element.data.forEach(elem => {
+          const str = elem.yearGroupEnd + '';
+          data.name.push(elem.yearGroupStart + '-' + str.slice(2))
 
-  //   // options = drawLineChart(data, optionsObj);
-  // }
+        const arr = [];
+        elem.data.data.forEach((value, i) => {
+              arr[+value.value] = value.percentage;
+          })
+          data.plotted.push(arr);
+          })
+        }
+      })
+    }
+    options = drawLineChart(data, optionsObj);
+  }
 
     return options;
   }
@@ -312,7 +316,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('How likely are you to recommend your HE provider to a friend or a colleague',
               'view-1-5',
-              this.getOptions2(),
+              this.getTrends('recommendToFriendOrColleague', 'line'),
               this.getData('recommendToFriendOrColleague', false))}
           </div>
         </div>

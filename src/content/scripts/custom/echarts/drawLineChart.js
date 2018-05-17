@@ -6,7 +6,7 @@ const drawLineChart = (data, options, titles) => {
   let labels = [];
   let yLabel = 90;
   let location = 'center';
-  let gap = 50;
+  let gap = 40;
   if (options.value !== false) value = true;
   if (options.yLabel) {
     yLabel = 0;
@@ -52,7 +52,7 @@ const drawLineChart = (data, options, titles) => {
     xAxis: [{
       name: options.x,
       nameLocation: 'center',
-      nameGap: 50,
+      nameGap: 40,
       type: 'category',
       axisLine: {
         lineStyle: {
