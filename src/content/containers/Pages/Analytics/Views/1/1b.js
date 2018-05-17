@@ -10,18 +10,12 @@ import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import drawPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
-import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 
 import SubNav from './subNav';
 
-import { dNc } from '../../../../../../content/scripts/custom/utilities';
-
-const dataStoreID = 'views';
-const FetchData = fetchDataBuilder(dataStoreID);
-
-class Page1b extends React.PureComponent {
+class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Views on Education Impact',
@@ -65,11 +59,11 @@ class Page1b extends React.PureComponent {
     return options;
   }
 
-  getTabbed(title, id, options, dataObj) {
+  getTabbed(title, id, options, arr, collapsed, data) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
-      collapsed={dataObj.collapsed}
+      collapsed={collapsed}
       content={[
             {
               title: 'Overall',
@@ -86,7 +80,7 @@ class Page1b extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: dataObj.data.map((element, i) => drawPercentRow(dataObj.titles[i], element, true)),
+                  reactData: data.map((element, i) => drawPercentRow(arr[i], element, true)),
                 },
               },
             },
@@ -116,27 +110,10 @@ class Page1b extends React.PureComponent {
     return panel;
   }
 
-  getData(item, collapsed) {
-    const titles = [];
-    const data = [];
 
-    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
-      this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
-        if (item === element.item) {
-          element.data.forEach((value) => {
-            titles.push(value.value);
-            data.push(value.percentage);
-          });
-        }
-      });
-    }
-
-    return { titles, collapsed, data };
-  }
-
-  getContent() {
+  render() {
     const content = (
-      <div id="page-content" key="content-1b">
+      <div id="page-content">
 
         <StandardFilters />
 
@@ -149,11 +126,11 @@ class Page1b extends React.PureComponent {
             <BasicPanel
               content={
                 <p>
-                        Data from section 5 of the respondent survey is collated here. For ease of access this data is split into three areas: <br /><br />
+                  Data from section 5 of the respondent survey is collated here. For ease of access this data is split into three areas: <br /><br />
                   <strong>Direct University Impact</strong> are those data points that relate to the university degree and its impact on the respondents life, <br />
                   <strong>Views on Education</strong> explain the broader views of the respondent relating to education that are not directly linked to your institution.
                 </p>
-                    }
+              }
             />
           </div>
         </div>
@@ -161,9 +138,10 @@ class Page1b extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Belief undertaking professional qualifications will advance your career',
-                    'view-2-1',
-                    this.getOptions1(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-                    this.getData('furtherStudyAdvancesCareer', false))}
+              'view-2-1',
+              this.getOptions1(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
+              ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
+              false, [28, 43, 15, 9, 5])}
           </div>
         </div>
 
@@ -171,69 +149,27 @@ class Page1b extends React.PureComponent {
       </div>
     );
 
-    return content;
-  }
-
-  render() {
-    let content = null;
-
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
-      content = this.getContent();
-    }
-
-    const sendData = { data: [] };
-
-
-    Object.keys(this.props.filterData).forEach((key) => {
-      if (dNc(this.props.filterData[key])) {
-        sendData.data.push({ [key]: this.props.filterData[key] });
-      }
-    });
-
-    const dataTransaction = (
-      <FetchData
-        key="transaction-1b"
-        active
-        fetchURL="/api/analytics/views"
-        sendData={sendData}
-      />
-    );
-
-    const output = [
-      dataTransaction,
-      content,
-    ];
-
     const { location } = this.props;
 
     return (
-      <div>
-        <Wrapper content={output} theLocation={location} />
-      </div>
+      <Wrapper content={content} theLocation={location} />
     );
   }
 }
 
-Page1b.propTypes = {
+Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
-  filterData: PropTypes.object,
-  reduxState_fetchDataTransaction: PropTypes.object,
 };
 
-Page1b.defaultProps = {
+Page.defaultProps = {
   reduxAction_doUpdate: () => {},
-  filterData: {},
-  reduxState_fetchDataTransaction: { default: {} },
 };
 
-const mapStateToProps = state => ({
-  filterData: state.dataStoreSingle.filterData,
-  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
-});
+const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page1b);
+export default connect(mapStateToProps, mapDispatchToProps)(Page);
