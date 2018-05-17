@@ -186,8 +186,10 @@ class Page extends React.PureComponent {
     const titles = [];
     const data = [];
 
-    if (dNc(this.props.reduxState_fetchDataTransaction) && dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
+    // console.log(item);
+
+    if (dNc(this.props.reduxState_fetchDataTransaction) && dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
         if (item === element.item) {
           element.data.forEach((value) => {
             titles.push(value.value);
@@ -457,7 +459,7 @@ Page.propTypes = {
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
-  reduxState_fetchDataTransaction: { default: {} },
+  reduxState_fetchDataTransaction: { default: {}, },
   filterData: {},
 };
 
