@@ -50,21 +50,6 @@ class Page1b extends React.PureComponent {
     });
   }
 
-  getOptions1(colours) {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'Strongly agree', data: [20, 16, 14, 12, 10] },
-      { name: 'Agree', data: [20, 16, 14, 12, 10] },
-      { name: 'Neither agree or disagree', data: [40, 44, 44, 44, 40] },
-      { name: 'Disagree', data: [10, 12, 14, 16, 20] },
-      { name: 'Strongly disagree', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries, colours);
-
-    return options;
-  }
-
   getTabbed(title, id, options, dataObj) {
     const panel = (<TabbedGraphPanel
       title={title}
@@ -134,6 +119,39 @@ class Page1b extends React.PureComponent {
     return { titles, collapsed, data };
   }
 
+  getTrends(name, colours) {
+    const axisData = { y: [], x: '%' };
+    const dataSeries = [
+      { name: 'Strongly agree', data: [] },
+      { name: 'Agree', data: [] },
+      { name: 'Neither agree or disagree', data: [] },
+      { name: 'Disagree', data: [] },
+      { name: 'Strongly disagree', data: [] },
+    ];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+        if (name === element.item) {
+          element.data.forEach((elem) => {
+            const str = elem.yearGroupEnd + '';
+            axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
+
+            elem.data.data.forEach((value, i) => {
+                 dataSeries.forEach((val) => {
+              if (value.value === val.name) {
+                val.data.push(value.percentage.toFixed(2))
+                }
+              })
+          })
+      })
+    }
+  })
+}
+
+    const options = drawNewBarChart(axisData, dataSeries, colours);
+    return options;
+  }
+
   getContent() {
     const content = (
       <div id="page-content" key="content-1b">
@@ -162,7 +180,7 @@ class Page1b extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Belief undertaking professional qualifications will advance your career',
                     'view-2-1',
-                    this.getOptions1(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
+                    this.getTrends('furtherStudyAdvancesCareer', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
                     this.getData('furtherStudyAdvancesCareer', false))}
           </div>
         </div>
