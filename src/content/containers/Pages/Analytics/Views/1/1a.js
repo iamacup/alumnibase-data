@@ -50,73 +50,6 @@ class Page extends React.PureComponent {
     });
   }
 
-  getOptions2() {
-    const optionsA = {
-      x: 'Age',
-      y: 'Average Response',
-    };
-
-    const age = [];
-    const first = [];
-    const plotted = [];
-
-    const start = 9.1;
-    const end = 5.6;
-
-    const firstAge = 21;
-    const lastAge = 61;
-
-    let current = start;
-    const increment = (start - end) / (lastAge - firstAge);
-    for (let a = firstAge; a < lastAge; a++) {
-      age.push(a);
-      first.push(Number(current.toPrecision(2)));
-      current -= increment;
-    }
-
-    plotted.push(first);
-
-    const data = {
-      age,
-      name: ['test'],
-      plotted,
-    };
-    const options = drawLineChart(data, optionsA);
-
-    return options;
-  }
-
-
-  getOptions3(colours) {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'Very Likely', data: [20, 16, 14, 12, 10] },
-      { name: 'Likely', data: [20, 16, 14, 12, 10] },
-      { name: 'Not very likely', data: [40, 44, 44, 44, 40] },
-      { name: 'Not likely at all', data: [10, 12, 14, 16, 20] },
-      { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries, colours);
-
-    return options;
-  }
-
-  getOptions4() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'A great extent', data: [20, 16, 14, 12, 10] },
-      { name: 'Some extent', data: [20, 16, 14, 12, 10] },
-      { name: 'Not at all', data: [40, 44, 44, 44, 40] },
-      { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
-      { name: 'Have not worked since finishing course', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    return options;
-  }
-
   getTabbed(title, id, options, dataObj) {
     const panel = (<TabbedGraphPanel
       title={title}
@@ -184,12 +117,15 @@ class Page extends React.PureComponent {
     return { titles, collapsed, data };
   }
 
-  getTrends(item, chart) {
+  getTrends(item, chart, type, colours) {
     let options = null;
 
-if (chart === 'bar') {
+  if (chart === 'bar') {
+
   const axisData = {y: [], x: '%'};
-  const dataSeries = [{name: 'Strongly agree', data: []}, {name: 'Agree', data: []}, {name: 'Neither agree or disagree', data: []}, {name: 'Disagree', data: []}, {name: 'Strongly disagree', data: []}];
+  let dataSeries = [{name: 'Strongly agree', data: []}, {name: 'Agree', data: []}, {name: 'Neither agree or disagree', data: []}, {name: 'Disagree', data: []}, {name: 'Strongly disagree', data: []}];
+    if (type === 'extent') dataSeries = [{name: 'A great extent', data: []}, {name: 'Some extent', data: []}, {name: "Don't know", data: []}, {name: 'Not at all', data: []}, {name: 'Have not worked since finishing course', data: []}];
+    if (type === 'likely') dataSeries = [{name: 'Very Likely', data: []}, {name: 'Likely', data: []}, {name: "Not very likely", data: []}, {name: 'Not likely at all', data: []}, {name: "Don't know", data: []}];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
       this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
@@ -198,16 +134,16 @@ if (chart === 'bar') {
             //setting axis data;
             const str = elem.yearGroupEnd + '';
             axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
-            let count = 0;
+            // let count = 0;
 
             elem.data.data.forEach((value, i) => {
-              count += value.percentage;
+              // count += value.percentage;
 
             // removing the count remainder from the last value to make sure it adds to 100;
-            if (i === 4 && count > 100) {
-              let remainder = count - 100;
-              value.percentage -= remainder; // eslint-disable-line no-param-reassign
-            }
+            // if (i === 4 && count > 100) {
+            //   let remainder = count - 100;
+            //   value.percentage -= remainder; // eslint-disable-line no-param-reassign
+            // }
 
             // setting the dataSeries data with all the correct numbers for it's name.
             dataSeries.forEach((val) => {
@@ -220,10 +156,9 @@ if (chart === 'bar') {
         }
       })
     }
-    options = drawNewBarChart(axisData, dataSeries);
+    options = drawNewBarChart(axisData, dataSeries, colours);
 
-  } 
-  else if (chart === 'line') {
+  } else if (chart === 'line') {
 
     const optionsObj = { x: 'Age', y: 'Average Response'}
     const data = {
@@ -249,10 +184,11 @@ if (chart === 'bar') {
       })
     }
     options = drawLineChart(data, optionsObj);
-  }
+
+  } 
 
     return options;
-  }
+  } 
 
   getContent() {
     const content = (
@@ -333,7 +269,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Do a different subject',
               'view-1-6',
-              this.getOptions3(),
+              this.getTrends('viewsOnCourseDifferentSubject', 'bar', 'likely'),
               this.getData('viewsOnCourseDifferentSubject', true))}
           </div>
         </div>
@@ -342,7 +278,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Study at a different institution',
               'view-1-7',
-              this.getOptions3(),
+              this.getTrends('viewsOnCourseDifferentInstitution', 'bar', 'likely'),
               this.getData('viewsOnCourseDifferentInstitution', true))}
           </div>
         </div>
@@ -351,7 +287,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Work towards a different type of qualification',
               'view-1-8',
-              this.getOptions3(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
+              this.getTrends('viewsOnCourseDifferentQualification', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
               this.getData('viewsOnCourseDifferentQualification', true))}
           </div>
         </div>
@@ -360,7 +296,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Decide to do something completely different',
               'view-1-9',
-              this.getOptions3(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
+              this.getTrends('viewsOnCourseTotallyDifferent', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
               this.getData('viewsOnCourseTotallyDifferent', true))}
           </div>
         </div>
@@ -377,7 +313,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Be innovative in the workplace',
               'view-1-10',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEInnovative', 'bar', 'extent'),
               this.getData('viewsOnHEInnovative', true))}
           </div>
         </div>
@@ -386,7 +322,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Make a difference in the workplace',
               'view-1-11',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEDifferenceInWorkplace', 'bar', 'extent'),
               this.getData('viewsOnHEDifferenceInWorkplace', true))}
           </div>
         </div>
@@ -395,7 +331,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Change organisational culture and/or working practices',
               'view-1-12',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEChangeOrganisation', 'bar', 'extent'),
               this.getData('viewsOnHEChangeOrganisation', true))}
           </div>
         </div>
@@ -404,7 +340,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Influence the work of others in the workplace',
               'view-1-13',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEInfluenceWork', 'bar', 'extent'),
               this.getData('viewsOnHEInfluenceWork', true))}
           </div>
         </div>
@@ -413,7 +349,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Access immediate or short-term job opportunities in your chosen career',
               'view-1-14',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEAccessJobOppts', 'bar', 'extent'),
               this.getData('viewsOnHEAccessJobOppts', true))}
           </div>
         </div>
@@ -422,7 +358,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance your credibility or standing in the workplace',
               'view-1-15',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEEnhanceCredibility', 'bar', 'extent'),
               this.getData('viewsOnHEEnhanceCredibility', true))}
           </div>
         </div>
@@ -431,7 +367,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Progress towards your long term career aspirations',
               'view-1-16',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEProgressLongTerm', 'bar', 'extent'),
               this.getData('viewsOnHEProgressLongTerm', true))}
           </div>
         </div>
@@ -440,7 +376,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance your social and intellectual capabilities beyond employment',
               'view-1-17',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEEnhanceSocialCapeabilities', 'bar', 'extent'),
               this.getData('viewsOnHEEnhanceSocialCapeabilities', true))}
           </div>
         </div>
@@ -449,7 +385,7 @@ if (chart === 'bar') {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance the quality of your life generally',
               'view-1-18',
-              this.getOptions4(),
+              this.getTrends('viewsOnHEEnhanceQualityOfLife', 'bar', 'extent'),
               this.getData('viewsOnHEEnhanceQualityOfLife', true))}
           </div>
         </div>
