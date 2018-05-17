@@ -62,7 +62,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  getBoxPlot(input, title, id) {
+  getBoxPlot(input, title, id, height) {
     const options = drawBoxplotChart(input.values, input.categories, 40000);
     const panel = (
       <TabbedGraphPanel
@@ -81,7 +81,7 @@ class Page extends React.PureComponent {
                   pinGraph: true,
                 },
                 width: '100%',
-                height: '350px',
+                height,
                 data: {
                   options,
                 },
@@ -165,19 +165,19 @@ class Page extends React.PureComponent {
         </div>
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(this.getData('gender'), 'Average pay, split by gender', 'salary-ranges-1')}
+            {this.getBoxPlot(this.getData('gender'), 'Average pay, split by gender', 'salary-ranges-1', '350px')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(this.getData('ethnicity'), 'Average pay, split by ethnicity', 'salary-ranges-2')}
+            {this.getBoxPlot(this.getData('ethnicity'), 'Average pay, split by ethnicity', 'salary-ranges-2', '500px')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(this.getData('religion'), 'Average pay, split by religion', 'salary-ranges-3')}
+            {this.getBoxPlot(this.getData('religion'), 'Average pay, split by religion', 'salary-ranges-3', '700px')}
           </div>
         </div>
 
