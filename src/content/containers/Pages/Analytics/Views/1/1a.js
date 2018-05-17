@@ -50,21 +50,6 @@ class Page extends React.PureComponent {
     });
   }
 
-  getOptions1() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'Strongly agree', data: [25, 16, 14, 12, 10] },
-      { name: 'Agree', data: [30, 16, 14, 12, 10] },
-      { name: 'Neither agree or disagree', data: [15, 44, 44, 44, 40] },
-      { name: 'Disagree', data: [10, 12, 14, 16, 20] },
-      { name: 'Strongly disagree', data: [20, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    return options;
-  }
-
   getOptions2() {
     const optionsA = {
       x: 'Age',
@@ -96,7 +81,7 @@ class Page extends React.PureComponent {
       name: ['test'],
       plotted,
     };
-
+console.log(data, optionsA)
     const options = drawLineChart(data, optionsA);
 
     return options;
@@ -186,9 +171,7 @@ class Page extends React.PureComponent {
     const titles = [];
     const data = [];
 
-    // console.log(item);
-
-    if (dNc(this.props.reduxState_fetchDataTransaction) && dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
       this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
         if (item === element.item) {
           element.data.forEach((value) => {
@@ -200,6 +183,71 @@ class Page extends React.PureComponent {
     }
 
     return { titles, collapsed, data };
+  }
+
+  getTrends(item, chart) {
+    let options = null;
+
+    console.log(chart)
+
+if (chart === 'bar') {
+  const axisData = {y: [], x: '%'};
+  const dataSeries = [{name: 'Strongly agree', data: []}, {name: 'Agree', data: []}, {name: 'Neither agree or disagree', data: []}, {name: 'Disagree', data: []}, {name: 'Strongly disagree', data: []}];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+        if (item === element.item) {
+          element.data.forEach((elem) => {
+            //setting axis data;
+            const str = elem.yearGroupEnd + '';
+            axisData['y'].push(elem.yearGroupStart +'-'+ str.slice(2));
+            let count = 0;
+
+            elem.data.data.forEach((value, i) => {
+              count += value.percentage;
+
+            // removing the count remainder from the last value to make sure it adds to 100;
+            if (i === 4 && count > 100) {
+              let remainder = count - 100;
+              value.percentage -= remainder; // eslint-disable-line no-param-reassign
+            }
+
+            // setting the dataSeries data with all the correct numbers for it's name.
+            dataSeries.forEach((val) => {
+              if (value.value === val.name) {
+                val.data.push(value.percentage.toFixed(2))
+                }
+              })
+            })
+          })
+        }
+      })
+    }
+    options = drawNewBarChart(axisData, dataSeries);
+
+  } 
+  // else if (chart === 'line') {
+  //   const data = {
+  //     age: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60], 
+  //     name: ['test'], 
+  //     plotted: [9.1, 9, 8.9, 8.8, 8.7, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2, 8.1, 8, 8, 7.9, 7.8, 7.7, 7.6, 7.5, 7.4, 7.3, 7.3, 7.2, 7.1, 7, 6.9, 6.8, 6.7, 6.6, 6.6, 6.5, 6.4, 6.3, 6.2, 6.1, 6, 5.9, 5.9, 5.8, 5.7],
+  //   }
+  //   const optionsObj = { x: 'Age', y: 'Average Response'}
+
+  // console.log(data, optionsObj)
+
+  //   if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+  //     this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+  //       if (item === element.item) {
+  //         console.log(element)
+  //       }
+  //     })
+  //   }
+
+  //   // options = drawLineChart(data, optionsObj);
+  // }
+
+    return options;
   }
 
   getContent() {
@@ -227,7 +275,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the knowledge from my degree(s) to my work often',
               'view-1-1',
-              this.getOptions1(),
+              this.getTrends('applyDegreeToWork', 'bar'),
               this.getData('applyDegreeToWork', false))}
           </div>
         </div>
@@ -236,7 +284,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the skills, methods or techniques I learnt from undertaking my degree to my work often',
               'view-1-2',
-              this.getOptions1(),
+              this.getTrends('applySkillsToWork', 'bar'),
              this.getData('applySkillsToWork', false))}
           </div>
         </div>
@@ -245,7 +293,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the things I learnt from extra-curricular activities to my work often',
               'view-1-3',
-              this.getOptions1(),
+              this.getTrends('applyExtraCurricularToWork', 'bar'),
               this.getData('applyExtraCurricularToWork', false))}
           </div>
         </div>
@@ -254,7 +302,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, all the things I did or learnt have contributed meaningfully to my life today',
               'view-1-4',
-              this.getOptions1(),
+              this.getTrends('contributeMeaningfullyToLife', 'bar'),
               this.getData('contributeMeaningfullyToLife', false))}
           </div>
         </div>
