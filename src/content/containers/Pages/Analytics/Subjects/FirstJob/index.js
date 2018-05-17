@@ -12,11 +12,11 @@ import { highest, lowest } from './data';
 
 class Page extends React.PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = ({
       jobs: highest,
-    })
+    });
   }
 
   componentDidMount() {
@@ -44,7 +44,7 @@ class Page extends React.PureComponent {
       $(this.highest).click(() => {
         this.setState({
           jobs: highest,
-        })
+        });
         $(this.highest).addClass('hidden');
         $(this.lowest).toggle();
       });
@@ -52,16 +52,15 @@ class Page extends React.PureComponent {
       $(this.lowest).click(() => {
         this.setState({
           jobs: lowest,
-        })
+        });
         $(this.highest).removeClass('hidden');
         $(this.lowest).toggle();
       });
-
     });
   }
 
   getGraphs() {
-const { jobs } = this.state;
+    const { jobs } = this.state;
 
     const react1 = jobs.map(element => getPercentRow(element.name, element.salary, true, true));
 
@@ -79,12 +78,12 @@ const { jobs } = this.state;
 
     const filters = (
       <div className="row text-right">
-      <button type="button" className="btn btn-default hidden" ref={(element) => { this.highest = element } } style={{ marginRight: '10px' }}>See Highest to Lowest</button>
-      <button type="button" className="btn btn-default" ref={(element) => { this.lowest = element } }>See Lowest to Highest</button>
-      <br />
-      <br />
+        <button type="button" className="btn btn-default hidden" ref={(element) => { this.highest = element; }} style={{ marginRight: '10px' }}>See Highest to Lowest</button>
+        <button type="button" className="btn btn-default" ref={(element) => { this.lowest = element; }}>See Lowest to Highest</button>
+        <br />
+        <br />
       </div>
-      )
+    );
 
     const panel = (
       <TabbedGraphPanel

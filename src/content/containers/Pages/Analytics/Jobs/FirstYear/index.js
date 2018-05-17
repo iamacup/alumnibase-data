@@ -12,12 +12,12 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import { lowest, highest } from './jobData';
 
 class Page extends React.PureComponent {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = ({
       jobs: lowest,
-    })
+    });
   }
 
   componentDidMount() {
@@ -45,7 +45,7 @@ class Page extends React.PureComponent {
       $(this.highestButton).click(() => {
         this.setState({
           jobs: highest,
-        })
+        });
         $(this.highestButton).toggle();
         $(this.lowestButton).removeClass('hidden');
       });
@@ -53,11 +53,10 @@ class Page extends React.PureComponent {
       $(this.lowestButton).click(() => {
         this.setState({
           jobs: lowest,
-        })
+        });
         $(this.highestButton).toggle();
         $(this.lowestButton).addClass('hidden');
       });
-
     });
   }
 
@@ -138,7 +137,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
-    console.log(highest)
+    console.log(highest);
     const content = (
       <div id="page-content">
 
