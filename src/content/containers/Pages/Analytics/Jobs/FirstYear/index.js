@@ -137,7 +137,6 @@ class Page extends React.PureComponent {
   }
 
   render() {
-    console.log(highest);
     const content = (
       <div id="page-content">
 

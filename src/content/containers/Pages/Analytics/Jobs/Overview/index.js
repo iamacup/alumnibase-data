@@ -39,15 +39,15 @@ class Page extends React.PureComponent {
 
   render() {
     const pieData1 = [
-      { name: 'Public', value: 16.67 },
-      { name: 'Private', value: 83.33 },
+      { value: 'Public', percent: 16.67 },
+      { value: 'Private', percent: 83.33 },
     ];
 
     const pieData2 = [
-      { name: 'Primary', value: 4 },
-      { name: 'Secondary', value: 35 },
-      { name: 'Tertiary', value: 53 },
-      { name: 'Quaternary', value: 8 },
+      { value: 'Primary', percent: 4 },
+      { value: 'Secondary', percent: 35 },
+      { value: 'Tertiary', percent: 53 },
+      { value: 'Quaternary', percent: 8 },
     ];
 
     const axisData = { y: ['Social Studies', 'Mathematical Sciences', 'Arts & Humanities'], x: '' };

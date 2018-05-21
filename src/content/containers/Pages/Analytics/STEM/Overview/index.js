@@ -39,8 +39,8 @@ class Page extends React.PureComponent {
 
   render() {
     const pieData1 = [
-      { name: 'STEM Subjects', value: 36 },
-      { name: 'Non-STEM Subjects', value: 6 },
+      { value: 'STEM Subjects', percent: 36 },
+      { value: 'Non-STEM Subjects', percent: 6 },
     ];
 
     const echartsData1 = drawPieChart(pieData1, false, 'pie', false);
