@@ -11,7 +11,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getSalaryRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
-import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+// import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 
 import drawBellcurveChart from '../../../../../../content/scripts/custom/googlecharts/bellcurve';
 import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/drawBoxPlotChart';
@@ -19,8 +19,8 @@ import drawLineChart from '../../../../../../content/scripts/custom/echarts/draw
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
-const dataStoreID = 'salary-overview';
-const FetchData = fetchDataBuilder(dataStoreID);
+// const dataStoreID = 'salary-overview';
+// const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -510,20 +510,21 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
-  reduxState_fetchDataTransaction: PropTypes.object,
-  filterData: PropTypes.object,
+  // reduxState_fetchDataTransaction: PropTypes.object,
+  // filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
-  reduxState_fetchDataTransaction: { default: {} },
-  filterData: {},
+  // reduxState_fetchDataTransaction: { default: {} },
+  // filterData: {},
 };
 
-const mapStateToProps = state => ({
-  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
-  filterData: state.dataStoreSingle.filterData,
-});
+const mapStateToProps = null;
+// state => ({
+//   reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+//   filterData: state.dataStoreSingle.filterData,
+// });
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

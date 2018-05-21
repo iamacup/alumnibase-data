@@ -17,7 +17,7 @@ import drawWorldMap from '../../../../content/scripts/custom/echarts/drawWorldMa
 import worldMapData from '../../../../content/scripts/custom/echarts/worldMapData';
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
 
-import { dNc } from '../../../../content/scripts/custom/utilities'
+import { dNc } from '../../../../content/scripts/custom/utilities';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 const dataStoreID = 'overview';
@@ -109,9 +109,9 @@ class Page extends React.PureComponent {
 
   getTotalResponsesPerYearGroup() {
     const names = [];
-    const dataArr= [];
+    const dataArr = [];
     const titles2 = [];
-    const data2 = [ { data: [] } ];
+    const data2 = [{ data: [] }];
 
     const option = {
       direction: 'horizontal',
@@ -119,23 +119,23 @@ class Page extends React.PureComponent {
     };
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      this.props.reduxState_fetchDataTransaction.default.payload[0].forEach(element => {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].forEach((element) => {
         if (element.splitItem === 'graduationYear') {
-          element.split.forEach(elem => {
-            elem.forEach(e => {
-            data2[0].data.push(e.percent)
-            dataArr.push(e.percent)
-            titles2.push(e.value.yearGroupStart + '-' + e.value.yearGroupEnd)
-            names.push(e.value.yearGroupStart + '-' + e.value.yearGroupEnd)
-            })
-          })
+          element.split.forEach((elem) => {
+            elem.forEach((e) => {
+              data2[0].data.push(e.percent);
+              dataArr.push(e.percent);
+              titles2.push(e.value.yearGroupStart + '-' + e.value.yearGroupEnd);
+              names.push(e.value.yearGroupStart + '-' + e.value.yearGroupEnd);
+            });
+          });
         }
-      })
+      });
     }
     const options1 = drawGroupedBarChart(titles2, data2, option);
 
-    const titles = names.splice(names.length - 5)
-    const data = [ { data: dataArr.splice(dataArr.length - 5) } ];
+    const titles = names.splice(names.length - 5);
+    const data = [{ data: dataArr.splice(dataArr.length - 5) }];
     const options = drawGroupedBarChart(titles, data, option);
 
     const postContentShowMore = (
@@ -209,18 +209,18 @@ class Page extends React.PureComponent {
     const option = { direction: 'vertical', value: '', rotate: -45 };
 
 
-if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-  this.props.reduxState_fetchDataTransaction.default.payload[0].forEach(element => {
-    if (element.splitItem === 'ages') {
-      element.split.forEach(elem => {
-        elem.forEach(e => {
-        data[0].data.push(e.length)
-        titles.push(e.value.ageGroupStart + '-' + e.value.ageGroupEnd)
-        })
-      })
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].forEach((element) => {
+        if (element.splitItem === 'ages') {
+          element.split.forEach((elem) => {
+            elem.forEach((e) => {
+              data[0].data.push(e.length);
+              titles.push(e.value.ageGroupStart + '-' + e.value.ageGroupEnd);
+            });
+          });
+        }
+      });
     }
-  })
-}
 
     const options = drawGroupedBarChart(titles, data, option);
 
@@ -256,17 +256,16 @@ if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.
   }
 
   getSubjectResponseRates() {
-
-const data = [];
+    const data = [];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      this.props.reduxState_fetchDataTransaction.default.payload[0].forEach(element => {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].forEach((element) => {
         if (element.splitItem === 'topSubjects') {
           element.split[0].forEach((elem, i) => {
-            data.push({ num: i + 1, course: elem.value, respondants: elem.length })
-          })
+            data.push({ num: i + 1, course: elem.value, respondants: elem.length });
+          });
         }
-      })
+      });
     }
 
     const reactData = (
@@ -277,20 +276,18 @@ const data = [];
               <th className="text-center">#</th>
               <th>Course</th>
               <th>Respondants</th>
-              {/*<th>Subject Area</th>*/}
+              {/* <th>Subject Area</th> */}
             </tr>
           </thead>
           <tbody>
-          {data.map(element => {
-               return (
-            <tr>
-              <td className="text-center">{element.num}</td>
-              <td><a href="#" className="btn-link">{element.course}</a></td>
-              <td><span className="text-muted">{element.respondants}</span></td>
-              {/*<td><span className="label label-purple">Social Sciences</span></td>*/}
-            </tr>
-            )
-             })}
+            {data.map(element => (
+              <tr key={element.num}>
+                <td className="text-center">{element.num}</td>
+                <td><a href="#" className="btn-link">{element.course}</a></td>
+                <td><span className="text-muted">{element.respondants}</span></td>
+                {/* <td><span className="label label-purple">Social Sciences</span></td> */}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -333,37 +330,41 @@ const data = [];
     const propsDataTwo = [];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      this.props.reduxState_fetchDataTransaction.default.payload[0].forEach(element => {
-        if (element.splitItem === "countryBornIn") {
-          element.split[0].forEach(elem => {
-            propsDataOne.push({code: elem.countryCodes[0].code2, value: elem.percent})
-          })
-        } else if (element.splitItem === "countryLiveIn") {
-          element.split[0].forEach(elem => {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].forEach((element) => {
+        if (element.splitItem === 'countryBornIn') {
+          element.split[0].forEach((elem) => {
+            propsDataOne.push({ code: elem.countryCodes[0].code2, value: elem.percent });
+          });
+        } else if (element.splitItem === 'countryLiveIn') {
+          element.split[0].forEach((elem) => {
             if (dNc(elem.countryCodes[0])) {
-            propsDataTwo.push({code: elem.countryCodes[0].code2, value: elem.percent})
-          }
+              propsDataTwo.push({ code: elem.countryCodes[0].code2, value: elem.percent });
+            }
           });
         }
-      })
+      });
     }
 
-  const data1 = [];
-  const data2 = [];
-  const keys = Object.keys(worldMapData);
+    const data1 = [];
+    const data2 = [];
+    const keys = Object.keys(worldMapData);
 
-  propsDataOne.forEach(element => {
-    keys.forEach(country => {
-      if (element.code === worldMapData[country].code) {
-        data1.push({code: element.code, name: country, value: element.value, color: worldMapData[country].color})
-      }
-    })
-  });
-
-    propsDataTwo.forEach(element => {
-      keys.forEach(country => {
+    propsDataOne.forEach((element) => {
+      keys.forEach((country) => {
         if (element.code === worldMapData[country].code) {
-      data2.push({code: element.code, name: country, value: element.value, color: worldMapData[country].color})
+          data1.push({
+            code: element.code, name: country, value: element.value, color: worldMapData[country].color,
+          });
+        }
+      });
+    });
+
+    propsDataTwo.forEach((element) => {
+      keys.forEach((country) => {
+        if (element.code === worldMapData[country].code) {
+          data2.push({
+            code: element.code, name: country, value: element.value, color: worldMapData[country].color,
+          });
         }
       });
     });
@@ -421,14 +422,14 @@ const data = [];
 
   getTotalResponsesPanel() {
     let percentage = '37%';
-    let response = '45,683'
+    let response = '45,683';
 
-  if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-    this.props.reduxState_fetchDataTransaction.default.payload[0].forEach(element => {
-      if (element.splitItem === 'responsePercentage') percentage = (element.value * 100) + '%';
-      if (element.splitItem === 'totalresponses') response = element.value;
-    })
-  }
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].forEach((element) => {
+        if (element.splitItem === 'responsePercentage') percentage = (element.value * 100) + '%';
+        if (element.splitItem === 'totalresponses') response = element.value;
+      });
+    }
 
     const panelContent = (
       <div className="pad-all">
@@ -457,54 +458,53 @@ const data = [];
   }
 
   getPieCharts(type) {
-     let data = [];
+    let data = [];
     let label = true;
     let chart = 'doughnut';
     let alignment = true;
-    let title = "Gender split"
+    let title = 'Gender split';
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-      this.props.reduxState_fetchDataTransaction.default.payload.forEach(element => {
-        element.forEach(value => {
-          if (value.splitItem === type && type === "gender") {
-            data = value.split[0]
-          } else if (value.splitItem === type && type === "ethnicity") {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
+        element.forEach((value) => {
+          if (value.splitItem === type && type === 'gender') {
+            [data] = value.split;
+          } else if (value.splitItem === type && type === 'ethnicity') {
             data = value.split[0].reverse();
-            chart = "pie";
-            title = "Ethnicity split"
-
-          } else if (value.splitItem === type && type === "disability") {
+            chart = 'pie';
+            title = 'Ethnicity split';
+          } else if (value.splitItem === type && type === 'disability') {
             let count = 0;
-            value.split[0].forEach(elem => {
-              if (elem.value === "No known disability") data.push(elem)
-              else count += elem.percent
-            })
-            data.push({value: 'Disability declared', percent: count})
-            label=false
-            alignment=false;
-            title = "Disability split"
-          } else if (value.splitItem === type && type === "religion") {
-            data = value.split[0].reverse().map(elem => {
+            value.split[0].forEach((elem) => {
+              if (elem.value === 'No known disability') data.push(elem);
+              else count += elem.percent;
+            });
+            data.push({ value: 'Disability declared', percent: count });
+            label = false;
+            alignment = false;
+            title = 'Disability split';
+          } else if (value.splitItem === type && type === 'religion') {
+            data = value.split[0].reverse().map((elem) => {
               if (elem.value.includes('Christian')) elem.value = 'Christian'; // eslint-disable-line no-param-reassign
               return elem;
             });
-            chart = 'pie'
-            title = "Religion split"
-          } else if (value.splitItem === type && type === "courseType") {
-            data = value.split[0];
-            chart="pie"
-            title = "Course Type split"
+            chart = 'pie';
+            title = 'Religion split';
+          } else if (value.splitItem === type && type === 'courseType') {
+            [data] = value.split;
+            chart = 'pie';
+            title = 'Course Type split';
           }
-        })
-      })
+        });
+      });
     }
 
-  const options = drawNewPieChart(data, label, chart, alignment);
+    const options = drawNewPieChart(data, label, chart, alignment);
 
-  const panel = (
+    const panel = (
       <TabbedGraphPanel
         title={title}
-        globalID={"overview-" + title}
+        globalID={'overview-' + title}
         content={[
             {
               title: '',
@@ -527,12 +527,12 @@ const data = [];
         seperator
       />
     );
-  return panel;
+    return panel;
   }
 
   render() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="overview-content">
 
         <div className="row" style={{ paddingBottom: '50px' }}>
 
@@ -671,16 +671,16 @@ const data = [];
       </div>
     );
 
-  const dataTransaction = (
-    <FetchData 
-    key="transaction-overview"
-    active
-    fetchURL="api/analytics/overview"
-    // sendData={sendData}
-    />
-    )
 
-  const output = [dataTransaction, content]
+    const dataTransaction = (
+      <FetchData
+        key="transaction-overview"
+        active
+        fetchURL="api/analytics/overview"
+      />
+    );
+
+    const output = [dataTransaction, content];
 
     const { location } = this.props;
 
@@ -694,18 +694,15 @@ Page.propTypes = {
   reduxAction_doUpdate: PropTypes.func,
   location: PropTypes.object.isRequired,
   reduxState_fetchDataTransaction: PropTypes.object,
-  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
   reduxState_fetchDataTransaction: { default: {} },
-  filterData: {},
 };
 
 const mapStateToProps = state => ({
   reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
-  filterData: state.dataStoreSingle.filterData,
 });
 
 const mapDispatchToProps = dispatch => ({
