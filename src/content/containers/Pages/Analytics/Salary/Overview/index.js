@@ -11,12 +11,16 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getSalaryRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 
 import drawBellcurveChart from '../../../../../../content/scripts/custom/googlecharts/bellcurve';
 import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/drawBoxPlotChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+
+const dataStoreID = 'salary-overview';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -239,80 +243,8 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getLineCharts() {
-    const optionsA = {
-      trendline: true,
-    };
-
-    const data1 = {
-      name: ['Average Salary', 'National Average'],
-      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
-      age: [1, 2, 3, 4, 5, 6, 7],
-    };
-    const options1 = drawLineChart(data1, optionsA);
-
-    const optionsB = {
-      value: false,
-      trendline: true,
-    };
-
-    const data2 = {
-      name: ['Male', 'Female', 'Other', 'National Average'],
-      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [22000, 25000, 31000, 39000, 49000, 59000, 69000], [0, 0, 0, 0, 0, 0, 5], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
-      age: [1, 2, 3, 4, 5, 6, 7],
-    };
-
-    const options2 = drawLineChart(data2, optionsB);
-
-    const panel = (
-      <TabbedGraphPanel
-        title="Salary vs National Average over time"
-        globalID="salary-overview-3"
-        content={[
-            {
-              title: 'All Data',
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: options1,
-                },
-              },
-            },
-            {
-              title: 'Gender Split',
-              active: false,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: options2,
-                },
-              },
-            },
-          ]}
-        seperator
-      />
-    );
-
-    return panel;
-  }
-
   getSubjectSalaries() {
-    const reactData = (
+       const reactData = (
       <div>
         <div className="pad-all">
           <h4 className="panel-title">Science Degrees</h4>
@@ -387,42 +319,16 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getSalaryLineChart() {
-    const data1 = {
-      age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      name: ['Average'],
-      plotted: [[23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]],
-    };
-
-    const optionsA = {
-      x: 'Time After Graduating (years)',
-      y: 'Salary',
-    };
-    const optionsB = {
-      x: 'Time After Graduating (years)',
-      y: 'Salary',
-      value: false,
-    };
-
-    const options1 = drawLineChart(data1, optionsA);
-
-    const data2 = {
-      age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      name: ['Female', 'Male'],
-      plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000], [23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]],
-    };
-
-    const options2 = drawLineChart(data2, optionsB);
-
+  getLineChart(options, preContent) {
     const panel = (
       <TabbedGraphPanel
-        title="Salary over time"
-        globalID="salary-overview-5"
+        title={options.title}
+        globalID={options.id}
         content={[
             {
               title: 'All Data',
               active: true,
-              preContent: <p>The national average salary of graduates in work</p>,
+              preContent: <p>{preContent}</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -433,14 +339,14 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options: options1,
+                  options: options[1],
                 },
               },
             },
             {
               title: 'Gender Split',
               active: false,
-              preContent: <p>The national average salary of graduates in work</p>,
+              preContent: <p>{preContent}</p>,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -451,7 +357,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options: options2,
+                  options: options[2],
                 },
               },
             },
@@ -463,22 +369,67 @@ class Page extends React.PureComponent {
     return panel;
   }
 
+
+  getData(type, salary) {
+    let results = null;
+
+    // let lineCharts = {
+    //   data: {name: '', plotted: [], age: []},
+    //   optionsObj: {value: null, trendline: null}
+    // }
+
+    if (type === 'bell') {
+      results = this.getBellCurve();
+    } else if (type === 'boxplot') {
+      results = this.getSalaryBoxPlots();
+    } else if (type === 'line') {
+      if (salary === true) {
+    const data1 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Average'], plotted: [[23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]],};
+    const optionsA = { x: 'Time After Graduating (years)', y: 'Salary' };
+    const optionsB = { x: 'Time After Graduating (years)', y: 'Salary', value: false };
+    const data2 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Female', 'Male'], plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000], [23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]] };
+    const preContent = 'The national average salary of graduates in work';
+
+    const options = {1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, optionsB), title: "Salary over time", id: "salary-overview-5"}
+    results = this.getLineChart(options, preContent)
+
+      } else {
+            const optionsA = {
+      trendline: true,
+    };
+
+    const data1 = {
+      name: ['Average Salary', 'National Average'],
+      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
+      age: [1, 2, 3, 4, 5, 6, 7],
+    };
+
+    const optionsB = {
+      value: false,
+      trendline: true,
+    };
+
+    const data2 = {
+      name: ['Male', 'Female', 'Other', 'National Average'],
+      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [22000, 25000, 31000, 39000, 49000, 59000, 69000], [0, 0, 0, 0, 0, 0, 5], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
+      age: [1, 2, 3, 4, 5, 6, 7],
+    };
+
+const options = {1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, optionsB), title: "Salary vs National Average over time", id: "salary-overview-3"}
+        results = this.getLineChart(options);
+      }
+    } else if (type === 'bars') {
+      results = this.getSubjectSalaries();
+    }
+
+    return results;
+  }
+
+
   render() {
     const content = (
       <div id="page-content">
         <StandardFilters />
-
-        {/* <div className="row">
-          <div className="col-md-6 col-md-push-3">
-            <BasicPanel
-              content={
-                <p>
-                  This data represents the average salary statistics for the selected filters.
-                </p>
-              }
-            />
-          </div>
-        </div> */}
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
@@ -489,7 +440,7 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getBellCurve()}
+            {this.getData('bell')}
           </div>
         </div>
 
@@ -502,19 +453,19 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getSalaryBoxPlots()}
+            {this.getData('boxplot')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getSalaryLineChart()}
+            {this.getData('line', true)}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getLineCharts()}
+            {this.getData('line')}
           </div>
         </div>
 
@@ -527,17 +478,28 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getSubjectSalaries()}
+            {this.getData('bars')}
           </div>
         </div>
 
       </div>
     );
 
+    // const dataTransaction = (
+    //   <FetchData 
+    //     key="transaction-salary"
+    //     active
+    //     fetchURL="/api/analytics/overview"
+    //     sendData
+    //   />
+    // )
+
+    const output = [content]
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -545,13 +507,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
