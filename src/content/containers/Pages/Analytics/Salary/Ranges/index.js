@@ -20,13 +20,13 @@ const dataStoreID = 'salary-ranges';
 const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      showNationalAverage: false,
-    };
-  }
+  //   this.state = {
+  //     showNationalAverage: false,
+  //   };
+  // }
 
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
@@ -106,7 +106,6 @@ class Page extends React.PureComponent {
         }
       });
     }
-
     // get national average to work.
 
     // if (this.state.showNationalAverage === true) {
@@ -186,9 +185,9 @@ class Page extends React.PureComponent {
     return content;
   }
 
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
-  }
+  // clickShowNationalAverage() {
+  //   this.setState({ showNationalAverage: !this.state.showNationalAverage });
+  // }
 
   render() {
     let content = null;
@@ -213,7 +212,10 @@ class Page extends React.PureComponent {
       />
     );
 
-    const output = [dataTransaction, content];
+    const output = [
+      dataTransaction,
+      content,
+    ];
     const { location } = this.props;
 
     return (
