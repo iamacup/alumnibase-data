@@ -244,7 +244,7 @@ class Page extends React.PureComponent {
   }
 
   getSubjectSalaries() {
-       const reactData = (
+    const reactData = (
       <div>
         <div className="pad-all">
           <h4 className="panel-title">Science Degrees</h4>
@@ -384,38 +384,41 @@ class Page extends React.PureComponent {
       results = this.getSalaryBoxPlots();
     } else if (type === 'line') {
       if (salary === true) {
-    const data1 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Average'], plotted: [[23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]],};
-    const optionsA = { x: 'Time After Graduating (years)', y: 'Salary' };
-    const optionsB = { x: 'Time After Graduating (years)', y: 'Salary', value: false };
-    const data2 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Female', 'Male'], plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000], [23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]] };
-    const preContent = 'The national average salary of graduates in work';
+        const data1 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Average'], plotted: [[23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]] };
+        const optionsA = { x: 'Time After Graduating (years)', y: 'Salary' };
+        const optionsB = { x: 'Time After Graduating (years)', y: 'Salary', value: false };
+        const data2 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Female', 'Male'], plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000], [23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]] };
+        const preContent = 'The national average salary of graduates in work';
 
-    const options = {1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, optionsB), title: "Salary over time", id: "salary-overview-5"}
-    results = this.getLineChart(options, preContent)
-
+        const options = {
+          1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, optionsB), title: 'Salary over time', id: 'salary-overview-5',
+        };
+        results = this.getLineChart(options, preContent);
       } else {
-            const optionsA = {
-      trendline: true,
-    };
+        const optionsA = {
+          trendline: true,
+        };
 
-    const data1 = {
-      name: ['Average Salary', 'National Average'],
-      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
-      age: [1, 2, 3, 4, 5, 6, 7],
-    };
+        const data1 = {
+          name: ['Average Salary', 'National Average'],
+          plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
+          age: [1, 2, 3, 4, 5, 6, 7],
+        };
 
-    const optionsB = {
-      value: false,
-      trendline: true,
-    };
+        const optionsB = {
+          value: false,
+          trendline: true,
+        };
 
-    const data2 = {
-      name: ['Male', 'Female', 'Other', 'National Average'],
-      plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [22000, 25000, 31000, 39000, 49000, 59000, 69000], [0, 0, 0, 0, 0, 0, 5], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
-      age: [1, 2, 3, 4, 5, 6, 7],
-    };
+        const data2 = {
+          name: ['Male', 'Female', 'Other', 'National Average'],
+          plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [22000, 25000, 31000, 39000, 49000, 59000, 69000], [0, 0, 0, 0, 0, 0, 5], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
+          age: [1, 2, 3, 4, 5, 6, 7],
+        };
 
-const options = {1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, optionsB), title: "Salary vs National Average over time", id: "salary-overview-3"}
+        const options = {
+          1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, optionsB), title: 'Salary vs National Average over time', id: 'salary-overview-3',
+        };
         results = this.getLineChart(options);
       }
     } else if (type === 'bars') {
@@ -486,7 +489,7 @@ const options = {1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, opti
     );
 
     // const dataTransaction = (
-    //   <FetchData 
+    //   <FetchData
     //     key="transaction-salary"
     //     active
     //     fetchURL="/api/analytics/overview"
@@ -494,7 +497,7 @@ const options = {1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, opti
     //   />
     // )
 
-    const output = [content]
+    const output = [content];
 
     const { location } = this.props;
 
