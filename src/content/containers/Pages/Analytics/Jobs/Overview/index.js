@@ -139,8 +139,8 @@ class Page extends React.PureComponent {
               globalID="tuesday-graphs-3"
               content={[
                 {
-                  title: '6 Months',
-                  preContent: <p>% of Graduates, 6 Months after Graduating</p>,
+                  title: 'Within the First Year of Graduating',
+                  preContent: <p>% of Graduates, withing the first year after Graduating</p>,
                   active: true,
                   graphData: {
                     type: 'echarts',
@@ -157,8 +157,8 @@ class Page extends React.PureComponent {
                   },
                 },
                 {
-                  title: '12 Months',
-                  preContent: <p>% of Graduates, 1 Year after Graduating</p>,
+                  title: 'Second Year',
+                  preContent: <p>% of Graduates, within the second year after Graduating</p>,
                   active: false,
                   graphData: {
                     type: 'echarts',
@@ -175,8 +175,8 @@ class Page extends React.PureComponent {
                   },
                 },
                 {
-                  title: '24 Months',
-                  preContent: <p>% of Graduates, 2 Years after Graduating</p>,
+                  title: 'Third Year',
+                  preContent: <p>% of Graduates, withing the third year after Graduating</p>,
                   active: false,
                   graphData: {
                     type: 'echarts',
