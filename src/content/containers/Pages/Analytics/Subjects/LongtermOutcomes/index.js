@@ -101,7 +101,7 @@ class Page extends React.PureComponent {
             />
 
             <TabbedGraphPanel
-              title="Change in Salary between 1 Year After Graduating"
+              title="Change in Salary over 10 Years from Graduation"
               globalID="tuesday-graphs-2"
               content={[
                 {

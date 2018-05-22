@@ -12,12 +12,6 @@ import BasicPanel from '../../../../../../content/components/BasicPanel';
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 import drawPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
-import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
-
-import { dNc } from '../../../../../../content/scripts/custom/utilities';
-
-const dataStoreID = 'views';
-const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -129,11 +123,11 @@ class Page extends React.PureComponent {
     return options;
   }
 
-  getTabbed(title, id, options, dataObj) {
+  getTabbed(title, id, options, arr, collapsed, data) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
-      collapsed={dataObj.collapsed}
+      collapsed={collapsed}
       content={[
             {
               title: 'Overall',
@@ -149,7 +143,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: dataObj.data.map((element, i) => drawPercentRow(dataObj.titles[i], element, true)),
+                  reactData: data.map((element, i) => drawPercentRow(arr[i], element, true)),
                 },
               },
             },
@@ -178,27 +172,9 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getData(item, collapsed) {
-    const titles = [];
-    const data = [];
-
-    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
-        if (item === element.item) {
-          element.data.forEach((value) => {
-            titles.push(value.value);
-            data.push(value.percentage);
-          });
-        }
-      });
-    }
-
-    return { titles, collapsed, data };
-  }
-
-  getContent() {
+  render() {
     const content = (
-      <div id="page-content" key="content-2">
+      <div id="page-content">
 
         <StandardFilters />
 
@@ -219,7 +195,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('My current work fits with my future plans',
               'view-3-1',
               this.getOptions1(),
-              this.getData('currentWorkFitsWithFuturePlans', false))}
+              ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
+              false, [23, 15, 26, 16, 17])}
           </div>
         </div>
 
@@ -228,7 +205,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('My current work is meaningful and important to me',
               'view-3-2',
               this.getOptions1(),
-              this.getData('currentWorkMeaningfulAndImportant', false))}
+              ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
+              false, [25, 30, 15, 10, 20])}
           </div>
         </div>
 
@@ -237,7 +215,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Overall, how satisfied are you with your life now',
               'view-3-3',
               this.getOptions1(),
-              this.getData('lifeSatisfaction', false))}
+              ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
+              false, [32, 46, 6, 11, 5])}
           </div>
         </div>
 
@@ -247,7 +226,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Overall, to what extent do you feel the things you do in your life are worthwhile',
               'view-3-4',
               this.getOptions2(),
-              this.getData('lifeWorthwhile', false))}
+              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+              false, [18, 12, 8, 5, 12, 15, 7, 5, 15, 8])}
           </div>
         </div>
 
@@ -256,7 +236,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Overall, how happy did you feel yesterday',
               'view-3-5',
               this.getOptions2(),
-              this.getData('lifeHappy', false))}
+              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+              false, [7, 13, 12, 13, 15, 13, 5, 4, 6, 4])}
           </div>
         </div>
 
@@ -265,7 +246,8 @@ class Page extends React.PureComponent {
             {this.getTabbed('Overall, how anxious did you feel yesterday',
               'view-1-5',
               this.getOptions2(),
-              this.getData('lifeAnxious', false))}
+              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+              false, [5, 7, 6, 8, 11, 14, 13, 12, 14, 9])}
           </div>
         </div>
 
@@ -273,41 +255,10 @@ class Page extends React.PureComponent {
       </div>
     );
 
-
-    return content;
-  }
-
-  render() {
-    let content = null;
-
-    if (this.props.reduxState_fetchDataTransaction.default.finished) {
-      content = this.getContent();
-    }
-
-    const sendData = { data: [] };
-
-
-    Object.keys(this.props.filterData).forEach((key) => {
-      if (dNc(this.props.filterData[key])) {
-        sendData.data.push({ [key]: this.props.filterData[key] });
-      }
-    });
-
-    const dataTransaction = (
-      <FetchData
-        active
-        key="transaction-2"
-        fetchURL="/api/analytics/views"
-        sendData={sendData}
-      />
-    );
-
-    const output = [dataTransaction, content];
-
     const { location } = this.props;
 
     return (
-      <Wrapper content={output} theLocation={location} />
+      <Wrapper content={content} theLocation={location} />
     );
   }
 }
@@ -315,20 +266,13 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
-  reduxState_fetchDataTransaction: PropTypes.object,
-  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
-  reduxState_fetchDataTransaction: { default: {} },
-  filterData: {},
 };
 
-const mapStateToProps = state => ({
-  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
-  filterData: state.dataStoreSingle.filterData,
-});
+const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
