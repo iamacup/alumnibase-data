@@ -78,34 +78,34 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
 
-            <div className="row">
+            {/*<div className="row">
               <div className="col-md-6">
-                <TabbedGraphPanel
-                  title="Public vs Private Sector"
-                  globalID="tuesday-graphs-1"
-                  content={[
-                {
-                  title: '',
-                  preContent: <p>The percentage of graduates who, straight out of education find jobs in either public or private sectors of work.</p>,
-                  active: true,
-                  graphData: {
-                    type: 'echarts',
-                    tools: {
-                      allowDownload: true,
-                      seeData: false,
-                      pinGraph: true,
-                    },
-                    width: '100%',
-                    height: '400px',
-                    data: {
-                      options: echartsData1,
-                    },
-                  },
-                },
-              ]}
-                  seperator
-                />
-              </div>
+                             <TabbedGraphPanel
+                               title="Public vs Private Sector"
+                               globalID="tuesday-graphs-1"
+                               content={[
+                             {
+                               title: '',
+                               preContent: <p>The percentage of graduates who, straight out of education find jobs in either public or private sectors of work.</p>,
+                               active: true,
+                               graphData: {
+                                 type: 'echarts',
+                                 tools: {
+                                   allowDownload: true,
+                                   seeData: false,
+                                   pinGraph: true,
+                                 },
+                                 width: '100%',
+                                 height: '400px',
+                                 data: {
+                                   options: echartsData1,
+                                 },
+                               },
+                             },
+                           ]}
+                               seperator
+                             />
+                           </div>
               <div className="col-md-6">
                 <TabbedGraphPanel
                   title="Sector Employment"
@@ -133,7 +133,7 @@ class Page extends React.PureComponent {
                   seperator
                 />
               </div>
-            </div>
+            </div>*/}
             <TabbedGraphPanel
               title="Status of graduates according to subject area over time "
               globalID="tuesday-graphs-3"
