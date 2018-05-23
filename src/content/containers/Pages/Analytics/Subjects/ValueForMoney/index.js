@@ -12,6 +12,11 @@ import drawScatterGraph from '../../../../../../content/scripts/custom/echarts/d
 import drawBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'subjects-vfm';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -38,8 +43,8 @@ class Page extends React.PureComponent {
     });
   }
 
-  render() {
-    // * Allied Health Professions, Dentistry, Nursing and Pharmacy
+  getContent() {
+        // * Allied Health Professions, Dentistry, Nursing and Pharmacy
     // ** Aeronautical, Mechanical, Chemical and Manufacturing Engineering
     // *** Electrical and Electronic Engineering, Metallurgy and Materials
     // **** Communication, Cultural and Media Studies, Library and Information Management
@@ -171,7 +176,7 @@ class Page extends React.PureComponent {
     ];
 
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="subjects-vfm">
 
         <StandardFilters />
 
@@ -303,11 +308,46 @@ class Page extends React.PureComponent {
 
       </div>
     );
+    return content;
+  }
+
+  render() {
+
+   let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+      content = this.getContent();
+    }
+
+
+    const sendData = { data: [] };
+
+
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
+
+    // const dataTransaction = (
+      // <FetchData
+        // key="transaction-subjects-vfm"
+        // active
+        // fetchURL="/api/analytics/subjects/vfm"
+        // sendData={sendData}
+      // />
+    // );
+
+    const output = [
+    // dataTransaction, 
+    content
+    ];
+
 
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -315,13 +355,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

@@ -10,6 +10,12 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
 
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'stem-destinations';
+const FetchData = fetchDataBuilder(dataStoreID);
+
 class Page extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
@@ -35,7 +41,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  render() {
+  getContent() {
     const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
 
     const options1 = {
@@ -168,11 +174,44 @@ class Page extends React.PureComponent {
         </div>
       </div>
     );
+    return content;
+  }
+
+  render() {
+
+   let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+      content = this.getContent();
+    }
+
+    const sendData = { data: [] };
+
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
+
+    // const dataTransaction = (
+    //   <FetchData
+    //     key="transaction-stem-destinations"
+    //     active
+    //     fetchURL="/api/analytics/stem/destinations"
+    //     sendData={sendData}
+    //   />
+    // );
+
+    const output = [
+    // dataTransaction, 
+    content
+    ];
+
 
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -180,13 +219,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

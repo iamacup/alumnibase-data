@@ -6,13 +6,18 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
+import { fireDebouncedResizeEvents, dNc } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
+
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+
+const dataStoreID = 'dhle-like-5';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -117,8 +122,8 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  render() {
-    const content = (
+  getContent() {
+        const content = (
       <div id="page-content">
 
         <StandardFilters />
@@ -219,11 +224,44 @@ class Page extends React.PureComponent {
 
       </div>
     );
+    return content;
+  }
+
+  render() {
+
+   let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+      content = this.getContent();
+    }
+
+    const sendData = { data: [] };
+
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
+
+    // const dataTransaction = (
+    //   <FetchData
+    //     key="transaction-dhle-5"
+    //     active
+    //     fetchURL="/api/analytics/dhle-like/5"
+    //     sendData={sendData}
+    //   />
+    // );
+
+    const output = [
+    // dataTransaction, 
+    content
+    ];
+
 
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -231,13 +269,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

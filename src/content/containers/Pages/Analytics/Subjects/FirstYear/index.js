@@ -10,6 +10,11 @@ import getPercentRow from '../../../../../../content/scripts/custom/echarts/draw
 import { data1, data2 } from './data';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'subjects-first-year';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   constructor(props) {
@@ -134,9 +139,9 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  render() {
+  getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="subjects-first-year">
         <StandardFilters />
         <div className="row">
           <div className="col-md-10 col-md-push-1">
@@ -153,10 +158,46 @@ class Page extends React.PureComponent {
       </div>
     );
 
+    return content;
+  }
+
+  render() {
+
+   let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+      content = this.getContent();
+    }
+
+
+    const sendData = { data: [] };
+
+
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
+
+    // const dataTransaction = (
+    //   <FetchData
+    //     key="transaction-subjects-first-year"
+    //     active
+    //     fetchURL="/api/analytics/subjects/first-year"
+    //     sendData={sendData}
+    //   />
+    // );
+
+    const output = [
+    // dataTransaction, 
+    content
+    ];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -164,13 +205,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
