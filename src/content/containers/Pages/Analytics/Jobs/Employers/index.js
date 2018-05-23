@@ -132,7 +132,7 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getData(type, year) {
+  getData(type) {
     let titles = ['Micro', 'Small', 'Medium', 'Large'];
     let data = []
 
@@ -166,7 +166,7 @@ class Page extends React.PureComponent {
 
   getContent() {
     const content = (
-          <div id="page-content">
+          <div id="page-content" key="jobs-employers">
 
             <StandardFilters />
 
@@ -183,7 +183,7 @@ class Page extends React.PureComponent {
                   '',
                   'vertical',
                   'tuesday-graphs-3',
-                  this.getData('companySizes', 1), true)}
+                  this.getData('companySizes'), true)}
               </div>
             </div>
             <div className="row">
@@ -226,10 +226,10 @@ class Page extends React.PureComponent {
 
   const dataTransaction = (
       <FetchData
-        key="transaction-jobs"
+        key="transaction-jobs-employers"
         active
         fetchURL="/api/analytics/jobs/employers"
-        // sendData={sendData}
+        sendData={sendData}
       />
     );
 
