@@ -10,7 +10,11 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
 
+const dataStoreID = 'jobs-employers';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -37,7 +41,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGroupedBarchart(title, value, direction, globalID, titles, data, label) {
+  getGroupedBarchart(title, value, direction, globalID, dataObj, label) {
     const obj = {
       direction,
       value,
@@ -50,7 +54,7 @@ class Page extends React.PureComponent {
     } else {
       topLabel = <p>Percentage of graduates in employment afetr completing a sandwich course.</p>;
     }
-    const options = drawGroupedBarChart(titles, data, obj);
+    const options = drawGroupedBarChart(dataObj.titles, dataObj.data, obj);
 
     const panel = (<TabbedGraphPanel
       title={title}
@@ -128,59 +132,114 @@ class Page extends React.PureComponent {
     return panel;
   }
 
+  getData(type, year) {
+    let titles = ['Micro', 'Small', 'Medium', 'Large'];
+    let data = []
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element, i) => {
+        if (Object.keys(element)[i] === type) {
+          element[type].forEach(value => {
+            value.forEach(elem => {
+            const yearData = [];
+            let name = '';
+
+              elem.values.forEach(val => {
+                yearData.splice(titles.indexOf(val.value), 0, val.percent)
+              })
+              if (elem.graduationYear === 2017) name = '1 Year'
+              if (elem.graduationYear === 2014) name = '5 Years'
+              if (elem.graduationYear === 2009) name = '10 Years'
+
+              data.push({name: name, data: yearData})
+            })
+          })
+        } else {
+          titles = ['University Average', 'Sandwich Course'];
+          data = [{ name: '', data: [65, 85] }];
+        }
+      })
+    }
+
+    return { titles, data }
+  }
+
+  getContent() {
+    const content = (
+          <div id="page-content">
+
+            <StandardFilters />
+
+            <div className="row">
+              <div className="col-md-10 col-md-push-1">
+                <h3 className="text-main text-normal text-2x mar-no">Job and Careers Employers Page</h3>
+                <hr className="new-section-xs" />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-8 col-md-push-2">
+                {this.getGroupedBarchart('Graduate Employer Destinations Split by Time After Graduating',
+                  '',
+                  'vertical',
+                  'tuesday-graphs-3',
+                  this.getData('companySizes', 1), true)}
+              </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6 col-md-push-3">
+                          {this.getGroupedBarchart('Employment rate of graduates after 6 months',
+                            '',
+                            'vertical',
+                            'tuesday-graphs-3',
+                            this.getData())}
+              
+                        </div>
+            </div>
+            <div className="row">
+              <div className="col-md-8 col-md-push-2">
+                {this.getSankeyGraph()}
+              </div>
+            </div>
+          </div>
+        );
+
+    return content;
+  }
 
   render() {
-    const content = (
-      <div id="page-content">
+   let content = null;
 
-        <StandardFilters />
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+      content = this.getContent();
+    }
 
-        <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <h3 className="text-main text-normal text-2x mar-no">Job and Careers Employers Page</h3>
-            <hr className="new-section-xs" />
-          </div>
-        </div>
 
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            {this.getGroupedBarchart('Graduate Employer Destinations Split by Time After Graduating',
-              '',
-              'vertical',
-              'tuesday-graphs-3',
-              ['Micro', 'Small', 'Medium', 'Large'],
-              [
-                { name: '1 Year', data: [11, 16, 19, 54] },
-                { name: '5 Years', data: [19, 14, 16, 51] },
-                { name: '10 Years', data: [6, 12, 13, 69] },
-              ], true)}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-6 col-md-push-3">
-            {this.getGroupedBarchart('Employment rate of graduates after 6 months',
-              '',
-              'vertical',
-              'tuesday-graphs-3',
-              ['University Average', 'Sandwich Course'],
-              [
-                { name: '', data: [65, 85] },
-              ])}
+    const sendData = { data: [] };
 
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            {this.getSankeyGraph()}
-          </div>
-        </div>
-      </div>
+
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
+
+  const dataTransaction = (
+      <FetchData
+        key="transaction-jobs"
+        active
+        fetchURL="/api/analytics/jobs/employers"
+        // sendData={sendData}
+      />
     );
+
+    const output = [dataTransaction, content];
+
 
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -188,13 +247,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
