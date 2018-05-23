@@ -8,9 +8,14 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
 import drawStackedBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'jobs';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -37,33 +42,45 @@ class Page extends React.PureComponent {
     });
   }
 
-  render() {
-    const pieData1 = [
-      { value: 'Public', percent: 16.67 },
-      { value: 'Private', percent: 83.33 },
-    ];
+  getData(yearGroup) {
+    const axisData = { y: [], x: '' };
+    const data = [{ name: 'Employment', data: [] }, { name: 'Further Study', data: [] }, { name: 'Other', data: [] }, { name: 'Unemployed', data: [] }];
 
-    const pieData2 = [
-      { value: 'Primary', percent: 4 },
-      { value: 'Secondary', percent: 35 },
-      { value: 'Tertiary', percent: 53 },
-      { value: 'Quaternary', percent: 8 },
-    ];
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].overview.forEach(element => {
+        if (element.yearGroup === yearGroup) {
+          element.data.forEach(value => {
 
-    const axisData = { y: ['Social Studies', 'Mathematical Sciences', 'Arts & Humanities'], x: '' };
-    const data = {
-      1: [{ name: 'Employment', data: [60, 55, 70] }, { name: 'Further Study', data: [15, 20, 9] }, { name: 'Other', data: [20, 20, 15] }, { name: 'unemployed', data: [5, 5, 6] }],
-      2: [{ name: 'Employment', data: [75, 73, 77] }, { name: 'Further Study', data: [11, 12, 4] }, { name: 'Other', data: [10, 11, 13] }, { name: 'unemployed', data: [4, 4, 5] }],
-      3: [{ name: 'Employment', data: [85, 80, 89] }, { name: 'Further Study', data: [4, 7, 0] }, { name: 'Other', data: [8, 10, 7] }, { name: 'unemployed', data: [3, 3, 4] }],
-    };
-    const echartsData1 = drawPieChart(pieData1, true, 'doughnut', false);
-    const echartsData2 = drawPieChart(pieData2, true, 'pie', false);
-    const barChartsData1 = drawStackedBarChart(axisData, data[1]);
-    const barChartsData2 = drawStackedBarChart(axisData, data[2]);
-    const barChartsData3 = drawStackedBarChart(axisData, data[3]);
+            this.getAllUniqueNames(element.data)
 
-    const content = (
-      <div id="page-content">
+            axisData.y.push(value.subject);
+            
+            let count = 0;
+            value.breakdown.forEach((elem) => {
+              count += elem.percent;
+            })
+
+            if (count !== 100) this.dividePercentOverElements(value.breakdown, count)
+            
+            value.breakdown.forEach((elem) => {
+              data.forEach((name) => {
+                if (elem.value === name.name) {
+                  name.data.splice(axisData.y.indexOf(value.subject), 0, elem.percent)
+                }
+              })
+              })
+          })
+        }
+      });
+    }
+
+    const options = drawStackedBarChart(axisData, data);
+    return options;
+  }
+
+  getContent() {
+   const content = (
+      <div id="page-content" key="jobs-overview">
 
         <StandardFilters />
 
@@ -77,70 +94,13 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-
-            <div className="row">
-              <div className="col-md-6">
-                <TabbedGraphPanel
-                  title="Public vs Private Sector"
-                  globalID="tuesday-graphs-1"
-                  content={[
-                {
-                  title: '',
-                  preContent: <p>The percentage of graduates who, straight out of education find jobs in either public or private sectors of work.</p>,
-                  active: true,
-                  graphData: {
-                    type: 'echarts',
-                    tools: {
-                      allowDownload: true,
-                      seeData: false,
-                      pinGraph: true,
-                    },
-                    width: '100%',
-                    height: '400px',
-                    data: {
-                      options: echartsData1,
-                    },
-                  },
-                },
-              ]}
-                  seperator
-                />
-              </div>
-              <div className="col-md-6">
-                <TabbedGraphPanel
-                  title="Sector Employment"
-                  globalID="tuesday-graphs-2"
-                  content={[
-                {
-                  title: '',
-                  preContent: <p>Percentage of graduates straight out of education, split into different sectors of work.</p>,
-                  active: true,
-                  graphData: {
-                    type: 'echarts',
-                    tools: {
-                      allowDownload: true,
-                      seeData: false,
-                      pinGraph: true,
-                    },
-                    width: '100%',
-                    height: '400px',
-                    data: {
-                      options: echartsData2,
-                    },
-                  },
-                },
-              ]}
-                  seperator
-                />
-              </div>
-            </div>
             <TabbedGraphPanel
               title="Status of graduates according to subject area over time "
               globalID="tuesday-graphs-3"
               content={[
                 {
-                  title: '6 Months',
-                  preContent: <p>% of Graduates, 6 Months after Graduating</p>,
+                  title: 'First Year',
+                  preContent: <p>% of Graduates, withing the first year after Graduating</p>,
                   active: true,
                   graphData: {
                     type: 'echarts',
@@ -152,13 +112,13 @@ class Page extends React.PureComponent {
                     width: '100%',
                     height: '400px',
                     data: {
-                      options: barChartsData1,
+                      options: this.getData(2017),
                     },
                   },
                 },
                 {
-                  title: '12 Months',
-                  preContent: <p>% of Graduates, 1 Year after Graduating</p>,
+                  title: 'Second Year',
+                  preContent: <p>% of Graduates, withing the second year after Graduating</p>,
                   active: false,
                   graphData: {
                     type: 'echarts',
@@ -170,13 +130,13 @@ class Page extends React.PureComponent {
                     width: '100%',
                     height: '400px',
                     data: {
-                      options: barChartsData2,
+                      options: this.getData(2016),
                     },
                   },
                 },
                 {
-                  title: '24 Months',
-                  preContent: <p>% of Graduates, 2 Years after Graduating</p>,
+                  title: 'Third Year',
+                  preContent: <p>% of Graduates, withing the third year after Graduating</p>,
                   active: false,
                   graphData: {
                     type: 'echarts',
@@ -188,7 +148,7 @@ class Page extends React.PureComponent {
                     width: '100%',
                     height: '400px',
                     data: {
-                      options: barChartsData3,
+                      options: this.getData(2015),
                     },
                   },
                 },
@@ -200,10 +160,87 @@ class Page extends React.PureComponent {
       </div>
     );
 
+   return content;
+  }
+
+    getAllUniqueNames(dataArr) {
+      const uniqueKeys = [];
+
+      dataArr.forEach(element => {
+        element.breakdown.forEach(elem => {
+          if (!uniqueKeys.includes(elem.value)) uniqueKeys.push(elem.value)
+        })
+      })
+
+        dataArr.forEach(element => {
+          if (element.breakdown.length < uniqueKeys.length) {
+
+            const keysInBreakdown = element.breakdown.map(elem => elem.value)
+            
+            uniqueKeys.forEach(key => {
+              if (!keysInBreakdown.includes(key)) {
+                element.breakdown.push({value: key, percent: 0})
+              }
+            })
+            }
+        })
+      return dataArr;
+    }
+
+    dividePercentOverElements(array, count) {
+      let remainder = 100 - count;
+      if (count > 100) remainder = count - 100;
+
+      const percentages = [];
+
+      array.forEach((element, i) => {
+        percentages.push({percentage:(element.percent / 100) * remainder, index: i})
+      })
+
+      percentages.forEach(elem => {
+        if (count < 100) {
+          array[elem.index].percent += elem.percentage; // eslint-disable-line no-param-reassign
+        } else {
+          array[elem.index].percent -= elem.percentage; // eslint-disable-line no-param-reassign
+        }
+      })
+      return array;
+  }
+
+  render() {
+
+   let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+      content = this.getContent();
+    }
+
+
+    const sendData = { data: [] };
+
+
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData.data.push({ [key]: this.props.filterData[key] });
+      }
+    });
+
+    const dataTransaction = (
+      <FetchData
+        key="transaction-jobs"
+        active
+        fetchURL="/api/analytics/jobs/overview"
+        sendData={sendData}
+      />
+    );
+
+    const output = [dataTransaction, content];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -211,13 +248,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
