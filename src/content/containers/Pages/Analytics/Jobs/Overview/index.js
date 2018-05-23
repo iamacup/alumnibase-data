@@ -78,7 +78,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
 
-            {/*<div className="row">
+            {/* <div className="row">
               <div className="col-md-6">
                              <TabbedGraphPanel
                                title="Public vs Private Sector"
@@ -133,7 +133,7 @@ class Page extends React.PureComponent {
                   seperator
                 />
               </div>
-            </div>*/}
+            </div> */}
             <TabbedGraphPanel
               title="Status of graduates according to subject area over time "
               globalID="tuesday-graphs-3"
