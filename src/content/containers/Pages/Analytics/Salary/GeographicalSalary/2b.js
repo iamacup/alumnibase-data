@@ -12,6 +12,7 @@ import drawUKMap from '../../../../../../content/scripts/custom/echarts/drawUkMa
 import { gradsComeFromData, gradsGoToData } from './UKGradData';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -106,7 +107,7 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-       const content = (
+    const content = (
       <div id="page-content">
 
         <StandardFilters />
@@ -127,12 +128,11 @@ class Page extends React.PureComponent {
 
       </div>
     );
-    return content; 
+    return content;
   }
 
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -148,18 +148,28 @@ class Page extends React.PureComponent {
       }
     });
 
-    // const dataTransaction = (
-    //   <FetchData
-    //     key="transaction-geo-local"
-    //     active
-    //     fetchURL="/api/analytics/destination/2"
-    //     sendData={sendData}
-    //   />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                  key="transaction-geo-local"
+                  active
+                  fetchURL="/api/analytics/destination/2"
+                  sendData={sendData}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>                
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 

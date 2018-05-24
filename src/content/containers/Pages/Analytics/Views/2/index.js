@@ -270,15 +270,28 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <FetchData
-        active
-        key="transaction-2"
-        fetchURL="/api/analytics/views"
-        sendData={sendData}
-      />
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                  active
+                  key="transaction-2"
+                  fetchURL="/api/analytics/views"
+                  sendData={sendData}
+                />
+              }
+              />
+          </div>
+        </div>
+      </div>
     );
 
-    const output = [dataTransaction, content];
+    const output = [
+    content,
+    dataTransaction
+    ];
 
     const { location } = this.props;
 

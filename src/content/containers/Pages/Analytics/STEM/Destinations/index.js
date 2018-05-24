@@ -9,6 +9,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -178,8 +179,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -193,18 +193,28 @@ class Page extends React.PureComponent {
       }
     });
 
-    // const dataTransaction = (
-    //   <FetchData
-    //     key="transaction-stem-destinations"
-    //     active
-    //     fetchURL="/api/analytics/stem/destinations"
-    //     sendData={sendData}
-    //   />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                  key="transaction-stem-destinations"
+                  active
+                  fetchURL="/api/analytics/stem/destinations"
+                  sendData={sendData}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 

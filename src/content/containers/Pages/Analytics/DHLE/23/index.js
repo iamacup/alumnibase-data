@@ -9,6 +9,7 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -118,8 +119,8 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-getContent() {
-      const content = (
+  getContent() {
+    const content = (
       <div id="page-content">
 
         <StandardFilters />
@@ -183,11 +184,10 @@ getContent() {
       </div>
     );
 
-  return content;
-}
+    return content;
+  }
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -201,18 +201,28 @@ getContent() {
       }
     });
 
-    // const dataTransaction = (
-    //   <FetchData
-    //     key="transaction-dhle-23"
-    //     active
-    //     fetchURL="/api/analytics/dhle-like/2-3"
-    //     sendData={sendData}
-    //   />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                  key="transaction-dhle-23"
+                  active
+                  fetchURL="/api/analytics/dhle-like/2-3"
+                  sendData={sendData}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>      
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 

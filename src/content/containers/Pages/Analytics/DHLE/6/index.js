@@ -12,6 +12,7 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 
@@ -89,7 +90,7 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-        const content = (
+    const content = (
       <div id="page-content">
 
         <StandardFilters />
@@ -134,11 +135,10 @@ class Page extends React.PureComponent {
 
       </div>
     );
-        return content;
+    return content;
   }
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -152,18 +152,28 @@ class Page extends React.PureComponent {
       }
     });
 
-    // const dataTransaction = (
-    //   <FetchData
-    //     key="transaction-dhle-6"
-    //     active
-    //     fetchURL="/api/analytics/dhle-like/6"
-    //     sendData={sendData}
-    //   />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={      
+                <FetchData
+                  key="transaction-dhle-6"
+                  active
+                  fetchURL="/api/analytics/dhle-like/6"
+                  sendData={sendData}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>                   
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 

@@ -11,7 +11,7 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
 import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
 import drawPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
-
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -45,7 +45,7 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-        const pieData1 = [
+    const pieData1 = [
       { value: 'No Further Study', percent: 60 },
       { value: 'Masters', percent: 30 },
       { value: 'PhD', percent: 7 },
@@ -212,8 +212,7 @@ class Page extends React.PureComponent {
 
 
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -229,18 +228,28 @@ class Page extends React.PureComponent {
       }
     });
 
-    // const dataTransaction = (
-    //   <FetchData
-    //     key="transaction-further-study"
-    //     active
-    //     fetchURL="/api/analytics/further-study/overview"
-    //     sendData={sendData}
-    //   />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                  key="transaction-further-study"
+                  active
+                  fetchURL="/api/analytics/further-study/overview"
+                  sendData={sendData}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 

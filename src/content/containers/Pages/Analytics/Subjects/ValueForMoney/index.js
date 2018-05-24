@@ -11,6 +11,7 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import drawScatterGraph from '../../../../../../content/scripts/custom/echarts/drawScatterGraph';
 import drawBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -44,7 +45,7 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-        // * Allied Health Professions, Dentistry, Nursing and Pharmacy
+    // * Allied Health Professions, Dentistry, Nursing and Pharmacy
     // ** Aeronautical, Mechanical, Chemical and Manufacturing Engineering
     // *** Electrical and Electronic Engineering, Metallurgy and Materials
     // **** Communication, Cultural and Media Studies, Library and Information Management
@@ -312,8 +313,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -329,18 +329,28 @@ class Page extends React.PureComponent {
       }
     });
 
-    // const dataTransaction = (
-      // <FetchData
-        // key="transaction-subjects-vfm"
-        // active
-        // fetchURL="/api/analytics/subjects/vfm"
-        // sendData={sendData}
-      // />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                key="transaction-subjects-vfm"
+                active
+                fetchURL="/api/analytics/subjects/vfm"
+                sendData={sendData}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 

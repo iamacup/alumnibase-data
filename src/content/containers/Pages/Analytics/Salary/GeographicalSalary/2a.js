@@ -14,6 +14,7 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import drawWorldMap from '../../../../../../content/scripts/custom/echarts/drawWorldMap';
 import worldMapData from '../../../../../../content/scripts/custom/echarts/worldMapData';
 import drawNewPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -228,8 +229,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -245,18 +245,28 @@ class Page extends React.PureComponent {
       }
     });
 
-    // const dataTransaction = (
-    //   <FetchData
-    //     key="transaction-geo-global"
-    //     active
-    //     fetchURL="/api/analytics/destination/1"
-    //     sendData={sendData}
-    //   />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                  key="transaction-geo-global"
+                  active
+                  fetchURL="/api/analytics/destination/1"
+                  sendData={sendData}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>                
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 

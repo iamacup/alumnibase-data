@@ -47,29 +47,28 @@ class Page extends React.PureComponent {
     const data = [{ name: 'Employment', data: [] }, { name: 'Further Study', data: [] }, { name: 'Other', data: [] }, { name: 'Unemployed', data: [] }];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-      this.props.reduxState_fetchDataTransaction.default.payload[0].overview.forEach(element => {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].overview.forEach((element) => {
         if (element.yearGroup === yearGroup) {
-          element.data.forEach(value => {
-
-            this.getAllUniqueNames(element.data)
+          element.data.forEach((value) => {
+            this.getAllUniqueNames(element.data);
 
             axisData.y.push(value.subject);
-            
+
             let count = 0;
             value.breakdown.forEach((elem) => {
               count += elem.percent;
-            })
+            });
 
-            if (count !== 100) this.dividePercentOverElements(value.breakdown, count)
-            
+            if (count !== 100) this.dividePercentOverElements(value.breakdown, count);
+
             value.breakdown.forEach((elem) => {
               data.forEach((name) => {
                 if (elem.value === name.name) {
-                  name.data.splice(axisData.y.indexOf(value.subject), 0, elem.percent)
+                  name.data.splice(axisData.y.indexOf(value.subject), 0, elem.percent);
                 }
-              })
-              })
-          })
+              });
+            });
+          });
         }
       });
     }
@@ -79,7 +78,7 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-   const content = (
+    const content = (
       <div id="page-content" key="jobs-overview">
 
         <StandardFilters />
@@ -160,56 +159,54 @@ class Page extends React.PureComponent {
       </div>
     );
 
-   return content;
+    return content;
   }
 
-    getAllUniqueNames(dataArr) {
-      const uniqueKeys = [];
+  getAllUniqueNames(dataArr) {
+    const uniqueKeys = [];
 
-      dataArr.forEach(element => {
-        element.breakdown.forEach(elem => {
-          if (!uniqueKeys.includes(elem.value)) uniqueKeys.push(elem.value)
-        })
-      })
+    dataArr.forEach((element) => {
+      element.breakdown.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.value)) uniqueKeys.push(elem.value);
+      });
+    });
 
-        dataArr.forEach(element => {
-          if (element.breakdown.length < uniqueKeys.length) {
+    dataArr.forEach((element) => {
+      if (element.breakdown.length < uniqueKeys.length) {
+        const keysInBreakdown = element.breakdown.map(elem => elem.value);
 
-            const keysInBreakdown = element.breakdown.map(elem => elem.value)
-            
-            uniqueKeys.forEach(key => {
-              if (!keysInBreakdown.includes(key)) {
-                element.breakdown.push({value: key, percent: 0})
-              }
-            })
-            }
-        })
-      return dataArr;
-    }
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            element.breakdown.push({ value: key, percent: 0 });
+          }
+        });
+      }
+    });
+    return dataArr;
+  }
 
-    dividePercentOverElements(array, count) {
-      let remainder = 100 - count;
-      if (count > 100) remainder = count - 100;
+  dividePercentOverElements(array, count) {
+    let remainder = 100 - count;
+    if (count > 100) remainder = count - 100;
 
-      const percentages = [];
+    const percentages = [];
 
-      array.forEach((element, i) => {
-        percentages.push({percentage:(element.percent / 100) * remainder, index: i})
-      })
+    array.forEach((element, i) => {
+      percentages.push({ percentage: (element.percent / 100) * remainder, index: i });
+    });
 
-      percentages.forEach(elem => {
-        if (count < 100) {
-          array[elem.index].percent += elem.percentage; // eslint-disable-line no-param-reassign
-        } else {
-          array[elem.index].percent -= elem.percentage; // eslint-disable-line no-param-reassign
-        }
-      })
-      return array;
+    percentages.forEach((elem) => {
+      if (count < 100) {
+        array[elem.index].percent += elem.percentage; // eslint-disable-line no-param-reassign
+      } else {
+        array[elem.index].percent -= elem.percentage; // eslint-disable-line no-param-reassign
+      }
+    });
+    return array;
   }
 
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -226,15 +223,28 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <FetchData
-        key="transaction-jobs"
-        active
-        fetchURL="/api/analytics/jobs/overview"
-        sendData={sendData}
-      />
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                  <FetchData
+                    key="transaction-jobs"
+                    active
+                    fetchURL="/api/analytics/jobs/overview"
+                    sendData={sendData}
+                  />
+                }
+              />
+          </div>
+        </div>
+      </div>
     );
 
-    const output = [dataTransaction, content];
+    const output = [
+    content,
+    dataTransaction, 
+    ];
 
 
     const { location } = this.props;

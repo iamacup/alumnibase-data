@@ -7,6 +7,8 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
 import { data1, data2 } from './data';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
@@ -162,8 +164,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -179,18 +180,28 @@ class Page extends React.PureComponent {
       }
     });
 
-    // const dataTransaction = (
-    //   <FetchData
-    //     key="transaction-subjects-first-year"
-    //     active
-    //     fetchURL="/api/analytics/subjects/first-year"
-    //     sendData={sendData}
-    //   />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                key="transaction-subjects-first-year"
+                active
+                fetchURL="/api/analytics/subjects/first-year"
+                sendData={sendData}
+              />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 

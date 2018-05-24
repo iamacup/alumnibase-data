@@ -11,6 +11,7 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
@@ -166,8 +167,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
-
-   let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
@@ -183,18 +183,28 @@ class Page extends React.PureComponent {
       }
     });
 
-    // const dataTransaction = (
-    //   <FetchData
-    //     key="transaction-polar"
-    //     active
-    //     fetchURL="/api/analytics/polar"
-    //     sendData={sendData}
-    //   />
-    // );
+    const dataTransaction = (
+      <div className="container">
+        <div className="row" style={{ marginTop: '200px'}}>
+          <div className="col-1">
+              <BasicPanel
+                content={
+                <FetchData
+                  key="transaction-polar"
+                  active
+                  fetchURL="/api/analytics/polar"
+                  sendData={sendData}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
 
     const output = [
-    // dataTransaction, 
-    content
+    content,
+    dataTransaction,
     ];
 
 
