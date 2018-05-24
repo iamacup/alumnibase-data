@@ -1,4 +1,3 @@
-
 import CampaignOverviewPage from '../../content/containers/Pages/CampaignOverview/main';
 
 import NotFoundPage from '../../content/containers/Pages/NotFound';
@@ -45,9 +44,11 @@ import DataExportPage from '../../content/containers/Pages/DataControl/Export';
 
 import TestsPage from '../../content/containers/Pages/Tests';
 
+const universityName = 'Sheffield';
+
 export default [
   {
-    path: '/',
+    path: `/${universityName}`,
     exact: true,
     component: CampaignOverviewPage,
   },
@@ -57,172 +58,172 @@ export default [
   //   component: LoginPage,
   // },
   {
-    path: '/data-control/export',
+    path: `/${universityName}/data-control/export`,
     exact: true,
     component: DataExportPage,
   },
   {
-    path: '/splash',
+    path: `/${universityName}/splash`,
     exact: true,
     component: SplashPage,
   },
   {
-    path: '/tests',
+    path: `/${universityName}/tests`,
     exact: true,
     component: TestsPage,
   },
   {
-    path: '/analytics/views/1',
+    path: `/${universityName}/analytics/views/1`,
     exact: true,
     component: Views1PageA,
   },
   {
-    path: '/analytics/views/1/direct-university-impact',
+    path: `/${universityName}/analytics/views/1/direct-university-impact`,
     exact: true,
     component: Views1PageA,
   },
   {
-    path: '/analytics/views/1/views-on-education',
+    path: `/${universityName}/analytics/views/1/views-on-education`,
     exact: true,
     component: Views1PageB,
   },
   {
-    path: '/analytics/views/2',
+    path: `/${universityName}/analytics/views/2`,
     exact: true,
     component: Views2Page,
   },
   {
-    path: '/analytics/salary/ranges',
+    path: `/${universityName}/analytics/salary/ranges`,
     exact: true,
     component: SalaryRangesPage,
   },
   {
-    path: '/analytics/salary/overview',
+    path: `/${universityName}/analytics/salary/overview`,
     exact: true,
     component: SalaryOverview,
   },
   {
-    path: '/analytics/subjects/first-year',
+    path: `/${universityName}/analytics/subjects/first-year`,
     exact: true,
     component: SubjectFirstYearPage,
   },
   {
-    path: '/analytics/subjects/first-job',
+    path: `/${universityName}/analytics/subjects/first-job`,
     exact: true,
     component: SubjectFirstJobPage,
   },
   {
-    path: '/analytics/subjects/3',
+    path: `/${universityName}/analytics/subjects/3`,
     exact: true,
     component: SubjectLongtermOutcomesPage,
   },
   {
-    path: '/analytics/jobs/first-job',
+    path: `/${universityName}/analytics/jobs/first-job`,
     exact: true,
     component: JobsFirstJobPage,
   },
   {
-    path: '/analytics/jobs/first-year',
+    path: `/${universityName}/analytics/jobs/first-year`,
     exact: true,
     component: JobsFirstYearPage,
   },
   {
-    path: '/analytics/jobs/overview',
+    path: `/${universityName}/analytics/jobs/overview`,
     exact: true,
     component: JobsOverviewPage,
   },
   {
-    path: '/analytics/jobs/employers',
+    path: `/${universityName}/analytics/jobs/employers`,
     exact: true,
     component: JobsEmployersPage,
   },
   {
-    path: '/analytics/subjects/vfm',
+    path: `/${universityName}/analytics/subjects/vfm`,
     exact: true,
     component: ValueForMoneyPage,
   },
   {
-    path: '/analytics/polar',
+    path: `/${universityName}/analytics/polar`,
     exact: true,
     component: PolarOverviewPage,
   },
   {
-    path: '/analytics/stem/overview',
+    path: `/${universityName}/analytics/stem/overview`,
     exact: true,
     component: StemOverviewPage,
   },
   {
-    path: '/analytics/stem/destinations',
+    path: `/${universityName}/analytics/stem/destinations`,
     exact: true,
     component: StemDestinationsPage,
   },
   {
-    path: '/analytics/destination/1',
+    path: `/${universityName}/analytics/destination/1`,
     exact: true,
     component: Salary2WorldPage,
   },
   {
-    path: '/analytics/destination/2',
+    path: `/${universityName}/analytics/destination/2`,
     exact: true,
     component: Salary2UkPage,
   },
   {
-    path: '/campaign/overview',
+    path: `/${universityName}/campaign/overview`,
     exact: true,
     component: CampaignOverviewPage,
   },
   {
-    path: '/analytics/dlhe-like/2-3',
+    path: `/${universityName}/analytics/dlhe-like/2-3`,
     exact: true,
     component: DHLE23Page,
   },
   {
-    path: '/analytics/dlhe-like/4',
+    path: `/${universityName}/analytics/dlhe-like/4`,
     exact: true,
     component: DHLE4Page,
   },
   {
-    path: '/analytics/dlhe-like/5',
+    path: `/${universityName}/analytics/dlhe-like/5`,
     exact: true,
     component: DHLE5Page,
   },
   {
-    path: '/analytics/dlhe-like/6',
+    path: `/${universityName}/analytics/dlhe-like/6`,
     exact: true,
     component: DHLE6Page,
   },
   {
-    path: '/analytics/dlhe-like/7',
+    path: `/${universityName}/analytics/dlhe-like/7`,
     exact: true,
     component: DHLE7Page,
   },
   {
-    path: '/analytics/dlhe-like/8',
+    path: `/${universityName}/analytics/dlhe-like/8`,
     exact: true,
     component: DHLE8Page,
   },
   {
-    path: '/analytics/dlhe-like/9',
+    path: `/${universityName}/analytics/dlhe-like/9`,
     exact: true,
     component: DHLE9Page,
   },
   {
-    path: '/analytics/dlhe-like/11',
+    path: `/${universityName}/analytics/dlhe-like/11`,
     exact: true,
     component: DHLE11Page,
   },
   {
-    path: '/analytics/further-study/overview',
+    path: `/${universityName}/analytics/further-study/overview`,
     exact: true,
     component: FurtherStudyOverviewPage,
   },
   {
-    path: '/analytics/widening-participation/bme-economic-achievement',
+    path: `/${universityName}/analytics/widening-participation/bme-economic-achievement`,
     exact: true,
     component: WPBMEEPage,
   },
   {
-    path: '/analytics/widening-participation/improving-technical-pathways',
+    path: `/${universityName}/analytics/widening-participation/improving-technical-pathways`,
     exact: true,
     component: WPBMEPOLARPage,
   },
@@ -231,4 +232,3 @@ export default [
     component: NotFoundPage,
   },
 ];
-
