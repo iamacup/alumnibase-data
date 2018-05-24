@@ -139,7 +139,8 @@ class Page extends React.PureComponent {
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
       this.props.reduxState_fetchDataTransaction.default.payload.forEach((element, i) => {
-        if (Object.keys(element)[i] === type) {
+        if (Object.keys(element)[0] === type) {
+
           element[type].forEach((value) => {
             value.forEach((elem) => {
               const yearData = [];
@@ -155,9 +156,22 @@ class Page extends React.PureComponent {
               data.push({ name, data: yearData });
             });
           });
-        } else {
-          titles = ['Non-Sandwich Course Average', 'Sandwich Course Average'];
-          data = [{ name: '', data: [65, 85] }];
+        } else if (Object.keys(element)[1] === type) {
+          titles = [];
+          data = [{ name: '', data: [] }];
+
+          element[type].forEach((elem) => {
+            Object.keys(elem).forEach(name => {
+            let title;
+              if (name === "firstYearEmployment") title = 'Non-Sandwich\nCourse Average';
+              else title = 'Sandwich Course\nAverage';
+              titles.push(title)
+
+              elem[name].forEach(val => {
+                if (val.value === 'Employment') data[0].data.push(val.percent)
+              })
+            })
+          })
         }
       });
     }
@@ -189,11 +203,11 @@ class Page extends React.PureComponent {
         </div>
         <div className="row">
           <div className="col-md-6 col-md-push-3">
-            {this.getGroupedBarchart('Employment rate of graduates after 6 months',
+            {this.getGroupedBarchart('Employment rate of graduates in the First Year.',
                             '',
                             'vertical',
                             'tuesday-graphs-3',
-                            this.getData())}
+                            this.getData('employmentRate'))}
 
           </div>
         </div>
