@@ -195,10 +195,10 @@ class Page extends React.PureComponent {
 
     const dataTransaction = (
       <div className="container" key="transaction-stem-destinations">
-        <div className="row" style={{ marginTop: '200px'}}>
+        <div className="row" style={{ marginTop: '200px' }}>
           <div className="col-1">
-              <BasicPanel
-                content={
+            <BasicPanel
+              content={
                 <FetchData
                   active
                   fetchURL="/api/analytics/stem/destinations"
@@ -212,8 +212,8 @@ class Page extends React.PureComponent {
     );
 
     const output = [
-    content,
-    dataTransaction,
+      content,
+      dataTransaction,
     ];
 
 

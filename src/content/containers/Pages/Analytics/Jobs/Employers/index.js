@@ -138,9 +138,8 @@ class Page extends React.PureComponent {
     let data = [];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element, i) => {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
         if (Object.keys(element)[0] === type) {
-
           element[type].forEach((value) => {
             value.forEach((elem) => {
               const yearData = [];
@@ -161,17 +160,17 @@ class Page extends React.PureComponent {
           data = [{ name: '', data: [] }];
 
           element[type].forEach((elem) => {
-            Object.keys(elem).forEach(name => {
-            let title;
-              if (name === "firstYearEmployment") title = 'Non-Sandwich\nCourse Average';
+            Object.keys(elem).forEach((name) => {
+              let title;
+              if (name === 'firstYearEmployment') title = 'Non-Sandwich\nCourse Average';
               else title = 'Sandwich Course\nAverage';
-              titles.push(title)
+              titles.push(title);
 
-              elem[name].forEach(val => {
-                if (val.value === 'Employment') data[0].data.push(val.percent)
-              })
-            })
-          })
+              elem[name].forEach((val) => {
+                if (val.value === 'Employment') data[0].data.push(val.percent);
+              });
+            });
+          });
         }
       });
     }
@@ -211,11 +210,11 @@ class Page extends React.PureComponent {
 
           </div>
         </div>
-   {/*     <div className="row">
+        {/*     <div className="row">
              <div className="col-md-8 col-md-push-2">
                {this.getSankeyGraph()}
              </div>
-           </div>*/}
+           </div> */}
       </div>
     );
 
@@ -241,10 +240,10 @@ class Page extends React.PureComponent {
 
     const dataTransaction = (
       <div className="container" key="transaction-jobs-employers">
-        <div className="row" style={{ marginTop: '200px'}}>
+        <div className="row" style={{ marginTop: '200px' }}>
           <div className="col-1">
-              <BasicPanel
-                content={
+            <BasicPanel
+              content={
                 <FetchData
                   active
                   fetchURL="/api/analytics/jobs/employers"
@@ -258,8 +257,8 @@ class Page extends React.PureComponent {
     );
 
     const output = [
-    content,
-    dataTransaction, 
+      content,
+      dataTransaction,
     ];
 
 

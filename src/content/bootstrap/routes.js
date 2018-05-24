@@ -45,7 +45,7 @@ import DataExportPage from '../../content/containers/Pages/DataControl/Export';
 
 import TestsPage from '../../content/containers/Pages/Tests';
 
-const universityName = "Aristotle";
+const universityName = 'Aristotle';
 
 export default [
   {
@@ -169,7 +169,7 @@ export default [
     component: Salary2UkPage,
   },
   {
-    path:  `/${universityName}/campaign/overview`,
+    path: `/${universityName}/campaign/overview`,
     exact: true,
     component: CampaignOverviewPage,
   },

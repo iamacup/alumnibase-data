@@ -18,8 +18,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
-
-    const universityName = "Aristotle";
+    const universityName = 'Aristotle';
 
     return (
       <nav id="mainnav-container">
