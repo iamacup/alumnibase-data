@@ -141,7 +141,7 @@ class Page extends React.PureComponent {
 
   getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="polar-overview">
 
         <StandardFilters />
 
@@ -184,13 +184,12 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <div className="container">
+      <div className="container" key="transaction-polar">
         <div className="row" style={{ marginTop: '200px'}}>
           <div className="col-1">
               <BasicPanel
                 content={
                 <FetchData
-                  key="transaction-polar"
                   active
                   fetchURL="/api/analytics/polar"
                   sendData={sendData}

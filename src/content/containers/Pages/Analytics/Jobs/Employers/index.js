@@ -9,7 +9,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
-import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
+// import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -226,13 +226,12 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <div className="container">
+      <div className="container" key="transaction-jobs-employers">
         <div className="row" style={{ marginTop: '200px'}}>
           <div className="col-1">
               <BasicPanel
                 content={
                 <FetchData
-                  key="transaction-jobs-employers"
                   active
                   fetchURL="/api/analytics/jobs/employers"
                   sendData={sendData}

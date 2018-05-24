@@ -45,7 +45,7 @@ class Page extends React.PureComponent {
 
   render() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="DHLE-9">
 
         <StandardFilters />
 

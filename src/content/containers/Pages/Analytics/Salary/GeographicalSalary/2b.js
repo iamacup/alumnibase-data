@@ -108,7 +108,7 @@ class Page extends React.PureComponent {
 
   getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="geo-local">
 
         <StandardFilters />
 
@@ -149,13 +149,12 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <div className="container">
+      <div className="container" key="transaction-geo-local">
         <div className="row" style={{ marginTop: '200px'}}>
           <div className="col-1">
               <BasicPanel
                 content={
                 <FetchData
-                  key="transaction-geo-local"
                   active
                   fetchURL="/api/analytics/destination/2"
                   sendData={sendData}

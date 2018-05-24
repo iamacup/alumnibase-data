@@ -80,7 +80,7 @@ class Page extends React.PureComponent {
 
 
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="fs-overview">
 
         <StandardFilters />
 
@@ -229,13 +229,12 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <div className="container">
+      <div className="container" key="transaction-further-study">
         <div className="row" style={{ marginTop: '200px'}}>
           <div className="col-1">
               <BasicPanel
                 content={
                 <FetchData
-                  key="transaction-further-study"
                   active
                   fetchURL="/api/analytics/further-study/overview"
                   sendData={sendData}

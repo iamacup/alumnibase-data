@@ -95,7 +95,7 @@ class Page extends React.PureComponent {
 
   getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="DHLE-4">
 
         <StandardFilters />
 
@@ -135,13 +135,12 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <div className="container">
+      <div className="container" key="transaction-dhle-4">
         <div className="row" style={{ marginTop: '200px'}}>
           <div className="col-1">
               <BasicPanel
                 content={
                 <FetchData
-                  key="transaction-dhle-4"
                   active
                   fetchURL="/api/analytics/dhle-like/4"
                   sendData={sendData}

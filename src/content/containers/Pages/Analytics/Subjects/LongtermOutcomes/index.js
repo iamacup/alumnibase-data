@@ -155,13 +155,12 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <div className="container">
+      <div className="container" key="transaction-subjects-longterm">
         <div className="row" style={{ marginTop: '200px'}}>
           <div className="col-1">
               <BasicPanel
                 content={
                 <FetchData
-                  key="transaction-subjects-longterm"
                   active
                   fetchURL="/api/analytics/subjects/3"
                   sendData={sendData}

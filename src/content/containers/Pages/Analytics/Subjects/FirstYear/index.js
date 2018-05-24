@@ -181,13 +181,12 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <div className="container">
+      <div className="container" key="transaction-subjects-first-year">
         <div className="row" style={{ marginTop: '200px'}}>
           <div className="col-1">
               <BasicPanel
                 content={
                 <FetchData
-                key="transaction-subjects-first-year"
                 active
                 fetchURL="/api/analytics/subjects/first-year"
                 sendData={sendData}

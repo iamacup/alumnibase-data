@@ -134,7 +134,7 @@ class Page extends React.PureComponent {
     ];
 
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="stem-destinations">
         <StandardFilters />
 
         <div className="row">
@@ -194,13 +194,12 @@ class Page extends React.PureComponent {
     });
 
     const dataTransaction = (
-      <div className="container">
+      <div className="container" key="transaction-stem-destinations">
         <div className="row" style={{ marginTop: '200px'}}>
           <div className="col-1">
               <BasicPanel
                 content={
                 <FetchData
-                  key="transaction-stem-destinations"
                   active
                   fetchURL="/api/analytics/stem/destinations"
                   sendData={sendData}
