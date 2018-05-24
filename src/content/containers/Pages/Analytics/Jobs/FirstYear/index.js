@@ -10,7 +10,6 @@ import getSalaryRow from '../../../../../../content/scripts/custom/echarts/drawS
 import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import { lowest, highest } from './jobData';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -19,13 +18,13 @@ const dataStoreID = 'jobs-first-year';
 const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props)
 
-    this.state = ({
-      jobs: lowest,
-    });
-  }
+  //   this.state = ({
+  //     highest: false,
+  //   })
+  // }
 
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
@@ -50,17 +49,19 @@ class Page extends React.PureComponent {
       $(document).trigger('nifty.ready');
 
       $(this.highestButton).click(() => {
-        this.setState({
-          jobs: highest,
-        });
+        // // change the data
+        // this.setState({
+        //   highest: true,
+        // })
         $(this.highestButton).toggle();
         $(this.lowestButton).removeClass('hidden');
       });
 
       $(this.lowestButton).click(() => {
-        this.setState({
-          jobs: lowest,
-        });
+        // // change the data
+        // this.setState({
+        //   highest: false,
+        // })
         $(this.highestButton).toggle();
         $(this.lowestButton).addClass('hidden');
       });
@@ -68,32 +69,14 @@ class Page extends React.PureComponent {
   }
 
   getGraphs() {
-    const { jobs } = this.state;
-
-    const react1 = jobs.map(element => getSalaryRow(element.job, element.salary));
-
-    const react2 = jobs.map(element => (
-      <div key={element.job}>
-        <div className="row">
-          <div className="col-md-4 col-md-push-2">
-            <p>{element.job}</p>
-          </div>
-        </div>
-        <div>
-          {getSalaryRow('Male', element.male)}
-          {getSalaryRow('Female', element.female)}
-        </div>
-      </div>
-    ));
-
-    const filter = (
-      <div className="row text-right">
-        <button type="button" className="btn btn-default" ref={(element) => { this.highestButton = element; }} style={{ marginRight: '10px' }}>See Highest to Lowest Salary</button>
-        <button type="button" className="btn btn-default hidden" ref={(element) => { this.lowestButton = element; }}>See Lowest to Highest Salary</button>
-        <br />
-        <br />
-      </div>
-    );
+    // const filter = (
+    //   <div className="row text-right">
+    //     <button type="button" className="btn btn-default" ref={(element) => { this.highestButton = element; }} style={{ marginRight: '10px' }}>See Highest to Lowest Salary</button>
+    //     <button type="button" className="btn btn-default hidden" ref={(element) => { this.lowestButton = element; }}>See Lowest to Highest Salary</button>
+    //     <br />
+    //     <br />
+    //   </div>
+    // );
 
     const panel = (
       <TabbedGraphPanel
@@ -103,7 +86,7 @@ class Page extends React.PureComponent {
           {
             title: 'Average Salary',
             active: true,
-            preContent: filter,
+            // preContent: filter,
             graphData: {
               type: 'react',
               width: '100%',
@@ -114,7 +97,7 @@ class Page extends React.PureComponent {
                 pinGraph: false,
               },
               data: {
-                reactData: react1,
+                reactData: this.getData('averageSalaryFirstYear'),
               },
             },
           },
@@ -131,7 +114,7 @@ class Page extends React.PureComponent {
                 pinGraph: false,
               },
               data: {
-                reactData: react2,
+                reactData: this.getData('averageSalaryFirstYearGenderSplit'),
               },
             },
           },
@@ -142,6 +125,68 @@ class Page extends React.PureComponent {
 
     return panel;
   }
+
+
+  getData(type) {
+    let reactData = null;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      let data = this.props.reduxState_fetchDataTransaction.default.payload[0][type];
+
+        if (Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0])[0] === type) {
+         reactData = data.map(elem => getSalaryRow(elem.jobTitle, elem.average));
+
+        } else if (Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0])[1] === type) {
+            this.getAllUniqueNames(data)
+
+
+              reactData = data.map(element => (
+                <div key={element.jobTitle}>
+                  <div className="row">
+                    <div className="col-md-4 col-md-push-2">
+                      <p>{element.jobTitle}</p>
+                    </div>
+                  </div>
+                  <div>
+                  {element.split.map(elem => (
+                    getSalaryRow(elem.gender, elem.average)
+                  ))}
+                  </div>
+                </div>
+              ));
+        }
+      }
+
+      return reactData;
+    }
+
+  getAllUniqueNames(dataArr) {
+    const uniqueKeys = ["Other"];
+
+    dataArr.forEach((element) => {
+      element.split.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.split.length < uniqueKeys.length) {
+        const keysInBreakdown = element.split.map(elem => elem.gender);
+
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            if (key === 'Male') element.split.splice(0, 0, { gender: key, average: 0 });
+            if (key === 'Female') element.split.splice(1, 0, { gender: key, average: 0 });
+            if (key === 'Other') element.split.splice(2, 0, { gender: key, average: 0 });
+          }
+        });
+      }
+    });
+
+    return dataArr;
+  }
+
 
   getContent() {
     const content = (
@@ -189,10 +234,10 @@ class Page extends React.PureComponent {
 
     const dataTransaction = (
       <div className="container" key="transaction-jobs-year">
-        <div className="row" style={{ marginTop: '200px'}}>
+        <div className="row" style={{ marginTop: '200px' }}>
           <div className="col-1">
-              <BasicPanel
-                content={
+            <BasicPanel
+              content={
                 <FetchData
                   active
                   fetchURL="/api/analytics/jobs/first-year"
@@ -206,8 +251,8 @@ class Page extends React.PureComponent {
     );
 
     const output = [
-    content,
-    dataTransaction,
+      content,
+      dataTransaction,
     ];
 
 
