@@ -46,6 +46,9 @@ class Wrapper extends React.PureComponent {
 
 
   render() {
+    let uniName = 'Aristotle University'
+    if (this.context.router.route.location.pathname.split('/')[1] === 'UWE') uniName="University of the West of England";
+
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
         <NavBar />
@@ -54,7 +57,7 @@ class Wrapper extends React.PureComponent {
           <div id="content-container">
             <div id="page-head">
               <div className="pad-all text-center" style={{ paddingBottom: '0' }}>
-                <h3 style={{ marginTop: '0' }}>Aristotle Uni</h3>
+                <h3 style={{ marginTop: '0' }}>{uniName}</h3>
                 <p>{this.props.pageData.pageTitle}</p>
               </div>
 
