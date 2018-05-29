@@ -9,8 +9,8 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
 
   let convertedNumber = salary.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
 
-  if (time) {
-    convertedNumber = (salary * 10000) + ' Months';
+  if (time === true) {
+    convertedNumber = (salary) + ' Months';
   }
 
   const obj = (
