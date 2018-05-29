@@ -18,7 +18,6 @@ class Page extends React.PureComponent {
   }
 
   render() {
-
     const uniName = this.props.theLocation.pathname.split('/')[1];
 
     return (

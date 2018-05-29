@@ -45,8 +45,6 @@ import DataExportPage from '../../content/containers/Pages/DataControl/Export';
 
 import TestsPage from '../../content/containers/Pages/Tests';
 
-const universityName = 'UWE';
-
 export default [
   {
     path: '/:university',

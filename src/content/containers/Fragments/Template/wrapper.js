@@ -46,8 +46,10 @@ class Wrapper extends React.PureComponent {
 
 
   render() {
-    let uniName = 'Aristotle University'
-    if (this.context.router.route.location.pathname.split('/')[1] === 'UWE') uniName="University of the West of England";
+    const name = this.context.router.route.location.pathname.split('/')[1]
+    let uniName = 'Aristotle University';
+    if (name === 'UWE' || name === 'uwe') uniName = 'University of the West of England';
+    if (name === 'Durham' || name === 'durham') uniName = 'Durham University';
 
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
