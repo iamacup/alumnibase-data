@@ -382,7 +382,7 @@ class Page extends React.PureComponent {
               const quartiles = this.props.reduxState_fetchDataTransaction.default.payload[0]['quartiles'][0]
              results = this.getBellCurve('data', quartiles); 
             } 
-            else if ((type === 'nationalAverage' && key === type) || (type === 'nationalAverageGenderSplit' && key === type)) { // NEED GENDER SPLIT!!!
+            else if (type === 'nationalAverage' && (key === type || key === 'nationalAverageGenderSplit')) { // NEEDS GENDER SPLIT!!!
               const data={ age: [], name: ['Average'], plotted: [[]] }
               const options={ x: 'Time After Graduating (years)', y: 'Salary' }
               const preContent = 'The national average salary of graduates in work';
