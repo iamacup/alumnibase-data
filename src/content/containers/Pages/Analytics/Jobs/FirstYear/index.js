@@ -131,37 +131,36 @@ class Page extends React.PureComponent {
     let reactData = null;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      let data = this.props.reduxState_fetchDataTransaction.default.payload[0][type];
+      const data = this.props.reduxState_fetchDataTransaction.default.payload[0][type];
 
-        if (Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0])[0] === type) {
-         reactData = data.map(elem => getSalaryRow(elem.jobTitle, elem.average));
+      if (Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0])[0] === type) {
+        reactData = data.map(elem => getSalaryRow(elem.jobTitle, elem.average));
+      } else if (Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0])[1] === type) {
+        this.getAllUniqueNames(data);
 
-        } else if (Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0])[1] === type) {
-            this.getAllUniqueNames(data)
 
-
-              reactData = data.map(element => (
-                <div key={element.jobTitle}>
-                  <div className="row">
-                    <div className="col-md-4 col-md-push-2">
-                      <p>{element.jobTitle}</p>
-                    </div>
-                  </div>
-                  <div>
-                  {element.split.map(elem => (
+        reactData = data.map(element => (
+          <div key={element.jobTitle}>
+            <div className="row">
+              <div className="col-md-4 col-md-push-2">
+                <p>{element.jobTitle}</p>
+              </div>
+            </div>
+            <div>
+              {element.split.map(elem => (
                     getSalaryRow(elem.gender, elem.average)
                   ))}
-                  </div>
-                </div>
-              ));
-        }
+            </div>
+          </div>
+        ));
       }
-
-      return reactData;
     }
 
+    return reactData;
+  }
+
   getAllUniqueNames(dataArr) {
-    const uniqueKeys = ["Other"];
+    const uniqueKeys = ['Other'];
 
     dataArr.forEach((element) => {
       element.split.forEach((elem) => {

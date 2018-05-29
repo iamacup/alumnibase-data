@@ -7,7 +7,7 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
     barStyle.marginBottom = '0';
   }
 
-  let convertedNumber = salary.toLocaleString('en-US', {style: 'currency', currency: 'GBP', minimumFractionDigits: 0});
+  let convertedNumber = salary.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
 
   if (time) {
     convertedNumber = (salary * 10000) + ' Months';
@@ -32,7 +32,7 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
             aria-valuenow="70"
             aria-valuemin="0"
             aria-valuemax="100"
-            style={{ width: ((salary/10000) * 5) + '%' }}
+            style={{ width: ((salary / 10000) * 5) + '%' }}
           >
             <span className="sr-only">{salary}% Complete</span>
           </div>
