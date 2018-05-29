@@ -23,7 +23,7 @@ import BasicPanel from '../../../../../../content/components/BasicPanel';
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
 
-const dataStoreID = 'salary-overview';
+const dataStoreID = 'salary';
 const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
@@ -51,7 +51,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  getBellCurve() {
+  getBellCurve(data, quartiles) {
     const googleData = drawBellcurveChart();
 
     const postContent = (
@@ -63,7 +63,7 @@ class Page extends React.PureComponent {
               <i className="fas fa-arrow-down icon-3x" />
             </div>
             <div className="media-body pad-all bg-on-white">
-              <p className="text-2x mar-no text-semibold text-main">£30,000</p>
+              <p className="text-2x mar-no text-semibold text-main">£{quartiles.lowerQuartile}</p>
               <p className="text-muted mar-no">The lower quartile for all applied filters</p>
             </div>
           </div>
@@ -76,7 +76,7 @@ class Page extends React.PureComponent {
               <i className="fas fa-arrows-alt-h icon-3x" />
             </div>
             <div className="media-body pad-all bg-on-white">
-              <p className="text-2x mar-no text-semibold text-main">£40,000</p>
+           <p className="text-2x mar-no text-semibold text-main">£{quartiles.median}</p>
               <p className="text-muted mar-no">The median salary for all applied filters</p>
             </div>
           </div>
@@ -89,7 +89,7 @@ class Page extends React.PureComponent {
               <i className="fas fa-arrow-up icon-3x" />
             </div>
             <div className="media-body pad-all bg-on-white">
-              <p className="text-2x mar-no text-semibold text-main">£75,000</p>
+             <p className="text-2x mar-no text-semibold text-main">£{quartiles.upperQuartile}</p>
               <p className="text-muted mar-no">The upper quartile for all applied filters</p>
             </div>
           </div>
@@ -127,38 +127,7 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getSalaryBoxPlots() {
-    const data = {
-      1: {
-        categories: ['Male', 'Female', 'Other'],
-        values: [
-          [18000, 30000],
-          [17280, 28800],
-          [17640, 29400],
-        ],
-      },
-      2: {
-        categories: ['Male', 'Female', 'Other'],
-        values: [
-          [26000, 40000],
-          [24960, 38400],
-          [25480, 39200],
-        ],
-      },
-      3: {
-        categories: ['Male', 'Female', 'Other'],
-        values: [
-          [38000, 60000],
-          [36480, 57600],
-          [37240, 58800],
-        ],
-      },
-      4: {
-        categories: ['Male', 'Female', 'Other'],
-        values: [[50000, 80000], [46000, 72000], [48000, 76000]],
-      },
-    };
-
+  getSalaryBoxPlots(data) {
     const colours = [['#ff7311', '#ffbb7d', '#ff8d8b'], ['#d02224', '#ff8d8b', '#a4c0e5'], ['#11293b', '#0b6623', '#1c6cab'], ['#1c6cab', '#a4c0e5', '#11293b']];
 
     const options1 = drawBoxplotChart(data[1].values, data[1].categories, 10000, colours[0]);
@@ -248,6 +217,8 @@ class Page extends React.PureComponent {
   }
 
   getSubjectSalaries() {
+    const uniName = this.props.location.pathname.split('/')[1]
+
     const reactData = (
       <div>
         <div className="pad-all">
@@ -286,7 +257,7 @@ class Page extends React.PureComponent {
           </div>
         </div>
         <div className="text-center">
-          <Link href="#" to="/analytics/subjects/first-year" className="btn btn-primary">Detailed Breakdown</Link>
+          <Link href="#" to={`/${uniName}/analytics/subjects/first-year`} className="btn btn-primary">Detailed Breakdown</Link>
         </div>
       </div>
     );
@@ -377,57 +348,101 @@ class Page extends React.PureComponent {
   getData(type, salary) {
     let results = null;
 
-    // let lineCharts = {
-    //   data: {name: '', plotted: [], age: []},
-    //   optionsObj: {value: null, trendline: null}
-    // }
 
-    if (type === 'bell') {
-      results = this.getBellCurve();
-    } else if (type === 'boxplot') {
-      results = this.getSalaryBoxPlots();
-    } else if (type === 'line') {
-      if (salary === true) {
-        const data1 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Average'], plotted: [[23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]] };
-        const optionsA = { x: 'Time After Graduating (years)', y: 'Salary' };
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (type === 'salaryRangesOverTime' && key === type) {
+          let data = {}
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][type], true)
+
+          this.props.reduxState_fetchDataTransaction.default.payload[0][type].forEach((element, i) => {
+            const categories = [];
+            const values = [];
+            let smallest = 0;
+            let largest = 0;
+
+            element.data.forEach(elem => {
+              categories.push(elem.gender)
+
+              elem.data.forEach(value => {
+                if (value.salary > largest) {
+                  largest = value.salary;
+                }
+              })
+
+              elem.data.forEach(value => {
+                if (value.Salary < largest) smallest = value.salary;
+              })
+              values.push([smallest, largest])
+            })
+            data[i + 1] = { categories, values }
+          })
+              results = this.getSalaryBoxPlots(data);
+            } else if (type === 'quartiles') { 
+              const quartiles = this.props.reduxState_fetchDataTransaction.default.payload[0]['quartiles'][0]
+             results = this.getBellCurve('data', quartiles); 
+            } 
+            else if ((type === 'nationalAverage' && key === type) || (type === 'nationalAverageGenderSplit' && key === type)) { // NEED GENDER SPLIT!!!
+              const data={ age: [], name: ['Average'], plotted: [[]] }
+              const options={ x: 'Time After Graduating (years)', y: 'Salary' }
+              const preContent = 'The national average salary of graduates in work';
+
+              this.props.reduxState_fetchDataTransaction.default.payload[0][type].forEach(element => {
+                data.age.push(element.name.split(' ')[0])
+                data.plotted[0].push(element.salary);
+              })
+                
         const optionsB = { x: 'Time After Graduating (years)', y: 'Salary', value: false };
         const data2 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Female', 'Male'], plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000], [23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]] };
-        const preContent = 'The national average salary of graduates in work';
 
-        const options = {
-          1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, optionsB), title: 'Salary over time', id: 'salary-overview-5',
-        };
-        results = this.getLineChart(options, preContent);
-      } else {
-        const optionsA = {
-          trendline: true,
+        const finalOptions = {
+          1: drawLineChart(data, options), 2: drawLineChart(data2, optionsB), title: 'Salary over time', id: 'salary-overview-5',
         };
 
-        const data1 = {
-          name: ['Average Salary', 'National Average'],
-          plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
-          age: [1, 2, 3, 4, 5, 6, 7],
-        };
+        results = this.getLineChart(finalOptions, preContent);
 
-        const optionsB = {
-          value: false,
-          trendline: true,
-        };
+            } else if (type === 'salaryTrendsOverTime' && (key === type || key === 'salaryTrendsOverTimeGenderSplit')) {
+              const data = { name: ['Average Salary', 'National Average'], age: [], plotted: [[], []] };
+              const data2 = { name: ['Male', 'Female', 'Other', 'National Average'], plotted: [[], [], [], []], age: [] };
+              const options = {trendline: true}
+              const options2 = { value: false, trendline: true };
 
-        const data2 = {
-          name: ['Male', 'Female', 'Other', 'National Average'],
-          plotted: [[23000, 26000, 32000, 40000, 50000, 60000, 70000], [22000, 25000, 31000, 39000, 49000, 59000, 69000], [0, 0, 0, 0, 0, 0, 5], [19000, 23000, 27000, 31000, 35000, 39000, 43000]],
-          age: [1, 2, 3, 4, 5, 6, 7],
-        };
+              // setting the first graph
+               this.props.reduxState_fetchDataTransaction.default.payload[0]['salaryTrendsOverTime'].forEach(element => {
+                data.age.push(element.name.split(' ')[0])
+                data.plotted[0].push(element.data)
+               })
 
-        const options = {
-          1: drawLineChart(data1, optionsA), 2: drawLineChart(data2, optionsB), title: 'Salary vs National Average over time', id: 'salary-overview-3',
-        };
-        results = this.getLineChart(options);
-      }
-    } else if (type === 'bars') {
+                // setting the gender graph
+                this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0]['salaryTrendsOverTimeGenderSplit'], false)
+
+                this.props.reduxState_fetchDataTransaction.default.payload[0]['salaryTrendsOverTimeGenderSplit'].forEach(element => {
+                  data2.age.push(element.name.split(' ')[0])
+
+                  element.data.forEach(elem => {
+                    if (elem.gender === 'Male') data2.plotted[0].push(elem.data)
+                    if (elem.gender === 'Female') data2.plotted[1].push(elem.data)
+                    if (elem.gender === 'Other') data2.plotted[2].push(elem.data)
+                  })
+                })
+
+              // setting national average for both graphs 
+               this.props.reduxState_fetchDataTransaction.default.payload[0]['nationalAverage'].forEach(element => {
+                data.plotted[1].push(element.salary)
+                data2.plotted[3].push(element.salary)
+               })
+
+            const finalOptions = {
+              1: drawLineChart(data, options), 2: drawLineChart(data2, options2), title: 'Salary vs National Average over time', id: 'salary-overview-3',
+          }
+
+            results = this.getLineChart(finalOptions);
+
+            } else if (type === 'bars') {
       results = this.getSubjectSalaries();
     }
+          })
+        }
 
     return results;
   }
@@ -446,7 +461,7 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getData('bell')}
+            {this.getData('quartiles')}
           </div>
         </div>
 
@@ -459,19 +474,19 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getData('boxplot')}
+            {this.getData('salaryRangesOverTime')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getData('line', true)}
+            {this.getData('nationalAverage')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getData('line')}
+            {this.getData('salaryTrendsOverTime')}
           </div>
         </div>
 
@@ -491,6 +506,38 @@ class Page extends React.PureComponent {
       </div>
     );
     return content;
+  }
+
+  getAllUniqueNames(dataArr, array) {
+    const uniqueKeys = [];
+
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+if (array === true) {
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            element.data.push({ gender: key, data: [] });
+          }
+        });
+      } else {
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            element.data.push({ gender: key, data: 0 });
+          }
+        });
+      }
+      }
+    });
+
+    return dataArr;
   }
 
 
