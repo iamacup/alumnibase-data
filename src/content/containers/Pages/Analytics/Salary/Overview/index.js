@@ -28,20 +28,22 @@ const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
+    const uni = this.props.location.pathname.split('/')[1];
+    
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: '/analytics',
+          link: `/${uni}/analytics`,
         },
         {
           name: 'Salary',
-          link: '/analytics/salary',
+          link: `/${uni}/analytics/salary`,
         },
         {
           name: 'Salary Overview',
-          link: '/analytics/salary/overview',
+          link: `/${uni}/analytics/salary/overview`,
         }],
     });
 
@@ -76,7 +78,7 @@ class Page extends React.PureComponent {
               <i className="fas fa-arrows-alt-h icon-3x" />
             </div>
             <div className="media-body pad-all bg-on-white">
-           <p className="text-2x mar-no text-semibold text-main">£{quartiles.median}</p>
+              <p className="text-2x mar-no text-semibold text-main">£{quartiles.median}</p>
               <p className="text-muted mar-no">The median salary for all applied filters</p>
             </div>
           </div>
@@ -89,7 +91,7 @@ class Page extends React.PureComponent {
               <i className="fas fa-arrow-up icon-3x" />
             </div>
             <div className="media-body pad-all bg-on-white">
-             <p className="text-2x mar-no text-semibold text-main">£{quartiles.upperQuartile}</p>
+              <p className="text-2x mar-no text-semibold text-main">£{quartiles.upperQuartile}</p>
               <p className="text-muted mar-no">The upper quartile for all applied filters</p>
             </div>
           </div>
@@ -217,25 +219,21 @@ class Page extends React.PureComponent {
   }
 
   getSubjectSalaries() {
-    const uniName = this.props.location.pathname.split('/')[1]
+    const uniName = this.props.location.pathname.split('/')[1];
 
     const reactData = (
       <div>
         <div className="pad-all">
-        {this.props.reduxState_fetchDataTransaction.default.payload[0].subjectBreakdown.map(element => {
-          return (
+          {this.props.reduxState_fetchDataTransaction.default.payload[0].subjectBreakdown.map(element => (
             <div>
               <div className="row">
-                  <div className="col-md-4 col-md-push-2">
-                    <p>{element.subjectGroup}</p>
-                  </div>
+                <div className="col-md-4 col-md-push-2">
+                  <p>{element.subjectGroup}</p>
                 </div>
-                {element.data.map(elem => {
-                  return getSalaryRow(elem.gender, [elem.averageSalary])
-                  })}
-                </div>
-            )
-        })}
+              </div>
+              {element.data.map(elem => getSalaryRow(elem.gender, [elem.averageSalary]))}
+            </div>
+            ))}
         </div>
         <div className="text-center">
           <Link href="#" to={`/${uniName}/analytics/subjects/first-year`} className="btn btn-primary">Detailed Breakdown</Link>
@@ -331,10 +329,10 @@ class Page extends React.PureComponent {
 
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (type === 'salaryRangesOverTime' && key === type) {
-          let data = {}
-          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][type], true)
+          const data = {};
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][type], true);
 
           this.props.reduxState_fetchDataTransaction.default.payload[0][type].forEach((element, i) => {
             const categories = [];
@@ -342,88 +340,98 @@ class Page extends React.PureComponent {
             let smallest = 0;
             let largest = 0;
 
-            element.data.forEach(elem => {
-              categories.push(elem.gender)
+            element.data.forEach((elem) => {
+              categories.push(elem.gender);
 
-              elem.data.forEach(value => {
+              elem.data.forEach((value) => {
                 if (value.salary > largest) {
                   largest = value.salary;
                 }
-              })
+              });
 
-              elem.data.forEach(value => {
+              elem.data.forEach((value) => {
                 if (value.Salary < largest) smallest = value.salary;
-              })
-              values.push([smallest, largest])
-            })
-            data[i + 1] = { categories, values }
-          })
-              results = this.getSalaryBoxPlots(data);
-            } else if (type === 'quartiles') { 
-              const quartiles = this.props.reduxState_fetchDataTransaction.default.payload[0]['quartiles'][0]
-             results = this.getBellCurve('data', quartiles); 
-            } 
-            else if (type === 'nationalAverage' && (key === type || key === 'nationalAverageGenderSplit')) { // NEEDS GENDER SPLIT!!!
-              const data={ age: [], name: ['Average'], plotted: [[]] }
-              const options={ x: 'Time After Graduating (years)', y: 'Salary' }
-              const preContent = 'The national average salary of graduates in work';
+              });
+              values.push([smallest, largest]);
+            });
+            data[i + 1] = { categories, values };
+          });
+          results = this.getSalaryBoxPlots(data);
+        } else if (type === 'quartiles') {
+          const quartiles = this.props.reduxState_fetchDataTransaction.default.payload[0].quartiles[0];
+          results = this.getBellCurve('data', quartiles);
+        } else if (type === 'nationalAverage' && (key === 'salaryTrendsOverTime' || key === 'salaryTrendsOverTimeGenderSplit')) { // NEEDS GENDER SPLIT!!!
+          const data = { name: ['Average Salary'], age: [], plotted: [[]] };
+          const data2 = { name: ['Male', 'Female', 'Other'], plotted: [[], [], []], age: [] };
+          const options = { x: 'Time After Graduating (years)', y: 'Salary' };
+          const optionsB = { x: 'Time After Graduating (years)', y: 'Salary', value: false };
+          const preContent = 'The average salary of graduates in work';
 
-              this.props.reduxState_fetchDataTransaction.default.payload[0][type].forEach(element => {
-                data.age.push(element.name.split(' ')[0])
-                data.plotted[0].push(element.salary);
-              })
-                
-        const optionsB = { x: 'Time After Graduating (years)', y: 'Salary', value: false };
-        const data2 = { age: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name: ['Female', 'Male'], plotted: [[22500, 25500, 29000, 31000, 34000, 37000, 39000, 44000, 49000, 59000], [23000, 26000, 30000, 32000, 35000, 38000, 40000, 45000, 50000, 60000]] };
+          this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTime.forEach((element) => {
+            data.age.push(element.name.split(' ')[0]);
+            data.plotted[0].push(element.data);
+          });
 
-        const finalOptions = {
-          1: drawLineChart(data, options), 2: drawLineChart(data2, optionsB), title: 'Salary over time', id: 'salary-overview-5',
-        };
+          // setting the gender graph
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTimeGenderSplit, false);
 
-        results = this.getLineChart(finalOptions, preContent);
+          this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTimeGenderSplit.forEach((element) => {
+            data2.age.push(element.name.split(' ')[0]);
 
-            } else if (type === 'salaryTrendsOverTime' && (key === type || key === 'salaryTrendsOverTimeGenderSplit')) {
-              const data = { name: ['Average Salary', 'National Average'], age: [], plotted: [[], []] };
-              const data2 = { name: ['Male', 'Female', 'Other', 'National Average'], plotted: [[], [], [], []], age: [] };
-              const options = {trendline: true}
-              const options2 = { value: false, trendline: true };
+            element.data.forEach((elem) => {
+              if (elem.gender === 'Male') data2.plotted[0].push(elem.data);
+              if (elem.gender === 'Female') data2.plotted[1].push(elem.data);
+              if (elem.gender === 'Other') data2.plotted[2].push(elem.data);
+            });
+          });
 
-              // setting the first graph
-               this.props.reduxState_fetchDataTransaction.default.payload[0]['salaryTrendsOverTime'].forEach(element => {
-                data.age.push(element.name.split(' ')[0])
-                data.plotted[0].push(element.data)
-               })
+          const finalOptions = {
+            1: drawLineChart(data, options), 2: drawLineChart(data2, optionsB), title: 'Salary over time', id: 'salary-overview-5',
+          };
 
-                // setting the gender graph
-                this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0]['salaryTrendsOverTimeGenderSplit'], false)
+          results = this.getLineChart(finalOptions, preContent);
 
-                this.props.reduxState_fetchDataTransaction.default.payload[0]['salaryTrendsOverTimeGenderSplit'].forEach(element => {
-                  data2.age.push(element.name.split(' ')[0])
+        } else if (type === 'salaryTrendsOverTime' && (key === type || key === 'salaryTrendsOverTimeGenderSplit')) {
+          const data = { name: ['Average Salary', 'National Average'], age: [], plotted: [[], []] };
+          const data2 = { name: ['Male', 'Female', 'Other', 'National Average'], plotted: [[], [], [], []], age: [] };
+          const options = { trendline: true };
+          const options2 = { value: false, trendline: true };
 
-                  element.data.forEach(elem => {
-                    if (elem.gender === 'Male') data2.plotted[0].push(elem.data)
-                    if (elem.gender === 'Female') data2.plotted[1].push(elem.data)
-                    if (elem.gender === 'Other') data2.plotted[2].push(elem.data)
-                  })
-                })
+          // setting the first graph
+          this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTime.forEach((element) => {
+            data.age.push(element.name.split(' ')[0]);
+            data.plotted[0].push(element.data);
+          });
 
-              // setting national average for both graphs 
-               this.props.reduxState_fetchDataTransaction.default.payload[0]['nationalAverage'].forEach(element => {
-                data.plotted[1].push(element.salary)
-                data2.plotted[3].push(element.salary)
-               })
+          // setting the gender graph
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTimeGenderSplit, false);
 
-            const finalOptions = {
-              1: drawLineChart(data, options), 2: drawLineChart(data2, options2), title: 'Salary vs National Average over time', id: 'salary-overview-3',
-          }
+          this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTimeGenderSplit.forEach((element) => {
+            data2.age.push(element.name.split(' ')[0]);
 
-            results = this.getLineChart(finalOptions);
+            element.data.forEach((elem) => {
+              if (elem.gender === 'Male') data2.plotted[0].push(elem.data);
+              if (elem.gender === 'Female') data2.plotted[1].push(elem.data);
+              if (elem.gender === 'Other') data2.plotted[2].push(elem.data);
+            });
+          });
 
-            } else if (type === 'subjectBreakdown') {
-              results = this.getSubjectSalaries();
-            }
-          })
+          // setting national average for both graphs
+          this.props.reduxState_fetchDataTransaction.default.payload[0].nationalAverage.forEach((element) => {
+            data.plotted[1].push(element.salary);
+            data2.plotted[3].push(element.salary);
+          });
+
+          const finalOptions = {
+            1: drawLineChart(data, options), 2: drawLineChart(data2, options2), title: 'Salary vs National Average over time', id: 'salary-overview-3',
+          };
+
+          results = this.getLineChart(finalOptions);
+        } else if (type === 'subjectBreakdown') {
+          results = this.getSubjectSalaries();
         }
+      });
+    }
 
     return results;
   }
@@ -502,19 +510,19 @@ class Page extends React.PureComponent {
       if (element.data.length < uniqueKeys.length) {
         const keysInBreakdown = element.data.map(elem => elem.gender);
 
-if (array === true) {
-        uniqueKeys.forEach((key) => {
-          if (!keysInBreakdown.includes(key)) {
-            element.data.push({ gender: key, data: [] });
-          }
-        });
-      } else {
-        uniqueKeys.forEach((key) => {
-          if (!keysInBreakdown.includes(key)) {
-            element.data.push({ gender: key, data: 0 });
-          }
-        });
-      }
+        if (array === true) {
+          uniqueKeys.forEach((key) => {
+            if (!keysInBreakdown.includes(key)) {
+              element.data.push({ gender: key, data: [] });
+            }
+          });
+        } else {
+          uniqueKeys.forEach((key) => {
+            if (!keysInBreakdown.includes(key)) {
+              element.data.push({ gender: key, data: 0 });
+            }
+          });
+        }
       }
     });
 
