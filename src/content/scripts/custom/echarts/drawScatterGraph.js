@@ -22,18 +22,6 @@ const drawScatterGraph = (data) => {
       y: '53%',
     },
     {
-      text: 'Neutral',
-      x: '91%',
-      y: '46%',
-      textStyle: textstyle,
-    },
-    {
-      text: 'Positive',
-      x: '3%',
-      y: '10%',
-      textStyle: textstyle,
-    },
-    {
       text: 'Positive',
       x: '91%',
       y: '10%',
@@ -48,12 +36,6 @@ const drawScatterGraph = (data) => {
     {
       text: 'Low',
       x: '10%',
-      y: '90%',
-      textStyle: textstyle,
-    },
-    {
-      text: 'High',
-      x: '85%',
       y: '90%',
       textStyle: textstyle,
     },
