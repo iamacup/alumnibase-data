@@ -33,16 +33,18 @@ class Page extends React.PureComponent {
   }
 
   componentDidMount() {
+    const uni = this.props.location.pathname.split('/')[1];
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Campaign Overview',
       breadcrumbs: [
         {
           name: 'Campaign',
-          link: '/campaign',
+          link: `/${uni}/campaign`,
         },
         {
           name: 'Overview',
-          link: '/campaign/overview',
+          link: `/${uni}/campaign/overview`,
         }],
     });
 
