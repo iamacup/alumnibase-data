@@ -222,39 +222,20 @@ class Page extends React.PureComponent {
     const reactData = (
       <div>
         <div className="pad-all">
-          <h4 className="panel-title">Science Degrees</h4>
-          <div className="row">
-            <div className="col-md-4 col-md-push-2">
-              <p>Mathmatical Sciences</p>
-            </div>
-          </div>
-          <div>
-            {getSalaryRow('Male', [49.420])}
-            {getSalaryRow('Female', [47.720])}
-            <div className="row">
-              <div className="col-md-4 col-md-push-2">
-                <p>Medical Sciences</p>
-              </div>
-            </div>
-            {getSalaryRow('Male', [52.535])}
-            {getSalaryRow('Female', [50.065])}
-
-            <h4 className="panel-title">Art Degrees</h4>
-            <div className="row">
-              <div className="col-md-4 col-md-push-2">
-                <p>Fine Arts / Art History</p>
-              </div>
-            </div>
-            {getSalaryRow('Male', [32.220])}
-            {getSalaryRow('Female', [31.720])}
-            <div className="row">
-              <div className="col-md-4 col-md-push-2">
-                <p>Design</p>
-              </div>
-            </div>
-            {getSalaryRow('Male', [38.420])}
-            {getSalaryRow('Female', [37.620])}
-          </div>
+        {this.props.reduxState_fetchDataTransaction.default.payload[0].subjectBreakdown.map(element => {
+          return (
+            <div>
+              <div className="row">
+                  <div className="col-md-4 col-md-push-2">
+                    <p>{element.subjectGroup}</p>
+                  </div>
+                </div>
+                {element.data.map(elem => {
+                  return getSalaryRow(elem.gender, [elem.averageSalary])
+                  })}
+                </div>
+            )
+        })}
         </div>
         <div className="text-center">
           <Link href="#" to={`/${uniName}/analytics/subjects/first-year`} className="btn btn-primary">Detailed Breakdown</Link>
@@ -438,9 +419,9 @@ class Page extends React.PureComponent {
 
             results = this.getLineChart(finalOptions);
 
-            } else if (type === 'bars') {
-      results = this.getSubjectSalaries();
-    }
+            } else if (type === 'subjectBreakdown') {
+              results = this.getSubjectSalaries();
+            }
           })
         }
 
@@ -499,7 +480,7 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getData('bars')}
+            {this.getData('subjectBreakdown')}
           </div>
         </div>
 
