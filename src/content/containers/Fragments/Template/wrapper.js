@@ -59,7 +59,7 @@ class Wrapper extends React.PureComponent {
     else if (name === 'ucl') uniName = 'University College London';
     else if (name === 'uwe') uniName = 'University of the West of England';
     else if (name === 'durham') uniName = 'Durham University';
-    else this.context.router.history.push('/broken/page')
+    else this.context.router.history.push('/broken/page');
 
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
@@ -88,7 +88,7 @@ class Wrapper extends React.PureComponent {
           </div>
           {/*  <!--END CONTENT CONTAINER--> */}
 
-      <SideBar theLocation={this.props.theLocation} />
+          <SideBar theLocation={this.props.theLocation} />
           <Aside />
         </div>
 

@@ -27,22 +27,22 @@ class Page extends React.PureComponent {
     const uniName = location.pathname.split('/')[1].toLowerCase();
 
     if (uniName === 'aristotle' || uniName === 'durham' || uniName === 'uwe' || uniName === 'ucl' || uniName === 'sheffield-hallam' || uniName === 'sheffield' || uniName === 'oxford-brookes' || uniName === 'loughborough' || uniName === 'kings' || uniName === 'cranfield') {
-      direct = '/' + uniName + '/campaign/overview'
-    } else direct = 'http://www.alumnibaseapp.com/'
+      direct = '/' + uniName + '/campaign/overview';
+    } else direct = 'http://www.alumnibaseapp.com/';
 
     return (
-      <div id="container" class="cls-container">
-        <div class="cls-content">
-            <h1 class="error-code text-info">404</h1>
-            <p class="h4 text-uppercase text-bold">Page Not Found!</p>
-            <div class="pad-btm">
+      <div id="container" className="cls-container">
+        <div className="cls-content">
+          <h1 className="error-code text-info">404</h1>
+          <p className="h4 text-uppercase text-bold">Page Not Found!</p>
+          <div className="pad-btm">
                 Sorry, but the page you are looking for has not been found on our server.
-            </div>
-            <hr class="new-section-sm bord-no" />
-            <div class="pad-top"><a class="btn btn-primary" href={direct}>Return</a></div>
+          </div>
+          <hr className="new-section-sm bord-no" />
+          <div className="pad-top"><a className="btn btn-primary" href={direct}>Return</a></div>
         </div>
       </div>
-      )
+    );
   }
 }
 
