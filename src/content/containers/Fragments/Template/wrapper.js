@@ -49,8 +49,17 @@ class Wrapper extends React.PureComponent {
     const name = this.context.router.route.location.pathname.split('/')[1].toLowerCase();
     let uniName = 'Aristotle University';
 
-    if (name === 'uwe') uniName = 'University of the West of England';
-    if (name === 'durham') uniName = 'Durham University';
+    if (name === 'aristotle') uniName = 'Aristotle University';
+    else if (name === 'cranfield') uniName = 'Cranfield University';
+    else if (name === 'kings') uniName = 'King\'s College London';
+    else if (name === 'loughborough') uniName = 'Loughborough University';
+    else if (name === 'oxford-brookes') uniName = 'Oxford Brookes University';
+    else if (name === 'sheffield') uniName = 'University of Sheffield';
+    else if (name === 'sheffield-hallam') uniName = 'Sheffield Hallam University';
+    else if (name === 'ucl') uniName = 'University College London';
+    else if (name === 'uwe') uniName = 'University of the West of England';
+    else if (name === 'durham') uniName = 'Durham University';
+    else this.context.router.history.push('/broken/page')
 
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
