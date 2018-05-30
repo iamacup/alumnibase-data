@@ -46,10 +46,11 @@ class Wrapper extends React.PureComponent {
 
 
   render() {
-    const name = this.context.router.route.location.pathname.split('/')[1]
+    const name = this.context.router.route.location.pathname.split('/')[1].toLowerCase();
     let uniName = 'Aristotle University';
-    if (name === 'UWE' || name === 'uwe') uniName = 'University of the West of England';
-    if (name === 'Durham' || name === 'durham') uniName = 'Durham University';
+
+    if (name === 'uwe') uniName = 'University of the West of England';
+    if (name === 'durham') uniName = 'Durham University';
 
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
@@ -78,7 +79,7 @@ class Wrapper extends React.PureComponent {
           </div>
           {/*  <!--END CONTENT CONTAINER--> */}
 
-          <SideBar theLocation={this.props.theLocation} />
+      <SideBar theLocation={this.props.theLocation} />
           <Aside />
         </div>
 

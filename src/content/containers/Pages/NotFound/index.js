@@ -21,32 +21,29 @@ class Page extends React.PureComponent {
   }
 
   render() {
-    const content = (
-      <div id="page-content">
-        <div className="row">
-          <div className="col-lg-12">
-
-            <div className="panel">
-              <div className="panel-body">
-                <div className="pad-all text-center">
-                  <h2>We are still working on that page!</h2>
-                  <i className="far fa-exclamation fa-8x" style={{ marginTop: '30px', marginBottom: '26px' }} />
-                  <h4>It will be ready soon...</h4>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    );
-
     const { location } = this.props;
+    let direct;
+
+    const uniName = location.pathname.split('/')[1].toLowerCase();
+
+
+    if (uniName === 'aristotle' || uniName === 'durham' || uniName === 'uwe') {
+      direct = '/' + uniName + '/campaign/overview'
+    } else direct = 'http://www.alumnibaseapp.com/'
 
     return (
-      <Wrapper content={content} theLocation={location} />
-    );
+      <div id="container" class="cls-container">
+        <div class="cls-content">
+            <h1 class="error-code text-info">404</h1>
+            <p class="h4 text-uppercase text-bold">Page Not Found!</p>
+            <div class="pad-btm">
+                Sorry, but the page you are looking for has not been found on our server.
+            </div>
+            <hr class="new-section-sm bord-no" />
+            <div class="pad-top"><a class="btn btn-primary" href={direct}>Return</a></div>
+        </div>
+      </div>
+      )
   }
 }
 
