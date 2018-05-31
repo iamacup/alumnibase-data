@@ -130,25 +130,25 @@ class Page extends React.PureComponent {
     let options = null;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
-        if (type === 'firstYearSubjectSalaries' && type === key){
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (type === 'firstYearSubjectSalaries' && type === key) {
           options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => getPercentRow(element.subject, element.averageSalary));
         } else if (type === 'firstYearSubjectSalariesGenderSplit' && type === key) {
-          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
           options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(elem => (
-              <div key={elem.subject}>
-            <div className="row">
-              <div className="col-md-4 col-md-push-2">
-                <p>{elem.subject}</p>
+            <div key={elem.subject}>
+              <div className="row">
+                <div className="col-md-4 col-md-push-2">
+                  <p>{elem.subject}</p>
+                </div>
               </div>
-            </div>
-            {elem.data.map(value =>(
-              getPercentRow(value.gender, value.averageSalary, true, true) 
+              {elem.data.map(value => (
+              getPercentRow(value.gender, value.averageSalary, true, true)
               ))}
-          </div>
-          ))
+            </div>
+          ));
         }
-      })
+      });
     }
     return options;
   }
@@ -175,7 +175,7 @@ class Page extends React.PureComponent {
     return content;
   }
 
-    getAllUniqueName(dataArr) {
+  getAllUniqueName(dataArr) {
     const uniqueKeys = [];
 
     dataArr.forEach((element) => {

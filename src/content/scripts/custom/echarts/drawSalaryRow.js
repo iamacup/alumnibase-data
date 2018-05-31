@@ -8,11 +8,11 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
   }
 
   let convertedNumber = salary.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
-  let width = { width: ((salary / 10000) * 5) + '%'}
+  let width = { width: ((salary / 10000) * 5) + '%' };
 
   if (time === true) {
     convertedNumber = (salary) + ' Months';
-    width = { width: (salary / 10) + '%' }
+    width = { width: (salary / 10) + '%' };
   }
 
   const obj = (

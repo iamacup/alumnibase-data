@@ -1,12 +1,11 @@
 const drawMixGraph = (rawData, names, titles, percentChange) => {
-
   let max = 80000;
-  
-  rawData.forEach(element => {
-    element.data.forEach(elem => {
+
+  rawData.forEach((element) => {
+    element.data.forEach((elem) => {
       if (elem > max) max = elem;
-    })
-  })
+    });
+  });
 
   const colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
   names.push('% Change');

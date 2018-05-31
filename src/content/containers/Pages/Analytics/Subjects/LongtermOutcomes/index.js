@@ -51,52 +51,52 @@ class Page extends React.PureComponent {
     const line = {
       lineOptions: { value: false },
       lineTitles: { x: ['Years After Graduating'], y: ['% of Graduates in Highly Skilled', 'professions (SOC1 - 3)'] },
-      lineData: { 
-        name: ['Social Studies', 'Mathematical Sciences', 'Arts & Humanities'], 
+      lineData: {
+        name: ['Social Studies', 'Mathematical Sciences', 'Arts & Humanities'],
         age: ['1 Year', '5 Years', '10 Years', '20 Years'],
         plotted: [[79, 85, 84, 87], [56, 65, 76, 87], [90, 76, 54, 32],
         ],
       },
-    }
+    };
 
     const mix = {
       rawData: [],
       names: [],
       titles: [],
-    }
+    };
 
     const percentChange = [];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (type === 'line') {
-        options = drawLineChart(line.lineData, line.lineOptions, line.lineTitles); // top graph data needs to be done!
+          options = drawLineChart(line.lineData, line.lineOptions, line.lineTitles); // top graph data needs to be done!
         } else if (type === 'salaryChangeTime' && key === type) {
-          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
-            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(elem => {
-              mix.names.push(elem.name)
-              mix.titles = elem.data.map(value => value.subjectType)
-              const data = {data: [], name: elem.name}
-              elem.data.forEach(value => {
-                data.data.push(value.averageSalary)
-              })
-              mix.rawData.push(data);
-            })
-            let changeSalary = mix.rawData[0].data
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((elem) => {
+            mix.names.push(elem.name);
+            mix.titles = elem.data.map(value => value.subjectType);
+            const data = { data: [], name: elem.name };
+            elem.data.forEach((value) => {
+              data.data.push(value.averageSalary);
+            });
+            mix.rawData.push(data);
+          });
+          const changeSalary = mix.rawData[0].data;
 
-            mix.rawData[1].data.forEach((elem, i) => {
-              if (elem > changeSalary[i]) {
-                const increase = elem - changeSalary[i];
-                percentChange[i] = ((increase / changeSalary[i]) * 100).toFixed();
-              }
-              if (elem < changeSalary[i]) {
-                const decrease = changeSalary[i] - elem;
-                percentChange[i] = ((decrease / changeSalary[i]) * 100).toFixed();
-              }
-            })
+          mix.rawData[1].data.forEach((elem, i) => {
+            if (elem > changeSalary[i]) {
+              const increase = elem - changeSalary[i];
+              percentChange[i] = ((increase / changeSalary[i]) * 100).toFixed();
+            }
+            if (elem < changeSalary[i]) {
+              const decrease = changeSalary[i] - elem;
+              percentChange[i] = ((decrease / changeSalary[i]) * 100).toFixed();
+            }
+          });
           options = drawMixGraph(mix.rawData, mix.names, mix.titles, percentChange);
         }
-      })
+      });
     }
 
     return options;
@@ -146,7 +146,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
 
             <TabbedGraphPanel
-              title={<p style={{color: 'red'}}>NEED TO INFER</p>}
+              title={<p style={{ color: 'red' }}>NEED TO INFER</p>}
               globalID="stem-overview-2"
               content={[
                        {

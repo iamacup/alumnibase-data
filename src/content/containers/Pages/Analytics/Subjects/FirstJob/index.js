@@ -130,28 +130,28 @@ class Page extends React.PureComponent {
     let options;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (type === 'timeToFirstJob' && key === type) {
-          options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => getPercentRow(element.subject, element.averageTimeMonths, true, true))
+          options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => getPercentRow(element.subject, element.averageTimeMonths, true, true));
         } else if (type === 'timeToFirstJobGenderSplit' && key === type) {
-          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
           options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(elem => (
-              <div key={elem.subject}>
-            <div className="row">
-              <div className="col-md-4 col-md-push-2">
-                <p>{elem.subject}</p>
+            <div key={elem.subject}>
+              <div className="row">
+                <div className="col-md-4 col-md-push-2">
+                  <p>{elem.subject}</p>
+                </div>
               </div>
-            </div>
-            {elem.data.map(value =>(
+              {elem.data.map(value => (
               getPercentRow(value.gender, value.averageTimeMonths, true, true)
               ))}
-          </div>
-          ))
+            </div>
+          ));
         }
-      })
+      });
     }
 
-    return options
+    return options;
   }
 
   getContent() {
