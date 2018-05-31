@@ -114,7 +114,7 @@ export default [
     component: SubjectFirstJobPage,
   },
   {
-    path: `/${universityName}/analytics/subjects/3`,
+    path: `/${universityName}/analytics/subjects/long-term-outcomes`,
     exact: true,
     component: SubjectLongtermOutcomesPage,
   },
