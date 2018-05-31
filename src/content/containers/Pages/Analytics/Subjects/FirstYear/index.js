@@ -9,8 +9,6 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
 
-import { data1, data2 } from './data';
-
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -19,13 +17,13 @@ const dataStoreID = 'subjects-first-year';
 const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = ({
-      jobs: data1,
-    });
-  }
+  //   this.state = ({
+  //     jobs: data1,
+  //   });
+  // }
 
   componentDidMount() {
     const uni = this.props.location.pathname.split('/')[1];
@@ -52,17 +50,17 @@ class Page extends React.PureComponent {
       $(document).trigger('nifty.ready');
 
       $(this.highest).click(() => {
-        this.setState({
-          jobs: data2,
-        });
+        // this.setState({
+        //   jobs: data2,
+        // });
         $(this.highest).toggle();
         $(this.lowest).removeClass('hidden');
       });
 
       $(this.lowest).click(() => {
-        this.setState({
-          jobs: data1,
-        });
+        // this.setState({
+        //   jobs: data1,
+        // });
         $(this.highest).toggle();
         $(this.lowest).addClass('hidden');
       });
@@ -128,7 +126,7 @@ class Page extends React.PureComponent {
   }
 
   getData(type) {
-    const { jobs } = this.state;
+    // const { jobs } = this.state;
     let options = null;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
