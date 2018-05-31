@@ -368,7 +368,7 @@ class TabbedGraphPanel extends React.PureComponent {
 
 TabbedGraphPanel.propTypes = {
   globalID: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.any.isRequired,
   seperator: PropTypes.bool,
   collapsed: PropTypes.bool,
   showTabs: PropTypes.bool,

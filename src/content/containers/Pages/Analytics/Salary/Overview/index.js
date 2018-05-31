@@ -324,7 +324,7 @@ class Page extends React.PureComponent {
   }
 
 
-  getData(type, salary) {
+  getData(type) {
     let results = null;
 
 
