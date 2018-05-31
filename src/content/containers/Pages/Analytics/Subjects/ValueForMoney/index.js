@@ -8,6 +8,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import CollapsablePanel from '../../../../../../content/components/CollapsablePanel';
 import drawScatterGraph from '../../../../../../content/scripts/custom/echarts/drawScatterGraph';
 import drawBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
@@ -22,7 +23,7 @@ const FetchData = fetchDataBuilder(dataStoreID);
 class Page extends React.PureComponent {
   componentDidMount() {
     const uni = this.props.location.pathname.split('/')[1];
-    
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
       breadcrumbs: [
@@ -96,7 +97,7 @@ class Page extends React.PureComponent {
       [1800, 0.71],
       [2000, 3.57],
       [2500, 1.86],
-      [2600, 5.21],
+      [2600, 4.21],
       [2700, 4.64],
       [2800, 0.93],
       [2900, 2.93],
@@ -107,16 +108,6 @@ class Page extends React.PureComponent {
       [3900, 2.93],
       [4000, 3.57],
       [4100, 0.71],
-      [4200],
-      [4300],
-      [4400],
-      [4500],
-      [4600],
-      [4700],
-      [4800],
-      [4900],
-      [5000],
-      [5100],
 
       // Negative-High
       [5000, -3],
@@ -146,20 +137,20 @@ class Page extends React.PureComponent {
 
     const tabData1 = [
       {
-        title: 'Percentage of People who Believe their Course Offered Value for Money',
+        title: (<div><p>Percentage of People who Believe their Course Offered Value for Money</p><h4 style={{color: 'red'}}>NO QUESTION DATA</h4></div>),
         globalID: 'subjects-vfm-1',
         options: bar1,
         text: text1,
       },
       {
-        title: 'Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money',
+        title: (<div><p>Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money</p><h4 style={{color: 'red'}}>NO QUESTION DATA</h4></div>),
         globalID: 'subjects-vfm-2',
         options: bar2,
         text: '',
       },
     ];
 
-    const tabData2 = [
+    const tabData2 = [ //loan repayment graph
       {
         title: 'Average Time Taken for Graduates to Pay Back Student Loans',
         globalID: 'subjects-vfm-3',
@@ -169,14 +160,107 @@ class Page extends React.PureComponent {
     ];
 
 
-    const tabData3 = [
+    const tabData3 = [ // scatter graph
       {
-        title: 'University and Salary Impacts on Happiness in Life',
+        title: 'University and Salary Impacts',
         globalID: 'subjects-vfm-4',
         options: scatterData,
-        text: '',
       },
     ];
+
+    const year3Data = { plan2: { amountBorrowed: 0, loanPaidBack: 0 }, plan3: { amountBorrowed: 0, loanPaidBack: 0 } };
+    const year4Data = { plan2: { amountBorrowed: 0, loanPaidBack: 0 }, plan3: { amountBorrowed: 0, loanPaidBack: 0 } };
+    // let convertedNumber = salary.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((name) => {
+        if (name === 'loanRepayment') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][name].forEach((element) => {
+            if (element.courseLengthYears === 3) {
+              // 3yr course data
+              element.plan2.forEach((elem, i) => {
+                if (i === 0) year3Data.plan2.amountBorrowed = elem.remainingLoan;
+                year3Data.plan2.loanPaidBack += elem.ammountPaid;
+              });
+              element.plan3.forEach((elem, i) => {
+                if (i === 0) year3Data.plan3.amountBorrowed = elem.remainingLoan;
+                year3Data.plan3.loanPaidBack += elem.ammountPaid;
+              });
+            } else if (element.courseLengthYears === 4) {
+              // 4yr course data
+              element.plan2.forEach((elem, i) => {
+                if (i === 0) year4Data.plan2.amountBorrowed = elem.remainingLoan;
+                year4Data.plan2.loanPaidBack += elem.ammountPaid;
+              });
+              element.plan3.forEach((elem, i) => {
+                if (i === 0) year4Data.plan3.amountBorrowed = elem.remainingLoan;
+                year4Data.plan3.loanPaidBack += elem.ammountPaid;
+              });
+            }
+          });
+        }
+      });
+    }
+
+    const table = (
+      <div className="row justify-content-center">
+        <div style={{ margin: '10%' }}>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col" />
+                <th scope="col" />
+                <th scope="col" />
+                <th scope="col" style={{ textAlign: 'center' }}>Amount Borrowed</th>
+                <th scope="col" style={{ textAlign: 'center' }}>Amount Paid Back</th>
+                <th scope="col" style={{ textAlign: 'center' }}>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Plan 2</th>
+                <td colSpan="5" />
+              </tr>
+              <tr>
+                <th scope="row" />
+                <td />
+                <td>3 Year Course</td>
+                <td style={{ textAlign: 'center' }}>{year3Data.plan2.amountBorrowed.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+                <td style={{ textAlign: 'center' }}>{year3Data.plan2.loanPaidBack.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+                <td style={{ textAlign: 'center' }}>{(year3Data.plan2.loanPaidBack - year3Data.plan2.amountBorrowed).toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+              </tr>
+              <tr>
+                <th scope="row" />
+                <td />
+                <td>4 Year Course</td>
+                <td style={{ textAlign: 'center' }}>{year4Data.plan2.amountBorrowed.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+                <td style={{ textAlign: 'center' }}>{year4Data.plan2.loanPaidBack.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+                <td style={{ textAlign: 'center' }}>{(year4Data.plan2.loanPaidBack - year4Data.plan2.amountBorrowed).toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+              </tr>
+              <tr>
+                <th scope="row">Plan 3</th>
+                <td colSpan="5" />
+              </tr>
+              <tr>
+                <th scope="row" />
+                <td />
+                <td>3 Year Course</td>
+                <td style={{ textAlign: 'center' }}>{year3Data.plan3.amountBorrowed.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+                <td style={{ textAlign: 'center' }}>{year3Data.plan3.loanPaidBack.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+                <td style={{ textAlign: 'center' }}>{(year3Data.plan3.loanPaidBack - year3Data.plan3.amountBorrowed).toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+              </tr>
+              <tr>
+                <th scope="row" />
+                <td />
+                <td>4 Year Course</td>
+                <td style={{ textAlign: 'center' }}>{year4Data.plan3.amountBorrowed.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+                <td style={{ textAlign: 'center' }}>{year4Data.plan3.loanPaidBack.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+                <td style={{ textAlign: 'center' }}>{(year4Data.plan3.loanPaidBack - year4Data.plan3.amountBorrowed).toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
 
     const content = (
       <div id="page-content" key="subjects-vfm">
@@ -193,7 +277,6 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {tabData1.map(element => (
-              // {if {element.globalID !== "VFM-1") text = ""}
               <TabbedGraphPanel
                 title={element.title}
                 globalID={element.globalID}
@@ -235,7 +318,6 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {tabData2.map(element => (
-                      // {if {element.globalID !== "VFM-1") text = ""}
               <TabbedGraphPanel
                 title={element.title}
                 globalID={element.globalID}
@@ -265,19 +347,28 @@ class Page extends React.PureComponent {
             ))}
           </div>
         </div>
+        <div className="row">
+          <div className="col-md-8 col-md-push-2" >
+            <CollapsablePanel
+              title="Total Ammount Taken Out vs Total Ammount Paid Back for Plan 2 / 3"
+              content={table}
+              expanded
+            />
+          </div>
+        </div>
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">Monetary and Derived Value</h3>
             <h5 className="text-muted text-normal">We take various metrics from the survey that indicate positive impact of the university on the respondents life that are not related to salary and map them against salary.</h5>
+            <h5 className="text-muted text-normal">This graph maps a cross-section of happiness indicator questions to give a "happiness measure". These questions include</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-md-10 col-md-push-1">
+          <div className="col-md-8 col-md-push-2">
             {tabData3.map(element => (
-                      // {if {element.globalID !== "VFM-1") text = ""}
               <TabbedGraphPanel
                 title={element.title}
                 globalID={element.globalID}
@@ -285,8 +376,7 @@ class Page extends React.PureComponent {
                 content={[
                     {
                       title: '',
-                      postContent: element.text,
-                      preContent: <p>This graph maps a cross-section of happiness indicator questions to give a "happiness measure", which we map against salary.<br />1 dot represents 100 people</p>,
+                      preContent: <p>This graph maps a cross-section of happiness indicator questions to give a "happiness measure", which we map against salary.</p>,
                       active: true,
                       graphData: {
                         type: 'echarts',
