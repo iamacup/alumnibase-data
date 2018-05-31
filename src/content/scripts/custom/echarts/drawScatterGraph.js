@@ -1,4 +1,4 @@
-const drawScatterGraph = (data) => {
+const drawScatterGraph = (data, options) => {
   // const color = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
   const textstyle = { fontSize: 12 };
   const option = {
@@ -52,8 +52,8 @@ const drawScatterGraph = (data) => {
       axisTick: {
         show: false,
       },
-      max: 25000,
-      min: -25000,
+      max: options.max + 10000,
+      min: options.min - 10000,
     },
     yAxis: {
       axisLabel: {
@@ -63,7 +63,7 @@ const drawScatterGraph = (data) => {
         show: false,
       },
       max: 10,
-      min: -10,
+      min: 0,
     },
     tooltip: {
       trigger: 'axis',
