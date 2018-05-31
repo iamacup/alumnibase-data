@@ -29,7 +29,7 @@ const FetchData = fetchDataBuilder(dataStoreID);
 class Page extends React.PureComponent {
   componentDidMount() {
     const uni = this.props.location.pathname.split('/')[1];
-    
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
       breadcrumbs: [
@@ -390,7 +390,6 @@ class Page extends React.PureComponent {
           };
 
           results = this.getLineChart(finalOptions, preContent);
-
         } else if (type === 'salaryTrendsOverTime' && (key === type || key === 'salaryTrendsOverTimeGenderSplit')) {
           const data = { name: ['Average Salary', 'National Average'], age: [], plotted: [[], []] };
           const data2 = { name: ['Male', 'Female', 'Other', 'National Average'], plotted: [[], [], [], []], age: [] };

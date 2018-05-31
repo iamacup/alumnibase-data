@@ -13,7 +13,7 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 class Page extends React.PureComponent {
   componentDidMount() {
     const uni = this.props.location.pathname.split('/')[1];
-    
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'DLHE Requirement 9 - Geographical Destinations of Employment',
       breadcrumbs: [

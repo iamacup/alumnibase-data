@@ -29,7 +29,7 @@ class Page extends React.PureComponent {
 
   componentDidMount() {
     const uni = this.props.location.pathname.split('/')[1];
-    
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
       breadcrumbs: [

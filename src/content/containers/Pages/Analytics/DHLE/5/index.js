@@ -23,7 +23,7 @@ const FetchData = fetchDataBuilder(dataStoreID);
 class Page extends React.PureComponent {
   componentDidMount() {
     const uni = this.props.location.pathname.split('/')[1];
-    
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'DLHE Requirement 5 - Destination, Employment and Earnings',
       breadcrumbs: [
