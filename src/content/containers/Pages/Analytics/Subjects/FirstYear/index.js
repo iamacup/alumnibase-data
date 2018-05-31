@@ -70,30 +70,14 @@ class Page extends React.PureComponent {
   }
 
   getGraphs() {
-    const { jobs } = this.state;
-
-    const react1 = jobs.map(element => getPercentRow(element.name, element.salary));
-
-    const react2 = jobs.map(element => (
-      <div key={element.name}>
-        <div className="row">
-          <div className="col-md-4 col-md-push-2">
-            <p>{element.name}</p>
-          </div>
-        </div>
-        {getPercentRow('Male', element.male)}
-        {getPercentRow('Female', element.female)}
-      </div>
-    ));
-
-    const filters = (
-      <div className="row text-right">
-        <button type="button" className="btn btn-default" ref={(element) => { this.highest = element; }} style={{ marginRight: '10px' }}>See Highest to Lowest</button>
-        <button type="button" className="btn btn-default hidden" ref={(element) => { this.lowest = element; }}>See Lowest to Highest</button>
-        <br />
-        <br />
-      </div>
-    );
+    // const filters = (
+    //   <div className="row text-right">
+    //     <button type="button" className="btn btn-default" ref={(element) => { this.highest = element; }} style={{ marginRight: '10px' }}>See Highest to Lowest</button>
+    //     <button type="button" className="btn btn-default hidden" ref={(element) => { this.lowest = element; }}>See Lowest to Highest</button>
+    //     <br />
+    //     <br />
+    //   </div>
+    // );
 
     const panel = (
       <TabbedGraphPanel
@@ -103,7 +87,7 @@ class Page extends React.PureComponent {
           {
             title: 'Average Salary',
             active: true,
-            preContent: filters,
+            // preContent: filters,
             graphData: {
               type: 'react',
               width: '100%',
@@ -114,7 +98,7 @@ class Page extends React.PureComponent {
                 pinGraph: false,
               },
               data: {
-                reactData: react1,
+                reactData: this.getData('firstYearSubjectSalaries'),
               },
             },
           },
@@ -131,7 +115,7 @@ class Page extends React.PureComponent {
                 pinGraph: false,
               },
               data: {
-                reactData: react2,
+                reactData: this.getData('firstYearSubjectSalariesGenderSplit'),
               },
             },
           },
@@ -141,6 +125,34 @@ class Page extends React.PureComponent {
     );
 
     return panel;
+  }
+
+  getData(type) {
+    const { jobs } = this.state;
+    let options = null;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (type === 'firstYearSubjectSalaries' && type === key){
+          options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => getPercentRow(element.subject, element.averageSalary));
+        } else if (type === 'firstYearSubjectSalariesGenderSplit' && type === key) {
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
+          options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(elem => (
+              <div key={elem.subject}>
+            <div className="row">
+              <div className="col-md-4 col-md-push-2">
+                <p>{elem.subject}</p>
+              </div>
+            </div>
+            {elem.data.map(value =>(
+              getPercentRow(value.gender, value.averageSalary, true, true) 
+              ))}
+          </div>
+          ))
+        }
+      })
+    }
+    return options;
   }
 
   getContent() {
@@ -163,6 +175,32 @@ class Page extends React.PureComponent {
     );
 
     return content;
+  }
+
+    getAllUniqueName(dataArr) {
+    const uniqueKeys = [];
+
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            if (key === 'Male') element.data.splice(0, 0, { averageSalary: 0, gender: key });
+            if (key === 'Female') element.data.splice(1, 0, { averageSalary: 0, gender: key });
+            if (key === 'Other') element.data.splice(2, 0, { averageSalary: 0, gender: key });
+          }
+        });
+      }
+    });
+
+    return dataArr;
   }
 
   render() {
