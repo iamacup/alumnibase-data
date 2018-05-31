@@ -47,6 +47,39 @@ class Page extends React.PureComponent {
     });
   }
 
+  getData(type) {
+    let options = null;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (type === 'salarySentimentPlot' && key === type) {
+          // setting the max and min values for the x-axis.
+          const optionObj = {
+            max: 0,
+            min: 0,
+          };
+
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            if (element.salary > optionObj.max) {
+              optionObj.max = element.salary;
+              optionObj.min = element.salary;
+            }
+          });
+
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            if (element.salary < optionObj.min) optionObj.min = element.salary;
+          });
+
+          console.log(optionObj);
+
+          const scatterData = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => [element.salary, element.score]);
+          options = drawScatterGraph(scatterData, optionObj);
+        }
+      });
+    }
+    return options;
+  }
+
   getContent() {
     // * Allied Health Professions, Dentistry, Nursing and Pharmacy
     // ** Aeronautical, Mechanical, Chemical and Manufacturing Engineering
@@ -61,62 +94,9 @@ class Page extends React.PureComponent {
       options2: { direction: 'horizontal', value: '', colours: ['#1c6cab', '#d02224'] },
     };
 
-    const data = [
-    // Negative-Low
-      [-3000, -2.5],
-      [-2000, -1],
-      [-2500, -0.7],
-      [-4700, -1.5],
-      [-4600, -0],
-      [-45000, -1],
-      [-0, -2],
-      [-100, -0.05],
-      [-700, -1.2],
-      [-600, -0.6],
-      // Positive-Low
-      [-5000, 3],
-      [-6000, 2],
-      [-2500, 1.57],
-      [-700, 2.43],
-      [-750, 0.71],
-      [-3500, 1.21],
-      [-3300, 2.93],
-      [-1800, 1.79],
-      [-1500, 3.43],
-      [-100, 4.21],
-      // Positive-High
-      [5000, 3],
-      [100, 3.93],
-      [200, 2.79],
-      [300, 1.64],
-      [800, 0.64],
-      [900, 1.57],
-      [1000, 3.21],
-      [1000, 4.71],
-      [1500, 2.36],
-      [1800, 0.71],
-      [2000, 3.57],
-      [2500, 1.86],
-      [2600, 4.21],
-      [2700, 4.64],
-      [2800, 0.93],
-      [2900, 2.93],
-      [3000, 0],
-      [3100, 1.71],
-      [3200, 4],
-      [3800, 4.86],
-      [3900, 2.93],
-      [4000, 3.57],
-      [4100, 0.71],
-
-      // Negative-High
-      [5000, -3],
-      [10000, -3.5],
-    ];
 
     const bar1 = drawBarChart(barData.titles1, barData.data1, barData.options1);
     const bar2 = drawBarChart(barData.titles2, barData.data2, barData.options2);
-    const scatterData = drawScatterGraph(data);
 
     const postContent = [['* Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['** Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
     const text1 = <p>{postContent[0]}<br />{postContent[1]}<br />{postContent[2]}<br />{postContent[3]}</p>;
@@ -137,34 +117,25 @@ class Page extends React.PureComponent {
 
     const tabData1 = [
       {
-        title: (<div><p>Percentage of People who Believe their Course Offered Value for Money</p><h4 style={{color: 'red'}}>NO QUESTION DATA</h4></div>),
+        title: (<div><p>Percentage of People who Believe their Course Offered Value for Money</p><h4 style={{ color: 'red' }}>NO QUESTION DATA</h4></div>),
         globalID: 'subjects-vfm-1',
         options: bar1,
         text: text1,
       },
       {
-        title: (<div><p>Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money</p><h4 style={{color: 'red'}}>NO QUESTION DATA</h4></div>),
+        title: (<div><p>Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money</p><h4 style={{ color: 'red' }}>NO QUESTION DATA</h4></div>),
         globalID: 'subjects-vfm-2',
         options: bar2,
         text: '',
       },
     ];
 
-    const tabData2 = [ //loan repayment graph
+    const tabData2 = [ // loan repayment graph
       {
         title: 'Average Time Taken for Graduates to Pay Back Student Loans',
         globalID: 'subjects-vfm-3',
         options: lineData,
         text: <div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>,
-      },
-    ];
-
-
-    const tabData3 = [ // scatter graph
-      {
-        title: 'University and Salary Impacts',
-        globalID: 'subjects-vfm-4',
-        options: scatterData,
       },
     ];
 
@@ -262,6 +233,15 @@ class Page extends React.PureComponent {
       </div>
     );
 
+    const explainerText = (
+      <div style={{ margin: '5%' }}>
+        <p>Given the average salaries for each year, and the average loan borrowed for each plan and course length, we are able to calculate the average time it will take to pay back your student loan.</p>
+        <p>Starting the repayment calculations when the salary is at the minimum repayment level, we can determine the amount payable for that year. </p>
+        <p>Adding interest to the loan each year and deducting the repayments, calculates the average amount of years before the loan will be fully repaid. </p>
+        <p>In addition to this, we can then measure the average total interest paid and display the differences for each loan.</p>
+      </div>
+    );
+
     const content = (
       <div id="page-content" key="subjects-vfm">
 
@@ -356,27 +336,34 @@ class Page extends React.PureComponent {
             />
           </div>
         </div>
+        <div className="row">
+          <div className="col-md-8 col-md-push-2" >
+            <CollapsablePanel
+              title="Calculations Explained"
+              content={explainerText}
+              expanded={false}
+            />
+          </div>
+        </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">Monetary and Derived Value</h3>
             <h5 className="text-muted text-normal">We take various metrics from the survey that indicate positive impact of the university on the respondents life that are not related to salary and map them against salary.</h5>
-            <h5 className="text-muted text-normal">This graph maps a cross-section of happiness indicator questions to give a "happiness measure". These questions include</h5>
+            <h5 style={{ color: 'red' }}>Explain what questions are used to gather the data in this graph.</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {tabData3.map(element => (
-              <TabbedGraphPanel
-                title={element.title}
-                globalID={element.globalID}
-                key={element.globalID}
-                content={[
+            <TabbedGraphPanel
+              title="University and Salary Impacts"
+              globalID="subjects-vfm-4"
+              key="subjects-vfm-4"
+              content={[
                     {
                       title: '',
-                      preContent: <p>This graph maps a cross-section of happiness indicator questions to give a "happiness measure", which we map against salary.</p>,
                       active: true,
                       graphData: {
                         type: 'echarts',
@@ -388,14 +375,13 @@ class Page extends React.PureComponent {
                         width: '100%',
                         height: '400px',
                         data: {
-                          options: element.options,
+                          options: this.getData('salarySentimentPlot'),
                         },
                       },
                     },
                   ]}
-                seperator
-              />
-            ))}
+              seperator
+            />
           </div>
         </div>
 
