@@ -8,9 +8,11 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
   }
 
   let convertedNumber = salary.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
+  let width = { width: ((salary / 10000) * 5) + '%'}
 
   if (time === true) {
     convertedNumber = (salary) + ' Months';
+    width = { width: (salary / 10) + '%' }
   }
 
   const obj = (
@@ -32,7 +34,7 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
             aria-valuenow="70"
             aria-valuemin="0"
             aria-valuemax="100"
-            style={{ width: ((salary / 10000) * 5) + '%' }}
+            style={width}
           >
             <span className="sr-only">{salary}% Complete</span>
           </div>
