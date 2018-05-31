@@ -1,4 +1,13 @@
-const drawMixGraph = (rawData, names, titles) => {
+const drawMixGraph = (rawData, names, titles, percentChange) => {
+
+  let max = 80000;
+  
+  rawData.forEach(element => {
+    element.data.forEach(elem => {
+      if (elem > max) max = elem;
+    })
+  })
+
   const colors = ['#1c6cab', '#a4c0e5', '#ff7311', '#ffbb7d', '#d02224', '#ff8d8b', '#11293b'];
   names.push('% Change');
   const data = rawData.map((element, i) => (
@@ -18,7 +27,7 @@ const drawMixGraph = (rawData, names, titles) => {
   data.push({
     name: names[names.length - 1],
     type: 'line',
-    data: [100, 112, 122, 150],
+    data: percentChange,
   });
   const textstyle = { fontSize: 12 };
 
@@ -67,7 +76,7 @@ const drawMixGraph = (rawData, names, titles) => {
       },
       {
         type: 'value',
-        max: 80000,
+        max,
         min: 0,
         location: 'center',
         splitLine: {
