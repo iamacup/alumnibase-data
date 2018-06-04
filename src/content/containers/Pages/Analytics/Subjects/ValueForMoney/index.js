@@ -74,6 +74,20 @@ class Page extends React.PureComponent {
 
           const scatterData = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => [element.salary, element.score]);
           options = drawScatterGraph(scatterData, optionObj);
+        } else if (type === 'loanRepayment' && key === type) {
+          const optionsA = {
+            x: 'Years',
+            y: '# of  People Over the Threshold',
+            yLabel: 'horizontal',
+          };
+
+          const data1 = {
+            name: ['Plan 2', 'Plan 3'],
+            plotted: [[20000, 25000, 43000],
+              [10000, 12000, 16000, 23000, 37000]],
+            age: ['New Graduate - 2 Yrs', '2 - 5 Yrs', '5 - 10 Yrs', '10 - 15 Yrs', '15 - 20 Yrs', '20 - 30 Yrs'],
+          };
+          options = drawLineChart(data1, optionsA);
         }
       });
     }
@@ -101,20 +115,6 @@ class Page extends React.PureComponent {
     const postContent = [['* Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['** Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
     const text1 = <p>{postContent[0]}<br />{postContent[1]}<br />{postContent[2]}<br />{postContent[3]}</p>;
 
-    const optionsA = {
-      x: 'Years',
-      y: '# of  People Over the Threshold',
-      yLabel: 'horizontal',
-    };
-
-    const data1 = {
-      name: ['Plan 2', 'Plan 3'],
-      plotted: [[20000, 25000, 43000],
-        [10000, 12000, 16000, 23000, 37000]],
-      age: ['New Graduate - 2 Yrs', '2 - 5 Yrs', '5 - 10 Yrs', '10 - 15 Yrs', '15 - 20 Yrs', '20 - 30 Yrs'],
-    };
-    const lineData = drawLineChart(data1, optionsA);
-
     const tabData1 = [
       {
         title: (<div><p>Percentage of People who Believe their Course Offered Value for Money</p><h4 style={{ color: 'red' }}>NO QUESTION DATA</h4></div>),
@@ -127,15 +127,6 @@ class Page extends React.PureComponent {
         globalID: 'subjects-vfm-2',
         options: bar2,
         text: '',
-      },
-    ];
-
-    const tabData2 = [ // loan repayment graph
-      {
-        title: 'Average Time Taken for Graduates to Pay Back Student Loans',
-        globalID: 'subjects-vfm-3',
-        options: lineData,
-        text: <div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>,
       },
     ];
 
@@ -297,15 +288,62 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {tabData2.map(element => (
-              <TabbedGraphPanel
-                title={element.title}
-                globalID={element.globalID}
-                key={element.globalID}
-                content={[
+            {
+//               const panel = (<TabbedGraphPanel
+//       title={title}
+//       globalID={id}
+//       collapsed={dataObj.collapsed}
+//       content={[
+//             {
+//               title: 'Overall',
+//               postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+//               active: true,
+//               graphData: {
+//                 type: 'react',
+//                 width: '100%',
+//                 height: '100%',
+//                 tools: {
+//                   allowDownload: false,
+//                   seeData: false,
+//                   pinGraph: false,
+//                 },
+//                 data: {
+//                   reactData: dataObj.data.map((element, i) => drawPercentRow(dataObj.titles[i], element, true)), // this.getPercentageBlock(arr), //map over data and use i for arr[i] -- see how it's done on another page!
+//                 },
+//               },
+//             },
+//             {
+//               title: 'Trends',
+//               active: false,
+//               postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
+//               graphData: {
+//                 type: 'echarts',
+//                 tools: {
+//                   allowDownload: false,
+//                   seeData: false,
+//                   pinGraph: false,
+//                 },
+//                 width: '100%',
+//                 height: '350px',
+//                 data: {
+//                   options,
+//                 },
+//               },
+//             },
+//           ]}
+//       seperator
+//     />);
+}
+
+
+            <TabbedGraphPanel
+              title="Average Time Taken for Graduates to Pay Back Student Loans"
+              globalID="subjects-vfm-3"
+              key="subjects-vfm-3"
+              content={[
                     {
                       title: '',
-                      postContent: element.text,
+                      postContent: (<div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>),
                       active: true,
                       graphData: {
                         type: 'echarts',
@@ -317,14 +355,13 @@ class Page extends React.PureComponent {
                         width: '100%',
                         height: '400px',
                         data: {
-                          options: element.options,
+                          options: this.getData('loanRepayment'),
                         },
                       },
                     },
                   ]}
-                seperator
-              />
-            ))}
+              seperator
+            />
           </div>
         </div>
         <div className="row">
