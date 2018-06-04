@@ -44,94 +44,73 @@ class Page extends React.PureComponent {
     });
   }
 
-  getContent() {
-    const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
+  getData(type) {
+    let options = null;
 
+    const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
     const options1 = {
       STEM: 10, 'Non-STEM': 20, 'High Skilled': 19, 'Not High Skilled': 11,
     };
-
-    const rows1 = [
-      ['STEM', 'High Skilled', 8.5],
-      ['STEM', 'Not High Skilled', 1.5],
-      ['Non-STEM', 'High Skilled', 13],
-      ['Non-STEM', 'Not High Skilled', 7],
-
-      ['High Skilled', 'Alligned to Industrial Strategy', 11.5],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 10],
-
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 5.5],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
-    ];
-
-    const rows2 = [
-      ['White', 'Non-STEM', 9],
-      ['White', 'STEM', 7],
-      ['Mixed', 'Non-STEM', 3],
-      ['Mixed', 'STEM', 1],
-      ['Asian', 'Non-STEM', 5],
-      ['Asian', 'STEM', 3],
-      ['Black / African / Caribbean', 'Non-STEM', 5],
-      ['Black / African / Caribbean', 'STEM', 2],
-      ['Other', 'Non-STEM', 3],
-      ['Other', 'STEM', 1],
-      ['STEM', 'High Skilled', 12],
-      ['STEM', 'Not High Skilled', 2],
-      ['Non-STEM', 'High Skilled', 15],
-      ['Non-STEM', 'Not High Skilled', 10],
-      ['High Skilled', 'Alligned to Industrial Strategy', 17],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 10],
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 6],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 6],
-    ];
-
     const options2 = {
       White: 16, Mixed: 4, Asian: 8, 'Black / African / Caribbean': 7, Other: 4, STEM: 14, 'Non-STEM': 25, 'High Skilled': 23, 'Not High Skilled': 16,
     };
-
-    const rows3 = [
-      ['Female', 'STEM', 2],
-      ['Female', 'Non-STEM', 3],
-      ['Male', 'STEM', 8],
-      ['Male', 'Non-STEM', 7],
-
-      ['STEM', 'High Skilled', 7],
-      ['STEM', 'Not High Skilled', 3],
-      ['Non-STEM', 'High Skilled', 7],
-      ['Non-STEM', 'Not High Skilled', 3],
-
-      ['High Skilled', 'Alligned to Industrial Strategy', 9],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 5],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 2],
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 4],
-    ];
-
     const options3 = {
       Female: 5, Male: 15, STEM: 10, 'Non-STEM': 10, 'High Skilled': 11, 'Not High Skilled': 9,
     };
 
-    const googleData1 = drawSankeyChart(columns1, rows1, options1);
-    const googleData2 = drawSankeyChart(columns1, rows2, options2);
-    const googleData3 = drawSankeyChart(columns1, rows3, options3);
+    const rows = [];
+    let postContent = '';
 
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+    
+     Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      if (type === key && key === 'STEMDestinationsOfGraduates') {
+        Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach(name => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach(element => {
+            if (element.col1 === 'Unknown' || element.col2 === "Unknown") postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
+            rows.push([element.col1, element.col2, element.weight])    
+          })
+        })
+        options = drawSankeyChart(columns1, rows, options1);
+      } else if (type === key && key === 'STEMDestinationsOfGraduatesEthnicity') {
+        Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach(name => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach(element => {
+            rows.push([element.col1, element.col2, element.weight])    
+          })
+        })
+        options = drawSankeyChart(columns1, rows, options2);
+      } else if (type === key && key === 'STEMDestinationsOfGraduatesGender') {
+        Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach(name => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach(element => {
+            rows.push([element.col1, element.col2, element.weight])    
+          })
+        })
+        options= drawSankeyChart(columns1, rows, options3);
+      }
+     }) 
+    }
+    return { options, postContent };
+  }
+
+  getContent() {
     const tabbedPanelData = [
       {
         title: 'Stem Destinations of Graduates',
         globalID: 'stem-destinations-1',
         type: 'googlecharts',
-        drawData: { ...googleData1 },
+        drawData: { ...this.getData('STEMDestinationsOfGraduates') },
       },
       {
         title: 'Ethnicity split of graduates going into soc.1-3 jobs',
         globalID: 'stem-destinations-2',
         type: 'googlecharts',
-        drawData: { ...googleData2 },
+        drawData: { ...this.getData('STEMDestinationsOfGraduatesEthnicity') },
       },
       {
         title: 'Gender split of graduates going into soc.1-3 jobs',
         globalID: 'stem-destinations-3',
         type: 'googlecharts',
-        drawData: { ...googleData3 },
+        drawData: { ...this.getData('STEMDestinationsOfGraduatesGender') },
       },
     ];
 
@@ -142,6 +121,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">STEM Destinations</h3>
+            <h5 className="text-muted text-normal">All data has been collected from graduates within thier first year of leaving university</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
@@ -157,6 +137,7 @@ class Page extends React.PureComponent {
                   {
                     title: '',
                     active: true,
+                    postContent: data.drawData.postContent,
                     graphData: {
                       type: data.type,
                       tools: {
@@ -166,7 +147,7 @@ class Page extends React.PureComponent {
                       },
                       width: '100%',
                       height: '250px',
-                      data: data.drawData,
+                      data: data.drawData.options,
                     },
                   },
                 ]}
