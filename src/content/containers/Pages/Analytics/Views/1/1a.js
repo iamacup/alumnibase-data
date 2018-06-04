@@ -138,27 +138,35 @@ class Page extends React.PureComponent {
       if (type === 'likely') dataSeries = [{ name: 'Very Likely', data: [] }, { name: 'Likely', data: [] }, { name: 'Not very likely', data: [] }, { name: 'Not likely at all', data: [] }, { name: "Don't know", data: [] }];
 
       if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+      
+
+
         this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+
           if (item === element.item) {
             element.data.forEach((elem) => {
+              let count = 0;
             // setting axis data;
               const str = elem.yearGroupEnd + '';
               axisData.y.push(elem.yearGroupStart + '-' + str.slice(2));
-              // let count = 0;
 
-              elem.data.data.forEach((value) => {
-              // count += value.percentage;
+              // elem.data.data.forEach((value) => {
+              //   // console.log(value)
+              //   count += value.percentage;
+              // });
+
+            });
 
                 // removing the count remainder from the last value to make sure it adds to 100;
-                // if (i === 4 && count > 100) {
-                //   let remainder = count - 100;
-                //   value.percentage -= remainder; // eslint-disable-line no-param-reassign
-                // }
+                // if (count !== 100) this.dividePercentOverElements(elem.data, count)
 
+              element.data.forEach((elem) => {
+                elem.data.data.forEach((value) => {
+                  // console.log(value)
                 // setting the dataSeries data with all the correct numbers for it's name.
                 dataSeries.forEach((val) => {
                   if (value.value === val.name) {
-                    val.data.push(value.percentage.toFixed(2));
+                    val.data.push(value.percentage);
                   }
                 });
               });
