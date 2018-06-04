@@ -44,71 +44,25 @@ class Page extends React.PureComponent {
     });
   }
 
-  getPOLAROutcomes() {
+  getData() {
     const columns = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
-    const rows = [
-      ['POLAR3 area', 'Engineering', 1],
-      ['POLAR3 area', 'Business and Legal', 1],
-      ['POLAR3 area', 'Computer science', 1],
-      ['POLAR3 area', 'English', 1],
-      ['POLAR3 area', 'Medicine', 1],
-      ['POLAR3 area', 'Politics, philosophy & theology', 1],
-      ['POLAR3 area', 'Psychology and sociology', 2],
-      ['POLAR3 area', 'Sciences', 1],
-      ['non-POLAR3 area', 'Architecture', 11],
-      ['non-POLAR3 area', 'Engineering', 8],
-      ['non-POLAR3 area', 'Business and Legal', 9],
-      ['non-POLAR3 area', 'Computer science', 5],
-      ['non-POLAR3 area', 'Creative arts', 5],
-      ['non-POLAR3 area', 'English', 4],
-      ['non-POLAR3 area', 'History', 5],
-      ['non-POLAR3 area', 'Medicine', 7],
-      ['non-POLAR3 area', 'Politics, philosophy & theology', 8],
-      ['non-POLAR3 area', 'Psychology and sociology', 6],
-      ['non-POLAR3 area', 'Sciences', 9],
-      ['non-POLAR3 area', 'Agriculture', 8],
-      ['Architecture', '£50+', 2],
-      ['Engineering', '£50+', 1],
-      ['Business and Legal', '£50+', 1],
-      ['Medicine', '£50+', 1],
-      ['Sciences', '£50+', 1],
-      ['Agriculture', '£40-50,000', 1],
-      ['Architecture', '£40-50,000', 3],
-      ['Engineering', '£40-50,000', 1],
-      ['Sciences', '£40-50,000', 2],
-      ['Medicine', '£40-50,000', 2],
-      ['Psychology and sociology', '£40-50,000', 1],
-      ['Business and Legal', '£40-50,000', 1],
-      ['Engineering', '£30-40,000', 4],
-      ['Architecture', '£30-40,000', 3],
-      ['Computer science', '£30-40,000', 3],
-      ['Business and Legal', '£30-40,000', 4],
-      ['Psychology and sociology', '£30-40,000', 2],
-      ['Medicine', '£30-40,000', 3],
-      ['Politics, philosophy & theology', '£30-40,000', 3],
-      ['Sciences', '£30-40,000', 3],
-      ['Agriculture', '£30-40,000', 3],
-      ['History', '£30-40,000', 1],
-      ['English', '£30-40,000', 1],
-      ['Architecture', '£20-30,000', 3],
-      ['Engineering', '£20-30,000', 3],
-      ['Business and Legal', '£20-30,000', 4],
-      ['Computer science', '£20-30,000', 3],
-      ['Creative arts', '£20-30,000', 3],
-      ['English', '£20-30,000', 2],
-      ['History', '£20-30,000', 2],
-      ['Medicine', '£20-30,000', 2],
-      ['Politics, philosophy & theology', '£20-30,000', 4],
-      ['Sciences', '£20-30,000', 3],
-      ['Psychology and sociology', '£20-30,000', 4],
-      ['Agriculture', '£20-30,000', 3],
-      ['Psychology and sociology', 'under £20,000', 1],
-      ['English', 'under £20,000', 2],
-      ['Politics, philosophy & theology', 'under £20,000', 2],
-      ['History', 'under £20,000', 2],
-      ['Agriculture', 'under £20,000', 1],
-      ['Creative arts', 'under £20,000', 2],
-    ];
+    const rows = [];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])){
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0]).forEach(key => {
+        if (key === 'stage1') {
+        this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].forEach(element => {
+          rows.push([element.col1, element.col2, element.weight])
+        })
+      } else if (key === 'stage2') {
+        this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].sort((a, b) => a.rangeStart - b.rangeStart).forEach(element => {
+          const label = element.rangeStart.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }) + ' - ' + element.rangeEnd.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })
+          // sort columns
+          rows.push([element.col1, label, element.weight])
+        })
+      }
+      })
+    }
 
     const googleData = drawSankeyChart(columns, rows);
 
@@ -129,7 +83,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 width: '100%',
-                height: '450px',
+                height: '4500px',
                 data: googleData,
               },
             },
@@ -156,7 +110,7 @@ class Page extends React.PureComponent {
 
             <div className="row">
               <div className="col-md-12">
-                {this.getPOLAROutcomes()}
+                {this.getData()}
               </div>
             </div>
 
