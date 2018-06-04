@@ -46,18 +46,7 @@ class Page extends React.PureComponent {
 
   getData(type) {
     let options = null;
-
-    const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
-    const options1 = {
-      STEM: 10, 'Non-STEM': 20, 'High Skilled': 19, 'Not High Skilled': 11,
-    };
-    const options2 = {
-      White: 16, Mixed: 4, Asian: 8, 'Black / African / Caribbean': 7, Other: 4, STEM: 14, 'Non-STEM': 25, 'High Skilled': 23, 'Not High Skilled': 16,
-    };
-    const options3 = {
-      Female: 5, Male: 15, STEM: 10, 'Non-STEM': 10, 'High Skilled': 11, 'Not High Skilled': 9,
-    };
-
+    const columns = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
     const rows = [];
     let postContent = '';
 
@@ -71,21 +60,23 @@ class Page extends React.PureComponent {
             rows.push([element.col1, element.col2, element.weight])    
           })
         })
-        options = drawSankeyChart(columns1, rows, options1);
+        options = drawSankeyChart(columns, rows);
       } else if (type === key && key === 'STEMDestinationsOfGraduatesEthnicity') {
         Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach(name => {
           this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach(element => {
+            if (element.col1 === 'Unknown' || element.col2 === "Unknown") postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
             rows.push([element.col1, element.col2, element.weight])    
           })
         })
-        options = drawSankeyChart(columns1, rows, options2);
+        options = drawSankeyChart(columns, rows);
       } else if (type === key && key === 'STEMDestinationsOfGraduatesGender') {
         Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach(name => {
           this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach(element => {
+            if (element.col1 === 'Unknown' || element.col2 === "Unknown") postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
             rows.push([element.col1, element.col2, element.weight])    
           })
         })
-        options= drawSankeyChart(columns1, rows, options3);
+        options= drawSankeyChart(columns, rows);
       }
      }) 
     }
