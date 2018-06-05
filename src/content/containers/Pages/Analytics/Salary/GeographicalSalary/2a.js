@@ -12,14 +12,14 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
 import drawWorldMap from '../../../../../../content/scripts/custom/echarts/drawWorldMap';
-import worldMapData from '../../../../../../content/scripts/custom/echarts/worldMapData';
 import drawNewPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
+import latlong from '../../../../../../content/scripts/custom/echarts/latitudes';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
 
-const dataStoreID = 'geo-global';
+const dataStoreID = 'global';
 const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
@@ -53,15 +53,6 @@ class Page extends React.PureComponent {
     });
   }
   getOriginGraph() {
-    const data = [
-      { value: 'EU', percent: 40 },
-      { value: 'Non-EU', percent: 30 },
-      { value: 'UK', percent: 30 },
-    ];
-
-    const options = drawNewPieChart(data, false, 'pie', false);
-
-    // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
         title="Domicile of Origin"
@@ -80,7 +71,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '250px',
                 data: {
-                  options,
+                  options: this.getData('countriesOfOriginSplit'),
                 },
               },
             },
@@ -92,15 +83,6 @@ class Page extends React.PureComponent {
   }
 
   getResidenceGraph() {
-    const data = [
-      { value: 'EU', percent: 20 },
-      { value: 'Non-EU', percent: 30 },
-      { value: 'UK', percent: 50 },
-    ];
-
-    const options = drawNewPieChart(data, true, 'doughnut', true);
-
-    // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
         title="Current Domicile"
@@ -119,7 +101,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '250px',
                 data: {
-                  options,
+                  options: this.getData('countriesOfResidenceSplit'),
                 },
               },
             },
@@ -130,23 +112,44 @@ class Page extends React.PureComponent {
     return panel;
   }
 
+  getData(type) {
+    let options = null;
+    const data = [];
+    const tableData = [];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (key === type && key === 'countriesOfOrigin') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+              if (dNc(latlong[element.data.metaData.code2])) {
+                data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric })
+              } else tableData.push(`${element.data.name}, ${element.data.metaData.numeric}`)
+          })
+          options = drawWorldMap(data, 'map', 'People');
+        } else if (key === type && key === 'countriesOfResidence') {
+                this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+              if (dNc(latlong[element.data.metaData.code2])) {
+                data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric })
+              } else tableData.push(`${element.data.name}, ${element.data.metaData.numeric}`)
+          })
+          options = drawWorldMap(data, 'map', 'People');
+        } else if (key === type && key === 'countriesOfOriginSplit') {
+              this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+                data.push({ value: element.uLocation, percent: element.length })
+              });
+              options = drawNewPieChart(data, false, 'pie', false);
+        } else if (key === type && key === 'countriesOfResidenceSplit') {
+              this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+                data.push({ value: element.uLocation, percent: element.length })
+              });
+          options = drawNewPieChart(data, true, 'doughnut', true);
+        }
+      })
+    }
+    return options;
+  }
+
   getMap() {
-    // area chart stuff
-    const propsDataOne = [{ name: 'United States of America', value: 60000 }, { name: 'United Kingdom', value: 60000 }, { name: 'Zimbabwe', value: 20 }, { name: 'South Africa', value: 50 }, { name: 'India', value: 8000 }, { name: 'Italy', value: 109550 }, { name: 'Germany', value: 900 }, { name: 'Canada', value: 679 }, { name: 'France', value: 67468 }, { name: 'Spain', value: 674 }, { name: 'China', value: 67468 }, { name: 'Australia', value: 679 }];
-    const propsDataTwo = [{ name: 'United States of America', value: 10 }, { name: 'United Kingdom', value: 60000 }, { name: 'India', value: 4000 }, { name: 'Italy', value: 2000 }, { name: 'Germany', value: 3000 }, { name: 'Canada', value: 8000 }, { name: 'France', value: 7000 }, { name: 'Spain', value: 3050 }, { name: 'China', value: 3000 }, { name: 'Australia', value: 6000 }];
-
-    const data1 = propsDataOne.map(element => ({
-      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
-    }));
-
-    const data2 = propsDataTwo.map(element => ({
-      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
-    }));
-
-    const options1 = drawWorldMap(data1, 'map', 'People');
-    const options2 = drawWorldMap(data2, 'map', 'People');
-
-    // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
         title="Detailed Country Breakdown for Graduate Origins and Destinations"
@@ -165,7 +168,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '400px',
                 data: {
-                  options: options1,
+                  options: this.getData('countriesOfOrigin'),
                 },
               },
             },
@@ -182,7 +185,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '400px',
                 data: {
-                  options: options2,
+                  options: this.getData('countriesOfResidence'),
                 },
               },
             },
@@ -255,7 +258,7 @@ class Page extends React.PureComponent {
               content={
                 <FetchData
                   active
-                  fetchURL="/api/analytics/destination/1"
+                  fetchURL="/api/analytics/destination/global"
                   sendData={sendData}
                 />
               }
