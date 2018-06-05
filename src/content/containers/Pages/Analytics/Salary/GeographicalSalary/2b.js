@@ -2,14 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import echarts from 'echarts';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import drawUKMap from '../../../../../../content/scripts/custom/echarts/drawUkMap';
-import { gradsComeFromData, gradsGoToData } from './UKGradData';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
@@ -17,7 +15,7 @@ import BasicPanel from '../../../../../../content/components/BasicPanel';
 import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
 
-const dataStoreID = 'geo-local';
+const dataStoreID = 'regional';
 const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
@@ -52,12 +50,6 @@ class Page extends React.PureComponent {
   }
 
   getMap() {
-    const pieces1 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
-    const pieces2 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
-
-    const options1 = drawUKMap(gradsComeFromData, pieces1);
-    const options2 = drawUKMap(gradsGoToData, pieces2);
-
     // the actual panel stuff
     const panel = (
       <TabbedGraphPanel
@@ -78,7 +70,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '650px',
                 data: {
-                  options: options1,
+                  options: this.getData('constituencyOfOrigin'),
                 },
               },
             },
@@ -96,7 +88,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '650px',
                 data: {
-                  options: options2,
+                  options: this.getData('constituencyOfResidence'),
                 },
               },
             },
@@ -106,6 +98,33 @@ class Page extends React.PureComponent {
     );
 
     return panel;
+  }
+// check that all the data coming in we have to pass on
+// send the correct min & max numbers
+
+
+  getData(type) {
+    let options = null;
+    let data = [];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (key === type && key === 'constituencyOfOrigin'){
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            data.push({ name: element.constituencyName, value: element.length })
+          })
+          const pieces1 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
+          options = drawUKMap(data, pieces1);
+        } else if (key === type && key === 'constituencyOfResidence') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            data.push({ name: element.constituencyName, value: element.length })
+          })
+          const pieces2 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
+          options = drawUKMap(data, pieces2);
+        }
+      })
+    }
+    return options;
   }
 
   getContent() {
@@ -140,9 +159,7 @@ class Page extends React.PureComponent {
       content = this.getContent();
     }
 
-
     const sendData = { data: [] };
-
 
     Object.keys(this.props.filterData).forEach((key) => {
       if (dNc(this.props.filterData[key])) {
@@ -158,7 +175,7 @@ class Page extends React.PureComponent {
               content={
                 <FetchData
                   active
-                  fetchURL="/api/analytics/destination/2"
+                  fetchURL="/api/analytics/destination/regional"
                   sendData={sendData}
                 />
               }
