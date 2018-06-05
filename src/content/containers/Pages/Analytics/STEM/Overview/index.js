@@ -46,15 +46,9 @@ class Page extends React.PureComponent {
     });
   }
 
-  getContent() {
-    const pieData1 = [
-      { value: 'STEM Subjects', percent: 36 },
-      { value: 'Non-STEM Subjects', percent: 6 },
-    ];
-
-    const echartsData1 = drawPieChart(pieData1, false, 'pie', false);
-
-    const data1 = [
+  getData(type) {
+    let options = null;
+              const data1 = [
       {
         job: 'Science', salary: [21.352], male: [23], female: [21],
       },
@@ -141,31 +135,74 @@ class Page extends React.PureComponent {
       },
     ];
 
-    const subjectsData = data1.map(data => getPercentRow(data.job, data.salary));
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (type === key) {
+          if(key === 'STEMJobsSplit') {
+          const pieData = [{ value: 'STEM Subjects', percent: 0 }, { value: 'Non-STEM Subjects', percent: 0 }];
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            pieData[0].percent = element[0].length;
+            pieData[1].percent = 1000 - element[0].length;
+          })
+          options = drawPieChart(pieData, false, 'pie', false);
+        } else if (key === 'STEMSalarySplit') {
+            const lineData = { 
+              name: ['Average', 'Male', 'Female', 'Other', 'National Average'], 
+              age: [], 
+              plotted: [/*Avg*/ [], /* Male */[], /*Female*/ [], /*Other*/ [], /* National */[]] 
+            };
 
-    const genderSubjectsData = data1.map(data => (
-      <div key={data.job}>
-        <div className="row">
-          <div className="col-md-4 col-md-push-2">
-            <p>{data.job}</p>
-          </div>
-        </div>
-        <div>
-          {getPercentRow('Male', data.male)}
-          {getPercentRow('Female', data.female)}
-        </div>
-      </div>
-    ));
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+           lineData.age.push(element.name)
+           lineData.plotted[0].push(element.data[0].averageSalary)
+          })
 
-    const lineData = { name: ['Average STEM', 'University Average', 'National Average'], age: ['First Job', 'Year 1', '5 Years', '10 Years', '10+'], plotted: [[25000, 40000, 60000, 80000, 100000], /* UNI */[26000, 46000, 65000, 90000, 110000], /* National */[24000, 35000, 50000, 70000, 90000]] };
-    const lineChartData = drawLineChart(lineData, 'Years');
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0]['STEMSalarySplitGender'])
+          this.props.reduxState_fetchDataTransaction.default.payload[0]['STEMSalarySplitGender'].forEach(element => {
+            element.data.forEach(elem => {
+              if (elem.gender === 'Male') lineData.plotted[1].push(elem.averageSalary)
+              if (elem.gender === 'Female') lineData.plotted[2].push(elem.averageSalary)
+              if (elem.gender === 'Other') lineData.plotted[3].push(elem.averageSalary)
+            })
+          })
 
+          this.props.reduxState_fetchDataTransaction.default.payload[0]['nationalAverage'].forEach(element => {
+            lineData.age.forEach((value, i) => {
+              if (value === element.name) lineData.plotted[4].push(element.salary);
+            })
+          })
+          
+          options = drawLineChart(lineData, 'Years');
+        } else if (key === 'STEMSubjectSalaries'){
+          options = data1.map(data => getPercentRow(data.job, data.salary));
+        } else if (key === 'STEMSubjectSalariesGender') {
+            options = data1.map(data => (
+              <div key={data.job}>
+                <div className="row">
+                  <div className="col-md-4 col-md-push-2">
+                    <p>{data.job}</p>
+                  </div>
+                </div>
+                <div>
+                  {getPercentRow('Male', data.male)}
+                  {getPercentRow('Female', data.female)}
+                </div>
+              </div>
+            ));
+        }
+        }
+      })
+    }
+    return options;
+  }
+
+  getContent() {
     const tabbedPanelData = [
       {
         title: '% of respondants working in STEM jobs',
         globalID: 'stem-overview-1',
         type: 'echarts',
-        drawData: { options: echartsData1 },
+        drawData: { options: this.getData('STEMJobsSplit')},
       },
     ];
 
@@ -190,8 +227,6 @@ class Page extends React.PureComponent {
                 content={[
             {
               title: '',
-              // preContent: <p>This is the OPTIONAL pre content</p>,
-              // postContent: <p>This is the OPTIONAL post content</p>,
               active: true,
               graphData: {
                 type: data.type,
@@ -229,7 +264,7 @@ class Page extends React.PureComponent {
                            width: '100%',
                            height: '400px',
                            data: {
-                             options: lineChartData,
+                             options: this.getData('STEMSalarySplit'),
                            },
                          },
                        },
@@ -258,7 +293,7 @@ class Page extends React.PureComponent {
                       pinGraph: false,
                     },
                     data: {
-                      reactData: subjectsData,
+                      reactData: this.getData('STEMSubjectSalaries'),
                     },
                   },
                 },
@@ -275,7 +310,7 @@ class Page extends React.PureComponent {
                       pinGraph: false,
                     },
                     data: {
-                      reactData: genderSubjectsData,
+                      reactData: this.getData('STEMSubjectSalariesGender'),
                     },
                   },
                 },
@@ -289,6 +324,32 @@ class Page extends React.PureComponent {
     );
 
     return content;
+  }
+
+  getAllUniqueNames(dataArr) {
+    const uniqueKeys = [];
+
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+          if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            if (key === 'Male') element.data.splice(0, 0, { STEM: "Unknown", averageSalary: 0, gender: key });
+            if (key === 'Female') element.data.splice(1, 0, { STEM: "Unknown", averageSalary: 0, gender: key });
+            if (key === 'Other') element.data.splice(2, 0, { STEM: "Unknown", averageSalary: 0, gender: key });
+          }
+        });
+      }
+    });
+
+    return dataArr;
   }
 
   render() {
