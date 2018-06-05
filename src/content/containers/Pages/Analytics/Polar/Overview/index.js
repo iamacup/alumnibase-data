@@ -48,20 +48,20 @@ class Page extends React.PureComponent {
     const columns = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
     const rows = [];
 
-    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])){
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0]).forEach(key => {
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0]).forEach((key) => {
         if (key === 'stage1') {
-        this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].forEach(element => {
-          rows.push([element.col1, element.col2, element.weight])
-        })
-      } else if (key === 'stage2') {
-        this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].sort((a, b) => a.rangeStart - b.rangeStart).forEach(element => {
-          const label = element.rangeStart.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }) + ' - ' + element.rangeEnd.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })
-          // sort columns
-          rows.push([element.col1, label, element.weight])
-        })
-      }
-      })
+          this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].forEach((element) => {
+            rows.push([element.col1, element.col2, element.weight]);
+          });
+        } else if (key === 'stage2') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].sort((a, b) => a.rangeStart - b.rangeStart).forEach((element) => {
+            const label = element.rangeStart.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }) + ' - ' + element.rangeEnd.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
+            // sort columns
+            rows.push([element.col1, label, element.weight]);
+          });
+        }
+      });
     }
 
     const googleData = drawSankeyChart(columns, rows);
