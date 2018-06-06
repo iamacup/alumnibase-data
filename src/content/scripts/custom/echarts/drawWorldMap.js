@@ -4,10 +4,11 @@ const worldColours = {
   northAmerica: '#a7a737', southAmerica: '#86a965', africa: '#de4c4f', europe: '#d8854f', asia: '#eea638', oceania: '#8aabb0',
 };
 
+
+
 const drawWorldMap = (mapData, type, value) => {
   require('echarts-maps/world.js');
 
-  // console.log(mapData)
   // mapData = the spots on the map.
   // mapData should be in the form  [{code: 'AF', name: 'Afghanistan', value: 32358260, color: 'asia'}]
   let max = -Infinity;
@@ -68,9 +69,9 @@ const drawWorldMap = (mapData, type, value) => {
         type,
         mapType: 'world',
         coordinateSystem: 'geo',
-        data: mapData.map((itemOpt, i) => ({
+        data: mapData.map(itemOpt => ({
           name: itemOpt.name,
-          value: [latlong[itemOpt.code].longitude, latlong[itemOpt.code].latitude, itemOpt.value], // create value array outside, and put it here value[i];
+          value: [latlong[itemOpt.code].longitude, latlong[itemOpt.code].latitude, itemOpt.value],
           label: {
             emphasis: {
               position: 'right',
@@ -79,7 +80,7 @@ const drawWorldMap = (mapData, type, value) => {
           },
           itemStyle: {
             normal: {
-              color: latlong[itemOpt.color],
+              color: worldColours[latlong[itemOpt.code].color],
             },
           },
         })),

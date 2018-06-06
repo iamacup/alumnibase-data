@@ -222,10 +222,12 @@ class Page extends React.PureComponent {
     const uniName = this.props.location.pathname.split('/')[1];
 
     const reactData = (
-      <div>
+      <div key="subject-salaries">
         <div className="pad-all">
-          {this.props.reduxState_fetchDataTransaction.default.payload[0].subjectBreakdown.map(element => (
-            <div>
+          {this.props.reduxState_fetchDataTransaction.default.payload[0].subjectBreakdown.map((element, i) => {
+            const index = i;
+          return ( 
+            <div key={index}>
               <div className="row">
                 <div className="col-md-4 col-md-push-2">
                   <p>{element.subjectGroup}</p>
@@ -233,7 +235,8 @@ class Page extends React.PureComponent {
               </div>
               {element.data.map(elem => getSalaryRow(elem.gender, [elem.averageSalary]))}
             </div>
-            ))}
+          )
+          })}
         </div>
         <div className="text-center">
           <Link href="#" to={`/${uniName}/analytics/subjects/first-year`} className="btn btn-primary">Detailed Breakdown</Link>

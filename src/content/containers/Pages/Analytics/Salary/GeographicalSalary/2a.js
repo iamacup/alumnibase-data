@@ -155,7 +155,7 @@ class Page extends React.PureComponent {
         <p>Places that are too small to display on the map:</p>
             {tableData.map(element => {
               return (
-                <p>{element}</p>
+                <p key={element}>{element}</p>
                 )
             })}
         </div>
