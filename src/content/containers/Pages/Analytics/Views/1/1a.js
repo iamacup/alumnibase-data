@@ -135,34 +135,18 @@ class Page extends React.PureComponent {
       const axisData = { y: [], x: '%' };
       let dataSeries = [{ name: 'Strongly agree', data: [] }, { name: 'Agree', data: [] }, { name: 'Neither agree or disagree', data: [] }, { name: 'Disagree', data: [] }, { name: 'Strongly disagree', data: [] }];
       if (type === 'extent') dataSeries = [{ name: 'A great extent', data: [] }, { name: 'Some extent', data: [] }, { name: "Don't know", data: [] }, { name: 'Not at all', data: [] }, { name: 'Have not worked since finishing course', data: [] }];
-      if (type === 'likely') dataSeries = [{ name: 'Very Likely', data: [] }, { name: 'Likely', data: [] }, { name: 'Not very likely', data: [] }, { name: 'Not likely at all', data: [] }, { name: "Don't know", data: [] }];
+      if (type === 'likely') dataSeries = [{ name: 'Very likely', data: [] }, { name: 'Likely', data: [] }, { name: 'Not very likely', data: [] }, { name: 'Not likely at all', data: [] }, { name: "Don't know", data: [] }];
 
       if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
-      
-
-
         this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
-
           if (item === element.item) {
+              this.dividePercentOverElements(element.data);
             element.data.forEach((elem) => {
-              let count = 0;
-            // setting axis data;
+              // setting axis data;
               const str = elem.yearGroupEnd + '';
               axisData.y.push(elem.yearGroupStart + '-' + str.slice(2));
 
-              // elem.data.data.forEach((value) => {
-              //   // console.log(value)
-              //   count += value.percentage;
-              // });
-
-            });
-
-                // removing the count remainder from the last value to make sure it adds to 100;
-                // if (count !== 100) this.dividePercentOverElements(elem.data, count)
-
-              element.data.forEach((elem) => {
-                elem.data.data.forEach((value) => {
-                  // console.log(value)
+              elem.data.data.forEach((value) => {
                 // setting the dataSeries data with all the correct numbers for it's name.
                 dataSeries.forEach((val) => {
                   if (value.value === val.name) {
@@ -410,6 +394,31 @@ class Page extends React.PureComponent {
     );
 
     return content;
+  }
+
+  dividePercentOverElements(dataArr) {
+      let remainder;
+
+      dataArr.forEach(element => {
+        let count = 0;
+        element.data.data.forEach(elem => {
+          count += elem.percentage;
+        });
+
+        if (count > 100) {
+          remainder = count - 100;
+          element.data.data.forEach(elem => {
+            elem.percentage -= (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+          });
+        } else if (count < 100) {
+          remainder = 100 - count;
+          element.data.data.forEach(elem => {
+            elem.percentage += (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+          });
+        }
+      });
+
+      return dataArr;
   }
 
   render() {

@@ -128,6 +128,7 @@ class Page extends React.PureComponent {
       if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
         this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
           if (item === element.item) {
+            this.dividePercentOverElements(element.data);
             element.data.forEach((elem) => {
               const str = elem.yearGroupEnd + '';
               axisData.y.push(elem.yearGroupStart + '-' + str.slice(2));
@@ -135,7 +136,7 @@ class Page extends React.PureComponent {
               elem.data.data.forEach((value) => {
                 dataSeries.forEach((val) => {
                   if (value.value === val.name) {
-                    val.data.push(value.percentage.toFixed(2));
+                    val.data.push(value.percentage);
                   }
                 });
               });
@@ -253,6 +254,32 @@ class Page extends React.PureComponent {
 
 
     return content;
+  }
+
+    dividePercentOverElements(dataArr) {
+    let remainder;
+
+    dataArr.forEach(element => {
+      let count = 0;
+      element.data.data.forEach((elem) => {
+        count += elem.percentage;
+      });
+
+      if (count > 100) {
+        remainder = count - 100;
+        element.data.data.forEach((elem) => {
+          elem.percentage -= (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      } else if (count < 100) {
+        remainder = 100 - count;
+        element.data.data.forEach((elem) => {
+          elem.percentage += (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      }
+    });
+
+
+    return dataArr;
   }
 
   render() {
