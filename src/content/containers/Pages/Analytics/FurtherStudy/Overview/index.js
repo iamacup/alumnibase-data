@@ -47,16 +47,6 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-    const pieData1 = [
-      { value: 'No Further Study', percent: 60 },
-      { value: 'Masters', percent: 30 },
-      { value: 'PhD', percent: 7 },
-      { value: 'Post Doc', percent: 2 },
-      { value: 'Professor', percent: 1 },
-    ];
-
-    const echartsData1 = drawPieChart(pieData1, false, 'pie', false);
-
     const obj = {
       direction: 'vertical',
       value: '',
@@ -80,6 +70,7 @@ class Page extends React.PureComponent {
     ];
     const progressBarOption = progressBarData.map(element => drawPercentRow(element.name, element.percentage, true));
 
+    const uniName = this.props.location.pathname.split('/')[1];
 
     const content = (
       <div id="page-content" key="fs-overview">
@@ -89,7 +80,6 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">Further Study Trends</h3>
-            <h5 className="text-muted text-normal">Data taken from graduates after they entered their 'first job'</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
@@ -100,7 +90,7 @@ class Page extends React.PureComponent {
               <div className="col-md-8 col-md-push-2">
 
                 <TabbedGraphPanel
-                  title="Further Study Among Graduates"
+                  title={`Further Study Among Graduates from ${uniName}`}
                   globalID="further-study-overview-1"
                   content={[
                 {
@@ -116,7 +106,7 @@ class Page extends React.PureComponent {
                     width: '100%',
                     height: '400px',
                     data: {
-                      options: echartsData1,
+                      options: this.getData('thisUniPGSplit'),
                     },
                   },
                 },
@@ -128,7 +118,7 @@ class Page extends React.PureComponent {
             <div className="row">
               <div className="col-md-6">
                 <TabbedGraphPanel
-                  title="Further Study University Destination"
+                  title={<div><p>Further Study University Destination</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
                   globalID="further-study-overview-2"
                   content={[
             {
@@ -155,7 +145,7 @@ class Page extends React.PureComponent {
               </div>
               <div className="col-md-6">
                 <TabbedGraphPanel
-                  title="Further Study Relevance to Undergraduate"
+                  title={<div><p>Further Study Relevance to Undergraduate</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
                   globalID="further-study-overview-2"
                   content={[
             {
@@ -182,7 +172,7 @@ class Page extends React.PureComponent {
               </div>
             </div>
             <TabbedGraphPanel
-              title="Top 10 Destinations for Further Study to an Alternate University"
+              title={<div><p>Top 10 Destinations for Further Study to an Alternate University</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
               globalID="subject-first-job-1"
               content={[
           {
@@ -210,6 +200,23 @@ class Page extends React.PureComponent {
     );
 
     return content;
+  }
+
+  getData(name) {
+    let options = null;
+    const data = [];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+     Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      if (key === name && key === 'thisUniPGSplit') {
+        this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+          data.push({ value: element.type, percent: element.percent })
+        })
+        options = drawPieChart(data, false, 'pie', false);
+      }
+     }) 
+    }
+    return options;
   }
 
 
