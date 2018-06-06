@@ -54,24 +54,27 @@ class Page extends React.PureComponent {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (type === key && key === 'STEMDestinationsOfGraduates') {
           Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach((name) => {
-            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element) => {
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element, i) => {
               if (element.col1 === 'Unknown' || element.col2 === 'Unknown') postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
+              if (element.col1 === 'Unknown') element.col1 = 'Unknown-' + i; // eslint-disable-line no-param-reassign
               rows.push([element.col1, element.col2, element.weight]);
             });
           });
           options = drawSankeyChart(columns, rows);
         } else if (type === key && key === 'STEMDestinationsOfGraduatesEthnicity') {
           Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach((name) => {
-            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element) => {
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element, i) => {
               if (element.col1 === 'Unknown' || element.col2 === 'Unknown') postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
+              if (element.col1 === 'Unknown') element.col1 = 'Unknown-' + i; // eslint-disable-line no-param-reassign
               rows.push([element.col1, element.col2, element.weight]);
             });
           });
           options = drawSankeyChart(columns, rows);
         } else if (type === key && key === 'STEMDestinationsOfGraduatesGender') {
           Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach((name) => {
-            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element) => {
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element, i) => {
               if (element.col1 === 'Unknown' || element.col2 === 'Unknown') postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
+              if (element.col1 === 'Unknown') element.col1 = 'Unknown-' + i; // eslint-disable-line no-param-reassign
               rows.push([element.col1, element.col2, element.weight]);
             });
           });

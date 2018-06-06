@@ -48,7 +48,7 @@ class Page extends React.PureComponent {
 
   getData(type) {
     let options = null;
-              const data1 = [
+    const data1 = [
       {
         job: 'Science', salary: [21.352], male: [23], female: [21],
       },
@@ -136,46 +136,46 @@ class Page extends React.PureComponent {
     ];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (type === key) {
-          if(key === 'STEMJobsSplit') {
-          const pieData = [{ value: 'STEM Subjects', percent: 0 }, { value: 'Non-STEM Subjects', percent: 0 }];
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-            pieData[0].percent = element[0].length;
-            pieData[1].percent = 1000 - element[0].length;
-          })
-          options = drawPieChart(pieData, false, 'pie', false);
-        } else if (key === 'STEMSalarySplit') {
-            const lineData = { 
-              name: ['Average', 'Male', 'Female', 'Other', 'National Average'], 
-              age: [], 
-              plotted: [/*Avg*/ [], /* Male */[], /*Female*/ [], /*Other*/ [], /* National */[]] 
+          if (key === 'STEMJobsSplit') {
+            const pieData = [{ value: 'STEM Subjects', percent: 0 }, { value: 'Non-STEM Subjects', percent: 0 }];
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+              pieData[0].percent = element[0].length;
+              pieData[1].percent = 1000 - element[0].length;
+            });
+            options = drawPieChart(pieData, false, 'pie', false);
+          } else if (key === 'STEMSalarySplit') {
+            const lineData = {
+              name: ['Average', 'Male', 'Female', 'Other', 'National Average'],
+              age: [],
+              plotted: [[], /* Male */[], /* Female */ [], /* Other */ [], /* National */[]],
             };
 
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-           lineData.age.push(element.name)
-           lineData.plotted[0].push(element.data[0].averageSalary)
-          })
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+              lineData.age.push(element.name);
+              lineData.plotted[0].push(element.data[0].averageSalary);
+            });
 
-          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0]['STEMSalarySplitGender'])
-          this.props.reduxState_fetchDataTransaction.default.payload[0]['STEMSalarySplitGender'].forEach(element => {
-            element.data.forEach(elem => {
-              if (elem.gender === 'Male') lineData.plotted[1].push(elem.averageSalary)
-              if (elem.gender === 'Female') lineData.plotted[2].push(elem.averageSalary)
-              if (elem.gender === 'Other') lineData.plotted[3].push(elem.averageSalary)
-            })
-          })
+            this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplitGender);
+            this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplitGender.forEach((element) => {
+              element.data.forEach((elem) => {
+                if (elem.gender === 'Male') lineData.plotted[1].push(elem.averageSalary);
+                if (elem.gender === 'Female') lineData.plotted[2].push(elem.averageSalary);
+                if (elem.gender === 'Other') lineData.plotted[3].push(elem.averageSalary);
+              });
+            });
 
-          this.props.reduxState_fetchDataTransaction.default.payload[0]['nationalAverage'].forEach(element => {
-            lineData.age.forEach((value, i) => {
-              if (value === element.name) lineData.plotted[4].push(element.salary);
-            })
-          })
-          
-          options = drawLineChart(lineData, 'Years');
-        } else if (key === 'STEMSubjectSalaries'){
-          options = data1.map(data => getPercentRow(data.job, data.salary));
-        } else if (key === 'STEMSubjectSalariesGender') {
+            this.props.reduxState_fetchDataTransaction.default.payload[0].nationalAverage.forEach((element) => {
+              lineData.age.forEach(value => {
+                if (value === element.name) lineData.plotted[4].push(element.salary);
+              });
+            });
+
+            options = drawLineChart(lineData, 'Years');
+          } else if (key === 'STEMSubjectSalaries') {
+            options = data1.map(data => getPercentRow(data.job, data.salary));
+          } else if (key === 'STEMSubjectSalariesGender') {
             options = data1.map(data => (
               <div key={data.job}>
                 <div className="row">
@@ -189,9 +189,9 @@ class Page extends React.PureComponent {
                 </div>
               </div>
             ));
+          }
         }
-        }
-      })
+      });
     }
     return options;
   }
@@ -202,7 +202,7 @@ class Page extends React.PureComponent {
         title: '% of respondants working in STEM jobs',
         globalID: 'stem-overview-1',
         type: 'echarts',
-        drawData: { options: this.getData('STEMJobsSplit')},
+        drawData: { options: this.getData('STEMJobsSplit') },
       },
     ];
 
@@ -331,7 +331,7 @@ class Page extends React.PureComponent {
 
     dataArr.forEach((element) => {
       element.data.forEach((elem) => {
-          if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
       });
     });
 
@@ -341,9 +341,9 @@ class Page extends React.PureComponent {
 
         uniqueKeys.forEach((key) => {
           if (!keysInBreakdown.includes(key)) {
-            if (key === 'Male') element.data.splice(0, 0, { STEM: "Unknown", averageSalary: 0, gender: key });
-            if (key === 'Female') element.data.splice(1, 0, { STEM: "Unknown", averageSalary: 0, gender: key });
-            if (key === 'Other') element.data.splice(2, 0, { STEM: "Unknown", averageSalary: 0, gender: key });
+            if (key === 'Male') element.data.splice(0, 0, { STEM: 'Unknown', averageSalary: 0, gender: key });
+            if (key === 'Female') element.data.splice(1, 0, { STEM: 'Unknown', averageSalary: 0, gender: key });
+            if (key === 'Other') element.data.splice(2, 0, { STEM: 'Unknown', averageSalary: 0, gender: key });
           }
         });
       }
