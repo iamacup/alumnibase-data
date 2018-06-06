@@ -8,6 +8,7 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import drawUKMap from '../../../../../../content/scripts/custom/echarts/drawUkMap';
+import ukData from '../../../../../../content/scripts/custom/echarts/ukData';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
@@ -60,6 +61,7 @@ class Page extends React.PureComponent {
               title: 'Constituency Origin',
               active: true,
               preContent: <p><strong>Use the mouse wheel to scroll, click and drag to move the map. You can also filter the results by clicking on them in the legend.</strong></p>,
+              postContent: this.getData('constituencyOfOrigin').table,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -70,7 +72,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '650px',
                 data: {
-                  options: this.getData('constituencyOfOrigin'),
+                  options: this.getData('constituencyOfOrigin').options,
                 },
               },
             },
@@ -78,6 +80,7 @@ class Page extends React.PureComponent {
               title: 'Constituency of Residence',
               active: false,
               preContent: <p><strong>Use the mouse wheel to scroll, click and drag to move the map. You can also filter the results by clicking on them in the legend.</strong></p>,
+              postContent: this.getData('constituencyOfResidence').table,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -88,7 +91,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '650px',
                 data: {
-                  options: this.getData('constituencyOfResidence'),
+                  options: this.getData('constituencyOfResidence').options,
                 },
               },
             },
@@ -99,32 +102,60 @@ class Page extends React.PureComponent {
 
     return panel;
   }
-// check that all the data coming in we have to pass on
-// send the correct min & max numbers
-
 
   getData(type) {
     let options = null;
-    let data = [];
+    let table = null;
+    const data = [];
+    const tableData = [];
+    let max = 0;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
-        if (key === type && key === 'constituencyOfOrigin'){
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-            data.push({ name: element.constituencyName, value: element.length })
-          })
-          const pieces1 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (key === type && key === 'constituencyOfOrigin') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            // table data is the data that comes from the backend that isn't supported in coordinates in the backend.
+            //It will be displayed in the postContent of the tab.
+
+            if (Object.values(ukData).includes(element.constituencyName)) data.push({ name: element.constituencyName, value: element.length });
+            else tableData.push(`${element.constituencyName} - ${element.length} People`)
+
+              // setting the largest number in the data to the max, so that each legend can be set to the right percentage of people.
+              if (element.length > max) max = element.length;
+          });
+          
+          // setting the legends. 
+          // max is calculated by finding the percentage needed, ie the first legend will be 1/6th and the last will be 100%, so using the length of the array. Then the normal percent of the max number is found.
+          // min is calculated the same way, but instead when finding the initial percentage of each item in the array, the index is used to find the percentage before. so if i = 0 i * 10 will be 0, but (i+1)*10 = 10, the first being the min calculations, and the second is the max calculations.
+          const pieces1 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: +(((((100 / 6) * (i + 1)) / 100 ) * max).toFixed()), label: element, min: +(((((100 / 6) * i) / 100) * max).toFixed()) }));
           options = drawUKMap(data, pieces1);
         } else if (key === type && key === 'constituencyOfResidence') {
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-            data.push({ name: element.constituencyName, value: element.length })
-          })
-          const pieces2 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: i + 0.1, label: element, min: i }));
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            if (Object.values(ukData).includes(element.constituencyName)) data.push({ name: element.constituencyName, value: element.length });
+            else tableData.push(`${element.constituencyName} - ${element.length} People`)
+
+              max += element.length;
+          });
+          const pieces2 = ['0%', '2%', '4%', '6%', '8%', '10% of Grads'].map((element, i) => ({ max: +(((((100 / 6) * (i + 1)) / 100 ) * max).toFixed()), label: element, min: +(((((100 / 6) * i) / 100) * max).toFixed()) }));
           options = drawUKMap(data, pieces2);
         }
-      })
+      });
     }
-    return options;
+
+    if(tableData.length > 0) {
+      table = (
+        <div style={{ marginTop: '10px' }}>
+        <p>Constituencies that are too small to display on the map:</p>
+            {tableData.map(element => {
+              return (
+                <p>{element}</p>
+                )
+            })}
+        </div>
+        )
+    }
+
+    return { options, table };
   }
 
   getContent() {

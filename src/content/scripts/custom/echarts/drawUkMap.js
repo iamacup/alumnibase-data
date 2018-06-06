@@ -3,6 +3,7 @@ import ukData from './ukData';
 
 const drawUKMap = (data, pieces) => {
   // pieces sould be in the form {max: #, label: "", min: # }
+
   const option = {
     series_id: 4242979,
     backgroundColor: '#c5d6e7',
@@ -36,9 +37,6 @@ const drawUKMap = (data, pieces) => {
     series: [
       {
         itemStyle: {
-          // emphasis: {
-          //   borderColor: 'black',
-          // },
           normal: {
             borderColor: 'white',
           },
@@ -48,7 +46,7 @@ const drawUKMap = (data, pieces) => {
         showLegendSymbol: false,
         name: '',
         tooltip: {
-          formatter: '{c}% <br /> {b}',
+          formatter: '{c} People <br /> {b}',
         },
         label: {
           emphasis: {

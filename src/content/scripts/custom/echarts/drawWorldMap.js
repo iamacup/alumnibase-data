@@ -1,4 +1,4 @@
-import latlong from './latitudes'
+import latlong from './latitudes';
 
 const worldColours = {
   northAmerica: '#a7a737', southAmerica: '#86a965', africa: '#de4c4f', europe: '#d8854f', asia: '#eea638', oceania: '#8aabb0',
@@ -7,7 +7,7 @@ const worldColours = {
 const drawWorldMap = (mapData, type, value) => {
   require('echarts-maps/world.js');
 
-// console.log(mapData)
+  // console.log(mapData)
   // mapData = the spots on the map.
   // mapData should be in the form  [{code: 'AF', name: 'Afghanistan', value: 32358260, color: 'asia'}]
   let max = -Infinity;

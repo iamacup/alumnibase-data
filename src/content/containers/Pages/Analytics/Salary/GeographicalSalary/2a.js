@@ -71,7 +71,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '250px',
                 data: {
-                  options: this.getData('countriesOfOriginSplit'),
+                  options: this.getData('countriesOfOriginSplit').options,
                 },
               },
             },
@@ -101,7 +101,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '250px',
                 data: {
-                  options: this.getData('countriesOfResidenceSplit'),
+                  options: this.getData('countriesOfResidenceSplit').options,
                 },
               },
             },
@@ -118,35 +118,51 @@ class Page extends React.PureComponent {
     const tableData = [];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key === type && key === 'countriesOfOrigin') {
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-              if (dNc(latlong[element.data.metaData.code2])) {
-                data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric })
-              } else tableData.push(`${element.data.name}, ${element.data.metaData.numeric}`)
-          })
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            if (dNc(latlong[element.data.metaData.code2])) {
+              data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric });
+            } else tableData.push(`${element.data.name} - ${element.data.metaData.numeric} People`);
+            //setting tableData so that the backend data that the frontEnd doesn't have coordinates for gets collected.
+          });
           options = drawWorldMap(data, 'map', 'People');
         } else if (key === type && key === 'countriesOfResidence') {
-                this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-              if (dNc(latlong[element.data.metaData.code2])) {
-                data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric })
-              } else tableData.push(`${element.data.name}, ${element.data.metaData.numeric}`)
-          })
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            if (dNc(latlong[element.data.metaData.code2])) {
+              data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric });
+            } else tableData.push(`${element.data.name} - ${element.data.metaData.numeric} People`);
+          });
           options = drawWorldMap(data, 'map', 'People');
         } else if (key === type && key === 'countriesOfOriginSplit') {
-              this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-                data.push({ value: element.uLocation, percent: element.length })
-              });
-              options = drawNewPieChart(data, false, 'pie', false);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            data.push({ value: element.uLocation, percent: element.length });
+          });
+          options = drawNewPieChart(data, false, 'pie', false);
         } else if (key === type && key === 'countriesOfResidenceSplit') {
-              this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-                data.push({ value: element.uLocation, percent: element.length })
-              });
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            data.push({ value: element.uLocation, percent: element.length });
+          });
           options = drawNewPieChart(data, true, 'doughnut', true);
         }
-      })
+      });
     }
-    return options;
+
+    let table = null
+    if(tableData.length > 0) {
+      table = (
+        <div style={{ marginTop: '10px' }}>
+        <p>Places that are too small to display on the map:</p>
+            {tableData.map(element => {
+              return (
+                <p>{element}</p>
+                )
+            })}
+        </div>
+        )
+    }
+
+    return { options, table };
   }
 
   getMap() {
@@ -158,6 +174,7 @@ class Page extends React.PureComponent {
             {
               title: 'Country of Origin',
               active: true,
+              postContent: this.getData('countriesOfOrigin').table,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -168,13 +185,14 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '400px',
                 data: {
-                  options: this.getData('countriesOfOrigin'),
+                  options: this.getData('countriesOfOrigin').options,
                 },
               },
             },
             {
               title: 'Current Country of Residence',
               active: false,
+              postContent: this.getData('countriesOfResidence').table,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -185,7 +203,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '400px',
                 data: {
-                  options: this.getData('countriesOfResidence'),
+                  options: this.getData('countriesOfResidence').options,
                 },
               },
             },
@@ -239,7 +257,6 @@ class Page extends React.PureComponent {
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
     }
-
 
     const sendData = { data: [] };
 
