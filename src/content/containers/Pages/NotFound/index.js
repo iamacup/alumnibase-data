@@ -26,7 +26,7 @@ class Page extends React.PureComponent {
 
     const uniName = location.pathname.split('/')[1].toLowerCase();
 
-    if (uniName === 'aristotle' || uniName === 'durham' || uniName === 'uwe' || uniName === 'ucl' || uniName === 'sheffield-hallam' || uniName === 'sheffield' || uniName === 'oxford-brookes' || uniName === 'loughborough' || uniName === 'kings' || uniName === 'cranfield') {
+    if (uniName === 'aristotle' || uniName === 'durham' || uniName === 'uwe' || uniName === 'ucl' || uniName === 'sheffield-hallam' || uniName === 'sheffield' || uniName === 'oxford-brookes' || uniName === 'loughborough' || uniName === 'kings' || uniName === 'cranfield' || uniName === 'mmu') {
       direct = '/' + uniName + '/campaign/overview';
     } else direct = 'http://www.alumnibaseapp.com/';
 
