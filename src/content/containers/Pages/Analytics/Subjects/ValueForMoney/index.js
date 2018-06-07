@@ -70,8 +70,6 @@ class Page extends React.PureComponent {
             if (element.salary < optionObj.min) optionObj.min = element.salary;
           });
 
-          console.log(optionObj);
-
           const scatterData = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => [element.salary, element.score]);
           options = drawScatterGraph(scatterData, optionObj);
         } else if (type === 'loanRepayment' && key === type) {
@@ -87,6 +85,11 @@ class Page extends React.PureComponent {
               [10000, 12000, 16000, 23000, 37000]],
             age: ['New Graduate - 2 Yrs', '2 - 5 Yrs', '5 - 10 Yrs', '10 - 15 Yrs', '15 - 20 Yrs', '20 - 30 Yrs'],
           };
+
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            console.log(element, '*******')
+          })
+
           options = drawLineChart(data1, optionsA);
         }
       });
@@ -227,7 +230,7 @@ class Page extends React.PureComponent {
     const explainerText = (
       <div style={{ margin: '5%' }}>
         <p>Given the average salaries for each year, and the average loan borrowed for each plan and course length, we are able to calculate the average time it will take to pay back your student loan.</p>
-        <p>Starting the repayment calculations when the salary is at the minimum repayment level, we can determine the amount payable for that year. </p>
+        <p>Starting the repayment when the salary is at the minimum repayment level for that plan, we can determine the amount payable for that year. </p>
         <p>Adding interest to the loan each year and deducting the repayments, calculates the average amount of years before the loan will be fully repaid. </p>
         <p>In addition to this, we can then measure the average total interest paid and display the differences for each loan.</p>
       </div>
