@@ -47,7 +47,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  getData(type) {
+  getData(type, num) {
     let options = null;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
@@ -73,24 +73,44 @@ class Page extends React.PureComponent {
           const scatterData = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => [element.salary, element.score]);
           options = drawScatterGraph(scatterData, optionObj);
         } else if (type === 'loanRepayment' && key === type) {
-          const optionsA = {
-            x: 'Years',
-            y: '# of  People Over the Threshold',
+          const optionsObj = {
+            x: 'Years Since Graduation',
+            y: 'Salary',
             yLabel: 'horizontal',
           };
 
-          const data1 = {
-            name: ['Plan 2', 'Plan 3'],
-            plotted: [[20000, 25000, 43000],
-              [10000, 12000, 16000, 23000, 37000]],
-            age: ['New Graduate - 2 Yrs', '2 - 5 Yrs', '5 - 10 Yrs', '10 - 15 Yrs', '15 - 20 Yrs', '20 - 30 Yrs'],
+          const data = {
+            name: ['Average Salary'],
+            plotted: [[]],
+            age: [],
           };
 
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-            console.log(element, '*******')
-          })
+          let markline = { plan2: 9, plan3: 11 }; 
 
-          options = drawLineChart(data1, optionsA);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            if (element.courseLengthYears === num) {
+
+              const planTwo = element.plan2.reduce((acc, elem) => {
+                if (elem.remainingLoan === 0) acc.push(elem.yearsSinceGraduation)
+                return acc;
+              }, [])
+
+              const planThree = element.plan3.reduce((acc, elem) => {
+                if (elem.remainingLoan === 0) acc.push(elem.yearsSinceGraduation)
+                return acc;
+              }, [])
+
+              markline.plan2 = planTwo[0];
+              markline.plan3 = planThree[0];
+
+              element.plan2.forEach(elem => {
+                data.age.push(elem.yearsSinceGraduation);
+                data.plotted[0].push(elem.averageSalary);
+              })
+            }
+          });
+
+          options = drawLineChart(data, optionsObj, { x: [], y: [] }, markline);
         }
       });
     }
@@ -342,10 +362,11 @@ class Page extends React.PureComponent {
             <TabbedGraphPanel
               title="Average Time Taken for Graduates to Pay Back Student Loans"
               globalID="subjects-vfm-3"
+              collapsed={false}
               key="subjects-vfm-3"
               content={[
                     {
-                      title: '',
+                      title: '3 Year Course',
                       postContent: (<div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>),
                       active: true,
                       graphData: {
@@ -358,7 +379,25 @@ class Page extends React.PureComponent {
                         width: '100%',
                         height: '400px',
                         data: {
-                          options: this.getData('loanRepayment'),
+                          options: this.getData('loanRepayment', 3),
+                        },
+                      },
+                    },
+                     {
+                      title: '4 Year Course',
+                      postContent: (<div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>),
+                      active: false,
+                      graphData: {
+                        type: 'echarts',
+                        tools: {
+                          allowDownload: true,
+                          seeData: false,
+                          pinGraph: true,
+                        },
+                        width: '100%',
+                        height: '400px',
+                        data: {
+                          options: this.getData('loanRepayment', 4),
                         },
                       },
                     },
