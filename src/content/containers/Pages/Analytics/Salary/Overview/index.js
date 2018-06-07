@@ -226,7 +226,7 @@ class Page extends React.PureComponent {
         <div className="pad-all">
           {this.props.reduxState_fetchDataTransaction.default.payload[0].subjectBreakdown.map((element, i) => {
             const index = i;
-          return ( 
+          return (
             <div key={index}>
               <div className="row">
                 <div className="col-md-4 col-md-push-2">
@@ -235,7 +235,7 @@ class Page extends React.PureComponent {
               </div>
               {element.data.map(elem => getSalaryRow(elem.gender, [elem.averageSalary]))}
             </div>
-          )
+          );
           })}
         </div>
         <div className="text-center">

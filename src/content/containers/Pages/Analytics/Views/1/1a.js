@@ -140,7 +140,7 @@ class Page extends React.PureComponent {
       if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
         this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
           if (item === element.item) {
-              this.dividePercentOverElements(element.data);
+            this.dividePercentOverElements(element.data);
             element.data.forEach((elem) => {
               // setting axis data;
               const str = elem.yearGroupEnd + '';
@@ -397,28 +397,28 @@ class Page extends React.PureComponent {
   }
 
   dividePercentOverElements(dataArr) {
-      let remainder;
+    let remainder;
 
-      dataArr.forEach(element => {
-        let count = 0;
-        element.data.data.forEach(elem => {
-          count += elem.percentage;
-        });
-
-        if (count > 100) {
-          remainder = count - 100;
-          element.data.data.forEach(elem => {
-            elem.percentage -= (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
-          });
-        } else if (count < 100) {
-          remainder = 100 - count;
-          element.data.data.forEach(elem => {
-            elem.percentage += (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
-          });
-        }
+    dataArr.forEach((element) => {
+      let count = 0;
+      element.data.data.forEach((elem) => {
+        count += elem.percentage;
       });
 
-      return dataArr;
+      if (count > 100) {
+        remainder = count - 100;
+        element.data.data.forEach((elem) => {
+          elem.percentage -= (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      } else if (count < 100) {
+        remainder = 100 - count;
+        element.data.data.forEach((elem) => {
+          elem.percentage += (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      }
+    });
+
+    return dataArr;
   }
 
   render() {

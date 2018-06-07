@@ -124,7 +124,7 @@ class Page extends React.PureComponent {
             if (dNc(latlong[element.data.metaData.code2])) {
               data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric });
             } else tableData.push(`${element.data.name} - ${element.data.metaData.numeric} People`);
-            //setting tableData so that the backend data that the frontEnd doesn't have coordinates for gets collected.
+            // setting tableData so that the backend data that the frontEnd doesn't have coordinates for gets collected.
           });
           options = drawWorldMap(data, 'map', 'People');
         } else if (key === type && key === 'countriesOfResidence') {
@@ -148,18 +148,16 @@ class Page extends React.PureComponent {
       });
     }
 
-    let table = null
-    if(tableData.length > 0) {
+    let table = null;
+    if (tableData.length > 0) {
       table = (
         <div style={{ marginTop: '10px' }}>
-        <p>Places that are too small to display on the map:</p>
-            {tableData.map(element => {
-              return (
-                <p key={element}>{element}</p>
-                )
-            })}
+          <p>Places that are too small to display on the map:</p>
+          {tableData.map(element => (
+            <p key={element}>{element}</p>
+                ))}
         </div>
-        )
+      );
     }
 
     return { options, table };

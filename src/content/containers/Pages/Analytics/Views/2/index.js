@@ -256,10 +256,10 @@ class Page extends React.PureComponent {
     return content;
   }
 
-    dividePercentOverElements(dataArr) {
+  dividePercentOverElements(dataArr) {
     let remainder;
 
-    dataArr.forEach(element => {
+    dataArr.forEach((element) => {
       let count = 0;
       element.data.data.forEach((elem) => {
         count += elem.percentage;

@@ -5,7 +5,6 @@ const worldColours = {
 };
 
 
-
 const drawWorldMap = (mapData, type, value) => {
   require('echarts-maps/world.js');
 

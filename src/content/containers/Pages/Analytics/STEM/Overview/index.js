@@ -167,7 +167,7 @@ class Page extends React.PureComponent {
             });
 
             this.props.reduxState_fetchDataTransaction.default.payload[0].nationalAverage.forEach((element) => {
-              lineData.age.forEach(value => {
+              lineData.age.forEach((value) => {
                 if (value === element.name) lineData.plotted[4].push(element.salary);
               });
             });

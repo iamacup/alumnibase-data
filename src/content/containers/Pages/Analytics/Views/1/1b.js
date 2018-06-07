@@ -201,7 +201,7 @@ class Page1b extends React.PureComponent {
   dividePercentOverElements(dataArr) {
     let remainder;
 
-    dataArr.forEach(element => {
+    dataArr.forEach((element) => {
       let count = 0;
       element.data.data.forEach((elem) => {
         count += elem.percentage;

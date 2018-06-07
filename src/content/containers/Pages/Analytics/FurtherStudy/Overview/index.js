@@ -207,14 +207,14 @@ class Page extends React.PureComponent {
     const data = [];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-     Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
-      if (key === name && key === 'thisUniPGSplit') {
-        this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-          data.push({ value: element.type, percent: element.percent })
-        })
-        options = drawPieChart(data, false, 'pie', false);
-      }
-     }) 
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (key === name && key === 'thisUniPGSplit') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            data.push({ value: element.type, percent: element.percent });
+          });
+          options = drawPieChart(data, false, 'pie', false);
+        }
+      });
     }
     return options;
   }
