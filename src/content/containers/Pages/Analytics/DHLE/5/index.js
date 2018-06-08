@@ -55,17 +55,13 @@ class Page extends React.PureComponent {
     });
   }
 
-  getStackedBarchart(title, titles, globalID, data) {
-    const axisData = { y: titles, x: '%' };
-
-    const options = drawNewBarChart(axisData, data);
-
+  getStackedBarchart(title, globalID) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={globalID}
       content={[
             {
-              title: '',
+              title: 'Science',
               active: true,
               graphData: {
                 type: 'echarts',
@@ -77,7 +73,24 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options,
+                  options: this.getData('UGScienceHighLevelDestinations'),
+                },
+              },
+            },
+                    {
+              title: 'Non-Science',
+              active: false,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '350px',
+                data: {
+                  options: this.getData('UGEverythingElseHighLevelDestinations'),
                 },
               },
             },
@@ -88,21 +101,13 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getGroupedBarchart(title, value, direction, globalID, titles, data) {
-    const obj = {
-      direction,
-      value,
-      // colours: this.props.data[0].colours,
-    };
-
-    const options = drawGroupedBarChart(titles, data, obj);
-
+  getGroupedBarchart(title, globalID, title1, title2) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={globalID}
       content={[
             {
-              title: '',
+              title: 'Science',
               active: true,
               graphData: {
                 type: 'echarts',
@@ -114,7 +119,24 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options,
+                  options: this.getData(title1),
+                },
+              },
+            },
+            {
+              title: 'Non-Science',
+              active: false,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '350px',
+                data: {
+                  options: this.getData(title2),
                 },
               },
             },
@@ -141,87 +163,19 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getStackedBarchart('Sciences High Level Destinations entered by First Time Graduates',
-              ['Medicine & dentistry', 'Subjects allied to medicine', 'Biological sciences', 'Veterinary science', 'Agriculture & related subjects', 'Physical sciences', 'Mathmatical sciences', 'Computer science', 'Engineering & technology', 'Architecture, building & planning', 'Total - Science subject areas'],
-              'DHLE-5-1',
-              [
-                { name: 'Full-time work', data: [91.9, 77.9, 41.4, 92.4, 58.1, 43.7, 49.9, 63.7, 62, 70.1, 60.7] },
-                { name: 'Part-time work', data: [0.8, 7.1, 15, 1.9, 12.1, 9.8, 7.8, 10.1, 8, 7.2, 9.5] },
-                { name: 'Work and further study', data: [1.6, 3.2, 7.6, 1, 5.2, 4.8, 5.8, 2.5, 2.8, 4.7, 4.5] },
-                { name: 'Further study', data: [4.8, 7.4, 26.1, 1.3, 12.8, 29.9, 23.6, 10.4, 15.4, 8.5, 16.6] },
-                { name: 'Unemployed', data: [0.3, 2.1, 5.1, 1.7, 4.8, 6.8, 7.4, 9.7, 7.5, 5.8, 5] },
-                { name: 'Other', data: [0.6, 2.2, 4.8, 1.7, 7, 5.1, 5.4, 3.5, 4.4, 3.8, 3.8] },
-              ])}
+            {this.getStackedBarchart('High Level Destinations entered by Undergraduates', 'DHLE-5-1')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGroupedBarchart('Average Full Time Earnings',
-              '£',
-              'horizontal',
-              'DHLE-5-2',
-              ['Medicine & dentistry', 'Subjects allied to medicine', 'Biological sciences', 'Vetenary science', 'Agriculture & related subjects', 'Physical sciences', 'Mathmatical sciences', 'Computer science', 'Engineering & technology', 'Architecture, building & planning'],
-              [
-                { data: [42000, 40000, 34000, 41000, 34000, 36000, 43000, 40000, 39000, 35000] },
-              ])}
+            {this.getGroupedBarchart('Average Full Time Earnings', 'DHLE-5-2', 'UGScienceEarnings', 'UGEverythingElseEarnings')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGroupedBarchart('Male /Female Full Time Earnings by First Degree Graduates - Science',
-              '£',
-              'horizontal',
-              'DHLE-5-3',
-              ['Medicine & dentistry', 'Subjects allied to medicine', 'Biological sciences', 'Vetenary science', 'Agriculture & related subjects', 'Physical sciences', 'Mathmatical sciences', 'Computer science', 'Engineering & technology', 'Architecture, building & planning'],
-              [
-                { name: 'Male', data: [46200, 44000, 37400, 45100, 37400, 39600, 47300, 44000, 42900, 38500] },
-                { name: 'Female', data: [37800, 36000, 30600, 36900, 30600, 32400, 38700, 36000, 35100, 31500] },
-              ])}
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            {this.getStackedBarchart('Non-Science High Level Destinations by First Time Graduates',
-              ['Social studies', 'Law', 'Business & administrative studies', 'Mass communications & documentation', 'Languages', 'Historical & philosophical studies', 'Creative arts & design', 'Education', 'Combined'],
-              'DHLE-5-4',
-              [
-                { name: 'Full-time work', data: [51.7, 40.0, 63.8, 54.7, 44.9, 40.9, 50.4, 61.3, 46.7] },
-                { name: 'Part-time work', data: [12.7, 8.6, 10.3, 20.4, 13.3, 12.7, 25.1, 12.7, 11.4] },
-                { name: 'Work and further study', data: [6.1, 10.5, 5.6, 3.6, 6.7, 7.0, 4.0, 4.1, 6.8] },
-                { name: 'Further study', data: [17.6, 31.7, 9, 8.7, 23.9, 27.1, 10, 15.9, 21.6] },
-                { name: 'Unemployed', data: [6.2, 4.8, 6.1, 7.8, 6, 6.3, 6.2, 2.6, 4.3] },
-                { name: 'Other', data: [5.8, 4.5, 5.2, 4.7, 5.2, 6.1, 4.3, 3.4, 9.1] },
-              ])}
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            {this.getGroupedBarchart('Average Full Time Earnings',
-              '£',
-              'horizontal',
-              'DHLE-5-5',
-              ['Social studies', 'Law', 'Business & administrative studies', 'Mass communications & documentation', 'Languages', 'Historical & philosophical studies', 'Creative arts & design', 'Education', 'Combined'],
-              [
-                { data: [27000, 39000, 30000, 29000, 21000, 25000, 19000, 21000, 29000] },
-              ])}
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            {this.getGroupedBarchart('Male /Female Full Time Earnings by First Degree Graduates - Non-Science',
-              '£',
-              'horizontal',
-              'DHLE-5-6',
-              ['Social studies', 'Law', 'Business & administrative studies', 'Mass communications & documentation', 'Languages', 'Historical & philosophical studies', 'Creative arts & design', 'Education', 'Combined'],
-              [
-                { name: 'Male', data: [29700, 42900, 33000, 31900, 23100, 27500, 20900, 23100, 31900] },
-                { name: 'Female', data: [24300, 35100, 27000, 26100, 18900, 22500, 17100, 18900, 26100] },
-              ])}
+            {this.getGroupedBarchart('Male /Female Full Time Earnings by Undergraduates', 'DHLE-5-3', 'UGScienceEarningsGenderSplit', 'UGEverythingElseEarningsGenderSplit')}
           </div>
         </div>
 
@@ -229,6 +183,103 @@ class Page extends React.PureComponent {
     );
     return content;
   }
+
+  getData(type) {
+    let options = null;
+    const axisData = { y: [], x: '%' };
+    const obj = { direction: 'horizontal', value: '£' };
+    const data = [{ name: 'Working full-time', data: [] }, { name: 'Working part-time', data: [] }, { name: 'Unemployed', data: [] }, { name: 'Taking time out in order to travel', data: [] }, { name: 'Engaged in part-time further study', data: [] }, { name: 'Engaged in full-time further study', data: [] }, { name: 'Due to start a job in the next month', data: [] }, { name: 'Doing something else', data: [] }]
+    const titles = [];
+    const data2 = [{ data: [] }];
+    const data3 = [{ name: 'Male', data: [] }, { name: 'Female', data: [] }, { name: 'Other', data: [] }];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (key === type && key.includes('HighLevelDestinations')) {
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            axisData.y.push(element.subject)
+            element.data.forEach(value => {
+              data.forEach(elem => {
+                if (value.graduateDestinationMostImportant.includes(elem.name)) elem.data.push(value.percentage);
+              })
+            })
+          })
+          options = drawNewBarChart(axisData, data);
+        } else if (key === type) {
+          if (key.includes('Gender')) {
+            this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key], true)
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+              titles.push(element.subject)
+              element.data.forEach(value => {
+                data3.forEach(elem => {
+                  if (value.gender === elem.name) elem.data.push(value.salary);
+                })
+              })
+            });
+          options = drawGroupedBarChart(titles, data3, obj);
+          } else {
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+              titles.push(element.subject)
+              data2[0].data.push(element.averageSalary)
+            })
+          options = drawGroupedBarChart(titles, data2, obj);
+          }
+
+        }
+      })
+    }
+    return options;
+  }
+
+  getAllUniqueName(dataArr, genderArr) {
+    const uniqueKeys = [];
+
+    if (genderArr === true) {
+      dataArr.forEach((element) => {
+        element.data.forEach((elem) => {
+          if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+        });
+      });
+
+      dataArr.forEach((element) => {
+        if (element.data.length < uniqueKeys.length) {
+          const keysInBreakdown = element.data.map(elem => elem.gender);
+
+          uniqueKeys.forEach((key) => {
+            if (!keysInBreakdown.includes(key)) {
+              uniqueKeys.forEach((uniqueKey, i) => {
+                if (key === uniqueKey) element.data.splice(i, 0, { gender: key, salary: 0 })
+              })
+            }
+          });
+        }
+      });
+
+    } else {
+      dataArr.forEach((element) => {
+        element.data.forEach((elem) => {
+          if (!uniqueKeys.includes(elem.graduateDestinationMostImportant)) uniqueKeys.push(elem.graduateDestinationMostImportant);
+        });
+      });
+
+      dataArr.forEach((element) => {
+        if (element.data.length < uniqueKeys.length) {
+          const keysInBreakdown = element.data.map(elem => elem.graduateDestinationMostImportant);
+
+          uniqueKeys.forEach((key) => {
+            if (!keysInBreakdown.includes(key)) {
+              uniqueKeys.forEach((uniqueKey, i) => {
+                if (key === uniqueKey) element.data.splice(i, 0, { graduateDestinationMostImportant: key, length: 0 })
+              })
+            }
+          });
+        }
+      });
+  }
+    return dataArr;
+  }
+
 
   render() {
     let content = null;
@@ -253,7 +304,7 @@ class Page extends React.PureComponent {
               content={
                 <FetchData
                   active
-                  fetchURL="/api/analytics/dhle-like/5"
+                  fetchURL="/api/analytics/dlhe-like/5"
                   sendData={sendData}
                 />
               }
