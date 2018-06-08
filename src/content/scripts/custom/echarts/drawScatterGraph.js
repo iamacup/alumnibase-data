@@ -53,7 +53,7 @@ const drawScatterGraph = (data, options) => {
         show: false,
       },
       max: options.max + 10000,
-      min: options.min - 10000,
+      min: - (options.max + 10000), //options.min - 10000,
     },
     yAxis: {
       axisLabel: {
@@ -63,7 +63,7 @@ const drawScatterGraph = (data, options) => {
         show: false,
       },
       max: 10,
-      min: 0,
+      min: -10,
     },
     tooltip: {
       trigger: 'axis',

@@ -73,44 +73,41 @@ class Page extends React.PureComponent {
           const scatterData = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => [element.salary, element.score]);
           options = drawScatterGraph(scatterData, optionObj);
         } else if (type === 'loanRepayment' && key === type) {
-          const optionsObj = {
-            x: 'Years Since Graduation',
-            y: 'Salary',
-            yLabel: 'horizontal',
-          };
 
-          const data = {
-            name: ['Average Salary'],
-            plotted: [[]],
-            age: [],
-          };
-
-          let markline = { plan2: 9, plan3: 11 }; 
+          const optionsObj = { x: 'Years Since Graduation', y: 'Salary', yLabel: 'horizontal', value: false };
+          const data = { name: ['Plan 2 - Remaining Loan', 'Plan 2 - Amount Paid', 'Plan 3 - Remaining Loan', 'Plan 3 - Amount Paid'], plotted: [[], [], [], []], age: [] };
 
           this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
             if (element.courseLengthYears === num) {
+              let end = 0;
 
-              const planTwo = element.plan2.reduce((acc, elem) => {
-                if (elem.remainingLoan === 0) acc.push(elem.yearsSinceGraduation)
-                return acc;
-              }, [])
+              element.plan2.forEach((elem) => {
+                // stopping the graph at 0.
+                if (elem.ammountPaid !== 0) {
+                  data.plotted[0].push(elem.remainingLoan);
+                  data.plotted[1].push(elem.ammountPaid);
+                }
+              });
 
-              const planThree = element.plan3.reduce((acc, elem) => {
-                if (elem.remainingLoan === 0) acc.push(elem.yearsSinceGraduation)
-                return acc;
-              }, [])
+              element.plan3.forEach((elem) => {
+                // stopping the graph at 0.
+                if (elem.ammountPaid !== 0) {
+                  end = elem.yearsSinceGraduation;
+                  data.age.push(elem.yearsSinceGraduation);
+                  data.plotted[2].push(elem.remainingLoan);
+                  data.plotted[3].push(elem.ammountPaid);
+                }
+              });
 
-              markline.plan2 = planTwo[0];
-              markline.plan3 = planThree[0];
+              // adding extra to the end of the graph
+                  data.age.push(end + 1, end + 1, end + 3);
+                  data.plotted[1].push(0);
+                  data.plotted[3].push(0);
 
-              element.plan2.forEach(elem => {
-                data.age.push(elem.yearsSinceGraduation);
-                data.plotted[0].push(elem.averageSalary);
-              })
             }
           });
 
-          options = drawLineChart(data, optionsObj, { x: [], y: [] }, markline);
+          options = drawLineChart(data, optionsObj);
         }
       });
     }
@@ -118,10 +115,6 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-    // * Allied Health Professions, Dentistry, Nursing and Pharmacy
-    // ** Aeronautical, Mechanical, Chemical and Manufacturing Engineering
-    // *** Electrical and Electronic Engineering, Metallurgy and Materials
-    // **** Communication, Cultural and Media Studies, Library and Information Management
     const barData = {
       titles1: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Anthropology & Development Studies', '****', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Physics', 'Area Studies', '***', 'Mathematical Sciences', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', '**', 'Architecture, Built Environment and Planning', 'Clinical Medicine', '*'],
       titles2: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Anthropology & Development Studies', 'Architecture, Built Environment and Planning', 'Clinical Medicine', 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering'],

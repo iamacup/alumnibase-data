@@ -1,23 +1,6 @@
-const drawLineChart = (data, options, titles, markline) => {
+const drawLineChart = (data, options, titles) => {
   // data sould be in the form [{age: [], plotted: []}]
   // options can have value (bool) and trendline (bool)
-
-let markLine = null;
-
-if (markline) {
-  markLine = {
-    silent: true,
-          lineStyle: {
-              normal: {
-                  type: 'dashed'
-              }
-          },
-          data : [
-              { xAxis: markline.plan2, label: { normal: {position: 'end', formatter: 'Plan 2'}} },
-              { xAxis: markline.plan3, label: { normal: {position: 'end', formatter: 'Plan 3'}} },
-          ]
-      }
-}
 
   const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
   let value = false;
@@ -146,7 +129,6 @@ if (markline) {
         },
         smooth: true,
         data: element,
-        markLine,
       };
     }),
   };
