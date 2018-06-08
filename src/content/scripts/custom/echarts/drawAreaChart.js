@@ -9,7 +9,6 @@ const drawAreaChart = (areaData, axis) => {
     }
   } else {
     xlabel = axis;
-    // value = 'years';
   }
 
   const areaColours = ['#2b577e', '#d7d4c5', '#e8912c', '#6f6b51', '#6ca7da', '#e7b93a', '#0e1422'];
@@ -48,7 +47,6 @@ const drawAreaChart = (areaData, axis) => {
     });
     return seriesData;
   }
-
 
   const option = {
     legend: {

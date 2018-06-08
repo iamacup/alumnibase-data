@@ -91,7 +91,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">Destinations</h3>
-            <h5 className="text-muted text-normal">Destinations of graduates 6 months after leaving university.</h5>
+            <h5 className="text-muted text-normal">Destinations of graduates after leaving university.</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
@@ -145,7 +145,7 @@ class Page extends React.PureComponent {
     return options;
   }
 
-      getAllUniqueName(dataArr) {
+  getAllUniqueName(dataArr) {
     const uniqueKeys = [];
 
     dataArr.forEach((element) => {
