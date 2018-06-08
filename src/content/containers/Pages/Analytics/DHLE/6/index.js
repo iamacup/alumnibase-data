@@ -54,15 +54,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGroupedBarchart(title, value, direction, globalID, titles, data) {
-    const obj = {
-      direction,
-      value,
-      // colours: this.props.data[0].colours,
-    };
-
-    const options = drawGroupedBarChart(titles, data, obj);
-
+  getGroupedBarchart(title, globalID, type) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={globalID}
@@ -78,9 +70,9 @@ class Page extends React.PureComponent {
                   pinGraph: true,
                 },
                 width: '100%',
-                height: '350px',
+                height: '500px',
                 data: {
-                  options,
+                  options: this.getData(type),
                 },
               },
             },
@@ -108,30 +100,17 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getGroupedBarchart('Post Graduate Graduates by Type of Employment & Gender',
-              '',
-              'horizontal',
               'DHLE-6-1',
-              ['Managers, directors and senior officials', 'Professional occupations', 'Associate professional and techniacl occupations', 'Total professional', 'Administrative and secretarial occupations', 'skilled trades occupations', 'Caring, leisure and other service occupations', 'Sales and customer service occupations', 'Process, plant and machine operatives', 'Elementary occupations', 'Total non-professional'],
-              [
-                { name: 'Other', data: [0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0] },
-                { name: 'Male', data: [640, 11560, 3680, 15885, 465, 120, 245, 460, 55, 305, 1650] },
-                { name: 'Female', data: [435, 19605, 4230, 24275, 890, 55, 635, 585, 15, 285, 2465] },
-              ])}
+              'PGTypeOfEmploymentAndGender')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getGroupedBarchart('First Degree Graduates by Type of Employment & Gender',
-              '',
-              'horizontal',
               'DHLE-6-2',
-              ['Managers, directors and senior officials', 'Professional occupations', 'Associate professional and techniacl occupations', 'Total professional', 'Administrative and secretarial occupations', 'skilled trades occupations', 'Caring, leisure and other service occupations', 'Sales and customer service occupations', 'Process, plant and machine operatives', 'Elementary occupations', 'Total non-professional'],
-              [
-                { name: 'Other', data: [0, 10, 5, 15, 0, 0, 0, 0, 0, 0, 5] },
-                { name: 'Male', data: [3150, 25280, 21785, 50220, 3170, 1210, 2090, 6715, 660, 4700, 18545] },
-                { name: 'Female', data: [2705, 40365, 26920, 69990, 7015, 755, 7480, 10165, 200, 4875, 30495] },
-              ])}
+              'UGTypeOfEmploymentAndGender',
+              )}
           </div>
         </div>
 
@@ -139,6 +118,60 @@ class Page extends React.PureComponent {
     );
     return content;
   }
+
+  getData(type) {
+    let options = null;
+    const obj = { direction: 'horizontal', value: '' };
+    const titles = [];
+    const data = [{ name: 'Other', data: [] }, { name: 'Male', data: [] }, { name: 'Female', data: [] }]
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (key === type) {
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            let title = element.SICCategory;
+            if (title.includes(';')) title = title.slice(0, title.indexOf(';'))
+            titles.push(title)
+
+            element.data.forEach(value => {
+              data.forEach(elem => {
+                if (value.gender === elem.name) elem.data.push(value.averageSalary)
+              })
+            })
+          })
+          options = drawGroupedBarChart(titles, data, obj);
+        }
+      })
+    }
+    return options;
+  }
+
+    getAllUniqueName(dataArr) {
+    const uniqueKeys = [];
+
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            if (key === 'Male') element.data.splice(0, 0, { averageSalary: 0, gender: key });
+            if (key === 'Female') element.data.splice(1, 0, { averageSalary: 0, gender: key });
+            if (key === 'Other') element.data.splice(2, 0, { averageSalary: 0, gender: key });
+          }
+        });
+      }
+    });
+    return dataArr;
+  }
+
   render() {
     let content = null;
 
@@ -162,7 +195,7 @@ class Page extends React.PureComponent {
               content={
                 <FetchData
                   active
-                  fetchURL="/api/analytics/dhle-like/6"
+                  fetchURL="/api/analytics/dlhe-like/6"
                   sendData={sendData}
                 />
               }
