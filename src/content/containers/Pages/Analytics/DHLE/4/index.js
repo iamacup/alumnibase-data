@@ -122,21 +122,46 @@ class Page extends React.PureComponent {
     ];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key === type && key === 'destinations') {
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-            element.data.forEach(value => {
-            console.log(value)
-            data.forEach(elem => {
-              if (value.graduateDestinationMostImportant.startsWith(elem.name)) elem.data.push(value.length)
-            })
-            })
-          })
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            element.data.forEach((value) => {
+              data.forEach((elem) => {
+                if (value.graduateDestinationMostImportant.startsWith(elem.name)) elem.data.push(value.length);
+              });
+            });
+          });
           options = drawAreaChart(data, []);
         }
-      })
+      });
     }
     return options;
+  }
+
+      getAllUniqueName(dataArr) {
+    const uniqueKeys = [];
+
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.graduateDestinationMostImportant)) uniqueKeys.push(elem.graduateDestinationMostImportant);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.graduateDestinationMostImportant);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            uniqueKeys.forEach((uniqueKey, i) => {
+              if (key === uniqueKey) element.data.splice(i, 0, { graduateDestinationMostImportant: key, length: 0 })
+            })
+          }
+        });
+      }
+    });
+    return dataArr;
   }
 
   render() {

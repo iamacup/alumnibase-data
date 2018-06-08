@@ -53,6 +53,7 @@ const drawAreaChart = (areaData, axis) => {
   const option = {
     legend: {
       data: areaData.map(obj => obj.name),
+      top: -5,
     },
     tooltip: {
       trigger: 'axis',
