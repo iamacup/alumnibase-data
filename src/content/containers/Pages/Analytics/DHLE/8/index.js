@@ -54,21 +54,13 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGroupedBarchart(title, value, direction, globalID, titles, data) {
-    const obj = {
-      direction,
-      value,
-      // colours: this.props.data[0].colours,
-    };
-
-    const options = drawGroupedBarChart(titles, data, obj);
-
+  getGroupedBarchart(title, globalID) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={globalID}
       content={[
             {
-              title: '',
+              title: 'Undergraduate',
               active: true,
               graphData: {
                 type: 'echarts',
@@ -80,7 +72,24 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options,
+                  options: this.getData('UGFirstJobTypeOfWorkGenderSplit'),
+                },
+              },
+            },
+            {
+              title: 'Postgraduate',
+              active: false,
+              graphData: {
+                type: 'echarts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '350px',
+                data: {
+                  options: this.getData('PGFirstJobTypeOfWorkGenderSplit'),
                 },
               },
             },
@@ -107,22 +116,62 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGroupedBarchart('First Degree Graduates from the UK in work, by type of work and gender',
-              '',
-              'horizontal',
-              'DHLE-8-1',
-              ['Self-employed', 'Starting up own business', 'On a permanent or open-ended contract', 'On a fixed-term contract lasting 12 months or longer', 'On a fixed-term contract lasting less than 12 months', 'Voluntary work', 'On an internship', 'Developing a professional portfolio', 'Temping (including supply teaching', 'On a zero hours contract', 'Other', 'Unknown'],
-              [
-                { name: 'Other', data: [0, 0, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0] },
-                { name: 'Male', data: [3990, 580, 39450, 10460, 5255, 725, 1980, 460, 1460, 2785, 1135, 540] },
-                { name: 'Female', data: [3530, 415, 59720, 15675, 7985, 1165, 2915, 500, 2520, 3665, 1575, 890] },
-              ])}
+            {this.getGroupedBarchart('First Degree Graduates from the UK in work, by type of work and gender', 'DHLE-8-1')}
           </div>
         </div>
 
       </div>
     );
     return content;
+  }
+
+  getData(type){
+    let options = null;
+    const obj = { direction: 'horizontal', value: '' };
+    const titles = [];
+    const data = [{ name: 'Other', data: [] }, { name: 'Male', data: [] }, { name: 'Female', data: [] }]
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (type === key) {
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            titles.push(element.employmentType)
+            element.data.forEach(value => {
+              data.forEach(elem => {
+                if (value.gender === elem.name) elem.data.push(value.averageSalary)
+              })
+            })
+          })
+          options = drawGroupedBarChart(titles, data, obj);
+        }
+      })
+    }
+    return options;
+  }
+
+    getAllUniqueName(dataArr) {
+    const uniqueKeys = [];
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            uniqueKeys.forEach((uniqueKey, i) => {
+              if (key === uniqueKey) element.data.splice(i, 0, { averageSalary: 0, gender: key })
+            })
+          }
+        });
+      }
+    });
+    return dataArr;
   }
 
   render() {
@@ -148,7 +197,7 @@ class Page extends React.PureComponent {
               content={
                 <FetchData
                   active
-                  fetchURL="/api/analytics/dhle-like/8"
+                  fetchURL="/api/analytics/dlhe-like/8"
                   sendData={sendData}
                 />
               }
