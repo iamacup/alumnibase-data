@@ -310,7 +310,7 @@ class Page extends React.PureComponent {
                         <Link href={`/${universityName}/analytics/dlhe-like/9`} to={`/${universityName}/analytics/dlhe-like/9`}>RQ 9 - Geographical Destinations of Employment</Link>
                       </li>
                       <li className={this.classNameBasedOnLocation(`/${universityName}/analytics/dlhe-like/11`, 'active-link')}>
-                        <Link href={`/${universityName}/analytics/dlhe-like/11`} to={`/${universityName}/analytics/dlhe-like/11`}>RQ 11 - First Time Graduates in full time work</Link>
+                        <Link href={`/${universityName}/analytics/dlhe-like/11`} to={`/${universityName}/analytics/dlhe-like/11`}>RQ 11 - Undergraduates in full time work</Link>
                       </li>
                     </ul>
                   </li>

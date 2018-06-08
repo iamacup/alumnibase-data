@@ -24,7 +24,7 @@ class Page extends React.PureComponent {
     const uni = this.props.location.pathname.split('/')[1];
 
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'DLHE Requirement 11 - First Time Graduates in full time work',
+      pageTitle: 'DLHE Requirement 11 - Undergraduates in full time work',
       breadcrumbs: [
         {
           name: 'Analytics',
@@ -35,7 +35,7 @@ class Page extends React.PureComponent {
           link: `/${uni}/analytics/dlhe-like`,
         },
         {
-          name: 'RQ 11 - First Time Graduates in full time work',
+          name: 'RQ 11 - Undergraduates in full time work',
           link: `/${uni}/analytics/dlhe-like/11`,
         }],
     });
@@ -91,7 +91,7 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            <h3 className="text-main text-normal text-2x mar-no">First Time Graduates in full time work</h3>
+            <h3 className="text-main text-normal text-2x mar-no">Undergraduates in full time work</h3>
             <h5 className="text-muted text-normal">Data for graduates after leaving university.</h5>
             <hr className="new-section-xs" />
           </div>
@@ -115,11 +115,7 @@ class Page extends React.PureComponent {
     let options = {};
     const obj = { direction: 'horizontal', value: '' };
     const titles = []
-    const data =  [
-                { name: 'Male', data: [] },
-                { name: 'Female', data: [] },
-                { name: 'Other', data: [] },
-              ]
+    const data =  [{ name: 'Male', data: [] }, { name: 'Female', data: [] }, { name: 'Other', data: [] }]
     const lastElement = []
 //this is because the greater than element is not last in order to go in.
 
