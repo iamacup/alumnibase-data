@@ -109,7 +109,9 @@ class Page extends React.PureComponent {
   }
 
   getData(type) {
+    // x-axis labels.
     let options;
+    const titles = [];
     const data = [
       { name: 'Doing something else', data: [] },
       { name: 'Due to start a job in the next month', data: [] },
@@ -121,18 +123,22 @@ class Page extends React.PureComponent {
       { name: 'Working part-time', data: [] },
     ];
 
+
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key === type && key === 'destinations') {
           this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
           this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            titles.push(element.yearGroupStart + '-' + element.yearGroupEnd.toString().slice(2));
+            let total = 0
+            element.data.forEach((value) => { total += value.length; });
             element.data.forEach((value) => {
               data.forEach((elem) => {
-                if (value.graduateDestinationMostImportant.startsWith(elem.name)) elem.data.push(value.length);
+                if (value.graduateDestinationMostImportant.startsWith(elem.name)) elem.data.push((value.length / total) * 100); 
               });
             });
           });
-          options = drawAreaChart(data, []);
+          options = drawAreaChart(data, titles);
         }
       });
     }
