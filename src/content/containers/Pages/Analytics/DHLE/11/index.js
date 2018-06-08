@@ -54,15 +54,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGroupedBarchart(title, value, direction, globalID, titles, data) {
-    const obj = {
-      direction,
-      value,
-      // colours: this.props.data[0].colours,
-    };
-
-    const options = drawGroupedBarChart(titles, data, obj);
-
+  getGroupedBarchart(title, globalID, keyName) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={globalID}
@@ -80,7 +72,7 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options,
+                  options: this.getData(keyName),
                 },
               },
             },
@@ -100,7 +92,7 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">First Time Graduates in full time work</h3>
-            <h5 className="text-muted text-normal">Data for graduates 6 months after leaving university.</h5>
+            <h5 className="text-muted text-normal">Data for graduates after leaving university.</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
@@ -108,21 +100,84 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getGroupedBarchart('Male /Female Earning by Salary Band',
-              '',
-              'horizontal',
               'DHLE-11-1',
-              ['Less than £15,000', '£15,000-£19,999', '£20,000-£24,999', '£25,000-£29,999', '£30,000-£34,999', '£35,000-£39,999', '£40,000+', 'Unkown'],
-              [
-                { name: 'Other', data: [0, 0, 0, 0, 0, 0, 0, 5] },
-                { name: 'Male', data: [3590, 9885, 10975, 7725, 3640, 1060, 1100, 14920] },
-                { name: 'Female', data: [6390, 16445, 21145, 7000, 2910, 580, 480, 21425] },
-              ])}
+              'firstJobGraduatesInFullTimeWorkSalaryBrackets',
+             )}
           </div>
         </div>
 
       </div>
     );
     return content;
+  }
+
+  getData(type) {
+    let options = {};
+    const obj = { direction: 'horizontal', value: '' };
+    const titles = []
+    const data =  [
+                { name: 'Male', data: [] },
+                { name: 'Female', data: [] },
+                { name: 'Other', data: [] },
+              ]
+    const lastElement = []
+//this is because the greater than element is not last in order to go in.
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+        if (type === key && key === 'firstJobGraduatesInFullTimeWorkSalaryBrackets'){
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            // changing < symbol to 'Less than' and making sure < doesn't go in till the end.
+            if (element.salaryGroup.includes('<')) titles.push('Less than £' + element.salaryGroup.slice(2))
+            else if (!element.salaryGroup.includes('>')) titles.push('£' + element.salaryGroup)
+            else lastElement.push(element)
+
+
+            if (!element.salaryGroup.includes('>')) {
+              element.data.forEach(value => {
+                data.forEach(elem => {
+                  if (value.gender === elem.name) elem.data.push(value.length)
+                })
+              })
+            }
+          })
+          // pushing the greater than data into the correct arrays.
+          titles.push('Greater than £' + lastElement[0].salaryGroup.slice(2))
+          lastElement[0].data.forEach(value => {
+            data.forEach(elem => { if (value.gender === elem.name) elem.data.push(value.length) })
+          })
+          options = drawGroupedBarChart(titles, data, obj)
+        }
+      })
+    }
+    return options;
+  }
+
+  getAllUniqueNames(dataArr) {
+        let uniqueKeys = []
+
+    dataArr.forEach((element) => {
+        element.data.forEach((elem) => {
+          if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+        });
+      });
+
+      dataArr.forEach((element) => {
+        if (element.data.length < uniqueKeys.length) {
+          const keysInBreakdown = element.data.map(elem => elem.gender);
+
+          uniqueKeys.forEach((key) => {
+            if (!keysInBreakdown.includes(key)) {
+              uniqueKeys.forEach((uniqueKey, i) => {
+                if (key === uniqueKey) element.data.splice(i, 0, { gender: key, length: 0 })
+              })
+            }
+          });
+        }
+      });
+
+      return dataArr
   }
 
   render() {
@@ -148,7 +203,7 @@ class Page extends React.PureComponent {
               content={
                 <FetchData
                   active
-                  fetchURL="/api/analytics/dhle-like/11"
+                  fetchURL="/api/analytics/dlhe-like/11"
                   sendData={sendData}
                 />
               }
