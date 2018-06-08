@@ -44,35 +44,7 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGraph(title, id, percentageName, absoluteName, postContent = null) {
-    // const axisData = { y: titles, x: '' };
-    // const dataSeries = [
-    //   { name: set1Name, data: set1 },
-    //   { name: set2Name, data: set2 },
-    // ];
-
-    // const preFinalSet1 = [];
-    // const preFinalSet2 = [];
-
-    // for (let a = 0; a < set1.length; a++) {
-    //   const total = set1[a] + set2[a];
-
-    //   preFinalSet1.push(Math.round((set1[a] / total) * 100));
-    //   preFinalSet2.push(Math.round((set2[a] / total) * 100));
-    // }
-
-    // const axisDataPercentage = { y: titles, x: '%' };
-    // const dataSeriesPercentage = [
-    //   { name: set1Name, data: preFinalSet1 },
-    //   { name: set2Name, data: preFinalSet2 },
-    // ];
-
-    // // this is the absolute numbers
-    // const options1 = drawNewBarChart(axisData, dataSeries);
-
-    // // this is the percentage numbers
-    // const options2 = drawNewBarChart(axisDataPercentage, dataSeriesPercentage);
-
+  getGraph(title, id, percentageName, absoluteName) {
     const panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
@@ -81,7 +53,6 @@ class Page extends React.PureComponent {
             {
               title: <i className="far fa-percent" />,
               active: true,
-              postContent,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -99,7 +70,6 @@ class Page extends React.PureComponent {
             {
               title: <i className="far fa-hashtag" />,
               active: false,
-              postContent,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -154,10 +124,6 @@ class Page extends React.PureComponent {
               'dlhe-like-23-3',
               'PGMostImportantActivityPercentageSplit',
               'PGMostImportantActivityAbsoluteSplit',
-          // {    <div>
-          //                 <h6>* full-time further study, training or research</h6>
-          //                 <h6>** part-time further study, training or research</h6>
-          //                </div>}
               )}
           </div>
 
@@ -166,10 +132,6 @@ class Page extends React.PureComponent {
               'dlhe-like-23-4',
               'UGMostImportantActivityPercentageSplit',
               'UGMostImportantActivityAbsoluteSplit',
-              // / <div>
-              //   <h6>* full-time further study, training or research</h6>
-              //   <h6>** part-time further study, training or research</h6>
-              // </div>
               )
           }
           </div>
@@ -185,13 +147,22 @@ class Page extends React.PureComponent {
     let options = null;
     const data = { axisData: { y: [], x: '' }, dataSeries: [{ name: 'Full Time', data: [] }, { name: 'Part Time', data: [] }] };
 
-
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+               if (key.includes('PercentageSplit')){
+            this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
+          }
+
+
         if (key.startsWith('PG') && key === name) {
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
-            console.log(element.graduateDestination);
-            data.axisData.y.push('1'); // should be pushing element.graduateDestination, but there needs to be something in place for long titles.
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+            let destination = element.graduateDestination;
+            if (destination.length > 36) {
+              if (destination.startsWith('Working')) destination = destination.slice(0, 17);
+              if (destination.startsWith('Engaged')) destination = destination.slice(0, 34);
+              if (destination.startsWith('Doing')) destination = destination.slice(0, 20);
+            }
+            data.axisData.y.push(destination);
             element.data.forEach((elem) => {
               data.dataSeries.forEach((value) => {
                 if (value.name === elem.courseFTPT) value.data.push(elem.value);
@@ -201,7 +172,13 @@ class Page extends React.PureComponent {
           options = drawNewBarChart(data.axisData, data.dataSeries);
         } else if (key.startsWith('UG') && key === name) {
           this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
-            data.axisData.y.push('1');
+            let destination = element.graduateDestination;
+            if (destination.length > 36) {
+              if (destination.startsWith('Working')) destination = destination.slice(0, 17);
+              if (destination.startsWith('Engaged')) destination = destination.slice(0, 34);
+              if (destination.startsWith('Doing')) destination = destination.slice(0, 20);
+            }
+            data.axisData.y.push(destination);
             element.data.forEach((elem) => {
               data.dataSeries.forEach((value) => {
                 if (value.name === elem.courseFTPT) value.data.push(elem.value);
@@ -215,6 +192,30 @@ class Page extends React.PureComponent {
     return options;
   }
 
+  dividePercentOverElements(dataArr) {
+    let remainder;
+
+    dataArr.forEach((element) => {
+      let count = 0;
+      element.data.forEach((elem) => {
+        count += elem.value;
+      });
+
+      if (count > 100) {
+        remainder = count - 100;
+        element.data.forEach((elem) => {
+          elem.value -= (elem.value / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      } else if (count < 100) {
+        remainder = 100 - count;
+        element.data.forEach((elem) => {
+          elem.value += (elem.value / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      }
+    });
+
+    return dataArr;
+  }
 
   render() {
     let content = null;
