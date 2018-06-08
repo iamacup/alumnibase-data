@@ -73,7 +73,6 @@ class Page extends React.PureComponent {
           const scatterData = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => [element.salary, element.score]);
           options = drawScatterGraph(scatterData, optionObj);
         } else if (type === 'loanRepayment' && key === type) {
-
           const optionsObj = { x: 'Years Since Graduation', y: 'Salary', yLabel: 'horizontal', value: false };
           const data = { name: ['Plan 2 - Remaining Loan', 'Plan 2 - Amount Paid', 'Plan 3 - Remaining Loan', 'Plan 3 - Amount Paid'], plotted: [[], [], [], []], age: [] };
 
@@ -82,7 +81,7 @@ class Page extends React.PureComponent {
               let end = 0;
 
               element.plan2.forEach((elem) => {
-                // stopping the graph at 0.
+                // stopping the Plan 2 graph at 0.
                 if (elem.ammountPaid !== 0) {
                   data.plotted[0].push(elem.remainingLoan);
                   data.plotted[1].push(elem.ammountPaid);
@@ -90,7 +89,7 @@ class Page extends React.PureComponent {
               });
 
               element.plan3.forEach((elem) => {
-                // stopping the graph at 0.
+                // stopping the Plan 3 graph at 0.
                 if (elem.ammountPaid !== 0) {
                   end = elem.yearsSinceGraduation;
                   data.age.push(elem.yearsSinceGraduation);

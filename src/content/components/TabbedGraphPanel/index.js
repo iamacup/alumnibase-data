@@ -375,7 +375,7 @@ TabbedGraphPanel.propTypes = {
 
   content: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
+      title: PropTypes.any.isRequired,
       preContent: PropTypes.any,
       postContent: PropTypes.any,
       active: PropTypes.bool.isRequired,
