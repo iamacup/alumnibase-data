@@ -185,49 +185,49 @@ class Page extends React.PureComponent {
   }
 
   getData(type) {
-    let options = null;
+    let options = {};
     const axisData = { y: [], x: '%' };
     const obj = { direction: 'horizontal', value: '£' };
-    const data = [{ name: 'Working full-time', data: [] }, { name: 'Working part-time', data: [] }, { name: 'Unemployed', data: [] }, { name: 'Taking time out in order to travel', data: [] }, { name: 'Engaged in part-time further study', data: [] }, { name: 'Engaged in full-time further study', data: [] }, { name: 'Due to start a job in the next month', data: [] }, { name: 'Doing something else', data: [] }]
+    const data = [{ name: 'Working full-time', data: [] }, { name: 'Working part-time', data: [] }, { name: 'Unemployed', data: [] }, { name: 'Taking time out in order to travel', data: [] }, { name: 'Engaged in part-time further study', data: [] }, { name: 'Engaged in full-time further study', data: [] }, { name: 'Due to start a job in the next month', data: [] }, { name: 'Doing something else', data: [] }];
     const titles = [];
     const data2 = [{ data: [] }];
     const data3 = [{ name: 'Male', data: [] }, { name: 'Female', data: [] }, { name: 'Other', data: [] }];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key === type && key.includes('HighLevelDestinations')) {
-          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-            axisData.y.push(element.subject)
-            element.data.forEach(value => {
-              data.forEach(elem => {
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            axisData.y.push(element.subject);
+            element.data.forEach((value) => {
+              data.forEach((elem) => {
                 if (value.graduateDestinationMostImportant.includes(elem.name)) elem.data.push(value.percentage);
-              })
-            })
-          })
+              });
+            });
+          });
           options = drawNewBarChart(axisData, data);
         } else if (key === type) {
           if (key.includes('Gender')) {
-            this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key], true)
-            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-              titles.push(element.subject)
-              element.data.forEach(value => {
-                data3.forEach(elem => {
+            this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key], true);
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+              titles.push(element.subject);
+              element.data.forEach((value) => {
+                data3.forEach((elem) => {
                   if (value.gender === elem.name) elem.data.push(value.salary);
-                })
-              })
+                });
+              });
             });
-          options = drawGroupedBarChart(titles, data3, obj);
+            options = drawGroupedBarChart(titles, data3, obj);
           } else {
-            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-              titles.push(element.subject)
-              data2[0].data.push(element.averageSalary)
-            })
-          options = drawGroupedBarChart(titles, data2, obj);
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+              titles.push(element.subject);
+              data2[0].data.push(element.averageSalary);
+            });
+            options = drawGroupedBarChart(titles, data2, obj);
           }
-
         }
-      })
+      });
     }
     return options;
   }
@@ -249,13 +249,12 @@ class Page extends React.PureComponent {
           uniqueKeys.forEach((key) => {
             if (!keysInBreakdown.includes(key)) {
               uniqueKeys.forEach((uniqueKey, i) => {
-                if (key === uniqueKey) element.data.splice(i, 0, { gender: key, salary: 0 })
-              })
+                if (key === uniqueKey) element.data.splice(i, 0, { gender: key, salary: 0 });
+              });
             }
           });
         }
       });
-
     } else {
       dataArr.forEach((element) => {
         element.data.forEach((elem) => {
@@ -270,16 +269,40 @@ class Page extends React.PureComponent {
           uniqueKeys.forEach((key) => {
             if (!keysInBreakdown.includes(key)) {
               uniqueKeys.forEach((uniqueKey, i) => {
-                if (key === uniqueKey) element.data.splice(i, 0, { graduateDestinationMostImportant: key, length: 0 })
-              })
+                if (key === uniqueKey) element.data.splice(i, 0, { graduateDestinationMostImportant: key, percentage: 0 });
+              });
             }
           });
         }
       });
-  }
+    }
     return dataArr;
   }
 
+  dividePercentOverElements(dataArr) {
+    let remainder;
+
+    dataArr.forEach((element) => {
+      let count = 0;
+      element.data.forEach((elem) => {
+        count += elem.percentage;
+      });
+
+      if (count > 100) {
+        remainder = count - 100;
+        element.data.forEach((elem) => {
+          elem.percentage -= (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      } else if (count < 100) {
+        remainder = 100 - count;
+        element.data.forEach((elem) => {
+          elem.percentage += (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      }
+    });
+
+    return dataArr;
+  }
 
   render() {
     let content = null;
