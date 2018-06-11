@@ -55,7 +55,7 @@ class Page extends React.PureComponent {
   }
 
   getHeatMap(title, globalID) {
-        const panel = (<TabbedGraphPanel
+    const panel = (<TabbedGraphPanel
       title={title}
       globalID={globalID}
       content={[
@@ -70,7 +70,7 @@ class Page extends React.PureComponent {
                   pinGraph: true,
                 },
                 width: '100%',
-                height: '400px',
+                height: '600px',
                 data: {
                   options: this.getData('UKMovement'),
                 },
@@ -84,7 +84,7 @@ class Page extends React.PureComponent {
   }
 
   getContent() {
-        const content = (
+    const content = (
       <div id="page-content" key="DHLE-9">
 
         <StandardFilters />
@@ -98,9 +98,9 @@ class Page extends React.PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-md-8 col-md-push-2">
+          <div className="col-md-10 col-md-push-2">
 
-          {this.getHeatMap('TITLE', 'DHLE-9-1')}
+            {this.getHeatMap('Graduate Destinations after University', 'DHLE-9-1')}
 
           </div>
         </div>
@@ -112,35 +112,36 @@ class Page extends React.PureComponent {
 
   getData(type) {
     let options = {};
-    const axisData = { 
-      yAxis: [], 
-      xAxis: ["Channel\nIslands", "East\nEngland", "East\nMidlands", "East\nof\nEngland", "Greater\nLondon", "Isle\nof\nMan", "Non-geographic", "North\nEast", "North\nWest", "Northern\nIreland", "Scotland", "South\nEast", "South\nWest", "Wales", "West\nMidlands", "Other"] }
+    const axisData = {
+      yAxis: ['Channel\nIslands', 'East\nEngland', 'East\nMidlands', 'East\nof\nEngland', 'Greater\nLondon', 'Isle\nof\nMan', 'Non-geographic', 'North\nEast', 'North\nWest', 'Northern\nIreland', 'Scotland', 'South\nEast', 'South\nWest', 'Wales', 'West\nMidlands', 'Other'],
+      xAxis: ['Channel\nIslands', 'East\nEngland', 'East\nMidlands', 'East\nof\nEngland', 'Greater\nLondon', 'Isle\nof\nMan', 'Non-geographic', 'North\nEast', 'North\nWest', 'Northern\nIreland', 'Scotland', 'South\nEast', 'South\nWest', 'Wales', 'West\nMidlands', 'Other'],
+    };
     const data = [];
-    
+
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key === type && key === 'UKMovement') {
           this.props.reduxState_fetchDataTransaction.default.payload[0][key][0].schoolLocation.forEach((element, i) => {
-            axisData.yAxis.push(element.region.split(' ').join('\n'))
-            data.push([i, 0, element.length])
-          })
+            const index = axisData.yAxis.indexOf(element.region.split(' ').join('\n'));
+            axisData.yAxis.push(element.region.split(' ').join('\n'));
+            data.push([index, 0, element.length]);
+          });
           this.props.reduxState_fetchDataTransaction.default.payload[0][key][0].currentLocation.forEach((element, i) => {
-            axisData.xAxis.push(element.region)
-            // console.log(axisData.xAxis.indexOf(element.region.split(' ').join('\n')))
-            data[i][1] = axisData.xAxis.indexOf(element.region.split(' ').join('\n'))
-            data[i][2] += element.length
-          })
+            axisData.xAxis.push(element.region);
+            data[i][1] = axisData.xAxis.indexOf(element.region.split(' ').join('\n'));
+            data[i][2] += element.length;
+          });
 
           options = drawHeatMap(axisData, data);
         }
-      })
+      });
     }
 
     return options;
   }
 
   render() {
-        let content = null;
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
       content = this.getContent();
