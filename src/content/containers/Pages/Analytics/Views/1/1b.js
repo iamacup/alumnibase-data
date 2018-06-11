@@ -229,12 +229,10 @@ class Page1b extends React.PureComponent {
       content = this.getContent();
     }
 
-    const sendData = { data: [] };
-
-
+    const sendData = {};
     Object.keys(this.props.filterData).forEach((key) => {
       if (dNc(this.props.filterData[key])) {
-        sendData.data.push({ [key]: this.props.filterData[key] });
+        sendData[key] = this.props.filterData[key];
       }
     });
 
