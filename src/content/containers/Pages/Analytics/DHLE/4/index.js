@@ -130,11 +130,11 @@ class Page extends React.PureComponent {
           this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
           this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
             titles.push(element.yearGroupStart + '-' + element.yearGroupEnd.toString().slice(2));
-            let total = 0
+            let total = 0;
             element.data.forEach((value) => { total += value.length; });
             element.data.forEach((value) => {
               data.forEach((elem) => {
-                if (value.graduateDestinationMostImportant.startsWith(elem.name)) elem.data.push((value.length / total) * 100); 
+                if (value.graduateDestinationMostImportant.startsWith(elem.name)) elem.data.push((value.length / total) * 100);
               });
             });
           });
@@ -161,8 +161,8 @@ class Page extends React.PureComponent {
         uniqueKeys.forEach((key) => {
           if (!keysInBreakdown.includes(key)) {
             uniqueKeys.forEach((uniqueKey, i) => {
-              if (key === uniqueKey) element.data.splice(i, 0, { graduateDestinationMostImportant: key, length: 0 })
-            })
+              if (key === uniqueKey) element.data.splice(i, 0, { graduateDestinationMostImportant: key, length: 0 });
+            });
           }
         });
       }

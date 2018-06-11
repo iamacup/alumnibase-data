@@ -114,93 +114,93 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-              <div className="row">
-                <div className="col-md-8 col-md-push-2">
-              {this.getGraph('Undergraduate Location by gender' ,
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {this.getGraph('Undergraduate Location by gender',
               'dlhe-like-7-1',
               'UGUKLocationsGender',
               )}
-                </div>
-              </div>
+          </div>
+        </div>
 
-            <div className="row">
-                <div className="col-md-8 col-md-push-2">
-              {this.getGraph('Postgraduate Location by gender' ,
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {this.getGraph('Postgraduate Location by gender',
               'dlhe-like-7-2',
               'MastersUKLocationsGender',
               )}
-                </div>
-              </div>
+          </div>
+        </div>
 
-               <div className="row">
-                <div className="col-md-8 col-md-push-2">
-              {this.getGraph('Doctorate Location by gender' ,
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {this.getGraph('Doctorate Location by gender',
               'dlhe-like-7-3',
               'DoctorateUKLocationsGender',
               )}
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
+      </div>
     );
     return content;
   }
 
   getData(keyName, type) {
     let options = {};
-    let data = [{ name: 'Male', data: [] }, { name: 'Female', data: [] }, { name: 'Other', data: [] }];
-    let axisData = { y: [], x: '' };
+    const data = [{ name: 'Male', data: [] }, { name: 'Female', data: [] }, { name: 'Other', data: [] }];
+    const axisData = { y: [], x: '' };
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key === keyName) {
           if (type === 'percentages') {
-            this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][type], 'percentage')
-            this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][type])
-          } else this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][type], 'length')
+            this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][type], 'percentage');
+            this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][type]);
+          } else this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][type], 'length');
 
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][type].forEach(element => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][type].forEach((element) => {
             axisData.y.push(element.location);
-            element.data.forEach(value => {
-              data.forEach(elem => {
+            element.data.forEach((value) => {
+              data.forEach((elem) => {
                 if (value.gender === elem.name) {
-                  if (type === 'percentages') elem.data.push(value.percentage)
-                  else elem.data.push(value.length)
+                  if (type === 'percentages') elem.data.push(value.percentage);
+                  else elem.data.push(value.length);
                 }
-              })
-            })
-          })
-          options = drawNewBarChart(axisData, data)
+              });
+            });
+          });
+          options = drawNewBarChart(axisData, data);
         }
-      })
+      });
     }
 
     return options;
   }
 
   getAllUniqueName(dataArr, type) {
-    let uniqueKeys = []
+    const uniqueKeys = [];
 
     dataArr.forEach((element) => {
-        element.data.forEach((elem) => {
-          if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            uniqueKeys.forEach((uniqueKey, i) => {
+              if (key === uniqueKey) element.data.splice(i, 0, { gender: key, [type]: 0 });
+            });
+          }
         });
-      });
+      }
+    });
 
-      dataArr.forEach((element) => {
-        if (element.data.length < uniqueKeys.length) {
-          const keysInBreakdown = element.data.map(elem => elem.gender);
-
-          uniqueKeys.forEach((key) => {
-            if (!keysInBreakdown.includes(key)) {
-              uniqueKeys.forEach((uniqueKey, i) => {
-                if (key === uniqueKey) element.data.splice(i, 0, { gender: key, [type]: 0 })
-              })
-            }
-          });
-        }
-      });
-
-      return dataArr
+    return dataArr;
   }
 
   dividePercentOverElements(dataArr) {

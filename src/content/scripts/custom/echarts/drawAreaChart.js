@@ -1,7 +1,7 @@
 const drawAreaChart = (areaData, axis) => {
   // areaData sould be in the form [{name: '', data: []}];
   let xlabel = [];
-  let value = '';
+  const value = '';
   // console.log(axis);
   if (!axis) {
     for (let i = 20; i < 51; i++) {

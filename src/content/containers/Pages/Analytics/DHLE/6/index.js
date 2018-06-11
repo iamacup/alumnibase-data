@@ -123,31 +123,31 @@ class Page extends React.PureComponent {
     let options = null;
     const obj = { direction: 'horizontal', value: '' };
     const titles = [];
-    const data = [{ name: 'Other', data: [] }, { name: 'Male', data: [] }, { name: 'Female', data: [] }]
+    const data = [{ name: 'Other', data: [] }, { name: 'Male', data: [] }, { name: 'Female', data: [] }];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key === type) {
           this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
             let title = element.SICCategory;
-            if (title.includes(';')) title = title.slice(0, title.indexOf(';'))
-            titles.push(title)
+            if (title.includes(';')) title = title.slice(0, title.indexOf(';'));
+            titles.push(title);
 
-            element.data.forEach(value => {
-              data.forEach(elem => {
-                if (value.gender === elem.name) elem.data.push(value.averageSalary)
-              })
-            })
-          })
+            element.data.forEach((value) => {
+              data.forEach((elem) => {
+                if (value.gender === elem.name) elem.data.push(value.averageSalary);
+              });
+            });
+          });
           options = drawGroupedBarChart(titles, data, obj);
         }
-      })
+      });
     }
     return options;
   }
 
-    getAllUniqueName(dataArr) {
+  getAllUniqueName(dataArr) {
     const uniqueKeys = [];
 
     dataArr.forEach((element) => {

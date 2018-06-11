@@ -149,13 +149,13 @@ class Page extends React.PureComponent {
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
-               if (key.includes('PercentageSplit')){
-            this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
-          }
+        if (key.includes('PercentageSplit')) {
+          this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+        }
 
 
         if (key.startsWith('PG') && key === name) {
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
             let destination = element.graduateDestination;
             if (destination.length > 36) {
               if (destination.startsWith('Working')) destination = destination.slice(0, 17);

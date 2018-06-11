@@ -114,66 +114,66 @@ class Page extends React.PureComponent {
   getData(type) {
     let options = {};
     const obj = { direction: 'horizontal', value: '' };
-    const titles = []
-    const data =  [{ name: 'Male', data: [] }, { name: 'Female', data: [] }, { name: 'Other', data: [] }]
-    const lastElement = []
-//this is because the greater than element is not last in order to go in.
+    const titles = [];
+    const data = [{ name: 'Male', data: [] }, { name: 'Female', data: [] }, { name: 'Other', data: [] }];
+    const lastElement = [];
+    // this is because the greater than element is not last in order to go in.
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
-        if (type === key && key === 'firstJobGraduatesInFullTimeWorkSalaryBrackets'){
-          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (type === key && key === 'firstJobGraduatesInFullTimeWorkSalaryBrackets') {
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
             // changing < symbol to 'Less than' and making sure < doesn't go in till the end.
-            if (element.salaryGroup.includes('<')) titles.push('Less than £' + element.salaryGroup.slice(2))
-            else if (!element.salaryGroup.includes('>')) titles.push('£' + element.salaryGroup)
-            else lastElement.push(element)
+            if (element.salaryGroup.includes('<')) titles.push('Less than £' + element.salaryGroup.slice(2));
+            else if (!element.salaryGroup.includes('>')) titles.push('£' + element.salaryGroup);
+            else lastElement.push(element);
 
 
             if (!element.salaryGroup.includes('>')) {
-              element.data.forEach(value => {
-                data.forEach(elem => {
-                  if (value.gender === elem.name) elem.data.push(value.length)
-                })
-              })
+              element.data.forEach((value) => {
+                data.forEach((elem) => {
+                  if (value.gender === elem.name) elem.data.push(value.length);
+                });
+              });
             }
-          })
+          });
           // pushing the greater than data into the correct arrays.
-          titles.push('Greater than £' + lastElement[0].salaryGroup.slice(2))
-          lastElement[0].data.forEach(value => {
-            data.forEach(elem => { if (value.gender === elem.name) elem.data.push(value.length) })
-          })
-          options = drawGroupedBarChart(titles, data, obj)
+          titles.push('Greater than £' + lastElement[0].salaryGroup.slice(2));
+          lastElement[0].data.forEach((value) => {
+            data.forEach((elem) => { if (value.gender === elem.name) elem.data.push(value.length); });
+          });
+          options = drawGroupedBarChart(titles, data, obj);
         }
-      })
+      });
     }
     return options;
   }
 
   getAllUniqueNames(dataArr) {
-        let uniqueKeys = []
+    const uniqueKeys = [];
 
     dataArr.forEach((element) => {
-        element.data.forEach((elem) => {
-          if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            uniqueKeys.forEach((uniqueKey, i) => {
+              if (key === uniqueKey) element.data.splice(i, 0, { gender: key, length: 0 });
+            });
+          }
         });
-      });
+      }
+    });
 
-      dataArr.forEach((element) => {
-        if (element.data.length < uniqueKeys.length) {
-          const keysInBreakdown = element.data.map(elem => elem.gender);
-
-          uniqueKeys.forEach((key) => {
-            if (!keysInBreakdown.includes(key)) {
-              uniqueKeys.forEach((uniqueKey, i) => {
-                if (key === uniqueKey) element.data.splice(i, 0, { gender: key, length: 0 })
-              })
-            }
-          });
-        }
-      });
-
-      return dataArr
+    return dataArr;
   }
 
   render() {

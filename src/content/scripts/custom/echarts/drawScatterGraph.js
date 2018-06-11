@@ -53,7 +53,7 @@ const drawScatterGraph = (data, options) => {
         show: false,
       },
       max: options.max + 10000,
-      min: - (options.max + 10000), //options.min - 10000,
+      min: -(options.max + 10000), // options.min - 10000,
     },
     yAxis: {
       axisLabel: {

@@ -125,32 +125,32 @@ class Page extends React.PureComponent {
     return content;
   }
 
-  getData(type){
+  getData(type) {
     let options = null;
     const obj = { direction: 'horizontal', value: '' };
     const titles = [];
-    const data = [{ name: 'Other', data: [] }, { name: 'Male', data: [] }, { name: 'Female', data: [] }]
+    const data = [{ name: 'Other', data: [] }, { name: 'Male', data: [] }, { name: 'Female', data: [] }];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (type === key) {
-          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key])
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach(element => {
-            titles.push(element.employmentType)
-            element.data.forEach(value => {
-              data.forEach(elem => {
-                if (value.gender === elem.name) elem.data.push(value.averageSalary)
-              })
-            })
-          })
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            titles.push(element.employmentType);
+            element.data.forEach((value) => {
+              data.forEach((elem) => {
+                if (value.gender === elem.name) elem.data.push(value.averageSalary);
+              });
+            });
+          });
           options = drawGroupedBarChart(titles, data, obj);
         }
-      })
+      });
     }
     return options;
   }
 
-    getAllUniqueName(dataArr) {
+  getAllUniqueName(dataArr) {
     const uniqueKeys = [];
     dataArr.forEach((element) => {
       element.data.forEach((elem) => {
@@ -165,8 +165,8 @@ class Page extends React.PureComponent {
         uniqueKeys.forEach((key) => {
           if (!keysInBreakdown.includes(key)) {
             uniqueKeys.forEach((uniqueKey, i) => {
-              if (key === uniqueKey) element.data.splice(i, 0, { averageSalary: 0, gender: key })
-            })
+              if (key === uniqueKey) element.data.splice(i, 0, { averageSalary: 0, gender: key });
+            });
           }
         });
       }
