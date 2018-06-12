@@ -214,7 +214,7 @@ class Page extends React.PureComponent {
                 <FetchData
                   active
                   fetchURL="/api/analytics/salary/ranges"
-                  sendData={{ filterData: sendData}}
+                  sendData={{ filterData: sendData }}
                 />
               }
             />

@@ -223,7 +223,7 @@ class Page extends React.PureComponent {
                 <FetchData
                   active
                   fetchURL="/api/analytics/subjects/first-year"
-                  sendData={{ filterData: sendData}}
+                  sendData={{ filterData: sendData }}
                 />
               }
             />
