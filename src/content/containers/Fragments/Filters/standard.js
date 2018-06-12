@@ -237,7 +237,7 @@ class Graph extends React.PureComponent {
 
       const executeFunction = debounce(() => {
         const value = $('#age-slider').val().split(',')
-        const result = [+value[0], +value[1]]
+        const result = [+value[0], +value[1]];
         this.setStateWithValue('ageRange', result);
       }, 250);
 
@@ -287,7 +287,6 @@ class Graph extends React.PureComponent {
 
       // setting state for gender, ethnicity, polar and stem.
       let gender = [];
-      console.log(this.state)
       if (dNc(this.state.gender)) ({ gender } = this.state);
 
       if (gender.includes('male')) $('#gender-male').attr('checked', true);
@@ -582,7 +581,7 @@ class Graph extends React.PureComponent {
                           <option />
                           <option value="GDP">UK £</option>
                           {currencyData.map(element => (
-                            <option value={element.currency}>{element.country + ' ' + element.symbol}</option>
+                            <option value={element.currency}>{element.country[0] + ' ' + element.symbol}</option>
                         ))}
                         </select>
                       </div>

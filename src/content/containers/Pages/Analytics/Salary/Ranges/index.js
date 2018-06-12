@@ -102,7 +102,7 @@ class Page extends React.PureComponent {
       this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
         if (name === element.splitItem) {
           element.split.forEach((value) => {
-            data.categories.push(value.gender);
+            data.categories.push(value.value);
             data.values.push(value.salaries);
           });
         }
@@ -122,7 +122,6 @@ class Page extends React.PureComponent {
     //   religionData.categories.push('National Average');
     //   religionData.values.push(nationalAverageSalaryData);
     // }
-
     return data;
   }
 

@@ -162,7 +162,7 @@ class Page extends React.PureComponent {
   }
 
   getAllUniqueNames(dataArr) {
-    const uniqueKeys = ['Other'];
+    let uniqueKeys = ['Other'];
 
     dataArr.forEach((element) => {
       element.split.forEach((elem) => {
@@ -170,10 +170,12 @@ class Page extends React.PureComponent {
       });
     });
 
+    // this makes sure that the unique keys match whats in the filter data, if you only want 'Male' salaries, uniqueKeys should only have 'Male'
+    if (dNc(this.props.filterData.gender)) uniqueKeys = this.props.filterData.gender;
+
     dataArr.forEach((element) => {
       if (element.split.length < uniqueKeys.length) {
         const keysInBreakdown = element.split.map(elem => elem.gender);
-
 
         uniqueKeys.forEach((key) => {
           if (!keysInBreakdown.includes(key)) {
