@@ -28,7 +28,7 @@ class Graph extends React.PureComponent {
       degreeType: null,
       stem: null,
       polar: null,
-      currency: null,
+      currency: 'GBP',
     });
   }
 
@@ -174,16 +174,16 @@ class Graph extends React.PureComponent {
       });
 
       $('#sel5').on('change', () => {
-        this.setStateWithValue('currency', $('#sel5').val())
-      })
+        this.setStateWithValue('currency', $('#sel5').val());
+      });
 
       // age slider
-      let age = [18, 85];
+      let age = [18, 100];
       if (dNc(this.state.ageRange)) age = this.state.ageRange;
 
       $('#age-slider').slider({
         min: 18,
-        max: 85,
+        max: 100,
         step: 1,
         value: [+age[0], +age[1]],
       });
@@ -1042,15 +1042,15 @@ class Graph extends React.PureComponent {
                     </div>
                     <div className="col-md-6" style={{ paddingTop: '20px' }}>
                       <div className="col-sm-8">
-                      <label htmlFor="sel5">Currency:</label>
+                        <label htmlFor="sel5">Currency:</label>
                       </div>
                       <div className="col-sm-12">
-                       <select className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px' }}>
-                        <option value='GDP'>{'£'}</option>
-                       {currencyData.map(element => (
-                        <option value={element.currency}>{element.symbol + ' ' + element.country}</option>
+                        <select className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px' }}>
+                          <option value="GDP">£</option>
+                          {currencyData.map(element => (
+                            <option value={element.currency}>{element.symbol + ' ' + element.country}</option>
                         ))}
-                       </select>
+                        </select>
                       </div>
                     </div>
                   </div>
