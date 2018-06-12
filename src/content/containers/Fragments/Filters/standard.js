@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 
 import { dNc, debounce, initialiseNonMobileSticky } from '../../../../content/scripts/custom/utilities';
 
+import currencyData from './currencyData';
+
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 
@@ -26,6 +28,7 @@ class Graph extends React.PureComponent {
       degreeType: null,
       stem: null,
       polar: null,
+      currency: null,
     });
   }
 
@@ -170,6 +173,9 @@ class Graph extends React.PureComponent {
         this.setStateWithValue('degreeType', $('#sel4').val());
       });
 
+      $('#sel5').on('change', () => {
+        this.setStateWithValue('currency', $('#sel5').val())
+      })
 
       // age slider
       let age = [18, 85];
@@ -323,6 +329,7 @@ class Graph extends React.PureComponent {
       degreeType: this.state.degreeType,
       stem: this.state.stem,
       polar: this.state.polar,
+      currency: this.state.currency,
     });
   }
 
@@ -1002,7 +1009,7 @@ class Graph extends React.PureComponent {
                   <div className="col-sm-6">
                     <div className="form-group">
                       <label htmlFor="sel4">Degree Type:</label>
-                      <select className="form-control" name="sel3" id="sel4">
+                      <select className="form-control" name="sel4" id="sel4">
                         <option />
                         <option>Undergraduate Bachelors Degree</option>
                         <option>Undergraduate Masters Degree</option>
@@ -1015,8 +1022,8 @@ class Graph extends React.PureComponent {
                 </div>
 
                 <div className="form-group">
-                  <div className="row">
-                    <div className="col-md-4">
+                  <div className="row justify-content-between">
+                    <div className="col-md-6">
                       <p className="text-main text-bold">Other Options</p>
                       <div className="col-sm-10 col-sm-push-1" id="switches">
                         <div className="col-sm-8">
@@ -1031,6 +1038,19 @@ class Graph extends React.PureComponent {
                         <div className="col-sm-4">
                           <input id="demo-sw-unchecked2" type="checkbox" value="polar" checked={polarChecked} />
                         </div>
+                      </div>
+                    </div>
+                    <div className="col-md-6" style={{ paddingTop: '20px' }}>
+                      <div className="col-sm-8">
+                      <label htmlFor="sel5">Currency:</label>
+                      </div>
+                      <div className="col-sm-12">
+                       <select className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px' }}>
+                        <option value='GDP'>{'£'}</option>
+                       {currencyData.map(element => (
+                        <option value={element.currency}>{element.symbol + ' ' + element.country}</option>
+                        ))}
+                       </select>
                       </div>
                     </div>
                   </div>
