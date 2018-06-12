@@ -45,7 +45,7 @@ class Page extends React.PureComponent {
   }
 
   getData(type) {
-    let options = null;
+    let options = {};
     const columns = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
     const rows = [];
     let postContent = '';

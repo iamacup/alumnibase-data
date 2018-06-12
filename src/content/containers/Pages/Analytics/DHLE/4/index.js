@@ -110,7 +110,7 @@ class Page extends React.PureComponent {
 
   getData(type) {
     // x-axis labels.
-    let options;
+    let options = {};
     const titles = [];
     const data = [
       { name: 'Doing something else', data: [] },

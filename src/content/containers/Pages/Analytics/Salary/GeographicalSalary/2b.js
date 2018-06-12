@@ -104,7 +104,7 @@ class Page extends React.PureComponent {
   }
 
   getData(type) {
-    let options = null;
+    let options = {};
     let table = null;
     const data = [];
     const tableData = [];

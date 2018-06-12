@@ -120,7 +120,7 @@ class Page extends React.PureComponent {
   }
 
   getData(type) {
-    let options = null;
+    let options = {};
     const obj = { direction: 'horizontal', value: '' };
     const titles = [];
     const data = [{ name: 'Other', data: [] }, { name: 'Male', data: [] }, { name: 'Female', data: [] }];

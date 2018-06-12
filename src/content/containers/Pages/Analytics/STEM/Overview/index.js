@@ -47,7 +47,7 @@ class Page extends React.PureComponent {
   }
 
   getData(type) {
-    let options = null;
+    let options = {};
     const data1 = [
       {
         job: 'Science', salary: [21.352], male: [23], female: [21],

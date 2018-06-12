@@ -48,7 +48,7 @@ class Page extends React.PureComponent {
   }
 
   getData(type, num) {
-    let options = null;
+    let options = {};
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {

@@ -328,7 +328,7 @@ class Page extends React.PureComponent {
 
 
   getData(type) {
-    let results = null;
+    let results = {};
 
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {

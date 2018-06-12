@@ -46,7 +46,7 @@ class Page extends React.PureComponent {
   }
 
   getData(type) {
-    let options = null;
+    let options = {};
 
     const line = {
       lineOptions: { value: false },
