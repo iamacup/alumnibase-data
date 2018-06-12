@@ -317,7 +317,7 @@ class Page extends React.PureComponent {
         sendData[key] = this.props.filterData[key];
       }
     });
-    
+
     const dataTransaction = (
       <div className="container" key="transaction-dhle-5">
         <div className="row" style={{ marginTop: '200px' }}>
@@ -327,7 +327,7 @@ class Page extends React.PureComponent {
                 <FetchData
                   active
                   fetchURL="/api/analytics/dlhe-like/5"
-                  sendData={sendData}
+                  sendData={{ filterData: sendData}}
                 />
               }
             />

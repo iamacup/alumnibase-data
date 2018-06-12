@@ -249,6 +249,27 @@ class Page extends React.PureComponent {
       </div>
     );
 
+    const scatterText = (
+      <div>
+        <p>To what extent has your HE experience enabled you to:</p><br />
+        <h5>Be innovative in the workplace?</h5>
+        <p>Make a difference in the workplace?</p>
+        <p>Change organisational culture and/or working practices?</p>
+        <p>Influence the work of others in the workplace?</p>
+        <p>Access immediate or short-term job opportunities in your chosen career?</p>
+        <p>Enhance your credibility or standing in the workplace?</p>
+        <p>Progress towards your long term career aspirations?</p>
+        <p>Enhance your social and intellectual capabilities beyond employment?</p>
+        <p>Enhance the quality of your life generally?</p><br />
+        <h5>Where the possible answers are:</h5>
+        <p>A great extent</p>
+        <p>Some extent</p>
+        <p>Not at all</p>
+        <p>Don't know</p>
+        <p>Have not worked since finishing course</p><br />
+      </div>
+    );
+
     const content = (
       <div id="page-content" key="subjects-vfm">
 
@@ -422,7 +443,6 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">Monetary and Derived Value</h3>
             <h5 className="text-muted text-normal">We take various metrics from the survey that indicate positive impact of the university on the respondents life that are not related to salary and map them against salary.</h5>
-            <h5 style={{ color: 'red' }}>Explain what questions are used to gather the data in this graph.</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
@@ -456,6 +476,15 @@ class Page extends React.PureComponent {
             />
           </div>
         </div>
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <CollapsablePanel
+              title="The questions used to gather the data in this graph."
+              content={scatterText}
+              expanded={false}
+            />
+          </div>
+        </div>
 
       </div>
     );
@@ -485,7 +514,7 @@ class Page extends React.PureComponent {
                 <FetchData
                   active
                   fetchURL="/api/analytics/subjects/vfm"
-                  sendData={sendData}
+                  sendData={{ filterData: sendData}}
                 />
               }
             />

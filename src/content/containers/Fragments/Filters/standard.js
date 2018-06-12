@@ -302,7 +302,7 @@ class Graph extends React.PureComponent {
   setStateWithValue(id, value) {
     let val = value;
     if (value === null || value.length === 0) val = null;
-console.log(id, value)
+    console.log(id, value);
     this.setState({
       [id]: val,
     });

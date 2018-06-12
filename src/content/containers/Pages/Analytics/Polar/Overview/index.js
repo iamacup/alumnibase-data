@@ -145,7 +145,7 @@ class Page extends React.PureComponent {
                 <FetchData
                   active
                   fetchURL="/api/analytics/polar"
-                  sendData={sendData}
+                  sendData={{ filterData: sendData}}
                 />
               }
             />
