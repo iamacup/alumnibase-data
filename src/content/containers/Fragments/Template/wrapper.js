@@ -61,6 +61,7 @@ class Wrapper extends React.PureComponent {
     else if (name === 'durham') uniName = 'Durham University';
     else if (name === 'mmu') uniName = 'Manchester Metropolitan University';
     else if (name === 'liverpool-hope') uniName = 'Liverpool Hope University';
+    else if (name === 'chester') uniName = 'University of Chester';
     else this.context.router.history.push('/broken/page');
 
     return (
