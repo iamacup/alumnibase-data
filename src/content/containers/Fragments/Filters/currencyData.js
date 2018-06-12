@@ -1,6 +1,6 @@
 const currencies = [
-{ currency: 'AED', symbol: 'د.إ', country: 'UAE' },
-{ currency: 'AFN', symbol: 'Af', country: 'Afghanistan' }
+  { currency: 'AED', symbol: 'د.إ', country: 'UAE' },
+  { currency: 'AFN', symbol: 'Af', country: 'Afghanistan' },
 
 
 // ALL,L,Lek,Albania
@@ -237,6 +237,6 @@ const currencies = [
 // ZMW,ZK,Zambian Kwacha,Zambia
 // ZWL,$,Zimbabwe Dollar,Zimbabwe
 
-]
+];
 
 export default currencies;
