@@ -180,17 +180,17 @@ class Graph extends React.PureComponent {
       // age slider
       let age = [18, 100];
       if (dNc(this.state.ageRange)) age = this.state.ageRange;
-
       $('#age-slider').slider({
         min: 18,
         max: 100,
         step: 1,
-        value: [+age[0], +age[1]],
+        value: [age[0], age[1]],
       });
 
       const executeFunction = debounce(() => {
-        console.log('change 1');
-        this.setStateWithValue('ageRange', $('#age-slider').val().split(','));
+        const value = $('#age-slider').val().split(',')
+        const result = [+value[0], +value[1]]
+        this.setStateWithValue('ageRange', result);
       }, 250);
 
       $('#age-slider').on('slideStop', executeFunction);
@@ -204,12 +204,14 @@ class Graph extends React.PureComponent {
         min: 1920,
         max: 2018,
         step: 1,
-        value: [+date[0], +date[1]],
+        value: [date[0], date[1]],
       });
 
       const executeFunction2 = debounce(() => {
         console.log('change 2');
-        this.setStateWithValue('graduactionRange', $('#date-slider').val().split(','));
+        const value = $('#date-slider').val().split(',');
+        const result = [+value[0], +value[1]]
+        this.setStateWithValue('graduactionRange', result);
       }, 250);
 
       $('#date-slider').on('slideStop', executeFunction2);
@@ -223,12 +225,14 @@ class Graph extends React.PureComponent {
         min: 0,
         max: 1000000,
         step: 1,
-        value: [+salary[0], +salary[1]],
+        value: [salary[0], salary[1]],
       });
 
       const executeFunction3 = debounce(() => {
         console.log('change 3');
-        this.setStateWithValue('salaryRange', $('#salary-slider').val().split(','));
+        const value = $('#salary-slider').val().split(',');
+        const result = [+value[0], +value[1]];
+        this.setStateWithValue('salaryRange', result);
       }, 250);
 
       $('#salary-slider').on('slideStop', executeFunction3);
@@ -1046,9 +1050,9 @@ class Graph extends React.PureComponent {
                       </div>
                       <div className="col-sm-12">
                         <select className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px' }}>
-                          <option value="GDP">£</option>
+                          <option value="GDP">UK £</option>
                           {currencyData.map(element => (
-                            <option value={element.currency}>{element.symbol + ' ' + element.country}</option>
+                            <option value={element.currency}>{element.country + ' ' + element.symbol}</option>
                         ))}
                         </select>
                       </div>
