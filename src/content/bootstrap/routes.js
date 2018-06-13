@@ -73,7 +73,7 @@ export default [
     path: `/${universityName}/tests`,
     exact: true,
     component: TestsPage,
-  },  
+  },
   {
     path: `/${universityName}/tests2`,
     exact: true,

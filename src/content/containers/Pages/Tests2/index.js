@@ -13,16 +13,16 @@ const FetchData = fetchDataBuilder(dataStoreID);
 class Page extends React.PureComponent {
   render() {
     return (
-        <div>
-          <h1>This is a page</h1>
+      <div>
+        <h1>This is a page</h1>
 
-          <FetchData
-                  active
-                  fetchURL="api/analytics/overview"
-                  sendData={{filterData: {}}}
-                />
-        </div>
-      );
+        <FetchData
+          active
+          fetchURL="api/analytics/overview"
+          sendData={{ filterData: {} }}
+        />
+      </div>
+    );
   }
 }
 

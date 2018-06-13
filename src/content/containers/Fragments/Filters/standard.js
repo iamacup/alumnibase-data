@@ -27,7 +27,7 @@ class Graph extends React.PureComponent {
       gender: null,
       ethnicity: null,
       ageRange: null,
-      graduactionRange: null,
+      graduationRange: null,
       salaryRange: null,
       subject: null,
       degreeLevel: null,
@@ -246,7 +246,7 @@ class Graph extends React.PureComponent {
 
       // date slider
       let date = [1920, 2018];
-      if (dNc(this.state.graduactionRange)) date = this.state.graduactionRange;
+      if (dNc(this.state.graduationRange)) date = this.state.graduationRange;
 
       $('#date-slider').slider({
         min: 1920,
@@ -259,7 +259,7 @@ class Graph extends React.PureComponent {
         console.log('change 2');
         const value = $('#date-slider').val().split(',');
         const result = [+value[0], +value[1]];
-        this.setStateWithValue('graduactionRange', result);
+        this.setStateWithValue('graduationRange', result);
       }, 250);
 
       $('#date-slider').on('slideStop', executeFunction2);
@@ -387,7 +387,7 @@ class Graph extends React.PureComponent {
       gender: this.state.gender,
       ethnicity: this.state.ethnicity,
       ageRange: this.state.ageRange,
-      graduactionRange: this.state.graduactionRange,
+      graduationRange: this.state.graduationRange,
       salaryRange: this.state.salaryRange,
       subject: this.state.subject,
       degreeLevel: this.state.degreeLevel,
