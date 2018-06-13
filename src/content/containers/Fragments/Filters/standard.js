@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 import { dNc, debounce, initialiseNonMobileSticky } from '../../../../content/scripts/custom/utilities';
 
-import currencyData from './currencyData';
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
 import BasicPanel from '../../../../content/components/BasicPanel';
 import Wrapper from '../../../../content/containers/Fragments/Template/wrapper';
@@ -33,7 +32,7 @@ class Graph extends React.PureComponent {
       degreeLevel: null,
       stem: null,
       polar: null,
-      currency: 'GBP',
+      currency: null, //'options/42960339872', // the option id for GBP, so that it's set as default.
     });
   }
 
@@ -222,8 +221,16 @@ class Graph extends React.PureComponent {
       });
 
       $('#sel5').on('change', () => {
-        this.setStateWithValue('currency', $('#sel5').val());
+        let data = $('#sel5').val();
+          if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+            this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach((element) => {
+              if (element.displayValue === $('#sel5').val()) data = element.optionID;
+            });
+          }
+          console.log(data)
+        this.setStateWithValue('currency', data);
       });
+
 
       // age slider
       let age = [18, 100];
@@ -408,7 +415,7 @@ class Graph extends React.PureComponent {
     if (this.state.polar === true) polarChecked = true;
     if (this.state.stem === true) stemChecked = true;
     const data = {
-      ethnicity: [], countryOfBirth: [], currentCountry: [], gender: [], degreeLevel: [], subject: [],
+      ethnicity: [], countryOfBirth: [], currentCountry: [], gender: [], degreeLevel: [], subject: [], currency: [],
     };
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
@@ -580,9 +587,8 @@ class Graph extends React.PureComponent {
                       <div className="col-sm-12">
                         <select data-placeholder="Filter by currency" className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px' }}>
                           <option />
-                          <option value="GDP">UK £</option>
-                          {currencyData.map(element => (
-                            <option value={element.currency}>{element.country[0] + ' ' + element.symbol}</option>
+                          {data.currency.map(element => (
+                            <option value={element.optionID}>{element.displayValue}</option>
                         ))}
                         </select>
                       </div>
