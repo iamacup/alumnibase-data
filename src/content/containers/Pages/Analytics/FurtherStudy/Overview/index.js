@@ -88,31 +88,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <div className="row">
               <div className="col-md-8 col-md-push-2">
-
-                <TabbedGraphPanel
-                  title={`Further Study Among Graduates from ${uniName}`}
-                  globalID="further-study-overview-1"
-                  content={[
-                {
-                  title: '',
-                  active: true,
-                  graphData: {
-                    type: 'echarts',
-                    tools: {
-                      allowDownload: true,
-                      seeData: false,
-                      pinGraph: true,
-                    },
-                    width: '100%',
-                    height: '400px',
-                    data: {
-                      options: this.getData('thisUniPGSplit'),
-                    },
-                  },
-                },
-              ]}
-                  seperator
-                />
+              {this.getGraph(`Further Study Among Graduates from ${uniName}`, "further-study-overview-1", "thisUniPGSplit")}
               </div>
             </div>
             <div className="row">
@@ -202,6 +178,46 @@ class Page extends React.PureComponent {
     return content;
   }
 
+  getGraph(title, id, name) {
+    let panel = null
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0){
+        panel = (<TabbedGraphPanel
+                  title={title}
+                  globalID={id}
+                  content={[
+                {
+                  title: '',
+                  active: true,
+                  graphData: {
+                    type: 'echarts',
+                    tools: {
+                      allowDownload: true,
+                      seeData: false,
+                      pinGraph: true,
+                    },
+                    width: '100%',
+                    height: '400px',
+                    data: {
+                      options: this.getData(name),
+                    },
+                  },
+                },
+              ]}
+                  seperator
+                />)
+      } else panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />)
+    }
+    return panel
+  }
+
   getData(name) {
     let options = {};
     const data = [];
@@ -223,11 +239,30 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
-
-
+    
     const sendData = {};
     Object.keys(this.props.filterData).forEach((key) => {
       if (dNc(this.props.filterData[key])) {

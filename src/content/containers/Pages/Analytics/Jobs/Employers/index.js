@@ -44,12 +44,8 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGroupedBarchart(title, value, direction, globalID, dataObj, label) {
-    const obj = {
-      direction,
-      value,
-    };
-
+  getGroupedBarchart(title, globalID, dataName, label) {
+    let panel = null;
     let labels = '';
     let topLabel = '';
     if (label) {
@@ -57,12 +53,23 @@ class Page extends React.PureComponent {
     } else {
       topLabel = <p>Percentage of graduates in employment after completing a sandwich course.</p>;
     }
-    const options = drawGroupedBarChart(dataObj.titles, dataObj.data, obj);
 
-    const panel = (<TabbedGraphPanel
-      title={title}
-      globalID={globalID}
-      content={[
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      const length = [];
+      if (dataName === 'companySizes') length.push(this.props.reduxState_fetchDataTransaction.default.payload[0][dataName][0].length, 1);
+      else if (dataName === 'employmentRate') {
+        Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][dataName][0]).forEach((element) => {
+          if (this.props.reduxState_fetchDataTransaction.default.payload[0][dataName][0][element].length > 0) length.push(this.props.reduxState_fetchDataTransaction.default.payload[0][dataName][0][element].length);
+        });
+      }
+
+      console.log(length);
+
+      if (length[0] > 0 && length[1] > 0) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={globalID}
+          content={[
             {
               title: '',
               preContent: topLabel,
@@ -78,14 +85,23 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options,
+                  options: this.getData(dataName),
                 },
               },
             },
           ]}
-      seperator
-    />);
-
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
     return panel;
   }
 
@@ -138,11 +154,13 @@ class Page extends React.PureComponent {
   getData(type) {
     let titles = ['Micro', 'Small', 'Medium', 'Large'];
     let data = [];
+    const obj = { direction: 'vertical', value: '' };
 
-    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
-      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
-        if (Object.keys(element)[0] === type) {
-          element[type].forEach((value) => {
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((element) => {
+        console.log(element);
+        if (element === type && element === 'companySizes') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][element].forEach((value) => {
             value.forEach((elem) => {
               const yearData = [];
               let name = '';
@@ -157,11 +175,11 @@ class Page extends React.PureComponent {
               data.push({ name, data: yearData });
             });
           });
-        } else if (Object.keys(element)[1] === type) {
+        } else if (element === type && element === 'employmentRate') {
           titles = [];
           data = [{ name: '', data: [] }];
 
-          element[type].forEach((elem) => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][element].forEach((elem) => {
             Object.keys(elem).forEach((name) => {
               let title;
               if (name === 'firstYearEmployment') title = 'Non-Sandwich\nCourse Average';
@@ -177,7 +195,8 @@ class Page extends React.PureComponent {
       });
     }
 
-    return { titles, data };
+    const options = drawGroupedBarChart(titles, data, obj);
+    return options;
   }
 
   getContent() {
@@ -196,19 +215,15 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getGroupedBarchart('Graduate Employer Destinations Split by Time After Graduating',
-                  '',
-                  'vertical',
                   'tuesday-graphs-3',
-                  this.getData('companySizes'), true)}
+                  'companySizes', true)}
           </div>
         </div>
         <div className="row">
           <div className="col-md-6 col-md-push-3">
             {this.getGroupedBarchart('Employment rate of graduates in the First Year.',
-                            '',
-                            'vertical',
                             'tuesday-graphs-3',
-                            this.getData('employmentRate'))}
+                            'employmentRate')}
 
           </div>
         </div>
@@ -226,10 +241,29 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
-
 
     const sendData = {};
     Object.keys(this.props.filterData).forEach((key) => {

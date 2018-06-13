@@ -129,6 +129,51 @@ class Page extends React.PureComponent {
     return dataArr;
   }
 
+  getGraph(title, id, name, data) {
+    let panel = null;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (data === false || dNc(this.props.reduxState_fetchDataTransaction.default.payload[0][name])) {
+        if (data === false || (this.props.reduxState_fetchDataTransaction.default.payload[0][name][0].data.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0][name][1].data.length > 0)) {
+          panel = (<TabbedGraphPanel
+            title={title}
+            globalID={id}
+            content={[
+                       {
+                         title: '',
+                         active: true,
+                         graphData: {
+                           type: 'echarts',
+                           tools: {
+                             allowDownload: true,
+                             seeData: false,
+                             pinGraph: true,
+                           },
+                           width: '100%',
+                           height: '400px',
+                           data: {
+                             options: this.getData(name),
+                           },
+                         },
+                       },
+                     ]}
+            seperator
+          />);
+        } else {
+          panel = (<BasicPanel
+            content={
+              <div className="text-center">
+                <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+              </div>
+          }
+          />);
+        }
+      }
+    }
+
+    return panel;
+  }
+
   getContent() {
     const content = (
       <div id="page-content" key="subjects-longterm">
@@ -144,56 +189,8 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-
-            <TabbedGraphPanel
-              title={<p style={{ color: 'red' }}>NEED TO INFER</p>}
-              globalID="stem-overview-2"
-              content={[
-                       {
-                         title: '',
-                         active: true,
-                         graphData: {
-                           type: 'echarts',
-                           tools: {
-                             allowDownload: true,
-                             seeData: false,
-                             pinGraph: true,
-                           },
-                           width: '100%',
-                           height: '400px',
-                           data: {
-                             options: this.getData('line'),
-                           },
-                         },
-                       },
-                     ]}
-              seperator
-            />
-
-            <TabbedGraphPanel
-              title="Change in Salary between 1 Year After Graduating"
-              globalID="tuesday-graphs-2"
-              content={[
-                {
-                  title: '',
-                  active: true,
-                  graphData: {
-                    type: 'echarts',
-                    tools: {
-                      allowDownload: true,
-                      seeData: false,
-                      pinGraph: true,
-                    },
-                    width: '100%',
-                    height: '400px',
-                    data: {
-                      options: this.getData('salaryChangeTime'),
-                    },
-                  },
-                },
-              ]}
-              seperator
-            />
+            {this.getGraph(<p style={{ color: 'red' }}>NEED TO INFER</p>, 'long-term-1', 'line', false)}
+            {this.getGraph('Change in Salary between 1 Year After Graduating', 'long-term-2', 'salaryChangeTime')}
           </div>
         </div>
       </div>
@@ -204,8 +201,28 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
 
     const sendData = {};

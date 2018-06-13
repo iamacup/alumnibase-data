@@ -53,36 +53,55 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGraph() {
-    const panel = (<TabbedGraphPanel
-      title="Destinations of Graduates from Full Time Study per age"
-      globalID="DHLE-4-1"
-      content={[
-            {
-              title: '',
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: this.getData('destinations'),
+  getGraph(name) {
+    let panel = null;
+
+    if (name !== 'noData') {
+      panel = (<TabbedGraphPanel
+        title="Destinations of Graduates from Full Time Study per age"
+        globalID="DHLE-4-1"
+        content={[
+              {
+                title: '',
+                active: true,
+                graphData: {
+                  type: 'echarts',
+                  tools: {
+                    allowDownload: true,
+                    seeData: false,
+                    pinGraph: true,
+                  },
+                  width: '100%',
+                  height: '350px',
+                  data: {
+                    options: this.getData(name),
+                  },
                 },
               },
-            },
-          ]}
-      seperator
-    />);
+            ]}
+        seperator
+      />);
+    } else {
+      panel = (
+        <BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />
+      );
+    }
 
     return panel;
   }
 
   getContent() {
+    let name = 'noData';
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].destinations.length > 0) name = 'destinations';
+    }
+
     const content = (
       <div id="page-content" key="DHLE-4">
 
@@ -98,12 +117,13 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGraph()}
+            {this.getGraph(name)}
           </div>
         </div>
 
       </div>
     );
+
 
     return content;
   }
@@ -122,7 +142,6 @@ class Page extends React.PureComponent {
       { name: 'Working full-time', data: [] },
       { name: 'Working part-time', data: [] },
     ];
-
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
@@ -173,8 +192,28 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
 
     const sendData = {};

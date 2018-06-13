@@ -46,11 +46,21 @@ class Page extends React.PureComponent {
     });
   }
 
-  getTabbed(title, id, options, dataObj) {
-    const panel = (<TabbedGraphPanel
+  getTabbed(title, id, collapse, trends, data) {
+    let panel = null;
+    let allData = false
+    let timeSeriesData = false
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+
+        if (this.props.reduxState_fetchDataTransaction.default.payload.allData.length > 0) allData = true 
+        if (this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.length > 0) timeSeriesData = true 
+  
+      if (allData && timeSeriesData) {
+   panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
-      collapsed={dataObj.collapsed}
+      collapsed={collapse}
       content={[
             {
               title: 'Overall',
@@ -66,7 +76,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: dataObj.data.map((element, i) => drawPercentRow(dataObj.titles[i], element, true)),
+                  reactData: this.getData(data[0], data[1]),
                 },
               },
             },
@@ -84,18 +94,26 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '300px',
                 data: {
-                  options,
+                  options: this.getTrends(trends[0], trends[1]),
                 },
               },
             },
           ]}
       seperator
     />);
+ } else panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />)
+}
 
     return panel;
   }
 
-  getData(item, collapsed, type) {
+  getData(item, type) {
     const titles = [];
     const data = [];
     const agree = ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'];
@@ -115,7 +133,7 @@ class Page extends React.PureComponent {
       });
     }
 
-    return { titles, collapsed, data };
+    return data.map((element, i) => drawPercentRow(titles[i], element, true))
   }
 
   getTrends(item, chart) {
@@ -197,8 +215,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('My current work fits with my future plans',
               'view-3-1',
-              this.getTrends('currentWorkFitsWithFuturePlans', 'bar'),
-              this.getData('currentWorkFitsWithFuturePlans', false, 'agree'))}
+              false,
+              ['currentWorkFitsWithFuturePlans', 'bar'],
+              ['currentWorkFitsWithFuturePlans', 'agree'])}
           </div>
         </div>
 
@@ -206,8 +225,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('My current work is meaningful and important to me',
               'view-3-2',
-              this.getTrends('currentWorkMeaningfulAndImportant', 'bar'),
-              this.getData('currentWorkMeaningfulAndImportant', false, 'agree'))}
+              false,
+              ['currentWorkMeaningfulAndImportant', 'bar'],
+              ['currentWorkMeaningfulAndImportant', 'agree'])}
           </div>
         </div>
 
@@ -215,8 +235,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, how satisfied are you with your life now',
               'view-3-3',
-              this.getTrends('lifeSatisfaction', 'line'),
-              this.getData('lifeSatisfaction', false))}
+              false,
+              ['lifeSatisfaction', 'line'],
+              ['lifeSatisfaction'])}
           </div>
         </div>
 
@@ -225,8 +246,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, to what extent do you feel the things you do in your life are worthwhile',
               'view-3-4',
-              this.getTrends('lifeWorthwhile', 'line'),
-              this.getData('lifeWorthwhile', false))}
+              false,
+              ['lifeWorthwhile', 'line'],
+              ['lifeWorthwhile'])}
           </div>
         </div>
 
@@ -234,8 +256,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, how happy did you feel yesterday',
               'view-3-5',
-              this.getTrends('lifeHappy', 'line'),
-              this.getData('lifeHappy', false))}
+              false,
+              ['lifeHappy', 'line'],
+              ['lifeHappy'])}
           </div>
         </div>
 
@@ -243,8 +266,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, how anxious did you feel yesterday',
               'view-1-5',
-              this.getTrends('lifeAnxious', 'line'),
-              this.getData('lifeAnxious', false))}
+              false,
+              ['lifeAnxious', 'line'],
+              ['lifeAnxious'])}
           </div>
         </div>
 

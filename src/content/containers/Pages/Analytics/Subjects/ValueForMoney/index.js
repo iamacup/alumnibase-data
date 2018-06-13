@@ -108,45 +108,163 @@ class Page extends React.PureComponent {
           });
 
           options = drawLineChart(data, optionsObj);
-        }
+        } 
       });
     }
     return options;
   }
 
-  getContent() {
-    const barData = {
-      titles1: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Anthropology & Development Studies', '****', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Physics', 'Area Studies', '***', 'Mathematical Sciences', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', '**', 'Architecture, Built Environment and Planning', 'Clinical Medicine', '*'],
-      titles2: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Anthropology & Development Studies', 'Architecture, Built Environment and Planning', 'Clinical Medicine', 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering'],
-      data2: [{ data: [27, 34, 38, 92, 97, 100] }],
-      data1: [{ data: [27, 34, 38, 45, 50, 54, 58, 62, 64, 65, 72, 76, 78, 80, 82, 84, 88, 92, 97, 100] }],
-      options1: { direction: 'horizontal', value: '' },
-      options2: { direction: 'horizontal', value: '', colours: ['#1c6cab', '#d02224'] },
-    };
+  getGraph(name) {
+   let panel = null;
+   let plan2 = false
+   let plan3 = false
+
+    const scatterText = (
+      <div>
+        <p>To what extent has your HE experience enabled you to:</p><br />
+        <h5>Be innovative in the workplace?</h5>
+        <p>Make a difference in the workplace?</p>
+        <p>Change organisational culture and/or working practices?</p>
+        <p>Influence the work of others in the workplace?</p>
+        <p>Access immediate or short-term job opportunities in your chosen career?</p>
+        <p>Enhance your credibility or standing in the workplace?</p>
+        <p>Progress towards your long term career aspirations?</p>
+        <p>Enhance your social and intellectual capabilities beyond employment?</p>
+        <p>Enhance the quality of your life generally?</p><br />
+        <h5>Where the possible answers are:</h5>
+        <p>A great extent</p>
+        <p>Some extent</p>
+        <p>Not at all</p>
+        <p>Don't know</p>
+        <p>Have not worked since finishing course</p><br />
+      </div>
+    );
 
 
-    const bar1 = drawBarChart(barData.titles1, barData.data1, barData.options1);
-    const bar2 = drawBarChart(barData.titles2, barData.data2, barData.options2);
+   if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+    if (name === 'loanRepayment') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].loanRepayment.forEach(elem => {
+            if (elem.plan2.length > 0) plan2 = true;
+            if (elem.plan3.length > 0) plan3 = true; 
+          })
 
-    const postContent = [['* Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['** Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
-    const text1 = <p>{postContent[0]}<br />{postContent[1]}<br />{postContent[2]}<br />{postContent[3]}</p>;
+          if (plan2 && plan3) {
+            panel = (<TabbedGraphPanel
+                    title="Average Time Taken for Graduates to Pay Back Student Loans"
+                    globalID="subjects-vfm-3"
+                    collapsed={false}
+                    key="subjects-vfm-3"
+                    content={[
+                          {
+                            title: '3 Year Course',
+                            postContent: (<div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>),
+                            active: true,
+                            graphData: {
+                              type: 'echarts',
+                              tools: {
+                                allowDownload: true,
+                                seeData: false,
+                                pinGraph: true,
+                              },
+                              width: '100%',
+                              height: '400px',
+                              data: {
+                                options: this.getData('loanRepayment', 3),
+                              },
+                            },
+                          },
+                           {
+                            title: '4 Year Course',
+                            postContent: (<div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>),
+                            active: false,
+                            graphData: {
+                              type: 'echarts',
+                              tools: {
+                                allowDownload: true,
+                                seeData: false,
+                                pinGraph: true,
+                              },
+                              width: '100%',
+                              height: '400px',
+                              data: {
+                                options: this.getData('loanRepayment', 4),
+                              },
+                            },
+                          },
+                        ]}
+                    seperator
+                  />)
+          }  else panel = (<BasicPanel
+                content={
+                  <div className="text-center">
+                    <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+                  </div>
+                }
+              />)
+  } else if (name === 'salarySentimentPlot') {
+  if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0) {
+   panel = (
+    <div>
+      <div className="row">
+        <div className="col-md-8 col-md-push-2">
+          <TabbedGraphPanel
+              title="University and Salary Impacts"
+              globalID="subjects-vfm-4"
+              key="subjects-vfm-4"
+              content={[
+                    {
+                      title: '',
+                      active: true,
+                      graphData: {
+                        type: 'echarts',
+                        tools: {
+                          allowDownload: true,
+                          seeData: false,
+                          pinGraph: true,
+                        },
+                        width: '100%',
+                        height: '400px',
+                        data: {
+                          options: this.getData('salarySentimentPlot'),
+                        },
+                      },
+                    },
+                  ]}
+              seperator
+            />
+        </div>
+      </div>
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <CollapsablePanel
+              title="The questions used to gather the data in this graph."
+              content={scatterText}
+              expanded={false}
+            />
+        </div>
+      </div>
+    </div>
+        )
+          } else panel = (
+              <div className="row">
+                <div className="col-md-8 col-md-push-2">
+                  <BasicPanel
+                    content={
+                      <div className="text-center">
+                        <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+                      </div>
+                    }
+                  />
+                </div>
+              </div>
+            )
+}
+}
+   return panel; 
+  }
 
-    const tabData1 = [
-      {
-        title: (<div><p>Percentage of People who Believe their Course Offered Value for Money</p><h4 style={{ color: 'red' }}>NO QUESTION DATA</h4></div>),
-        globalID: 'subjects-vfm-1',
-        options: bar1,
-        text: text1,
-      },
-      {
-        title: (<div><p>Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money</p><h4 style={{ color: 'red' }}>NO QUESTION DATA</h4></div>),
-        globalID: 'subjects-vfm-2',
-        options: bar2,
-        text: '',
-      },
-    ];
-
-    const year3Data = { plan2: { amountBorrowed: 0, loanPaidBack: 0 }, plan3: { amountBorrowed: 0, loanPaidBack: 0 } };
+  getTableData() {
+        const year3Data = { plan2: { amountBorrowed: 0, loanPaidBack: 0 }, plan3: { amountBorrowed: 0, loanPaidBack: 0 } };
     const year4Data = { plan2: { amountBorrowed: 0, loanPaidBack: 0 }, plan3: { amountBorrowed: 0, loanPaidBack: 0 } };
     // let convertedNumber = salary.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
@@ -178,6 +296,7 @@ class Page extends React.PureComponent {
         }
       });
     }
+
 
     const table = (
       <div className="row justify-content-center">
@@ -239,6 +358,14 @@ class Page extends React.PureComponent {
         </div>
       </div>
     );
+    return table;
+  }
+
+  getTable() {
+    let panel = null;
+    let plan2 = false
+    let plan3 = false
+
 
     const explainerText = (
       <div style={{ margin: '5%' }}>
@@ -249,26 +376,85 @@ class Page extends React.PureComponent {
       </div>
     );
 
-    const scatterText = (
+
+   if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+    this.props.reduxState_fetchDataTransaction.default.payload[0].loanRepayment.forEach(elem => {
+      if (elem.plan2.length > 0) plan2 = true;
+      if (elem.plan3.length > 0) plan3 = true; 
+    })
+
+    if (plan2 && plan3) {
+    panel = (
       <div>
-        <p>To what extent has your HE experience enabled you to:</p><br />
-        <h5>Be innovative in the workplace?</h5>
-        <p>Make a difference in the workplace?</p>
-        <p>Change organisational culture and/or working practices?</p>
-        <p>Influence the work of others in the workplace?</p>
-        <p>Access immediate or short-term job opportunities in your chosen career?</p>
-        <p>Enhance your credibility or standing in the workplace?</p>
-        <p>Progress towards your long term career aspirations?</p>
-        <p>Enhance your social and intellectual capabilities beyond employment?</p>
-        <p>Enhance the quality of your life generally?</p><br />
-        <h5>Where the possible answers are:</h5>
-        <p>A great extent</p>
-        <p>Some extent</p>
-        <p>Not at all</p>
-        <p>Don't know</p>
-        <p>Have not worked since finishing course</p><br />
+        <div className="row">
+          <div className="col-md-8 col-md-push-2" >
+            <CollapsablePanel
+                title="Total Ammount Taken Out vs Total Ammount Paid Back for Plan 2 / 3"
+                content={this.getTableData()}
+                expanded
+              />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-8 col-md-push-2" >
+            <CollapsablePanel
+              title="Calculations Explained"
+              content={explainerText}
+              expanded={false}
+            />
+          </div>
+        </div>
       </div>
-    );
+    )
+  } else panel = (
+      <div className="row">
+        <div className="col-md-8 col-md-push-2" >
+          <BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+            }
+            />
+        </div>
+      </div>
+    )
+}
+
+    return panel;
+  }
+
+  getContent() {
+    const barData = {
+      titles1: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Anthropology & Development Studies', '****', 'Politics and International Studies', 'English Language and Literature', 'Business and Management Studies', 'Geography, Environmental Studies and Archaeology', 'General Engineering', 'Physics', 'Area Studies', '***', 'Mathematical Sciences', 'Earth Systems and Environmental Sciences', 'Biological Sciences', 'Psychology, Psychiatry and Neuroscience', '**', 'Architecture, Built Environment and Planning', 'Clinical Medicine', '*'],
+      titles2: ['Sport and Excercise Sciences, Leisure and Tourism', 'Education', 'Anthropology & Development Studies', 'Architecture, Built Environment and Planning', 'Clinical Medicine', 'Aeronautical, Mechanical, Chemical and Manufacturing Engineering'],
+      data2: [{ data: [27, 34, 38, 92, 97, 100] }],
+      data1: [{ data: [27, 34, 38, 45, 50, 54, 58, 62, 64, 65, 72, 76, 78, 80, 82, 84, 88, 92, 97, 100] }],
+      options1: { direction: 'horizontal', value: '' },
+      options2: { direction: 'horizontal', value: '', colours: ['#1c6cab', '#d02224'] },
+    };
+
+
+    const bar1 = drawBarChart(barData.titles1, barData.data1, barData.options1);
+    const bar2 = drawBarChart(barData.titles2, barData.data2, barData.options2);
+
+    const postContent = [['* Aeronautical, Mechanical, Chemical and Manufacturing Engineering'], ['** Allied Health Professions, Dentistry, Nursing and Pharmacy'], ['*** Electrical and Electronic Engineering, Metallurgy and Materials'], ['**** Communication, Cultural and Media Studies, Library and Information Management']];
+    const text1 = <p>{postContent[0]}<br />{postContent[1]}<br />{postContent[2]}<br />{postContent[3]}</p>;
+
+    const tabData1 = [
+      {
+        title: (<div><p>Percentage of People who Believe their Course Offered Value for Money</p><h4 style={{ color: 'red' }}>NO QUESTION DATA</h4></div>),
+        globalID: 'subjects-vfm-1',
+        options: bar1,
+        text: text1,
+      },
+      {
+        title: (<div><p>Top 3 vs Bottom 3: Percentage of people who believe their course offers value for money</p><h4 style={{ color: 'red' }}>NO QUESTION DATA</h4></div>),
+        globalID: 'subjects-vfm-2',
+        options: bar2,
+        text: '',
+      },
+    ];
 
     const content = (
       <div id="page-content" key="subjects-vfm">
@@ -373,71 +559,12 @@ class Page extends React.PureComponent {
 }
 
 
-            <TabbedGraphPanel
-              title="Average Time Taken for Graduates to Pay Back Student Loans"
-              globalID="subjects-vfm-3"
-              collapsed={false}
-              key="subjects-vfm-3"
-              content={[
-                    {
-                      title: '3 Year Course',
-                      postContent: (<div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>),
-                      active: true,
-                      graphData: {
-                        type: 'echarts',
-                        tools: {
-                          allowDownload: true,
-                          seeData: false,
-                          pinGraph: true,
-                        },
-                        width: '100%',
-                        height: '400px',
-                        data: {
-                          options: this.getData('loanRepayment', 3),
-                        },
-                      },
-                    },
-                     {
-                      title: '4 Year Course',
-                      postContent: (<div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>),
-                      active: false,
-                      graphData: {
-                        type: 'echarts',
-                        tools: {
-                          allowDownload: true,
-                          seeData: false,
-                          pinGraph: true,
-                        },
-                        width: '100%',
-                        height: '400px',
-                        data: {
-                          options: this.getData('loanRepayment', 4),
-                        },
-                      },
-                    },
-                  ]}
-              seperator
-            />
+            {this.getGraph('loanRepayment')}
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-8 col-md-push-2" >
-            <CollapsablePanel
-              title="Total Ammount Taken Out vs Total Ammount Paid Back for Plan 2 / 3"
-              content={table}
-              expanded
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-8 col-md-push-2" >
-            <CollapsablePanel
-              title="Calculations Explained"
-              content={explainerText}
-              expanded={false}
-            />
-          </div>
-        </div>
+        
+          {this.getTable()}
+
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
@@ -447,44 +574,9 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <TabbedGraphPanel
-              title="University and Salary Impacts"
-              globalID="subjects-vfm-4"
-              key="subjects-vfm-4"
-              content={[
-                    {
-                      title: '',
-                      active: true,
-                      graphData: {
-                        type: 'echarts',
-                        tools: {
-                          allowDownload: true,
-                          seeData: false,
-                          pinGraph: true,
-                        },
-                        width: '100%',
-                        height: '400px',
-                        data: {
-                          options: this.getData('salarySentimentPlot'),
-                        },
-                      },
-                    },
-                  ]}
-              seperator
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <CollapsablePanel
-              title="The questions used to gather the data in this graph."
-              content={scatterText}
-              expanded={false}
-            />
-          </div>
-        </div>
+
+          {this.getGraph('salarySentimentPlot')}
+
 
       </div>
     );
@@ -494,8 +586,28 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+ if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
 
     const sendData = {};

@@ -85,28 +85,56 @@ class Page extends React.PureComponent {
     return { options, postContent };
   }
 
-  getContent() {
-    const tabbedPanelData = [
-      {
-        title: 'Stem Destinations of Graduates',
-        globalID: 'stem-destinations-1',
-        type: 'googlecharts',
-        drawData: { ...this.getData('STEMDestinationsOfGraduates') },
-      },
-      {
-        title: 'Ethnicity split of graduates going into soc.1-3 jobs',
-        globalID: 'stem-destinations-2',
-        type: 'googlecharts',
-        drawData: { ...this.getData('STEMDestinationsOfGraduatesEthnicity') },
-      },
-      {
-        title: 'Gender split of graduates going into soc.1-3 jobs',
-        globalID: 'stem-destinations-3',
-        type: 'googlecharts',
-        drawData: { ...this.getData('STEMDestinationsOfGraduatesGender') },
-      },
-    ];
+  getGraph(title, globalID, name) {
+    let panel = null;
+    let length = false;
+    // let working = true;
 
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][name][0]).forEach(key => {
+        if (this.props.reduxState_fetchDataTransaction.default.payload[0][name][0][key].length > 0) length = true;
+      })
+
+      if (length) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={globalID}
+          key={globalID}
+          content={[
+            {
+              title: '',
+              active: true,
+              postContent: ({ ...this.getData(name) }).postContent,
+              graphData: {
+                type: 'googlecharts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '250px',
+                data: ({ ...this.getData(name) }).options,
+                //drawData.options,
+              },
+            },
+          ]}
+          seperator
+        />
+        )
+      } else panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />)
+    }
+
+        return panel;
+  }
+
+  getContent() {
     const content = (
       <div id="page-content" key="stem-destinations">
         <StandardFilters />
@@ -121,32 +149,9 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {tabbedPanelData.map(data => (
-              <TabbedGraphPanel
-                title={data.title}
-                globalID={data.globalID}
-                key={data.globalID}
-                content={[
-                  {
-                    title: '',
-                    active: true,
-                    postContent: data.drawData.postContent,
-                    graphData: {
-                      type: data.type,
-                      tools: {
-                        allowDownload: true,
-                        seeData: false,
-                        pinGraph: true,
-                      },
-                      width: '100%',
-                      height: '250px',
-                      data: data.drawData.options,
-                    },
-                  },
-                ]}
-                seperator
-              />
-            ))}
+            {this.getGraph('Stem Destinations of Graduates', 'stem-destinations-1', 'STEMDestinationsOfGraduates')}
+            {this.getGraph('Ethnicity split of graduates going into soc.1-3 jobs', 'stem-destinations-2', 'STEMDestinationsOfGraduatesEthnicity')}
+            {this.getGraph('Gender split of graduates going into soc.1-3 jobs', 'stem-destinations-3', 'STEMDestinationsOfGraduatesGender')}
           </div>
         </div>
       </div>
@@ -157,8 +162,28 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
 
     const sendData = {};

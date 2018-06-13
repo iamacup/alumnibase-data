@@ -80,11 +80,14 @@ class Page extends React.PureComponent {
     //   </div>
     // );
 
-    const panel = (
-      <TabbedGraphPanel
-        title="High level job salaries"
-        globalID="jobs-first-year-1"
-        content={[
+    let panel = null;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].averageSalaryFirstYear.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].averageSalaryFirstYearGenderSplit.length > 0) {
+        panel = (<TabbedGraphPanel
+          title="High level job salaries"
+          globalID="jobs-first-year-1"
+          content={[
           {
             title: 'Average Salary',
             active: true,
@@ -121,9 +124,18 @@ class Page extends React.PureComponent {
             },
           },
         ]}
-        seperator
-      />
-    );
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
 
     return panel;
   }

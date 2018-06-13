@@ -64,10 +64,17 @@ class Page extends React.PureComponent {
     });
   }
 
-  getBoxPlot(input, title, id, height) {
-    const options = drawBoxplotChart(input.values, input.categories, 40000);
-    const panel = (
-      <TabbedGraphPanel
+  getBoxPlot(name, title, id, height) {
+    let panel = null;
+    let length;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach(element => {
+        if (element.splitItem === name && element.split.length > 0) length = true
+      })
+
+      if (length === true) {
+        panel = (<TabbedGraphPanel
         title={title}
         globalID={id}
         content={[
@@ -85,14 +92,22 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height,
                 data: {
-                  options,
+                  options: this.getData(name),
                 },
               },
             },
           ]}
         seperator
-      />
-    );
+      />);
+      } else panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />)
+    }
+
     return panel;
   }
 
@@ -108,6 +123,9 @@ class Page extends React.PureComponent {
         }
       });
     }
+
+    const options = drawBoxplotChart(data.values, data.categories, 40000);
+
     // get national average to work.
 
     // if (this.state.showNationalAverage === true) {
@@ -122,7 +140,7 @@ class Page extends React.PureComponent {
     //   religionData.categories.push('National Average');
     //   religionData.values.push(nationalAverageSalaryData);
     // }
-    return data;
+    return options;
   }
 
   getContent() {
@@ -163,19 +181,19 @@ class Page extends React.PureComponent {
         </div>
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(this.getData('gender'), 'Average pay, split by gender', 'salary-ranges-1', '350px')}
+            {this.getBoxPlot('gender', 'Average pay, split by gender', 'salary-ranges-1', '350px')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1" id="ranges-ethnicity">
-            {this.getBoxPlot(this.getData('ethnicity'), 'Average pay, split by ethnicity', 'salary-ranges-2', '500px')}
+            {this.getBoxPlot('ethnicity', 'Average pay, split by ethnicity', 'salary-ranges-2', '500px')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(this.getData('religion'), 'Average pay, split by religion', 'salary-ranges-3', '700px')}
+            {this.getBoxPlot('religion', 'Average pay, split by religion', 'salary-ranges-3', '700px')}
           </div>
         </div>
 
@@ -193,8 +211,28 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
 
     const sendData = {};

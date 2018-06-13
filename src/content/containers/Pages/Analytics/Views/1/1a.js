@@ -52,11 +52,21 @@ class Page extends React.PureComponent {
     });
   }
 
-  getTabbed(title, id, options, dataObj) {
-    const panel = (<TabbedGraphPanel
+  getTabbed(title, id, collapse, trends, data) {
+    let panel = null;
+    let allData = false
+    let timeSeriesData = false
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+
+        if (this.props.reduxState_fetchDataTransaction.default.payload.allData.length > 0) allData = true 
+        if (this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.length > 0) timeSeriesData = true 
+  
+      if (allData && timeSeriesData) {
+        panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
-      collapsed={dataObj.collapsed}
+      collapsed={collapse}
       content={[
             {
               title: 'Overall',
@@ -72,7 +82,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: dataObj.data.map((element, i) => drawPercentRow(dataObj.titles[i], element, true)), // this.getPercentageBlock(arr), //map over data and use i for arr[i] -- see how it's done on another page!
+                  reactData: this.getData(data[0], data[1], data[2]), // this.getPercentageBlock(arr), //map over data and use i for arr[i] -- see how it's done on another page!
                 },
               },
             },
@@ -90,13 +100,21 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options,
+                  options: this.getTrends(trends[0], trends[1], trends[2], trends[3]),
                 },
               },
             },
           ]}
       seperator
-    />);
+    />)
+      } else panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />)
+    }
 
     return panel;
   }
@@ -125,7 +143,7 @@ class Page extends React.PureComponent {
       });
     }
 
-    return { titles, collapsed, data };
+    return data.map((element, i) => drawPercentRow(titles[i], element, true))
   }
 
   getTrends(item, chart, type, colours) {
@@ -214,26 +232,29 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the knowledge from my degree(s) to my work often',
               'view-1-1',
-              this.getTrends('applyDegreeToWork', 'bar'),
-              this.getData('applyDegreeToWork', false, 'agree'))}
+              false,
+              ['applyDegreeToWork', 'bar'],
+              ['applyDegreeToWork', false, 'agree'])}
           </div>
         </div>
 
-        <div className="row">
+      <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the skills, methods or techniques I learnt from undertaking my degree to my work often',
               'view-1-2',
-              this.getTrends('applySkillsToWork', 'bar'),
-             this.getData('applySkillsToWork', false, 'agree'))}
+              false,
+              ['applySkillsToWork', 'bar'],
+             ['applySkillsToWork', false, 'agree'])}
           </div>
         </div>
 
-        <div className="row">
+         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the things I learnt from extra-curricular activities to my work often',
-              'view-1-3',
-              this.getTrends('applyExtraCurricularToWork', 'bar'),
-              this.getData('applyExtraCurricularToWork', false, 'agree'))}
+               'view-1-3',
+               false,
+              ['applyExtraCurricularToWork', 'bar'],
+              ['applyExtraCurricularToWork', false, 'agree'])}
           </div>
         </div>
 
@@ -241,8 +262,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, all the things I did or learnt have contributed meaningfully to my life today',
               'view-1-4',
-              this.getTrends('contributeMeaningfullyToLife', 'bar'),
-              this.getData('contributeMeaningfullyToLife', false, 'agree'))}
+              false,
+              ['contributeMeaningfullyToLife', 'bar'],
+              ['contributeMeaningfullyToLife', false, 'agree'])}
           </div>
         </div>
 
@@ -251,8 +273,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('How likely are you to recommend your HE provider to a friend or a colleague',
               'view-1-5',
-              this.getTrends('recommendToFriendOrColleague', 'line'),
-              this.getData('recommendToFriendOrColleague', false, 'number'))}
+              false,
+              ['recommendToFriendOrColleague', 'line'],
+              ['recommendToFriendOrColleague', false, 'number'])}
           </div>
         </div>
 
@@ -268,8 +291,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Do a different subject',
               'view-1-6',
-              this.getTrends('viewsOnCourseDifferentSubject', 'bar', 'likely'),
-              this.getData('viewsOnCourseDifferentSubject', true, 'likely'))}
+              true,
+              ['viewsOnCourseDifferentSubject', 'bar', 'likely'],
+              ['viewsOnCourseDifferentSubject', true, 'likely'])}
           </div>
         </div>
 
@@ -277,8 +301,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Study at a different institution',
               'view-1-7',
-              this.getTrends('viewsOnCourseDifferentInstitution', 'bar', 'likely'),
-              this.getData('viewsOnCourseDifferentInstitution', true, 'likely'))}
+              true,
+              ['viewsOnCourseDifferentInstitution', 'bar', 'likely'],
+              ['viewsOnCourseDifferentInstitution', true, 'likely'])}
           </div>
         </div>
 
@@ -286,8 +311,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Work towards a different type of qualification',
               'view-1-8',
-              this.getTrends('viewsOnCourseDifferentQualification', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-              this.getData('viewsOnCourseDifferentQualification', true, 'likely'))}
+              true,
+              ['viewsOnCourseDifferentQualification', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']],
+              ['viewsOnCourseDifferentQualification', true, 'likely'])}
           </div>
         </div>
 
@@ -295,8 +321,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Decide to do something completely different',
               'view-1-9',
-              this.getTrends('viewsOnCourseTotallyDifferent', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-              this.getData('viewsOnCourseTotallyDifferent', true, 'likely'))}
+              true,
+              ['viewsOnCourseTotallyDifferent', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']],
+              ['viewsOnCourseTotallyDifferent', true, 'likely'])}
           </div>
         </div>
 
@@ -308,12 +335,13 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-        <div className="row">
+         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Be innovative in the workplace',
               'view-1-10',
-              this.getTrends('viewsOnHEInnovative', 'bar', 'extent'),
-              this.getData('viewsOnHEInnovative', true, 'extent'))}
+              true,
+              ['viewsOnHEInnovative', 'bar', 'extent'],
+              ['viewsOnHEInnovative', true, 'extent'])}
           </div>
         </div>
 
@@ -321,8 +349,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Make a difference in the workplace',
               'view-1-11',
-              this.getTrends('viewsOnHEDifferenceInWorkplace', 'bar', 'extent'),
-              this.getData('viewsOnHEDifferenceInWorkplace', true, 'extent'))}
+              true,
+              ['viewsOnHEDifferenceInWorkplace', 'bar', 'extent'],
+              ['viewsOnHEDifferenceInWorkplace', true, 'extent'])}
           </div>
         </div>
 
@@ -330,8 +359,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Change organisational culture and/or working practices',
               'view-1-12',
-              this.getTrends('viewsOnHEChangeOrganisation', 'bar', 'extent'),
-              this.getData('viewsOnHEChangeOrganisation', true, 'extent'))}
+              true,
+              ['viewsOnHEChangeOrganisation', 'bar', 'extent'],
+              ['viewsOnHEChangeOrganisation', true, 'extent'])}
           </div>
         </div>
 
@@ -339,8 +369,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Influence the work of others in the workplace',
               'view-1-13',
-              this.getTrends('viewsOnHEInfluenceWork', 'bar', 'extent'),
-              this.getData('viewsOnHEInfluenceWork', true, 'extent'))}
+              true,
+              ['viewsOnHEInfluenceWork', 'bar', 'extent'],
+              ['viewsOnHEInfluenceWork', true, 'extent'])}
           </div>
         </div>
 
@@ -348,8 +379,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Access immediate or short-term job opportunities in your chosen career',
               'view-1-14',
-              this.getTrends('viewsOnHEAccessJobOppts', 'bar', 'extent'),
-              this.getData('viewsOnHEAccessJobOppts', true, 'extent'))}
+              true,
+              ['viewsOnHEAccessJobOppts', 'bar', 'extent'],
+              ['viewsOnHEAccessJobOppts', true, 'extent'])}
           </div>
         </div>
 
@@ -357,8 +389,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance your credibility or standing in the workplace',
               'view-1-15',
-              this.getTrends('viewsOnHEEnhanceCredibility', 'bar', 'extent'),
-              this.getData('viewsOnHEEnhanceCredibility', true, 'extent'))}
+              true,
+              ['viewsOnHEEnhanceCredibility', 'bar', 'extent'],
+              ['viewsOnHEEnhanceCredibility', true, 'extent'])}
           </div>
         </div>
 
@@ -366,8 +399,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Progress towards your long term career aspirations',
               'view-1-16',
-              this.getTrends('viewsOnHEProgressLongTerm', 'bar', 'extent'),
-              this.getData('viewsOnHEProgressLongTerm', true, 'extent'))}
+              true,
+              ['viewsOnHEProgressLongTerm', 'bar', 'extent'],
+              ['viewsOnHEProgressLongTerm', true, 'extent'])}
           </div>
         </div>
 
@@ -375,8 +409,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance your social and intellectual capabilities beyond employment',
               'view-1-17',
-              this.getTrends('viewsOnHEEnhanceSocialCapeabilities', 'bar', 'extent'),
-              this.getData('viewsOnHEEnhanceSocialCapeabilities', true, 'extent'))}
+              true,
+              ['viewsOnHEEnhanceSocialCapeabilities', 'bar', 'extent'],
+              ['viewsOnHEEnhanceSocialCapeabilities', true, 'extent'])}
           </div>
         </div>
 
@@ -384,12 +419,11 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance the quality of your life generally',
               'view-1-18',
-              this.getTrends('viewsOnHEEnhanceQualityOfLife', 'bar', 'extent'),
-              this.getData('viewsOnHEEnhanceQualityOfLife', true, 'extent'))}
+              true,
+              ['viewsOnHEEnhanceQualityOfLife', 'bar', 'extent'],
+              ['viewsOnHEEnhanceQualityOfLife', true, 'extent'])}
           </div>
         </div>
-
-
       </div>
     );
 
@@ -447,8 +481,6 @@ class Page extends React.PureComponent {
         </div>
       );
     }
-
-    console.log(this.props.reduxState_fetchDataTransaction.default);
 
     const sendData = {};
     Object.keys(this.props.filterData).forEach((key) => {

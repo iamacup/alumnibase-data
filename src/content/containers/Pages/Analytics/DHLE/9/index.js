@@ -55,30 +55,45 @@ class Page extends React.PureComponent {
   }
 
   getHeatMap(title, globalID) {
-    const panel = (<TabbedGraphPanel
-      title={title}
-      globalID={globalID}
-      content={[
-            {
-              title: '',
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
+    let panel = null;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].schoolLocation.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].currentLocation.length) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={globalID}
+          content={[
+                {
+                  title: '',
+                  active: true,
+                  graphData: {
+                    type: 'echarts',
+                    tools: {
+                      allowDownload: true,
+                      seeData: false,
+                      pinGraph: true,
+                    },
+                    width: '100%',
+                    height: '600px',
+                    data: {
+                      options: this.getData('UKMovement'),
+                    },
+                  },
                 },
-                width: '100%',
-                height: '600px',
-                data: {
-                  options: this.getData('UKMovement'),
-                },
-              },
-            },
-          ]}
-      seperator
-    />);
+              ]}
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
+
 
     return panel;
   }
@@ -143,8 +158,28 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
 
     const sendData = {};

@@ -52,11 +52,22 @@ class Page1b extends React.PureComponent {
     });
   }
 
-  getTabbed(title, id, options, dataObj) {
-    const panel = (<TabbedGraphPanel
+  getTabbed(title, id, collapsed, trends, name) {
+
+        let panel = null
+    let allData = false
+    let timeSeriesData = false
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+
+        if (this.props.reduxState_fetchDataTransaction.default.payload.allData.length > 0) allData = true 
+        if (this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.length > 0) timeSeriesData = true 
+  
+      if (allData && timeSeriesData) {
+        panel = (<TabbedGraphPanel
       title={title}
       globalID={id}
-      collapsed={dataObj.collapsed}
+      collapsed={collapsed}
       content={[
             {
               title: 'Overall',
@@ -73,7 +84,7 @@ class Page1b extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: dataObj.data.map((element, i) => drawPercentRow(dataObj.titles[i], element, true)),
+                  reactData: this.getData(name),
                 },
               },
             },
@@ -92,18 +103,26 @@ class Page1b extends React.PureComponent {
                 width: '100%',
                 height: '300px',
                 data: {
-                  options,
+                  options: this.getTrends(trends[0], trends[1]),
                 },
               },
             },
           ]}
       seperator
-    />);
+    />)
+      } else panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />)
+      }
 
     return panel;
   }
 
-  getData(item, collapsed) {
+  getData(item) {
     const titles = [];
     const data = [];
     const agree = ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'];
@@ -121,7 +140,7 @@ class Page1b extends React.PureComponent {
       });
     }
 
-    return { titles, collapsed, data };
+    return data.map((element, i) => drawPercentRow(titles[i], element, true))
   }
 
   getTrends(name, colours) {
@@ -186,8 +205,9 @@ class Page1b extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Belief undertaking professional qualifications will advance your career',
                     'view-2-1',
-                    this.getTrends('furtherStudyAdvancesCareer', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-                    this.getData('furtherStudyAdvancesCareer', false))}
+                    false,
+                    ['furtherStudyAdvancesCareer', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']],
+                    'furtherStudyAdvancesCareer')}
           </div>
         </div>
 

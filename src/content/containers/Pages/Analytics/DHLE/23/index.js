@@ -45,48 +45,95 @@ class Page extends React.PureComponent {
   }
 
   getGraph(title, id, percentageName, absoluteName) {
-    const panel = (<TabbedGraphPanel
-      title={title}
-      globalID={id}
-      collapsed={false}
-      content={[
-            {
-              title: <i className="far fa-percent" />,
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: this.getData(percentageName),
-                },
-              },
-            },
-            {
-              title: <i className="far fa-hashtag" />,
-              active: false,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: this.getData(absoluteName),
-                },
-              },
-            },
-          ]}
-      seperator
-    />);
+    let panel = null;
+    const percentage = percentageName;
+    const absolute = absoluteName;
+
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0][percentageName].length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0][absoluteName].length > 0) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          collapsed={false}
+          content={[
+                  {
+                    title: <i className="far fa-percent" />,
+                    active: true,
+                    graphData: {
+                      type: 'echarts',
+                      tools: {
+                        allowDownload: true,
+                        seeData: false,
+                        pinGraph: true,
+                      },
+                      width: '100%',
+                      height: '350px',
+                      data: {
+                        options: this.getData(percentage),
+                      },
+                    },
+                  },
+                  {
+                    title: <i className="far fa-hashtag" />,
+                    active: false,
+                    graphData: {
+                      type: 'echarts',
+                      tools: {
+                        allowDownload: true,
+                        seeData: false,
+                        pinGraph: true,
+                      },
+                      width: '100%',
+                      height: '350px',
+                      data: {
+                        options: this.getData(absolute),
+                      },
+                    },
+                  },
+                ]}
+          seperator
+        />);
+      } else if (this.props.reduxState_fetchDataTransaction.default.payload[0][percentageName].length > 0 || this.props.reduxState_fetchDataTransaction.default.payload[0][absoluteName].length > 0) {
+        let name = percentageName;
+        if (this.props.reduxState_fetchDataTransaction.default.payload[0][absoluteName].length > 0) name = absoluteName;
+
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          collapsed={false}
+          content={[
+                  {
+                    title: '',
+                    active: true,
+                    graphData: {
+                      type: 'echarts',
+                      tools: {
+                        allowDownload: true,
+                        seeData: false,
+                        pinGraph: true,
+                      },
+                      width: '100%',
+                      height: '350px',
+                      data: {
+                        options: this.getData(name),
+                      },
+                    },
+                  },
+                ]}
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
+
 
     return panel;
   }
@@ -98,7 +145,7 @@ class Page extends React.PureComponent {
         <StandardFilters />
 
         <h3 className="text-main text-normal text-2x mar-no">Post University Activity</h3>
-        <h5 className="text-muted text-normal">Each graph displays the employment status of past Alumni, for both Post Graduate courses and first time degrees. Click through the tabs to see the data displayed as percentages or raw numbers.</h5>
+        <h5 className="text-muted text-normal">Each graph displays the employment status of past Alumni, for both Post Graduate courses and Undergraduate degrees. Click through the tabs to see the data displayed as percentages or raw numbers.</h5>
         <hr className="new-section-xs" />
 
         <div className="row">
@@ -110,7 +157,7 @@ class Page extends React.PureComponent {
           </div>
 
           <div className="col-md-6">
-            {this.getGraph('Employment Activity of First Degree',
+            {this.getGraph('Employment Activity of Undergraduates',
               'dlhe-like-23-2',
               'UGActivityPercentageSplit',
               'UGActivityAbsoluteSplit')
@@ -128,7 +175,7 @@ class Page extends React.PureComponent {
           </div>
 
           <div className="col-md-6">
-            {this.getGraph('Most Important Activity First Degree FT / PT',
+            {this.getGraph('Most Important Activity Undergraduate FT / PT',
               'dlhe-like-23-4',
               'UGMostImportantActivityPercentageSplit',
               'UGMostImportantActivityAbsoluteSplit',
@@ -150,9 +197,8 @@ class Page extends React.PureComponent {
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key.includes('PercentageSplit')) {
-          this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key], name);
         }
-
 
         if (key.startsWith('PG') && key === name) {
           this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
@@ -192,9 +238,8 @@ class Page extends React.PureComponent {
     return options;
   }
 
-  dividePercentOverElements(dataArr) {
+  dividePercentOverElements(dataArr, name) {
     let remainder;
-
     dataArr.forEach((element) => {
       let count = 0;
       element.data.forEach((elem) => {
@@ -220,8 +265,28 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
-    if (this.props.reduxState_fetchDataTransaction.default.finished === true) {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
 
     const sendData = {};
