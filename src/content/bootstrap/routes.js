@@ -44,6 +44,7 @@ import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningPar
 import DataExportPage from '../../content/containers/Pages/DataControl/Export';
 
 import TestsPage from '../../content/containers/Pages/Tests';
+import Tests2Page from '../../content/containers/Pages/Tests2';
 
 const universityName = 'Aristotle';
 
@@ -72,6 +73,11 @@ export default [
     path: `/${universityName}/tests`,
     exact: true,
     component: TestsPage,
+  },  
+  {
+    path: `/${universityName}/tests2`,
+    exact: true,
+    component: Tests2Page,
   },
   {
     path: `/${universityName}/analytics/views/1`,

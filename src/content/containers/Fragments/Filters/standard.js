@@ -93,13 +93,13 @@ class Graph extends React.PureComponent {
         });
       // set in state
       $('#sel1').on('change', () => {
-        let data = [];
-        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])){
-          this.props.reduxState_fetchDataTransaction.default.payload[0].countryOfBirth.forEach(element => {
-            $('#sel1').val().forEach(value => {
-            if (element.displayValue === value) data.push(element.optionID)
-            })
-          })
+        const data = [];
+        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].countryOfBirth.forEach((element) => {
+            $('#sel1').val().forEach((value) => {
+              if (element.displayValue === value) data.push(element.optionID);
+            });
+          });
         }
         this.setStateWithValue('countryOfBirth', data);
       });
@@ -128,13 +128,13 @@ class Graph extends React.PureComponent {
         });
 
       $('#sel2').on('change', () => {
-        let data = [];
-        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])){
-          this.props.reduxState_fetchDataTransaction.default.payload[0].currentCountry.forEach(element => {
-            $('#sel2').val().forEach(value => {
-            if (element.displayValue === value) data.push(element.optionID)
-            })
-          })
+        const data = [];
+        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].currentCountry.forEach((element) => {
+            $('#sel2').val().forEach((value) => {
+              if (element.displayValue === value) data.push(element.optionID);
+            });
+          });
         }
 
         this.setStateWithValue('currentCountry', data);
@@ -164,13 +164,13 @@ class Graph extends React.PureComponent {
         });
 
       $('#sel3').on('change', () => {
-        let data = [];
-        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])){
-          this.props.reduxState_fetchDataTransaction.default.payload[0].subject.forEach(element => {
-            $('#sel3').val().forEach(value => {
-            if (element.displayValue === value) data.push(element.optionID)
-            })
-          })
+        const data = [];
+        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].subject.forEach((element) => {
+            $('#sel3').val().forEach((value) => {
+              if (element.displayValue === value) data.push(element.optionID);
+            });
+          });
         }
 
         this.setStateWithValue('subject', data);
@@ -201,19 +201,19 @@ class Graph extends React.PureComponent {
 
 
       $('#sel4').on('change', () => {
-                let data = [];
-        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])){
-          this.props.reduxState_fetchDataTransaction.default.payload[0].degreeLevel.forEach(element => {
-            $('#sel4').val().forEach(value => {
-            if (element.displayValue === value) data.push(element.optionID)
-            })
-          })
+        const data = [];
+        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].degreeLevel.forEach((element) => {
+            $('#sel4').val().forEach((value) => {
+              if (element.displayValue === value) data.push(element.optionID);
+            });
+          });
         }
 
         this.setStateWithValue('degreeLevel', data);
       });
 
-        $('#sel5').select2({
+      $('#sel5').select2({
         width: '100%',
         multiple: false,
         allowClear: true,
@@ -236,7 +236,7 @@ class Graph extends React.PureComponent {
       });
 
       const executeFunction = debounce(() => {
-        const value = $('#age-slider').val().split(',')
+        const value = $('#age-slider').val().split(',');
         const result = [+value[0], +value[1]];
         this.setStateWithValue('ageRange', result);
       }, 250);
@@ -258,7 +258,7 @@ class Graph extends React.PureComponent {
       const executeFunction2 = debounce(() => {
         console.log('change 2');
         const value = $('#date-slider').val().split(',');
-        const result = [+value[0], +value[1]]
+        const result = [+value[0], +value[1]];
         this.setStateWithValue('graduactionRange', result);
       }, 250);
 
@@ -294,14 +294,14 @@ class Graph extends React.PureComponent {
       if (gender.includes('other')) $('#gender-other').attr('checked', true);
 
       $('#gender-boxes')
-      .find('input')
-      .on('click', (e) => {
+        .find('input')
+        .on('click', (e) => {
           let data = e.target.value;
           // setting the state with the option IDs
           if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-            this.props.reduxState_fetchDataTransaction.default.payload[0].gender.forEach(element => {
-              if (element.displayValue === e.target.value) data = element.optionID
-            })
+            this.props.reduxState_fetchDataTransaction.default.payload[0].gender.forEach((element) => {
+              if (element.displayValue === e.target.value) data = element.optionID;
+            });
           }
 
           if (gender.includes(data)) {
@@ -330,14 +330,14 @@ class Graph extends React.PureComponent {
 
 
       $('#ethnicity')
-      .find('input')
-      .on('click', (e) => {
+        .find('input')
+        .on('click', (e) => {
           let data = e.target.value;
 
-            if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-            this.props.reduxState_fetchDataTransaction.default.payload[0].ethnicity.forEach(element => {
-              if (element.displayValue === e.target.value) data = element.optionID
-            })
+          if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+            this.props.reduxState_fetchDataTransaction.default.payload[0].ethnicity.forEach((element) => {
+              if (element.displayValue === e.target.value) data = element.optionID;
+            });
           }
 
           if (!ethnicity.includes(data)) {
@@ -363,13 +363,12 @@ class Graph extends React.PureComponent {
         });
 
       this.initSticky();
-
     });
   }
 
   setStateWithValue(id, value) {
-    console.log('setting local state')
-    
+    console.log('setting local state');
+
     let val = value;
     if (value === null || value.length === 0) val = null;
 
@@ -380,7 +379,7 @@ class Graph extends React.PureComponent {
   }
 
   handleSubmit() {
-    console.log('setting global state')
+    console.log('setting global state');
 
     this.props.reduxAction_doUpdate('filterData', {
       countryOfBirth: this.state.countryOfBirth,
@@ -408,12 +407,14 @@ class Graph extends React.PureComponent {
     let stemChecked = false;
     if (this.state.polar === true) polarChecked = true;
     if (this.state.stem === true) stemChecked = true;
-    let data = { ethnicity: [], countryOfBirth: [], currentCountry: [], gender: [], degreeLevel: [], subject: [] }
+    const data = {
+      ethnicity: [], countryOfBirth: [], currentCountry: [], gender: [], degreeLevel: [], subject: [],
+    };
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         data[key] = this.props.reduxState_fetchDataTransaction.default.payload[0][key];
-      })
+      });
     }
 
     return (
@@ -436,7 +437,7 @@ class Graph extends React.PureComponent {
                       <select className="form-control" name="sel1" id="sel1">
                         <option />
                         {data.countryOfBirth.map(element => (
-                        <option>{element.displayValue}</option>
+                          <option>{element.displayValue}</option>
                           ))}
                       </select>
                     </div>
@@ -460,11 +461,11 @@ class Graph extends React.PureComponent {
                   <div className="row">
                     <label className="col-sm-2 control-label">Gender</label>
                     <div className="col-sm-10" id="gender-boxes">
-                    {data.gender.map(element => (
-                      <div>
-                      <input id={"gender-" + element.displayValue} className="magic-checkbox" type="checkbox" value={element.displayValue} />
-                      <label htmlFor={"gender-" + element.displayValue}>{element.displayValue}</label>
-                      </div>
+                      {data.gender.map(element => (
+                        <div>
+                          <input id={'gender-' + element.displayValue} className="magic-checkbox" type="checkbox" value={element.displayValue} />
+                          <label htmlFor={'gender-' + element.displayValue}>{element.displayValue}</label>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -474,11 +475,11 @@ class Graph extends React.PureComponent {
                   <div className="row" id="ethnicity">
                     <label className="col-sm-2 control-label">Ethnicity</label>
                     <div className="col-sm-10">
-                    {data.ethnicity.map((element, i) => (
+                      {data.ethnicity.map((element, i) => (
                         <div className="checkbox">
-                        <input id={"eth-" + i} className="magic-checkbox" type="checkbox" value={element.displayValue} />
-                        <label htmlFor={"eth-" + i}>{element.displayValue}</label>
-                      </div>
+                          <input id={'eth-' + i} className="magic-checkbox" type="checkbox" value={element.displayValue} />
+                          <label htmlFor={'eth-' + i}>{element.displayValue}</label>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -535,7 +536,7 @@ class Graph extends React.PureComponent {
                       <select className="form-control" name="sel3" id="sel3">
                         <option />
                         {data.subject.map(element => (
-                            <option>{element.displayValue}</option>
+                          <option>{element.displayValue}</option>
                           ))}
                       </select>
                     </div>
@@ -546,7 +547,7 @@ class Graph extends React.PureComponent {
                       <select className="form-control" name="sel4" id="sel4">
                         <option />
                         {data.degreeLevel.map(element => (
-                        <option>{element.displayValue}</option>
+                          <option>{element.displayValue}</option>
                           ))}
                       </select>
                     </div>
@@ -597,10 +598,10 @@ class Graph extends React.PureComponent {
             </div>
           </div>
         </div>
-          <FetchData
-            active
-            fetchURL="/api/filters/getFilters"
-          />
+        <FetchData
+          active
+          fetchURL="/api/filters/getFilters"
+        />
       </div>
     );
   }
