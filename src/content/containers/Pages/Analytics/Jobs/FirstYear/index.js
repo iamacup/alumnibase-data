@@ -182,8 +182,10 @@ class Page extends React.PureComponent {
       });
     });
 
-    // this makes sure that the unique keys match whats in the filter data, if you only want 'Male' salaries, uniqueKeys should only have 'Male'
-    if (dNc(this.props.filterData.gender)) uniqueKeys = this.props.filterData.gender;
+// this makes sure that if other filters are on, and the backend is only sending back data for male and other, it will include female too.
+    if (!uniqueKeys.includes('Male')) uniqueKeys.push('Male')
+    if (!uniqueKeys.includes('Female')) uniqueKeys.push('Female')
+    if (!uniqueKeys.includes('Other')) uniqueKeys.push('Other')
 
     dataArr.forEach((element) => {
       if (element.split.length < uniqueKeys.length) {

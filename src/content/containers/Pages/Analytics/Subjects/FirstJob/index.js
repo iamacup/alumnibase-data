@@ -200,6 +200,13 @@ class Page extends React.PureComponent {
       });
     });
 
+    // this makes sure that if other filters are on, and the backend is only sending back data for male and other, it will include female too.
+    if (!uniqueKeys.includes('Male')) uniqueKeys.push('Male')
+    if (!uniqueKeys.includes('Female')) uniqueKeys.push('Female')
+    if (!uniqueKeys.includes('Other')) uniqueKeys.push('Other')
+
+      console.log(uniqueKeys)
+
     dataArr.forEach((element) => {
       if (element.data.length < uniqueKeys.length) {
         const keysInBreakdown = element.data.map(elem => elem.gender);
