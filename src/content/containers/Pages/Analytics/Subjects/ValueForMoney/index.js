@@ -631,7 +631,7 @@ class Page extends React.PureComponent {
               content={
                 <FetchData
                   active
-                  fetchURL="/api/analytics/subjects/vfm"
+                  fetchURL="api/analytics/subjects/vfm"
                   sendData={{ filterData: sendData }}
                 />
               }
