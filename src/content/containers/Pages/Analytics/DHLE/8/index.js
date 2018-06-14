@@ -100,6 +100,58 @@ class Page extends React.PureComponent {
               ]}
           seperator
         />);
+      } else if (this.props.reduxState_fetchDataTransaction.default.payload[0].PGFirstJobTypeOfWorkGenderSplit.length > 0) {
+         panel = (<TabbedGraphPanel
+                  title={title}
+                  globalID={globalID}
+                  content={[
+                        {
+                          title: '',
+                          active: true,
+                          preContent: 'Postgraduate',
+                          graphData: {
+                            type: 'echarts',
+                            tools: {
+                              allowDownload: true,
+                              seeData: false,
+                              pinGraph: true,
+                            },
+                            width: '100%',
+                            height: '350px',
+                            data: {
+                              options: this.getData('PGFirstJobTypeOfWorkGenderSplit'),
+                            },
+                          },
+                        },
+                      ]}
+                  seperator
+                />);
+      } else if (this.props.reduxState_fetchDataTransaction.default.payload[0].UGFirstJobTypeOfWorkGenderSplit.length > 0) {
+         panel = (<TabbedGraphPanel
+                  title={title}
+                  globalID={globalID}
+                  content={[
+                        {
+                          title: '',
+                          active: true,
+                          preContent: 'Undergraduate',
+                          graphData: {
+                            type: 'echarts',
+                            tools: {
+                              allowDownload: true,
+                              seeData: false,
+                              pinGraph: true,
+                            },
+                            width: '100%',
+                            height: '350px',
+                            data: {
+                              options: this.getData('UGFirstJobTypeOfWorkGenderSplit'),
+                            },
+                          },
+                        },
+                      ]}
+                  seperator
+                />);
       } else {
         panel = (<BasicPanel
           content={
