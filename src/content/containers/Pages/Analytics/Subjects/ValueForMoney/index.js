@@ -101,7 +101,7 @@ class Page extends React.PureComponent {
               });
 
               // adding extra to the end of the graph
-              data.age.push(end + 1, end + 1, end + 3);
+              data.age.push(end + 1, end + 2, end + 3);
               data.plotted[1].push(0);
               data.plotted[3].push(0);
             }
