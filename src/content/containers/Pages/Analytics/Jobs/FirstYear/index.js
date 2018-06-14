@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
@@ -233,6 +234,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
+    console.log()
     let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
@@ -263,10 +265,10 @@ class Page extends React.PureComponent {
     const sendData = {};
     Object.keys(this.props.filterData).forEach((key) => {
       if (dNc(this.props.filterData[key])) {
-        sendData[key] = this.props.filterData[key];
+        sendData[key] = _.assign({}, this.props.filterData[key]) 
       }
     });
-
+    // sendData.rand = Math.random();
     const dataTransaction = (
       <div className="container" key="transaction-jobs-year">
         <div className="row" style={{ marginTop: '200px' }}>
