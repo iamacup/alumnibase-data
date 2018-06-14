@@ -7,7 +7,8 @@ const drawHeatMap = (axisData, graphData) => {
   let max = 10;
 
   graphData.forEach((arr) => {
-    if (arr[2] > max) max = arr[2];
+    // eslint-disable-next-line prefer-destructuring
+    if (arr[2] > max) max = arr[2]; 
   });
 
 

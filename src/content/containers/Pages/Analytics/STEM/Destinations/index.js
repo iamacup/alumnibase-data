@@ -91,9 +91,9 @@ class Page extends React.PureComponent {
     // let working = true;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][name][0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][name][0]).forEach((key) => {
         if (this.props.reduxState_fetchDataTransaction.default.payload[0][name][0][key].length > 0) length = true;
-      })
+      });
 
       if (length) {
         panel = (<TabbedGraphPanel
@@ -115,23 +115,25 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '250px',
                 data: ({ ...this.getData(name) }).options,
-                //drawData.options,
+                // drawData.options,
               },
             },
           ]}
           seperator
         />
-        )
-      } else panel = (<BasicPanel
+        );
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
 
-        return panel;
+    return panel;
   }
 
   getContent() {

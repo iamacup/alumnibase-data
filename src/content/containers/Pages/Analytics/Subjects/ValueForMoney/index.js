@@ -108,16 +108,16 @@ class Page extends React.PureComponent {
           });
 
           options = drawLineChart(data, optionsObj);
-        } 
+        }
       });
     }
     return options;
   }
 
   getGraph(name) {
-   let panel = null;
-   let plan2 = false
-   let plan3 = false
+    let panel = null;
+    let plan2 = false;
+    let plan3 = false;
 
     const scatterText = (
       <div>
@@ -141,20 +141,20 @@ class Page extends React.PureComponent {
     );
 
 
-   if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-    if (name === 'loanRepayment') {
-          this.props.reduxState_fetchDataTransaction.default.payload[0].loanRepayment.forEach(elem => {
-            if (elem.plan2.length > 0) plan2 = true;
-            if (elem.plan3.length > 0) plan3 = true; 
-          })
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (name === 'loanRepayment') {
+        this.props.reduxState_fetchDataTransaction.default.payload[0].loanRepayment.forEach((elem) => {
+          if (elem.plan2.length > 0) plan2 = true;
+          if (elem.plan3.length > 0) plan3 = true;
+        });
 
-          if (plan2 && plan3) {
-            panel = (<TabbedGraphPanel
-                    title="Average Time Taken for Graduates to Pay Back Student Loans"
-                    globalID="subjects-vfm-3"
-                    collapsed={false}
-                    key="subjects-vfm-3"
-                    content={[
+        if (plan2 && plan3) {
+          panel = (<TabbedGraphPanel
+            title="Average Time Taken for Graduates to Pay Back Student Loans"
+            globalID="subjects-vfm-3"
+            collapsed={false}
+            key="subjects-vfm-3"
+            content={[
                           {
                             title: '3 Year Course',
                             postContent: (<div className="pull-right"><p>* Plan 3 inflation is calcuated as 6% today flat over the period</p></div>),
@@ -192,26 +192,28 @@ class Page extends React.PureComponent {
                             },
                           },
                         ]}
-                    seperator
-                  />)
-          }  else panel = (<BasicPanel
-                content={
-                  <div className="text-center">
-                    <h5>There is no data for this graph<br />Please adjust the filters.</h5>
-                  </div>
+            seperator
+          />);
+        } else {
+          panel = (<BasicPanel
+            content={
+              <div className="text-center">
+                <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+              </div>
                 }
-              />)
-  } else if (name === 'salarySentimentPlot') {
-  if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0) {
-   panel = (
-    <div>
-      <div className="row">
-        <div className="col-md-8 col-md-push-2">
-          <TabbedGraphPanel
-              title="University and Salary Impacts"
-              globalID="subjects-vfm-4"
-              key="subjects-vfm-4"
-              content={[
+          />);
+        }
+      } else if (name === 'salarySentimentPlot') {
+        if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0) {
+          panel = (
+            <div>
+              <div className="row">
+                <div className="col-md-8 col-md-push-2">
+                  <TabbedGraphPanel
+                    title="University and Salary Impacts"
+                    globalID="subjects-vfm-4"
+                    key="subjects-vfm-4"
+                    content={[
                     {
                       title: '',
                       active: true,
@@ -230,41 +232,43 @@ class Page extends React.PureComponent {
                       },
                     },
                   ]}
-              seperator
-            />
-        </div>
-      </div>
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <CollapsablePanel
-              title="The questions used to gather the data in this graph."
-              content={scatterText}
-              expanded={false}
-            />
-        </div>
-      </div>
-    </div>
-        )
-          } else panel = (
-              <div className="row">
-                <div className="col-md-8 col-md-push-2">
-                  <BasicPanel
-                    content={
-                      <div className="text-center">
-                        <h5>There is no data for this graph<br />Please adjust the filters.</h5>
-                      </div>
-                    }
+                    seperator
                   />
                 </div>
               </div>
-            )
-}
-}
-   return panel; 
+              <div className="row">
+                <div className="col-md-8 col-md-push-2">
+                  <CollapsablePanel
+                    title="The questions used to gather the data in this graph."
+                    content={scatterText}
+                    expanded={false}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        } else {
+          panel = (
+            <div className="row">
+              <div className="col-md-8 col-md-push-2">
+                <BasicPanel
+                  content={
+                    <div className="text-center">
+                      <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+                    </div>
+                    }
+                />
+              </div>
+            </div>
+          );
+        }
+      }
+    }
+    return panel;
   }
 
   getTableData() {
-        const year3Data = { plan2: { amountBorrowed: 0, loanPaidBack: 0 }, plan3: { amountBorrowed: 0, loanPaidBack: 0 } };
+    const year3Data = { plan2: { amountBorrowed: 0, loanPaidBack: 0 }, plan3: { amountBorrowed: 0, loanPaidBack: 0 } };
     const year4Data = { plan2: { amountBorrowed: 0, loanPaidBack: 0 }, plan3: { amountBorrowed: 0, loanPaidBack: 0 } };
     // let convertedNumber = salary.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
@@ -363,8 +367,8 @@ class Page extends React.PureComponent {
 
   getTable() {
     let panel = null;
-    let plan2 = false
-    let plan3 = false
+    let plan2 = false;
+    let plan3 = false;
 
 
     const explainerText = (
@@ -377,49 +381,51 @@ class Page extends React.PureComponent {
     );
 
 
-   if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-    this.props.reduxState_fetchDataTransaction.default.payload[0].loanRepayment.forEach(elem => {
-      if (elem.plan2.length > 0) plan2 = true;
-      if (elem.plan3.length > 0) plan3 = true; 
-    })
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].loanRepayment.forEach((elem) => {
+        if (elem.plan2.length > 0) plan2 = true;
+        if (elem.plan3.length > 0) plan3 = true;
+      });
 
-    if (plan2 && plan3) {
-    panel = (
-      <div>
-        <div className="row">
-          <div className="col-md-8 col-md-push-2" >
-            <CollapsablePanel
-                title="Total Ammount Taken Out vs Total Ammount Paid Back for Plan 2 / 3"
-                content={this.getTableData()}
-                expanded
-              />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-8 col-md-push-2" >
-            <CollapsablePanel
-              title="Calculations Explained"
-              content={explainerText}
-              expanded={false}
-            />
-          </div>
-        </div>
-      </div>
-    )
-  } else panel = (
-      <div className="row">
-        <div className="col-md-8 col-md-push-2" >
-          <BasicPanel
-          content={
-            <div className="text-center">
-              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+      if (plan2 && plan3) {
+        panel = (
+          <div>
+            <div className="row">
+              <div className="col-md-8 col-md-push-2" >
+                <CollapsablePanel
+                  title="Total Ammount Taken Out vs Total Ammount Paid Back for Plan 2 / 3"
+                  content={this.getTableData()}
+                  expanded
+                />
+              </div>
             </div>
+            <div className="row">
+              <div className="col-md-8 col-md-push-2" >
+                <CollapsablePanel
+                  title="Calculations Explained"
+                  content={explainerText}
+                  expanded={false}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      } else {
+        panel = (
+          <div className="row">
+            <div className="col-md-8 col-md-push-2" >
+              <BasicPanel
+                content={
+                  <div className="text-center">
+                    <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+                  </div>
             }
-            />
-        </div>
-      </div>
-    )
-}
+              />
+            </div>
+          </div>
+        );
+      }
+    }
 
     return panel;
   }
@@ -562,8 +568,8 @@ class Page extends React.PureComponent {
             {this.getGraph('loanRepayment')}
           </div>
         </div>
-        
-          {this.getTable()}
+
+        {this.getTable()}
 
 
         <div className="row">
@@ -575,7 +581,7 @@ class Page extends React.PureComponent {
         </div>
 
 
-          {this.getGraph('salarySentimentPlot')}
+        {this.getGraph('salarySentimentPlot')}
 
 
       </div>
@@ -586,7 +592,7 @@ class Page extends React.PureComponent {
   render() {
     let content = null;
 
- if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
     } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
       console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);

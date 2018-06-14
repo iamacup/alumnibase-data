@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 import { dNc, debounce, initialiseNonMobileSticky } from '../../../../content/scripts/custom/utilities';
 
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
-import BasicPanel from '../../../../content/components/BasicPanel';
-import Wrapper from '../../../../content/containers/Fragments/Template/wrapper';
 
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
@@ -32,7 +30,7 @@ class Graph extends React.PureComponent {
       degreeLevel: null,
       stem: null,
       polar: null,
-      currency: null, //'options/42960339872', // the option id for GBP, so that it's set as default.
+      currency: ['options/42960339872'], // id for GBP, so that it's set as default.
     });
   }
 
@@ -218,16 +216,16 @@ class Graph extends React.PureComponent {
         allowClear: true,
         tags: true,
         placeholder: 'Filter by currency',
+        // dropdownCssClass: "increasedzindexclass",
       });
 
       $('#sel5').on('change', () => {
-        let data = $('#sel5').val();
-          if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-            this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach((element) => {
-              if (element.displayValue === $('#sel5').val()) data = element.optionID;
-            });
-          }
-          console.log(data)
+        let data = [$('#sel5').val()];
+        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach((element) => {
+            if (element.displayValue === $('#sel5').val()) data = [element.optionID];
+          });
+        }
         this.setStateWithValue('currency', data);
       });
 
@@ -586,7 +584,6 @@ class Graph extends React.PureComponent {
                       </div>
                       <div className="col-sm-12">
                         <select data-placeholder="Filter by currency" className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px' }}>
-                          <option />
                           {data.currency.map(element => (
                             <option value={element.optionID}>{element.displayValue}</option>
                         ))}

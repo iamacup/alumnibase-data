@@ -72,15 +72,15 @@ class Page extends React.PureComponent {
     let length = false;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0]).forEach(key => {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0]).forEach((key) => {
         if (this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].length > 0) length = true;
-      })
+      });
 
       if (length) {
         panel = (<TabbedGraphPanel
-        title="Subject Areas and Salary of Current Graduates, Based on the their pre-university location"
-        globalID="polar-overview-1"
-        content={[
+          title="Subject Areas and Salary of Current Graduates, Based on the their pre-university location"
+          globalID="polar-overview-1"
+          content={[
             {
               title: '',
               active: true,
@@ -97,15 +97,17 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-        seperator
-      />);
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
         />);
+      }
     }
 
     return panel;

@@ -197,7 +197,7 @@ class Page extends React.PureComponent {
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key.includes('PercentageSplit')) {
-          this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key], name);
+          this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
         }
 
         if (key.startsWith('PG') && key === name) {
@@ -238,7 +238,7 @@ class Page extends React.PureComponent {
     return options;
   }
 
-  dividePercentOverElements(dataArr, name) {
+  dividePercentOverElements(dataArr) {
     let remainder;
     dataArr.forEach((element) => {
       let count = 0;

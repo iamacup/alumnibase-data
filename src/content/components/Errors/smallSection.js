@@ -17,8 +17,8 @@ const SmallSectionError = ({ title, message, retryCallback }) => {
           marginTop: 0,
         }}
       >
-      <i class="fal fa-sync" />
-    </button>
+        <i className="fal fa-sync" />
+      </button>
     );
   }
 

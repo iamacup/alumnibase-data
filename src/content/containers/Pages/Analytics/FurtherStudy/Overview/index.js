@@ -88,7 +88,7 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             <div className="row">
               <div className="col-md-8 col-md-push-2">
-              {this.getGraph(`Further Study Among Graduates from ${uniName}`, "further-study-overview-1", "thisUniPGSplit")}
+                {this.getGraph(`Further Study Among Graduates from ${uniName}`, 'further-study-overview-1', 'thisUniPGSplit')}
               </div>
             </div>
             <div className="row">
@@ -179,14 +179,14 @@ class Page extends React.PureComponent {
   }
 
   getGraph(title, id, name) {
-    let panel = null
+    let panel = null;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0){
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0) {
         panel = (<TabbedGraphPanel
-                  title={title}
-                  globalID={id}
-                  content={[
+          title={title}
+          globalID={id}
+          content={[
                 {
                   title: '',
                   active: true,
@@ -205,17 +205,19 @@ class Page extends React.PureComponent {
                   },
                 },
               ]}
-                  seperator
-                />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
-    return panel
+    return panel;
   }
 
   getData(name) {
@@ -262,7 +264,7 @@ class Page extends React.PureComponent {
         </div>
       );
     }
-    
+
     const sendData = {};
     Object.keys(this.props.filterData).forEach((key) => {
       if (dNc(this.props.filterData[key])) {

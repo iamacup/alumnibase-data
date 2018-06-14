@@ -54,20 +54,19 @@ class Page extends React.PureComponent {
 
   getTabbed(title, id, collapse, trends, data) {
     let panel = null;
-    let allData = false
-    let timeSeriesData = false
+    let allData = false;
+    let timeSeriesData = false;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload.allData.length > 0) allData = true;
+      if (this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.length > 0) timeSeriesData = true;
 
-        if (this.props.reduxState_fetchDataTransaction.default.payload.allData.length > 0) allData = true 
-        if (this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.length > 0) timeSeriesData = true 
-  
       if (allData && timeSeriesData) {
         panel = (<TabbedGraphPanel
-      title={title}
-      globalID={id}
-      collapsed={collapse}
-      content={[
+          title={title}
+          globalID={id}
+          collapsed={collapse}
+          content={[
             {
               title: 'Overall',
               postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
@@ -105,15 +104,17 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-      seperator
-    />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
 
     return panel;
@@ -143,7 +144,7 @@ class Page extends React.PureComponent {
       });
     }
 
-    return data.map((element, i) => drawPercentRow(titles[i], element, true))
+    return data.map((element, i) => drawPercentRow(titles[i], element, true));
   }
 
   getTrends(item, chart, type, colours) {
@@ -238,7 +239,7 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-      <div className="row">
+        <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the skills, methods or techniques I learnt from undertaking my degree to my work often',
               'view-1-2',
@@ -248,7 +249,7 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-         <div className="row">
+        <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the things I learnt from extra-curricular activities to my work often',
                'view-1-3',
@@ -335,7 +336,7 @@ class Page extends React.PureComponent {
           </div>
         </div>
 
-         <div className="row">
+        <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Be innovative in the workplace',
               'view-1-10',

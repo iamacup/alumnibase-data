@@ -53,22 +53,20 @@ class Page1b extends React.PureComponent {
   }
 
   getTabbed(title, id, collapsed, trends, name) {
-
-        let panel = null
-    let allData = false
-    let timeSeriesData = false
+    let panel = null;
+    let allData = false;
+    let timeSeriesData = false;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload.allData.length > 0) allData = true;
+      if (this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.length > 0) timeSeriesData = true;
 
-        if (this.props.reduxState_fetchDataTransaction.default.payload.allData.length > 0) allData = true 
-        if (this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.length > 0) timeSeriesData = true 
-  
       if (allData && timeSeriesData) {
         panel = (<TabbedGraphPanel
-      title={title}
-      globalID={id}
-      collapsed={collapsed}
-      content={[
+          title={title}
+          globalID={id}
+          collapsed={collapsed}
+          content={[
             {
               title: 'Overall',
               preContent: <p>To what extent do you believe undertaking professional qualifications will advance your career?</p>,
@@ -108,16 +106,18 @@ class Page1b extends React.PureComponent {
               },
             },
           ]}
-      seperator
-    />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
       }
+    }
 
     return panel;
   }
@@ -140,7 +140,7 @@ class Page1b extends React.PureComponent {
       });
     }
 
-    return data.map((element, i) => drawPercentRow(titles[i], element, true))
+    return data.map((element, i) => drawPercentRow(titles[i], element, true));
   }
 
   getTrends(name, colours) {

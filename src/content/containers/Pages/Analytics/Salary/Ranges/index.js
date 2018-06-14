@@ -69,15 +69,15 @@ class Page extends React.PureComponent {
     let length;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      this.props.reduxState_fetchDataTransaction.default.payload.forEach(element => {
-        if (element.splitItem === name && element.split.length > 0) length = true
-      })
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
+        if (element.splitItem === name && element.split.length > 0) length = true;
+      });
 
       if (length === true) {
         panel = (<TabbedGraphPanel
-        title={title}
-        globalID={id}
-        content={[
+          title={title}
+          globalID={id}
+          content={[
             {
               title: '',
               active: true,
@@ -97,15 +97,17 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-        seperator
-      />);
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
 
     return panel;

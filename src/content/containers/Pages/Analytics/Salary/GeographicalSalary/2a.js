@@ -53,18 +53,18 @@ class Page extends React.PureComponent {
     });
   }
 
-getPieChart(title, id, name) {
-  let panel = null;
-  let pieDataLength = false;
+  getPieChart(title, id, name) {
+    let panel = null;
+    let pieDataLength = false;
 
-  if(dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-    if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0) pieDataLength = true;
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0) pieDataLength = true;
 
-    if (pieDataLength) {
-      panel = (<TabbedGraphPanel
-        title={title}
-        globalID={id}
-        content={[
+      if (pieDataLength) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          content={[
             {
               title: '',
               active: true,
@@ -83,20 +83,21 @@ getPieChart(title, id, name) {
               },
             },
           ]}
-        seperator
-      />)
-    } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
+    }
+
+    return panel;
   }
-
-  return panel;
-}
-
 
 
   getData(type) {
@@ -152,20 +153,20 @@ getPieChart(title, id, name) {
 
   getMap() {
     let panel = null;
-    let origin = false
-    let residence = false
+    let origin = false;
+    let residence = false;
 
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-        if (this.props.reduxState_fetchDataTransaction.default.payload[0].countriesOfOrigin.length > 0) origin = true;
-        if (this.props.reduxState_fetchDataTransaction.default.payload[0].countriesOfResidence.length > 0) residence = true;
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].countriesOfOrigin.length > 0) origin = true;
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].countriesOfResidence.length > 0) residence = true;
 
       if (origin && residence) {
         panel = (
-      <TabbedGraphPanel
-        title="Detailed Country Breakdown for Graduate Origins and Destinations"
-        globalID="salary-geo-2a-1"
-        content={[
+          <TabbedGraphPanel
+            title="Detailed Country Breakdown for Graduate Origins and Destinations"
+            globalID="salary-geo-2a-1"
+            content={[
             {
               title: 'Country of Origin',
               active: true,
@@ -203,20 +204,20 @@ getPieChart(title, id, name) {
               },
             },
           ]}
-        seperator
-      />
-    );
-      } else panel = (<BasicPanel
+            seperator
+          />
+        );
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
 
-
-    
 
     return panel;
   }
@@ -237,11 +238,11 @@ getPieChart(title, id, name) {
 
         <div className="row">
           <div className="col-md-4 col-md-push-2">
-            {this.getPieChart("Domicile of Origin", "overview-2", 'countriesOfOriginSplit')}
+            {this.getPieChart('Domicile of Origin', 'overview-2', 'countriesOfOriginSplit')}
           </div>
 
           <div className="col-md-4 col-md-push-2">
-            {this.getPieChart("Current Domicile", "overview-1", 'countriesOfResidenceSplit')}
+            {this.getPieChart('Current Domicile', 'overview-1', 'countriesOfResidenceSplit')}
           </div>
         </div>
 

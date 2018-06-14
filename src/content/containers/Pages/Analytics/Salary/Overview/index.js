@@ -129,15 +129,15 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  getSalaryBoxPlots(name) {
+  getSalaryBoxPlots() {
     let panel = null;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       if (this.props.reduxState_fetchDataTransaction.default.payload[0].salaryRangesOverTime[0].data.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].salaryRangesOverTime[1].data.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].salaryRangesOverTime[2].data.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].salaryRangesOverTime[3].data.length > 0) {
         panel = (<TabbedGraphPanel
-        title="Gender salary splits for graduates over a 15 year span"
-        globalID="salary-overview-2"
-        content={[
+          title="Gender salary splits for graduates over a 15 year span"
+          globalID="salary-overview-2"
+          content={[
             {
               title: 'First Year',
               active: true,
@@ -207,15 +207,17 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-        seperator
-      />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-          />)
+        />);
+      }
     }
 
     return panel;
@@ -227,9 +229,9 @@ class Page extends React.PureComponent {
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0) {
         panel = (<TabbedGraphPanel
-        title="High level subject salaries"
-        globalID="salary-overview-4"
-        content={[
+          title="High level subject salaries"
+          globalID="salary-overview-4"
+          content={[
             {
               title: 'Non Graph',
               active: true,
@@ -249,15 +251,17 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-        seperator
-      />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
 
     return panel;
@@ -265,20 +269,20 @@ class Page extends React.PureComponent {
 
   getLineChart(title, id, name) {
     let panel = null;
-    let length = [];
+    const length = [];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTime.forEach(element => {
-        if (element.data !== null) length.push(true)
-      })
-       this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTimeGenderSplit.forEach(element => {
-        if (element.data.length > 0) length.push(true)
-      })
+      this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTime.forEach((element) => {
+        if (element.data !== null) length.push(true);
+      });
+      this.props.reduxState_fetchDataTransaction.default.payload[0].salaryTrendsOverTimeGenderSplit.forEach((element) => {
+        if (element.data.length > 0) length.push(true);
+      });
       if (length[0] === true && length[1] === true) {
         panel = (<TabbedGraphPanel
-        title={title}
-        globalID={id}
-        content={[
+          title={title}
+          globalID={id}
+          content={[
             {
               title: 'All Data',
               active: true,
@@ -316,15 +320,17 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-        seperator
-      />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-          />)
+        />);
+      }
     }
 
     return panel;
@@ -364,11 +370,12 @@ class Page extends React.PureComponent {
             data[i + 1] = { categories, values };
           });
 
-            const colours = [['#ff7311', '#ffbb7d', '#ff8d8b'], ['#d02224', '#ff8d8b', '#a4c0e5'], ['#11293b', '#0b6623', '#1c6cab'], ['#1c6cab', '#a4c0e5', '#11293b']];
-            const final = {1: drawBoxplotChart(data[1].values, data[1].categories, 10000, colours[0]), 2: drawBoxplotChart(data[2].values, data[2].categories, 10000, colours[1]), 3: drawBoxplotChart(data[3].values, data[3].categories, 10000, colours[2]), 4: drawBoxplotChart(data[4].values, data[4].categories, 10000, colours[3]) }
-          
-          results = final;
+          const colours = [['#ff7311', '#ffbb7d', '#ff8d8b'], ['#d02224', '#ff8d8b', '#a4c0e5'], ['#11293b', '#0b6623', '#1c6cab'], ['#1c6cab', '#a4c0e5', '#11293b']];
+          const final = {
+            1: drawBoxplotChart(data[1].values, data[1].categories, 10000, colours[0]), 2: drawBoxplotChart(data[2].values, data[2].categories, 10000, colours[1]), 3: drawBoxplotChart(data[3].values, data[3].categories, 10000, colours[2]), 4: drawBoxplotChart(data[4].values, data[4].categories, 10000, colours[3]),
+          };
 
+          results = final;
         } else if (type === 'quartiles') {
           const quartiles = this.props.reduxState_fetchDataTransaction.default.payload[0].quartiles[0];
           results = this.getBellCurve('data', quartiles);
@@ -399,7 +406,7 @@ class Page extends React.PureComponent {
 
           const finalOptions = {
             1: drawLineChart(data, options), 2: drawLineChart(data2, optionsB), preContent,
-          };         
+          };
           results = finalOptions;
         } else if (type === 'salaryTrendsOverTime' && (key === type || key === 'salaryTrendsOverTimeGenderSplit')) {
           const data = { name: ['Average Salary', 'National Average'], age: [], plotted: [[], []] };
@@ -573,23 +580,23 @@ class Page extends React.PureComponent {
     } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
       console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
       content = (
-              <div>
-                <StandardFilters />
-                <div className="row" style={{ marginTop: '200px' }}>
-                  <div className="col-md-10 col-md-push-1 text-center">
-                    <BasicPanel
-                      content={
-                        <div>
-                          <h3><strong>There has been a problem on the backend.</strong></h3>
-                          <h4>Try refreshing the page, or changing the filters.</h4>
-                          <br />
-                        </div>
-                      }
-                    />
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
                   </div>
-                </div>
-              </div>
-            );
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
 
     const sendData = {};

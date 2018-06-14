@@ -136,7 +136,7 @@ class Page extends React.PureComponent {
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
         if (key === type && key === 'UKMovement') {
-          this.props.reduxState_fetchDataTransaction.default.payload[0][key][0].schoolLocation.forEach((element, i) => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key][0].schoolLocation.forEach((element) => {
             const index = axisData.yAxis.indexOf(element.region.split(' ').join('\n'));
             axisData.yAxis.push(element.region.split(' ').join('\n'));
             data.push([index, 0, element.length]);

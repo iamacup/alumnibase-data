@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
@@ -10,6 +9,7 @@ import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
 const dataStoreID = 'overview';
 const FetchData = fetchDataBuilder(dataStoreID);
 
+// eslint-disable-next-line react/prefer-stateless-function
 class Page extends React.PureComponent {
   render() {
     return (

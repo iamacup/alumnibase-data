@@ -98,7 +98,7 @@ class Page extends React.PureComponent {
                   </div>
                 </div>
                 <div>
-                {data.group.map(elem => (
+                  {data.group.map(elem => (
                   getPercentRow(elem.gender, elem.averageSalary)
                   ))}
                 </div>
@@ -112,20 +112,19 @@ class Page extends React.PureComponent {
   }
 
   getGraph(title, id, height, name) {
-    let panel = null
+    let panel = null;
     const length = [];
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-
-      this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplit.forEach(elem => {
-        if (elem.data.length > 0) length.push(true)
-      })
+      this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplit.forEach((elem) => {
+        if (elem.data.length > 0) length.push(true);
+      });
       if (this.props.reduxState_fetchDataTransaction.default.payload[0].STEMJobsSplit[0].length > 0 || (length[0] && length[1] && length[2] && length[3])) {
         panel = (<TabbedGraphPanel
-                title={title}
-                globalID={id}
-                key={id}
-                content={[
+          title={title}
+          globalID={id}
+          key={id}
+          content={[
             {
               title: '',
               active: true,
@@ -137,22 +136,24 @@ class Page extends React.PureComponent {
                   pinGraph: true,
                 },
                 width: '100%',
-                height: height,
+                height,
                 data: {
-                  options: this.getData(name)
+                  options: this.getData(name),
                 },
               },
             },
           ]}
-                seperator
-              />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
 
     return panel;
@@ -164,9 +165,9 @@ class Page extends React.PureComponent {
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       if (this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSubjectSalaries.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSubjectSalariesGender.length > 0) {
         panel = (<TabbedGraphPanel
-              title="List of all STEM subjects average salaries"
-              globalID="stem-overview-3"
-              content={[
+          title="List of all STEM subjects average salaries"
+          globalID="stem-overview-3"
+          content={[
                 {
                   title: 'STEM subjects',
                   active: true,
@@ -202,22 +203,23 @@ class Page extends React.PureComponent {
                   },
                 },
               ]}
-              seperator
-            />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
 
     return panel;
   }
 
   getContent() {
-
     const content = (
       <div id="page-content" key="stem-overview">
         <StandardFilters />
@@ -231,8 +233,8 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGraph('% of respondants working in STEM jobs', 'stem-overview-1', '250px', 'STEMJobsSplit' )}
-            {this.getGraph('Average Salary of respondants working in STEM jobs', 'stem-overview-2', '400px', 'STEMSalarySplit' )}
+            {this.getGraph('% of respondants working in STEM jobs', 'stem-overview-1', '250px', 'STEMJobsSplit')}
+            {this.getGraph('Average Salary of respondants working in STEM jobs', 'stem-overview-2', '400px', 'STEMSalarySplit')}
             <h3 className="text-main text-normal text-2x mar-no">STEM Salaries</h3>
             <h5 className="text-muted text-normal">Breakdown of STEM subjects and their associated salary outcomes for students in their <strong>First Job</strong>, with optional Gender Split</h5>
             <hr className="new-section-xs" />
@@ -275,7 +277,7 @@ class Page extends React.PureComponent {
 
   render() {
     let content = null;
-    
+
     if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();
     } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {

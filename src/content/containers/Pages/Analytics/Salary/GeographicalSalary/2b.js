@@ -52,8 +52,8 @@ class Page extends React.PureComponent {
 
   getMap() {
     let panel = null;
-    let origin = false
-    let residence = false
+    let origin = false;
+    let residence = false;
 
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
@@ -62,9 +62,9 @@ class Page extends React.PureComponent {
 
       if (origin && residence) {
         panel = (<TabbedGraphPanel
-        title="Graduate Destinations"
-        globalID="salary-geo-2b-1"
-        content={[
+          title="Graduate Destinations"
+          globalID="salary-geo-2b-1"
+          content={[
             {
               title: 'Constituency Origin',
               active: true,
@@ -104,15 +104,17 @@ class Page extends React.PureComponent {
               },
             },
           ]}
-        seperator
-      />)
-      } else panel = (<BasicPanel
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
           content={
             <div className="text-center">
               <h5>There is no data for this graph<br />Please adjust the filters.</h5>
             </div>
           }
-        />)
+        />);
+      }
     }
 
     return panel;
