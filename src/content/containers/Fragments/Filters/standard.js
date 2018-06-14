@@ -397,7 +397,6 @@ class Graph extends React.PureComponent {
 
           if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
             this.props.reduxState_fetchDataTransaction.default.payload[0].ethnicity.forEach((element) => {
-              console.log(element.displayValue, element.optionID )
               if (element.displayValue === e.target.value) data = element.optionID;
             });
           }
@@ -429,19 +428,16 @@ class Graph extends React.PureComponent {
   }
 
   setStateWithValue(id, value) {
-    console.log('setting local state');
 
     let val = value;
     if (value === null || value.length === 0) val = null;
 
-    // console.log(id, value);
     this.setState({
       [id]: val,
     });
   }
 
   handleSubmit() {
-    console.log('setting global state');
 
     this.props.reduxAction_doUpdate('filterData', {
       countryOfBirth: this.state.countryOfBirth,
@@ -479,7 +475,7 @@ class Graph extends React.PureComponent {
       });
     }
 
-    let currencyName = 'GBP - Pound Sterling (£)kfjsdkl'
+    let currencyName = 'GBP - Pound Sterling (£)'
       if (dNc(this.props.filterData) && dNc(this.props.filterData.currency)) {
         this.props.filterData.currency.forEach(option => {
           this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach(element => {
