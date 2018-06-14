@@ -114,7 +114,7 @@ class Page extends React.PureComponent {
     return options;
   }
 
-  getGraph(title, id, height, name) {
+  getGraph(title, id, height, name, postContent) {
     let panel = null;
     const length = [];
 
@@ -131,6 +131,7 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
+              postContent,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -236,8 +237,8 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGraph('% of respondants working in STEM jobs', 'stem-overview-1', '250px', 'STEMJobsSplit')}
-            {this.getGraph('Average Salary of respondants working in STEM jobs', 'stem-overview-2', '400px', 'STEMSalarySplit')}
+            {this.getGraph('% of respondants working in STEM jobs', 'stem-overview-1', '250px', 'STEMJobsSplit', '*This graph will not change when filters are applied')}
+            {this.getGraph('Average Salary of respondants working in STEM jobs', 'stem-overview-2', '400px', 'STEMSalarySplit', '')}
             <h3 className="text-main text-normal text-2x mar-no">STEM Salaries</h3>
             <h5 className="text-muted text-normal">Breakdown of STEM subjects and their associated salary outcomes for students in their <strong>First Job</strong>, with optional Gender Split</h5>
             <hr className="new-section-xs" />
@@ -341,7 +342,7 @@ class Page extends React.PureComponent {
               content={
                 <FetchData
                   active
-                  fetchURL="/api/analytics/stem/overview"
+                  fetchURL="api/analytics/stem/overview"
                   sendData={{ filterData: sendData }}
                 />
               }
