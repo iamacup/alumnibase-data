@@ -71,12 +71,15 @@ class Page extends React.PureComponent {
               lineData.plotted[0].push(element.data[0].averageSalary);
             });
 
-            this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplitGender);
-            this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplitGender.forEach((element) => {
+            const dataArr = this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplitGender);
+
+            dataArr.forEach((element) => {
               element.data.forEach((elem) => {
+                // if (elem.STEM === 'STEM') {
                 if (elem.gender === 'Male') lineData.plotted[1].push(elem.averageSalary);
                 if (elem.gender === 'Female') lineData.plotted[2].push(elem.averageSalary);
                 if (elem.gender === 'Other') lineData.plotted[3].push(elem.averageSalary);
+              // }
               });
             });
 
@@ -251,6 +254,26 @@ class Page extends React.PureComponent {
 
   getAllUniqueNames(dataArr) {
     const uniqueKeys = [];
+    const newDataArr = [
+    {name: "1 Year", data: [] },
+    {name: "5 Years", data: [] },
+    {name: "10 Years", data: [] },
+    {name: "15 Years", data: [] },
+    ];
+
+    dataArr.forEach(arr => {
+      if (arr.name === "1 Year") {
+        newDataArr[0].data = arr.data.filter(elem => elem.STEM === 'STEM')
+      } else if (arr.name === "5 Years") {
+        newDataArr[1].data = arr.data.filter(elem => elem.STEM === 'STEM')
+      } else if (arr.name === "10 Years") {
+        newDataArr[2].data = arr.data.filter(elem => elem.STEM === 'STEM')
+      } else if (arr.name === "15 Years") {
+        newDataArr[3].data = arr.data.filter(elem => elem.STEM === 'STEM')
+      }
+    })
+
+    console.log(dataArr, newDataArr)
 
     dataArr.forEach((element) => {
       element.data.forEach((elem) => {
@@ -258,21 +281,21 @@ class Page extends React.PureComponent {
       });
     });
 
-    dataArr.forEach((element) => {
+    newDataArr.forEach((element) => {
       if (element.data.length < uniqueKeys.length) {
         const keysInBreakdown = element.data.map(elem => elem.gender);
 
         uniqueKeys.forEach((key) => {
           if (!keysInBreakdown.includes(key)) {
-            if (key === 'Male') element.data.splice(0, 0, { STEM: 'Unknown', averageSalary: 0, gender: key });
-            if (key === 'Female') element.data.splice(1, 0, { STEM: 'Unknown', averageSalary: 0, gender: key });
-            if (key === 'Other') element.data.splice(2, 0, { STEM: 'Unknown', averageSalary: 0, gender: key });
+            if (key === 'Male') element.data.splice(0, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
+            if (key === 'Female') element.data.splice(1, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
+            if (key === 'Other') element.data.splice(2, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
           }
         });
       }
     });
 
-    return dataArr;
+    return newDataArr;
   }
 
   render() {
