@@ -58,7 +58,7 @@ class Page extends React.PureComponent {
     let panel = null;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-      if (this.props.reduxState_fetchDataTransaction.default.payload[0].schoolLocation.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].currentLocation.length) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].UKMovement[0].schoolLocation.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].UKMovement[0].currentLocation.length > 0) {
         panel = (<TabbedGraphPanel
           title={title}
           globalID={globalID}
@@ -113,7 +113,7 @@ class Page extends React.PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-md-10 col-md-push-2">
+          <div className="col-md-10 col-md-push-1">
 
             {this.getHeatMap('Graduate Destinations after University', 'DHLE-9-1')}
 
