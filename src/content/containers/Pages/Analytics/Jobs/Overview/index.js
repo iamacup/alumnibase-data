@@ -81,9 +81,20 @@ class Page extends React.PureComponent {
 
   getGraph() {
     let panel = null;
+    let year2017 = false;
+    let year2016 = false;
+    let year2015 = false;
+
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       if (this.props.reduxState_fetchDataTransaction.default.payload[0].overview.length > 0) {
+        this.props.reduxState_fetchDataTransaction.default.payload[0].overview.forEach(elem => {
+          if (elem.yearGroup === 2015) year2015 = true;
+          if (elem.yearGroup === 2016) year2016 = true;
+          if (elem.yearGroup === 2017) year2017 = true;
+        })
+      }
+        if (year2017 && year2016 && year2015) {
         panel = (<TabbedGraphPanel
           title="Status of graduates according to subject area over time "
           globalID="tuesday-graphs-3"
@@ -145,6 +156,84 @@ class Page extends React.PureComponent {
               ]}
           seperator
         />);
+      } else if (year2017 && !year2016 && !year2015){
+        panel = (<TabbedGraphPanel
+          title="Status of graduates according to subject area over time "
+          globalID="tuesday-graphs-3"
+          content={[
+                {
+                  title: '',
+                  preContent: <p>% of Graduates, withing the first year after Graduating</p>,
+                  active: true,
+                  graphData: {
+                    type: 'echarts',
+                    tools: {
+                      allowDownload: true,
+                      seeData: false,
+                      pinGraph: true,
+                    },
+                    width: '100%',
+                    height: '400px',
+                    data: {
+                      options: this.getData(2017),
+                    },
+                  },
+                },
+                ]}
+          seperator
+        />)
+      } else if (!year2017 && year2016 && !year2015){
+        panel = (<TabbedGraphPanel
+          title="Status of graduates according to subject area over time "
+          globalID="tuesday-graphs-3"
+          content={[
+                {
+                  title: '',
+                  preContent: <p>% of Graduates, withing the second year after Graduating</p>,
+                  active: true,
+                  graphData: {
+                    type: 'echarts',
+                    tools: {
+                      allowDownload: true,
+                      seeData: false,
+                      pinGraph: true,
+                    },
+                    width: '100%',
+                    height: '400px',
+                    data: {
+                      options: this.getData(2016),
+                    },
+                  },
+                },
+                ]}
+          seperator
+        />)
+      } else if (!year2017 && !year2016 && year2015){
+        panel = (<TabbedGraphPanel
+          title="Status of graduates according to subject area over time "
+          globalID="tuesday-graphs-3"
+          content={[
+                {
+                  title: '',
+                  preContent: <p>% of Graduates, withing the third year after Graduating</p>,
+                  active: true,
+                  graphData: {
+                    type: 'echarts',
+                    tools: {
+                      allowDownload: true,
+                      seeData: false,
+                      pinGraph: true,
+                    },
+                    width: '100%',
+                    height: '400px',
+                    data: {
+                      options: this.getData(2015),
+                    },
+                  },
+                },
+                ]}
+          seperator
+        />)
       } else {
         panel = (<BasicPanel
           content={
