@@ -256,25 +256,25 @@ class Page extends React.PureComponent {
   getAllUniqueNames(dataArr) {
     const uniqueKeys = [];
     const newDataArr = [
-    {name: "1 Year", data: [] },
-    {name: "5 Years", data: [] },
-    {name: "10 Years", data: [] },
-    {name: "15 Years", data: [] },
+      { name: '1 Year', data: [] },
+      { name: '5 Years', data: [] },
+      { name: '10 Years', data: [] },
+      { name: '15 Years', data: [] },
     ];
 
-    dataArr.forEach(arr => {
-      if (arr.name === "1 Year") {
-        newDataArr[0].data = arr.data.filter(elem => elem.STEM === 'STEM')
-      } else if (arr.name === "5 Years") {
-        newDataArr[1].data = arr.data.filter(elem => elem.STEM === 'STEM')
-      } else if (arr.name === "10 Years") {
-        newDataArr[2].data = arr.data.filter(elem => elem.STEM === 'STEM')
-      } else if (arr.name === "15 Years") {
-        newDataArr[3].data = arr.data.filter(elem => elem.STEM === 'STEM')
+    dataArr.forEach((arr) => {
+      if (arr.name === '1 Year') {
+        newDataArr[0].data = arr.data.filter(elem => elem.STEM === 'STEM');
+      } else if (arr.name === '5 Years') {
+        newDataArr[1].data = arr.data.filter(elem => elem.STEM === 'STEM');
+      } else if (arr.name === '10 Years') {
+        newDataArr[2].data = arr.data.filter(elem => elem.STEM === 'STEM');
+      } else if (arr.name === '15 Years') {
+        newDataArr[3].data = arr.data.filter(elem => elem.STEM === 'STEM');
       }
-    })
+    });
 
-    console.log(dataArr, newDataArr)
+    console.log(dataArr, newDataArr);
 
     dataArr.forEach((element) => {
       element.data.forEach((elem) => {

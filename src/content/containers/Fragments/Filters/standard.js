@@ -76,15 +76,15 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
-      const countriesOfBirthNames = []
+      const countriesOfBirthNames = [];
       if (dNc(this.props.filterData) && dNc(this.props.filterData.countryOfBirth)) {
-        this.props.filterData.countryOfBirth.forEach(option => {
-          this.props.reduxState_fetchDataTransaction.default.payload[0].countryOfBirth.forEach(element => {
-            if (element.optionID === option) countriesOfBirthNames.push(element.displayValue)
-          })
-        })
+        this.props.filterData.countryOfBirth.forEach((option) => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].countryOfBirth.forEach((element) => {
+            if (element.optionID === option) countriesOfBirthNames.push(element.displayValue);
+          });
+        });
       }
-        $('#sel1')
+      $('#sel1')
         .val(countriesOfBirthNames)
         .trigger('paste');
 
@@ -119,13 +119,13 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
-      const currentCountriesNamesArr = []
+      const currentCountriesNamesArr = [];
       if (dNc(this.props.filterData) && dNc(this.props.filterData.currentCountry)) {
-        this.props.filterData.currentCountry.forEach(option => {
-          this.props.reduxState_fetchDataTransaction.default.payload[0].currentCountry.forEach(element => {
-            if (element.optionID === option) currentCountriesNamesArr.push(element.displayValue)
-          })
-        })
+        this.props.filterData.currentCountry.forEach((option) => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].currentCountry.forEach((element) => {
+            if (element.optionID === option) currentCountriesNamesArr.push(element.displayValue);
+          });
+        });
       }
 
       $('#sel2')
@@ -164,13 +164,13 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
-    const subjectNames = []
+      const subjectNames = [];
       if (dNc(this.props.filterData) && dNc(this.props.filterData.subject)) {
-        this.props.filterData.subject.forEach(option => {
-          this.props.reduxState_fetchDataTransaction.default.payload[0].subject.forEach(element => {
-            if (element.optionID === option) subjectNames.push(element.displayValue)
-          })
-        })
+        this.props.filterData.subject.forEach((option) => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].subject.forEach((element) => {
+            if (element.optionID === option) subjectNames.push(element.displayValue);
+          });
+        });
       }
 
       $('#sel3')
@@ -209,13 +209,13 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
-    const degreeNames = []
+      const degreeNames = [];
       if (dNc(this.props.filterData) && dNc(this.props.filterData.degreeLevel)) {
-        this.props.filterData.degreeLevel.forEach(option => {
-          this.props.reduxState_fetchDataTransaction.default.payload[0].degreeLevel.forEach(element => {
-            if (element.optionID === option) degreeNames.push(element.displayValue)
-          })
-        })
+        this.props.filterData.degreeLevel.forEach((option) => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].degreeLevel.forEach((element) => {
+            if (element.optionID === option) degreeNames.push(element.displayValue);
+          });
+        });
       }
 
       $('#sel4')
@@ -246,14 +246,14 @@ class Graph extends React.PureComponent {
       });
 
 
-    // set the placeholder to be whats selected in state
-    let currencyName = {id: 1, text: "Filter by currency'"}
+      // set the placeholder to be whats selected in state
+      let currencyName = { id: 1, text: "Filter by currency'" };
       if (dNc(this.props.filterData) && dNc(this.props.filterData.currency)) {
-        this.props.filterData.currency.forEach(option => {
-          this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach(element => {
-            if (element.optionID === option) currencyName = {id: option, text: element.displayValue}
-          })
-        })
+        this.props.filterData.currency.forEach((option) => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach((element) => {
+            if (element.optionID === option) currencyName = { id: option, text: element.displayValue };
+          });
+        });
       }
 
 
@@ -263,7 +263,7 @@ class Graph extends React.PureComponent {
         allowClear: true,
         tags: true,
         placeholder: currencyName,
-        // dropdownCssClass: 
+        // dropdownCssClass:
         // dropdownCssClass: "increasedzindexclass",
         // containerCssClass: "increasedzindexclass",
       });
@@ -346,11 +346,11 @@ class Graph extends React.PureComponent {
       let genderArr = [];
       if (dNc(this.state.gender)) (genderArr = this.state.gender);
 
-    if (dNc(this.props.filterData) && dNc(this.props.filterData.gender)) {
-      if (this.props.filterData.gender.includes("options/42960330044")) $('#gender-Male').attr('checked', true);      
-      if (this.props.filterData.gender.includes("options/42960330043")) $('#gender-Female').attr('checked', true);
-      if (this.props.filterData.gender.includes("options/42960330045")) $('#gender-Other').attr('checked', true);
-    }
+      if (dNc(this.props.filterData) && dNc(this.props.filterData.gender)) {
+        if (this.props.filterData.gender.includes('options/42960330044')) $('#gender-Male').attr('checked', true);
+        if (this.props.filterData.gender.includes('options/42960330043')) $('#gender-Female').attr('checked', true);
+        if (this.props.filterData.gender.includes('options/42960330045')) $('#gender-Other').attr('checked', true);
+      }
 
       $('#gender-boxes')
         .find('input')
@@ -379,16 +379,16 @@ class Graph extends React.PureComponent {
 
 
       let ethnicityArr = [];
-      if (dNc(this.state.ethnicity)) ( ethnicityArr = this.state.ethnicity );
+      if (dNc(this.state.ethnicity)) (ethnicityArr = this.state.ethnicity);
 
-    if (dNc(this.props.filterData) && dNc(this.props.filterData.ethnicity)) {
-      if (this.props.filterData.ethnicity.includes('options/42960331731')) $('#42960331731').attr('checked', true);  //white
-      if (this.props.filterData.ethnicity.includes('options/42960331732')) $('#42960331732').attr('checked', true);  //mixed
-      if (this.props.filterData.ethnicity.includes('options/42960331733')) $('#42960331733').attr('checked', true);  //asian
-      if (this.props.filterData.ethnicity.includes('options/42960331734')) $('#42960331734').attr('checked', true);  //black
-      if (this.props.filterData.ethnicity.includes('options/42960331735')) $('#42960331735').attr('checked', true);  //other
-      if (this.props.filterData.ethnicity.includes('options/42960331730')) $('#42960331730').attr('checked', true);  //do not want to disclose
-    }
+      if (dNc(this.props.filterData) && dNc(this.props.filterData.ethnicity)) {
+        if (this.props.filterData.ethnicity.includes('options/42960331731')) $('#42960331731').attr('checked', true); // white
+        if (this.props.filterData.ethnicity.includes('options/42960331732')) $('#42960331732').attr('checked', true); // mixed
+        if (this.props.filterData.ethnicity.includes('options/42960331733')) $('#42960331733').attr('checked', true); // asian
+        if (this.props.filterData.ethnicity.includes('options/42960331734')) $('#42960331734').attr('checked', true); // black
+        if (this.props.filterData.ethnicity.includes('options/42960331735')) $('#42960331735').attr('checked', true); // other
+        if (this.props.filterData.ethnicity.includes('options/42960331730')) $('#42960331730').attr('checked', true); // do not want to disclose
+      }
 
       $('#ethnicity')
         .find('input')
@@ -428,7 +428,6 @@ class Graph extends React.PureComponent {
   }
 
   setStateWithValue(id, value) {
-
     let val = value;
     if (value === null || value.length === 0) val = null;
 
@@ -438,7 +437,6 @@ class Graph extends React.PureComponent {
   }
 
   handleSubmit() {
-
     this.props.reduxAction_doUpdate('filterData', {
       countryOfBirth: this.state.countryOfBirth,
       currentCountry: this.state.currentCountry,
@@ -475,14 +473,14 @@ class Graph extends React.PureComponent {
       });
     }
 
-    let currencyName = 'GBP - Pound Sterling (£)'
-      if (dNc(this.props.filterData) && dNc(this.props.filterData.currency)) {
-        this.props.filterData.currency.forEach(option => {
-          this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach(element => {
-            if (element.optionID === option) currencyName = element.displayValue;
-          })
-        })
-      }
+    let currencyName = 'GBP - Pound Sterling (£)';
+    if (dNc(this.props.filterData) && dNc(this.props.filterData.currency)) {
+      this.props.filterData.currency.forEach((option) => {
+        this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach((element) => {
+          if (element.optionID === option) currencyName = element.displayValue;
+        });
+      });
+    }
 
     return (
       <div className="row" ref={(div) => { this.parentContainer = div; }}>
@@ -645,7 +643,7 @@ class Graph extends React.PureComponent {
                         <label htmlFor="sel5">Currency:</label>
                       </div>
                       <div className="col-sm-12">
-                        <select data-placeholder="Filter by currency" className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px',  }}>
+                        <select data-placeholder="Filter by currency" className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px' }}>
                           <option hidden>{currencyName}</option>
                           {data.currency.map(element => (
                             <option value={element.optionID}>{element.displayValue}</option>
