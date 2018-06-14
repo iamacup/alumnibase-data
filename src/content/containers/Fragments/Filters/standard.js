@@ -76,8 +76,16 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
-      $('#sel1')
-        .val(this.state.countryOfBirth)
+      const countriesOfBirthNames = []
+      if (dNc(this.props.filterData) && dNc(this.props.filterData.countryOfBirth)) {
+        this.props.filterData.countryOfBirth.forEach(option => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].countryOfBirth.forEach(element => {
+            if (element.optionID === option) countriesOfBirthNames.push(element.displayValue)
+          })
+        })
+      }
+        $('#sel1')
+        .val(countriesOfBirthNames)
         .trigger('paste');
 
       // remove the empty option
@@ -111,8 +119,17 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
+      const currentCountriesNamesArr = []
+      if (dNc(this.props.filterData) && dNc(this.props.filterData.currentCountry)) {
+        this.props.filterData.currentCountry.forEach(option => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].currentCountry.forEach(element => {
+            if (element.optionID === option) currentCountriesNamesArr.push(element.displayValue)
+          })
+        })
+      }
+
       $('#sel2')
-        .val(this.state.currentCountry)
+        .val(currentCountriesNamesArr)
         .trigger('paste');
 
       // remove the empty option
@@ -147,8 +164,17 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
+    const subjectNames = []
+      if (dNc(this.props.filterData) && dNc(this.props.filterData.subject)) {
+        this.props.filterData.subject.forEach(option => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].subject.forEach(element => {
+            if (element.optionID === option) subjectNames.push(element.displayValue)
+          })
+        })
+      }
+
       $('#sel3')
-        .val(this.state.subject)
+        .val(subjectNames)
         .trigger('paste');
 
       // remove the empty option
@@ -183,8 +209,17 @@ class Graph extends React.PureComponent {
       });
 
       // set the input box to hold whats already in the state.
+    const degreeNames = []
+      if (dNc(this.props.filterData) && dNc(this.props.filterData.degreeLevel)) {
+        this.props.filterData.degreeLevel.forEach(option => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].degreeLevel.forEach(element => {
+            if (element.optionID === option) degreeNames.push(element.displayValue)
+          })
+        })
+      }
+
       $('#sel4')
-        .val(this.state.degreeLevel)
+        .val(degreeNames)
         .trigger('paste');
 
       // remove the empty option
@@ -210,14 +245,29 @@ class Graph extends React.PureComponent {
         this.setStateWithValue('degreeLevel', data);
       });
 
+
+    // set the placeholder to be whats selected in state
+    let currencyName = {id: 1, text: "Filter by currency'"}
+      if (dNc(this.props.filterData) && dNc(this.props.filterData.currency)) {
+        this.props.filterData.currency.forEach(option => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach(element => {
+            if (element.optionID === option) currencyName = {id: option, text: element.displayValue}
+          })
+        })
+      }
+
+
       $('#sel5').select2({
         width: '100%',
         multiple: false,
         allowClear: true,
         tags: true,
-        placeholder: 'Filter by currency',
+        placeholder: currencyName,
+        // dropdownCssClass: 
         // dropdownCssClass: "increasedzindexclass",
+        // containerCssClass: "increasedzindexclass",
       });
+
 
       $('#sel5').on('change', () => {
         let data = [$('#sel5').val()];
@@ -237,6 +287,8 @@ class Graph extends React.PureComponent {
         min: 18,
         max: 100,
         step: 1,
+        // containerCssClass: "increasedzindexclass",
+        // dropdownCssClass: "increasedzindexclass",
         value: [age[0], age[1]],
       });
 
@@ -291,12 +343,14 @@ class Graph extends React.PureComponent {
       $('#salary-slider').on('slideStop', executeFunction3);
 
       // setting state for gender, ethnicity, polar and stem.
-      let gender = [];
-      if (dNc(this.state.gender)) ({ gender } = this.state);
+      let genderArr = [];
+      if (dNc(this.state.gender)) (genderArr = this.state.gender);
 
-      if (gender.includes('male')) $('#gender-male').attr('checked', true);
-      if (gender.includes('female')) $('#gender-female').attr('checked', true);
-      if (gender.includes('other')) $('#gender-other').attr('checked', true);
+    if (dNc(this.props.filterData) && dNc(this.props.filterData.gender)) {
+      if (this.props.filterData.gender.includes("options/42960330044")) $('#gender-Male').attr('checked', true);      
+      if (this.props.filterData.gender.includes("options/42960330043")) $('#gender-Female').attr('checked', true);
+      if (this.props.filterData.gender.includes("options/42960330045")) $('#gender-Other').attr('checked', true);
+    }
 
       $('#gender-boxes')
         .find('input')
@@ -309,30 +363,32 @@ class Graph extends React.PureComponent {
             });
           }
 
-          if (gender.includes(data)) {
-            const index = gender.indexOf(data);
-            gender.splice(index, 1);
+          if (genderArr.includes(data)) {
+            const index = genderArr.indexOf(data);
+            genderArr.splice(index, 1);
           } else {
-            gender.push(data);
+            genderArr.push(data);
           }
 
-          if (gender.length === 0) {
+          if (genderArr.length === 0) {
             this.setStateWithValue('gender', null);
           } else {
-            this.setStateWithValue('gender', gender);
+            this.setStateWithValue('gender', genderArr);
           }
         });
 
 
-      let ethnicity = [];
-      if (dNc(this.state.ethnicity)) ({ ethnicity } = this.state);
+      let ethnicityArr = [];
+      if (dNc(this.state.ethnicity)) ( ethnicityArr = this.state.ethnicity );
 
-      if (ethnicity.includes('white')) $('#eth-1').attr('checked', true);
-      if (ethnicity.includes('mixed')) $('#eth-2').attr('checked', true);
-      if (ethnicity.includes('asian')) $('#eth-3').attr('checked', true);
-      if (ethnicity.includes('black')) $('#eth-4').attr('checked', true);
-      if (ethnicity.includes('other')) $('#eth-5').attr('checked', true);
-
+    if (dNc(this.props.filterData) && dNc(this.props.filterData.ethnicity)) {
+      if (this.props.filterData.ethnicity.includes('options/42960331731')) $('#42960331731').attr('checked', true);  //white
+      if (this.props.filterData.ethnicity.includes('options/42960331732')) $('#42960331732').attr('checked', true);  //mixed
+      if (this.props.filterData.ethnicity.includes('options/42960331733')) $('#42960331733').attr('checked', true);  //asian
+      if (this.props.filterData.ethnicity.includes('options/42960331734')) $('#42960331734').attr('checked', true);  //black
+      if (this.props.filterData.ethnicity.includes('options/42960331735')) $('#42960331735').attr('checked', true);  //other
+      if (this.props.filterData.ethnicity.includes('options/42960331730')) $('#42960331730').attr('checked', true);  //do not want to disclose
+    }
 
       $('#ethnicity')
         .find('input')
@@ -341,20 +397,21 @@ class Graph extends React.PureComponent {
 
           if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
             this.props.reduxState_fetchDataTransaction.default.payload[0].ethnicity.forEach((element) => {
+              console.log(element.displayValue, element.optionID )
               if (element.displayValue === e.target.value) data = element.optionID;
             });
           }
 
-          if (!ethnicity.includes(data)) {
-            ethnicity.push(data);
+          if (!ethnicityArr.includes(data)) {
+            ethnicityArr.push(data);
           } else {
-            const index = ethnicity.indexOf(data);
-            ethnicity.splice(index, 1);
+            const index = ethnicityArr.indexOf(data);
+            ethnicityArr.splice(index, 1);
           }
 
-          if (ethnicity.length === 0) {
+          if (ethnicityArr.length === 0) {
             this.setStateWithValue('ethnicity', null);
-          } else this.setStateWithValue('ethnicity', ethnicity);
+          } else this.setStateWithValue('ethnicity', ethnicityArr);
         });
 
 
@@ -422,6 +479,15 @@ class Graph extends React.PureComponent {
       });
     }
 
+    let currencyName = 'GBP - Pound Sterling (£)kfjsdkl'
+      if (dNc(this.props.filterData) && dNc(this.props.filterData.currency)) {
+        this.props.filterData.currency.forEach(option => {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach(element => {
+            if (element.optionID === option) currencyName = element.displayValue;
+          })
+        })
+      }
+
     return (
       <div className="row" ref={(div) => { this.parentContainer = div; }}>
         <div className="col-sm-8 col-sm-push-2">
@@ -482,8 +548,8 @@ class Graph extends React.PureComponent {
                     <div className="col-sm-10">
                       {data.ethnicity.map((element, i) => (
                         <div className="checkbox">
-                          <input id={'eth-' + i} className="magic-checkbox" type="checkbox" value={element.displayValue} />
-                          <label htmlFor={'eth-' + i}>{element.displayValue}</label>
+                          <input id={element.optionID.slice(8)} className="magic-checkbox" type="checkbox" value={element.displayValue} />
+                          <label htmlFor={element.optionID.slice(8)}>{element.displayValue}</label>
                         </div>
                       ))}
                     </div>
@@ -552,7 +618,7 @@ class Graph extends React.PureComponent {
                       <select className="form-control" name="sel4" id="sel4">
                         <option />
                         {data.degreeLevel.map(element => (
-                          <option>{element.displayValue}</option>
+                          <option id={element.optionID.slice(8)}>{element.displayValue}</option>
                           ))}
                       </select>
                     </div>
@@ -583,7 +649,8 @@ class Graph extends React.PureComponent {
                         <label htmlFor="sel5">Currency:</label>
                       </div>
                       <div className="col-sm-12">
-                        <select data-placeholder="Filter by currency" className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px' }}>
+                        <select data-placeholder="Filter by currency" className="form-control" id="sel5" name="sel5" style={{ width: '100%', height: '30px',  }}>
+                          <option hidden>{currencyName}</option>
                           {data.currency.map(element => (
                             <option value={element.optionID}>{element.displayValue}</option>
                         ))}
