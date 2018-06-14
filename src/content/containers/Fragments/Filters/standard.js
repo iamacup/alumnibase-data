@@ -498,7 +498,7 @@ class Graph extends React.PureComponent {
                 <div className="row">
                   <div className="col-sm-6">
                     <div className="form-group">
-                      <label htmlFor="sel1">Domicile When Applying:</label>
+                      <label htmlFor="sel1">Country When Applying:</label>
                       <select className="form-control" name="sel1" id="sel1">
                         <option />
                         {data.countryOfBirth.map(element => (
@@ -510,7 +510,7 @@ class Graph extends React.PureComponent {
 
                   <div className="col-sm-6">
                     <div className="form-group">
-                      <label htmlFor="sel2">Domicile Now:</label>
+                      <label htmlFor="sel2">Country Currently Living In:</label>
                       <select className="form-control" name="sel2" id="sel2">
                         <option />
                         {data.currentCountry.map(element => (
