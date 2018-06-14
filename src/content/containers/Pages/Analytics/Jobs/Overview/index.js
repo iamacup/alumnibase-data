@@ -81,9 +81,20 @@ class Page extends React.PureComponent {
 
   getGraph() {
     let panel = null;
+    let firstYear = false
+    let secondYear = false
+    let thirdYear = false
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       if (this.props.reduxState_fetchDataTransaction.default.payload[0].overview.length > 0) {
+        this.props.reduxState_fetchDataTransaction.default.payload[0].overview.forEach(elem => {
+          if (elem.yearGroup === 2015) thirdYear = true;
+          if (elem.yearGroup === 2016) secondYear = true
+          if (elem.yearGroup === 2017) firstYear = true;
+        })
+      }
+
+      if (firstYear && secondYear && thirdYear) {
         panel = (<TabbedGraphPanel
           title="Status of graduates according to subject area over time "
           globalID="tuesday-graphs-3"
