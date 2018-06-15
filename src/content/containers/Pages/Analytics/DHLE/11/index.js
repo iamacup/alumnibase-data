@@ -6,29 +6,37 @@ import Wrapper from '../../../../../../content/containers/Fragments/Template/wra
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
-import { fireDebouncedResizeEvents } from '../../../../../../content/scripts/custom/utilities';
+import { fireDebouncedResizeEvents, dNc } from '../../../../../../content/scripts/custom/utilities';
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawGroupedBarChart from '../../../../../../content/scripts/custom/echarts/drawBarChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+
+const dataStoreID = 'dhle-like-11';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
+    const uni = this.props.location.pathname.split('/')[1];
+
     this.props.reduxAction_doUpdate('pageData', {
-      pageTitle: 'DLHE Requirement 11 - First Time Graduates in full time work',
+      pageTitle: 'DLHE Requirement 11 - Undergraduates in full time work',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: '/analytics',
+          link: `/${uni}/analytics`,
         },
         {
           name: 'DHLE-Like',
-          link: '/analytics/dlhe-like',
+          link: `/${uni}/analytics/dlhe-like`,
         },
         {
-          name: 'RQ 11 - First Time Graduates in full time work',
-          link: '/analytics/dlhe-like/11',
+          name: 'RQ 11 - Undergraduates in full time work',
+          link: `/${uni}/analytics/dlhe-like/11`,
         }],
     });
 
@@ -46,19 +54,15 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGroupedBarchart(title, value, direction, globalID, titles, data) {
-    const obj = {
-      direction,
-      value,
-      // colours: this.props.data[0].colours,
-    };
+  getGroupedBarchart(title, globalID, keyName) {
+    let panel = null;
 
-    const options = drawGroupedBarChart(titles, data, obj);
-
-    const panel = (<TabbedGraphPanel
-      title={title}
-      globalID={globalID}
-      content={[
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0][keyName].length > 0) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={globalID}
+          content={[
             {
               title: '',
               active: true,
@@ -72,27 +76,37 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '350px',
                 data: {
-                  options,
+                  options: this.getData(keyName),
                 },
               },
             },
           ]}
-      seperator
-    />);
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
 
     return panel;
   }
 
-  render() {
+  getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="DHLE-11">
 
         <StandardFilters />
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            <h3 className="text-main text-normal text-2x mar-no">First Time Graduates in full time work</h3>
-            <h5 className="text-muted text-normal">Data for graduates 6 months after leaving university.</h5>
+            <h3 className="text-main text-normal text-2x mar-no">Undergraduates in full time work</h3>
+            <h5 className="text-muted text-normal">Data for graduates after leaving university.</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
@@ -100,25 +114,144 @@ class Page extends React.PureComponent {
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getGroupedBarchart('Male /Female Earning by Salary Band',
-              '',
-              'horizontal',
               'DHLE-11-1',
-              ['Less than £15,000', '£15,000-£19,999', '£20,000-£24,999', '£25,000-£29,999', '£30,000-£34,999', '£35,000-£39,999', '£40,000+', 'Unkown'],
-              [
-                { name: 'Other', data: [0, 0, 0, 0, 0, 0, 0, 5] },
-                { name: 'Male', data: [3590, 9885, 10975, 7725, 3640, 1060, 1100, 14920] },
-                { name: 'Female', data: [6390, 16445, 21145, 7000, 2910, 580, 480, 21425] },
-              ])}
+              'firstJobGraduatesInFullTimeWorkSalaryBrackets',
+             )}
           </div>
         </div>
 
       </div>
     );
+    return content;
+  }
+
+  getData(type) {
+    let options = {};
+    const obj = { direction: 'horizontal', value: '' };
+    const titles = [];
+    const data = [{ name: 'Male', data: [] }, { name: 'Female', data: [] }, { name: 'Other', data: [] }];
+    const lastElement = [];
+    // this is because the greater than element is not last in order to go in.
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (type === key && key === 'firstJobGraduatesInFullTimeWorkSalaryBrackets') {
+          this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            // changing < symbol to 'Less than' and making sure < doesn't go in till the end.
+            if (element.salaryGroup.includes('<')) titles.push('Less than £' + element.salaryGroup.slice(2));
+            else if (!element.salaryGroup.includes('>')) titles.push('£' + element.salaryGroup);
+            else lastElement.push(element);
+
+
+            if (!element.salaryGroup.includes('>')) {
+              element.data.forEach((value) => {
+                data.forEach((elem) => {
+                  if (value.gender === elem.name) elem.data.push(value.length);
+                });
+              });
+            }
+          });
+          // pushing the greater than data into the correct arrays.
+          titles.push('Greater than £' + lastElement[0].salaryGroup.slice(2));
+          lastElement[0].data.forEach((value) => {
+            data.forEach((elem) => { if (value.gender === elem.name) elem.data.push(value.length); });
+          });
+          options = drawGroupedBarChart(titles, data, obj);
+        }
+      });
+    }
+    return options;
+  }
+
+  getAllUniqueNames(dataArr) {
+    const uniqueKeys = [];
+
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            uniqueKeys.forEach((uniqueKey, i) => {
+              if (key === uniqueKey) element.data.splice(i, 0, { gender: key, length: 0 });
+            });
+          }
+        });
+      }
+    });
+
+    return dataArr;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-dhle-11">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/dlhe-like/11"
+                  sendData={{ filterData: sendData }}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
+
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
 
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -126,13 +259,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

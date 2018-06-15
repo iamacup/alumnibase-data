@@ -9,23 +9,32 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'stem-destinations';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
+    const uni = this.props.location.pathname.split('/')[1];
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: '/analytics',
+          link: `/${uni}/analytics`,
         },
         {
           name: 'Salary',
-          link: '/analytics/salary',
+          link: `/${uni}/analytics/salary`,
         },
         {
           name: 'Salary Overview',
-          link: '/analytics/salary/overview',
+          link: `/${uni}/analytics/salary/overview`,
         }],
     });
 
@@ -35,144 +44,185 @@ class Page extends React.PureComponent {
     });
   }
 
-  render() {
-    const columns1 = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
+  getData(type) {
+    let options = {};
+    const columns = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
+    const rows = [];
+    let postContent = '';
 
-    const options1 = {
-      STEM: 10, 'Non-STEM': 20, 'High Skilled': 19, 'Not High Skilled': 11,
-    };
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (type === key && key === 'STEMDestinationsOfGraduates') {
+          Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach((name) => {
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element, i) => {
+              if (element.col1 === 'Unknown' || element.col2 === 'Unknown') postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
+              if (element.col1 === 'Unknown') element.col1 = 'Unknown-' + i; // eslint-disable-line no-param-reassign
+              rows.push([element.col1, element.col2, element.weight]);
+            });
+          });
+          options = drawSankeyChart(columns, rows);
+        } else if (type === key && key === 'STEMDestinationsOfGraduatesEthnicity') {
+          Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach((name) => {
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element, i) => {
+              if (element.col1 === 'Unknown' || element.col2 === 'Unknown') postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
+              if (element.col1 === 'Unknown') element.col1 = 'Unknown-' + i; // eslint-disable-line no-param-reassign
+              rows.push([element.col1, element.col2, element.weight]);
+            });
+          });
+          options = drawSankeyChart(columns, rows);
+        } else if (type === key && key === 'STEMDestinationsOfGraduatesGender') {
+          Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][key][0]).forEach((name) => {
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key][0][name].forEach((element, i) => {
+              if (element.col1 === 'Unknown' || element.col2 === 'Unknown') postContent = 'An Unknown value occurs when the data input is tailored to an individual.';
+              if (element.col1 === 'Unknown') element.col1 = 'Unknown-' + i; // eslint-disable-line no-param-reassign
+              rows.push([element.col1, element.col2, element.weight]);
+            });
+          });
+          options = drawSankeyChart(columns, rows);
+        }
+      });
+    }
+    return { options, postContent };
+  }
 
-    const rows1 = [
-      ['STEM', 'High Skilled', 8.5],
-      ['STEM', 'Not High Skilled', 1.5],
-      ['Non-STEM', 'High Skilled', 13],
-      ['Non-STEM', 'Not High Skilled', 7],
+  getGraph(title, globalID, name) {
+    let panel = null;
+    let length = false;
+    // let working = true;
 
-      ['High Skilled', 'Alligned to Industrial Strategy', 11.5],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 10],
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0][name][0]).forEach((key) => {
+        if (this.props.reduxState_fetchDataTransaction.default.payload[0][name][0][key].length > 0) length = true;
+      });
 
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 5.5],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 3],
-    ];
+      if (length) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={globalID}
+          key={globalID}
+          content={[
+            {
+              title: '',
+              active: true,
+              postContent: ({ ...this.getData(name) }).postContent,
+              graphData: {
+                type: 'googlecharts',
+                tools: {
+                  allowDownload: true,
+                  seeData: false,
+                  pinGraph: true,
+                },
+                width: '100%',
+                height: '250px',
+                data: ({ ...this.getData(name) }).options,
+                // drawData.options,
+              },
+            },
+          ]}
+          seperator
+        />
+        );
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
 
-    const rows2 = [
-      ['White', 'Non-STEM', 9],
-      ['White', 'STEM', 7],
-      ['Mixed', 'Non-STEM', 3],
-      ['Mixed', 'STEM', 1],
-      ['Asian', 'Non-STEM', 5],
-      ['Asian', 'STEM', 3],
-      ['Black / African / Caribbean', 'Non-STEM', 5],
-      ['Black / African / Caribbean', 'STEM', 2],
-      ['Other', 'Non-STEM', 3],
-      ['Other', 'STEM', 1],
-      ['STEM', 'High Skilled', 12],
-      ['STEM', 'Not High Skilled', 2],
-      ['Non-STEM', 'High Skilled', 15],
-      ['Non-STEM', 'Not High Skilled', 10],
-      ['High Skilled', 'Alligned to Industrial Strategy', 17],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 10],
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 6],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 6],
-    ];
+    return panel;
+  }
 
-    const options2 = {
-      White: 16, Mixed: 4, Asian: 8, 'Black / African / Caribbean': 7, Other: 4, STEM: 14, 'Non-STEM': 25, 'High Skilled': 23, 'Not High Skilled': 16,
-    };
-
-    const rows3 = [
-      ['Female', 'STEM', 2],
-      ['Female', 'Non-STEM', 3],
-      ['Male', 'STEM', 8],
-      ['Male', 'Non-STEM', 7],
-
-      ['STEM', 'High Skilled', 7],
-      ['STEM', 'Not High Skilled', 3],
-      ['Non-STEM', 'High Skilled', 7],
-      ['Non-STEM', 'Not High Skilled', 3],
-
-      ['High Skilled', 'Alligned to Industrial Strategy', 9],
-      ['High Skilled', 'Not Alligned to Industrial Strategy', 5],
-      ['Not High Skilled', 'Alligned to Industrial Strategy', 2],
-      ['Not High Skilled', 'Not Alligned to Industrial Strategy', 4],
-    ];
-
-    const options3 = {
-      Female: 5, Male: 15, STEM: 10, 'Non-STEM': 10, 'High Skilled': 11, 'Not High Skilled': 9,
-    };
-
-    const googleData1 = drawSankeyChart(columns1, rows1, options1);
-    const googleData2 = drawSankeyChart(columns1, rows2, options2);
-    const googleData3 = drawSankeyChart(columns1, rows3, options3);
-
-    const tabbedPanelData = [
-      {
-        title: 'Stem Destinations of Graduates',
-        globalID: 'stem-destinations-1',
-        type: 'googlecharts',
-        drawData: { ...googleData1 },
-      },
-      {
-        title: 'Ethnicity split of graduates going into soc.1-3 jobs',
-        globalID: 'stem-destinations-2',
-        type: 'googlecharts',
-        drawData: { ...googleData2 },
-      },
-      {
-        title: 'Gender split of graduates going into soc.1-3 jobs',
-        globalID: 'stem-destinations-3',
-        type: 'googlecharts',
-        drawData: { ...googleData3 },
-      },
-    ];
-
+  getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="stem-destinations">
         <StandardFilters />
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             <h3 className="text-main text-normal text-2x mar-no">STEM Destinations</h3>
+            <h5 className="text-muted text-normal">All data has been collected from graduates within thier first year of leaving university</h5>
             <hr className="new-section-xs" />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {tabbedPanelData.map(data => (
-              <TabbedGraphPanel
-                title={data.title}
-                globalID={data.globalID}
-                key={data.globalID}
-                content={[
-                  {
-                    title: '',
-                    active: true,
-                    graphData: {
-                      type: data.type,
-                      tools: {
-                        allowDownload: true,
-                        seeData: false,
-                        pinGraph: true,
-                      },
-                      width: '100%',
-                      height: '250px',
-                      data: data.drawData,
-                    },
-                  },
-                ]}
-                seperator
+            {this.getGraph('Stem Destinations of Graduates', 'stem-destinations-1', 'STEMDestinationsOfGraduates')}
+            {this.getGraph('Ethnicity split of graduates going into soc.1-3 jobs', 'stem-destinations-2', 'STEMDestinationsOfGraduatesEthnicity')}
+            {this.getGraph('Gender split of graduates going into soc.1-3 jobs', 'stem-destinations-3', 'STEMDestinationsOfGraduatesGender')}
+          </div>
+        </div>
+      </div>
+    );
+    return content;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
               />
-            ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-stem-destinations">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/stem/destinations"
+                  sendData={{ filterData: sendData }}
+                />
+              }
+            />
           </div>
         </div>
       </div>
     );
 
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -180,13 +230,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

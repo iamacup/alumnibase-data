@@ -9,7 +9,6 @@ const SmallSectionError = ({ title, message, retryCallback }) => {
   if (dNc(retryCallback)) {
     retryButton = (
       <button
-        className="btn btn-no-style"
         onClick={retryCallback}
         style={{
           position: 'absolute',
@@ -18,7 +17,7 @@ const SmallSectionError = ({ title, message, retryCallback }) => {
           marginTop: 0,
         }}
       >
-        <i className="fa fa-refresh" />
+        <i className="fal fa-sync" />
       </button>
     );
   }

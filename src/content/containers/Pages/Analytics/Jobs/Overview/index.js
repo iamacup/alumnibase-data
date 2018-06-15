@@ -8,26 +8,33 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
-import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
 import drawStackedBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'jobs';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
+    const uni = this.props.location.pathname.split('/')[1];
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Further Study Overview',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: '/analytics',
+          link: `/${uni}/analytics`,
         },
         {
           name: 'Further Study',
-          link: '/analytics/further-study',
+          link: `/${uni}/analytics/further-study`,
         },
         {
           name: 'Overview',
-          link: '/analytics/further-study/overview',
+          link: `/${uni}/analytics/further-study/overview`,
         }],
     });
 
@@ -37,109 +44,63 @@ class Page extends React.PureComponent {
     });
   }
 
-  render() {
-    const pieData1 = [
-      { name: 'Public', value: 16.67 },
-      { name: 'Private', value: 83.33 },
-    ];
+  getData(yearGroup) {
+    const axisData = { y: [], x: '' };
+    const data = [{ name: 'Employment', data: [] }, { name: 'Further Study', data: [] }, { name: 'Other', data: [] }, { name: 'Unemployed', data: [] }];
 
-    const pieData2 = [
-      { name: 'Primary', value: 4 },
-      { name: 'Secondary', value: 35 },
-      { name: 'Tertiary', value: 53 },
-      { name: 'Quaternary', value: 8 },
-    ];
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].overview.forEach((element) => {
+        if (element.yearGroup === yearGroup) {
+          element.data.forEach((value) => {
+            this.getAllUniqueNames(element.data);
 
-    const axisData = { y: ['Social Studies', 'Mathematical Sciences', 'Arts & Humanities'], x: '' };
-    const data = {
-      1: [{ name: 'Employment', data: [60, 55, 70] }, { name: 'Further Study', data: [15, 20, 9] }, { name: 'Other', data: [20, 20, 15] }, { name: 'unemployed', data: [5, 5, 6] }],
-      2: [{ name: 'Employment', data: [75, 73, 77] }, { name: 'Further Study', data: [11, 12, 4] }, { name: 'Other', data: [10, 11, 13] }, { name: 'unemployed', data: [4, 4, 5] }],
-      3: [{ name: 'Employment', data: [85, 80, 89] }, { name: 'Further Study', data: [4, 7, 0] }, { name: 'Other', data: [8, 10, 7] }, { name: 'unemployed', data: [3, 3, 4] }],
-    };
-    const echartsData1 = drawPieChart(pieData1, true, 'doughnut', false);
-    const echartsData2 = drawPieChart(pieData2, true, 'pie', false);
-    const barChartsData1 = drawStackedBarChart(axisData, data[1]);
-    const barChartsData2 = drawStackedBarChart(axisData, data[2]);
-    const barChartsData3 = drawStackedBarChart(axisData, data[3]);
+            axisData.y.push(value.subject);
 
-    const content = (
-      <div id="page-content">
+            let count = 0;
+            value.breakdown.forEach((elem) => {
+              count += elem.percent;
+            });
 
-        <StandardFilters />
+            if (count !== 100) this.dividePercentOverElements(value.breakdown, count);
 
+            value.breakdown.forEach((elem) => {
+              data.forEach((name) => {
+                if (elem.value === name.name) {
+                  name.data.splice(axisData.y.indexOf(value.subject), 0, elem.percent);
+                }
+              });
+            });
+          });
+        }
+      });
+    }
 
-        <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <h3 className="text-main text-normal text-2x mar-no">Job and Careers Overview</h3>
-            <hr className="new-section-xs" />
-          </div>
-        </div>
+    const options = drawStackedBarChart(axisData, data);
+    return options;
+  }
 
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
+  getGraph() {
+    let panel = null;
+    let firstYear = false;
+    let secondYear = false;
+    let thirdYear = false;
 
-            {/* <div className="row">
-              <div className="col-md-6">
-                             <TabbedGraphPanel
-                               title="Public vs Private Sector"
-                               globalID="tuesday-graphs-1"
-                               content={[
-                             {
-                               title: '',
-                               preContent: <p>The percentage of graduates who, straight out of education find jobs in either public or private sectors of work.</p>,
-                               active: true,
-                               graphData: {
-                                 type: 'echarts',
-                                 tools: {
-                                   allowDownload: true,
-                                   seeData: false,
-                                   pinGraph: true,
-                                 },
-                                 width: '100%',
-                                 height: '400px',
-                                 data: {
-                                   options: echartsData1,
-                                 },
-                               },
-                             },
-                           ]}
-                               seperator
-                             />
-                           </div>
-              <div className="col-md-6">
-                <TabbedGraphPanel
-                  title="Sector Employment"
-                  globalID="tuesday-graphs-2"
-                  content={[
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].overview.length > 0) {
+        this.props.reduxState_fetchDataTransaction.default.payload[0].overview.forEach((elem) => {
+          if (elem.yearGroup === 2015) thirdYear = true;
+          if (elem.yearGroup === 2016) secondYear = true;
+          if (elem.yearGroup === 2017) firstYear = true;
+        });
+      }
+
+      if (firstYear && secondYear && thirdYear) {
+        panel = (<TabbedGraphPanel
+          title="Status of graduates according to subject area over time "
+          globalID="tuesday-graphs-3"
+          content={[
                 {
-                  title: '',
-                  preContent: <p>Percentage of graduates straight out of education, split into different sectors of work.</p>,
-                  active: true,
-                  graphData: {
-                    type: 'echarts',
-                    tools: {
-                      allowDownload: true,
-                      seeData: false,
-                      pinGraph: true,
-                    },
-                    width: '100%',
-                    height: '400px',
-                    data: {
-                      options: echartsData2,
-                    },
-                  },
-                },
-              ]}
-                  seperator
-                />
-              </div>
-            </div> */}
-            <TabbedGraphPanel
-              title="Status of graduates according to subject area over time "
-              globalID="tuesday-graphs-3"
-              content={[
-                {
-                  title: 'Within the First Year of Graduating',
+                  title: 'First Year',
                   preContent: <p>% of Graduates, withing the first year after Graduating</p>,
                   active: true,
                   graphData: {
@@ -152,13 +113,13 @@ class Page extends React.PureComponent {
                     width: '100%',
                     height: '400px',
                     data: {
-                      options: barChartsData1,
+                      options: this.getData(2017),
                     },
                   },
                 },
                 {
                   title: 'Second Year',
-                  preContent: <p>% of Graduates, within the second year after Graduating</p>,
+                  preContent: <p>% of Graduates, withing the second year after Graduating</p>,
                   active: false,
                   graphData: {
                     type: 'echarts',
@@ -170,7 +131,7 @@ class Page extends React.PureComponent {
                     width: '100%',
                     height: '400px',
                     data: {
-                      options: barChartsData2,
+                      options: this.getData(2016),
                     },
                   },
                 },
@@ -188,22 +149,157 @@ class Page extends React.PureComponent {
                     width: '100%',
                     height: '400px',
                     data: {
-                      options: barChartsData3,
+                      options: this.getData(2015),
                     },
                   },
                 },
               ]}
-              seperator
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
+
+    return panel;
+  }
+
+  getContent() {
+    const content = (
+      <div id="page-content" key="jobs-overview">
+
+        <StandardFilters />
+
+
+        <div className="row">
+          <div className="col-md-10 col-md-push-1">
+            <h3 className="text-main text-normal text-2x mar-no">Job and Careers Overview</h3>
+            <hr className="new-section-xs" />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {this.getGraph()}
+          </div>
+        </div>
+      </div>
+    );
+
+    return content;
+  }
+
+  getAllUniqueNames(dataArr) {
+    const uniqueKeys = [];
+
+    dataArr.forEach((element) => {
+      element.breakdown.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.value)) uniqueKeys.push(elem.value);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.breakdown.length < uniqueKeys.length) {
+        const keysInBreakdown = element.breakdown.map(elem => elem.value);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            element.breakdown.push({ value: key, percent: 0 });
+          }
+        });
+      }
+    });
+    return dataArr;
+  }
+
+  dividePercentOverElements(array, count) {
+    let remainder = 100 - count;
+    if (count > 100) remainder = count - 100;
+
+    const percentages = [];
+
+    array.forEach((element, i) => {
+      percentages.push({ percentage: (element.percent / 100) * remainder, index: i });
+    });
+
+    percentages.forEach((elem) => {
+      if (count < 100) {
+        array[elem.index].percent += elem.percentage; // eslint-disable-line no-param-reassign
+      } else {
+        array[elem.index].percent -= elem.percentage; // eslint-disable-line no-param-reassign
+      }
+    });
+    return array;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-jobs">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/jobs/overview"
+                  sendData={{ filterData: sendData }}
+                />
+                }
             />
           </div>
         </div>
       </div>
     );
 
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -211,13 +307,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

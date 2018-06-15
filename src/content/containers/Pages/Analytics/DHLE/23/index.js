@@ -9,23 +9,32 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'dhle-like-23';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
+    const uni = this.props.location.pathname.split('/')[1];
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'DLHE Requirement 2 - Graduates and What they Are Doing',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: '/analytics',
+          link: `/${uni}/analytics`,
         },
         {
           name: 'DHLE-Like',
-          link: '/analytics/dlhe-like',
+          link: `/${uni}/analytics/dlhe-like`,
         },
         {
           name: 'RQ 2/3 - Graduates and What they Are Doing',
-          link: '/analytics/dlhe-like/2-3',
+          link: `/${uni}/analytics/dlhe-like/2-3`,
         }],
     });
 
@@ -35,112 +44,124 @@ class Page extends React.PureComponent {
     });
   }
 
-  getGraph(title, id, set1Name, set2Name, set1, set2, titles, postContent = null) {
-    const axisData = { y: titles, x: '' };
-    const dataSeries = [
-      { name: set1Name, data: set1 },
-      { name: set2Name, data: set2 },
-    ];
+  getGraph(title, id, percentageName, absoluteName) {
+    let panel = null;
+    const percentage = percentageName;
+    const absolute = absoluteName;
 
-    const preFinalSet1 = [];
-    const preFinalSet2 = [];
 
-    for (let a = 0; a < set1.length; a++) {
-      const total = set1[a] + set2[a];
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0][percentageName].length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0][absoluteName].length > 0) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          collapsed={false}
+          content={[
+                  {
+                    title: <i className="far fa-percent" />,
+                    active: true,
+                    graphData: {
+                      type: 'echarts',
+                      tools: {
+                        allowDownload: true,
+                        seeData: false,
+                        pinGraph: true,
+                      },
+                      width: '100%',
+                      height: '350px',
+                      data: {
+                        options: this.getData(percentage),
+                      },
+                    },
+                  },
+                  {
+                    title: <i className="far fa-hashtag" />,
+                    active: false,
+                    graphData: {
+                      type: 'echarts',
+                      tools: {
+                        allowDownload: true,
+                        seeData: false,
+                        pinGraph: true,
+                      },
+                      width: '100%',
+                      height: '350px',
+                      data: {
+                        options: this.getData(absolute),
+                      },
+                    },
+                  },
+                ]}
+          seperator
+        />);
+      } else if (this.props.reduxState_fetchDataTransaction.default.payload[0][percentageName].length > 0 || this.props.reduxState_fetchDataTransaction.default.payload[0][absoluteName].length > 0) {
+        let name = percentageName;
+        if (this.props.reduxState_fetchDataTransaction.default.payload[0][absoluteName].length > 0) name = absoluteName;
 
-      preFinalSet1.push(Math.round((set1[a] / total) * 100));
-      preFinalSet2.push(Math.round((set2[a] / total) * 100));
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          collapsed={false}
+          content={[
+                  {
+                    title: '',
+                    active: true,
+                    graphData: {
+                      type: 'echarts',
+                      tools: {
+                        allowDownload: true,
+                        seeData: false,
+                        pinGraph: true,
+                      },
+                      width: '100%',
+                      height: '350px',
+                      data: {
+                        options: this.getData(name),
+                      },
+                    },
+                  },
+                ]}
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
     }
 
-    const axisDataPercentage = { y: titles, x: '%' };
-    const dataSeriesPercentage = [
-      { name: set1Name, data: preFinalSet1 },
-      { name: set2Name, data: preFinalSet2 },
-    ];
-
-    // this is the absolute numbers
-    const options1 = drawNewBarChart(axisData, dataSeries);
-
-    // this is the percentage numbers
-    const options2 = drawNewBarChart(axisDataPercentage, dataSeriesPercentage);
-
-    const panel = (<TabbedGraphPanel
-      title={title}
-      globalID={id}
-      collapsed={false}
-      content={[
-            {
-              title: <i className="far fa-percent" />,
-              active: true,
-              postContent,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: options2,
-                },
-              },
-            },
-            {
-              title: <i className="far fa-hashtag" />,
-              active: false,
-              postContent,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: options1,
-                },
-              },
-            },
-          ]}
-      seperator
-    />);
 
     return panel;
   }
 
-  render() {
+  getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="DHLE-23">
 
         <StandardFilters />
 
         <h3 className="text-main text-normal text-2x mar-no">Post University Activity</h3>
-        <h5 className="text-muted text-normal">Each graph displays the employment status of past Alumni, for both Post Graduate courses and first time degrees. Click through the tabs to see the data displayed as percentages or raw numbers.</h5>
+        <h5 className="text-muted text-normal">Each graph displays the employment status of past Alumni, for both Post Graduate courses and Undergraduate degrees. Click through the tabs to see the data displayed as percentages or raw numbers.</h5>
         <hr className="new-section-xs" />
 
         <div className="row">
           <div className="col-md-6">
             {this.getGraph('Employment Activity of Post Gradutes',
               'dlhe-like-23-1',
-              'PG Full Time',
-              'PG Part Time',
-              [44990, 6435, 1890, 5120, 3355, 2285],
-              [25195, 4160, 1915, 1425, 680, 1490],
-              ['Other', 'Unemployed', 'Further Study', 'Work and further study', 'Part-time work', 'Full-time work'])}
+              'PGActivityPercentageSplit',
+              'PGActivityAbsoluteSplit')}
           </div>
 
           <div className="col-md-6">
-            {this.getGraph('Employment Activity of First Degree',
+            {this.getGraph('Employment Activity of Undergraduates',
               'dlhe-like-23-2',
-              'FD Full Time',
-              'FD Part Time',
-              [133470, 29245, 12550, 41775, 13095, 10590],
-              [11230, 2675, 1270, 1395, 830, 1575],
-              ['Other', 'Unemployed', 'Further Study', 'Work and further study', 'Part-time work', 'Full-time work'])}
+              'UGActivityPercentageSplit',
+              'UGActivityAbsoluteSplit')
+            }
           </div>
         </div>
 
@@ -148,39 +169,161 @@ class Page extends React.PureComponent {
           <div className="col-md-6">
             {this.getGraph('Most Important Activity Post-Graduate FT / PT',
               'dlhe-like-23-3',
-              'PG Full Time',
-              'PG Part Time',
-              [45855, 6545, 2530, 1030, 5305, 530, 930, 1360],
-              [26425, 4385, 535, 190, 1020, 825, 210, 1280],
-              ['Working full-time', 'Working part-time', 'Unemployed', 'Due to start a job', '*', '**', 'Taking time out in order to travel', 'Doing something else'],
-              <div>
-                <h6>* full-time further study, training or research</h6>
-                <h6>** part-time further study, training or research</h6>
-              </div>)}
+              'PGMostImportantActivityPercentageSplit',
+              'PGMostImportantActivityAbsoluteSplit',
+              )}
           </div>
 
           <div className="col-md-6">
-            {this.getGraph('Most Important Activity First Degree FT / PT',
+            {this.getGraph('Most Important Activity Undergraduate FT / PT',
               'dlhe-like-23-4',
-              'FD Full Time',
-              'FD Part Time',
-              [137075, 29975, 10545, 3275, 45505, 3765, 6815, 3770],
-              [11845, 2810, 700, 165, 1185, 695, 170, 1405],
-              ['Working full-time', 'Working part-time', 'Unemployed', 'Due to start a job', '*', '**', 'Taking time out in order to travel', 'Doing something else'],
-              <div>
-                <h6>* full-time further study, training or research</h6>
-                <h6>** part-time further study, training or research</h6>
-              </div>)}
+              'UGMostImportantActivityPercentageSplit',
+              'UGMostImportantActivityAbsoluteSplit',
+              )
+          }
           </div>
         </div>
 
       </div>
     );
 
+    return content;
+  }
+
+  getData(name) {
+    let options = {};
+    const data = { axisData: { y: [], x: '' }, dataSeries: [{ name: 'Full Time', data: [] }, { name: 'Part Time', data: [] }] };
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (key.includes('PercentageSplit')) {
+          this.dividePercentOverElements(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+        }
+
+        if (key.startsWith('PG') && key === name) {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            let destination = element.graduateDestination;
+            if (destination.length > 36) {
+              if (destination.startsWith('Working')) destination = destination.slice(0, 17);
+              if (destination.startsWith('Engaged')) destination = destination.slice(0, 34);
+              if (destination.startsWith('Doing')) destination = destination.slice(0, 20);
+            }
+            data.axisData.y.push(destination);
+            element.data.forEach((elem) => {
+              data.dataSeries.forEach((value) => {
+                if (value.name === elem.courseFTPT) value.data.push(elem.value);
+              });
+            });
+          });
+          options = drawNewBarChart(data.axisData, data.dataSeries);
+        } else if (key.startsWith('UG') && key === name) {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            let destination = element.graduateDestination;
+            if (destination.length > 36) {
+              if (destination.startsWith('Working')) destination = destination.slice(0, 17);
+              if (destination.startsWith('Engaged')) destination = destination.slice(0, 34);
+              if (destination.startsWith('Doing')) destination = destination.slice(0, 20);
+            }
+            data.axisData.y.push(destination);
+            element.data.forEach((elem) => {
+              data.dataSeries.forEach((value) => {
+                if (value.name === elem.courseFTPT) value.data.push(elem.value);
+              });
+            });
+          });
+          options = drawNewBarChart(data.axisData, data.dataSeries);
+        }
+      });
+    }
+    return options;
+  }
+
+  dividePercentOverElements(dataArr) {
+    let remainder;
+    dataArr.forEach((element) => {
+      let count = 0;
+      element.data.forEach((elem) => {
+        count += elem.value;
+      });
+
+      if (count > 100) {
+        remainder = count - 100;
+        element.data.forEach((elem) => {
+          elem.value -= (elem.value / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      } else if (count < 100) {
+        remainder = 100 - count;
+        element.data.forEach((elem) => {
+          elem.value += (elem.value / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      }
+    });
+
+    return dataArr;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-dhle-23">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/dlhe-like/2-3"
+                  sendData={{ filterData: sendData }}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
+
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -188,13 +331,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

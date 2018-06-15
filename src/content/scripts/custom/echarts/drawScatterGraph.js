@@ -1,4 +1,4 @@
-const drawScatterGraph = (data) => {
+const drawScatterGraph = (data, options) => {
   // const color = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
   const textstyle = { fontSize: 12 };
   const option = {
@@ -22,18 +22,6 @@ const drawScatterGraph = (data) => {
       y: '53%',
     },
     {
-      text: 'Neutral',
-      x: '91%',
-      y: '46%',
-      textStyle: textstyle,
-    },
-    {
-      text: 'Positive',
-      x: '3%',
-      y: '10%',
-      textStyle: textstyle,
-    },
-    {
       text: 'Positive',
       x: '91%',
       y: '10%',
@@ -54,12 +42,6 @@ const drawScatterGraph = (data) => {
     {
       text: 'High',
       x: '85%',
-      y: '90%',
-      textStyle: textstyle,
-    },
-    {
-      text: 'High',
-      x: '85%',
       y: '7%',
       textStyle: textstyle,
     }],
@@ -70,8 +52,8 @@ const drawScatterGraph = (data) => {
       axisTick: {
         show: false,
       },
-      max: 25000,
-      min: -25000,
+      max: options.max + 10000,
+      min: -(options.max + 10000), // options.min - 10000,
     },
     yAxis: {
       axisLabel: {

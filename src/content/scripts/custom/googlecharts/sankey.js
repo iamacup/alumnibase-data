@@ -1,13 +1,19 @@
 import { dNc } from '../../../../content/scripts/custom/utilities';
 
 export default function drawSankeyChart(columns, rows, totals) {
-  const colors = ['#2f6d9d', '#54aece', '#66cbf0', '#9fb743', '#62a0d0'];
+  let colors = ['#2f6d9d', '#54aece', '#66cbf0', '#9fb743', '#62a0d0'];
+  let iterations = '';
+  if (rows.length > 100) {
+    colors = null;
+    iterations = 0;
+  }
 
   const options = {
     height: '100%',
     allowHtml: 'true',
     tooltip: { isHtml: true },
     sankey: {
+      iterations,
       node: {
         colors,
       },

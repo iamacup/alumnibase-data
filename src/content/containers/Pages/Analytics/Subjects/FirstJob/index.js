@@ -7,100 +7,87 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
-
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'subject-first-job';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
+  // constructor(props) {
+  //   super(props);
+
+  //   this.state = ({
+  //     jobs: highest,
+  //   });
+  // }
+
   componentDidMount() {
+    const uni = this.props.location.pathname.split('/')[1];
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: '/analytics',
+          link: `/${uni}/analytics`,
         },
         {
           name: 'Salary',
-          link: '/analytics/salary',
+          link: `/${uni}/analytics/salary`,
         },
         {
           name: 'Salary Overview',
-          link: '/analytics/salary/overview',
+          link: `/${uni}/analytics/salary/overview`,
         }],
     });
 
     $(() => {
       // need to re-initialise the framework here when pages change
       $(document).trigger('nifty.ready');
+
+      $(this.highest).click(() => {
+        // this.setState({
+        //   jobs: highest,
+        // });
+        $(this.highest).addClass('hidden');
+        $(this.lowest).toggle();
+      });
+
+      $(this.lowest).click(() => {
+        // this.setState({
+        //   jobs: lowest,
+        // });
+        $(this.highest).removeClass('hidden');
+        $(this.lowest).toggle();
+      });
     });
   }
 
   getGraphs() {
-    const data = [
-      {
-        name: 'Medicine & dentistry and veterinary science', salary: [1], male: [1], female: [1],
-      },
-      {
-        name: 'Subjects allied to medicine', salary: [6], male: [2], female: [7],
-      }, {
-        name: 'Biological sciences', salary: [12], male: [11], female: [13],
-      }, {
-        name: 'Veterinary Science', salary: [1], male: [1], female: [1],
-      }, {
-        name: 'Agriculture & related subjects', salary: [1], male: [1], female: [1],
-      }, {
-        name: 'Physical sciences', salary: [7], male: [10], female: [4],
-      }, {
-        name: 'Mathematical sciences', salary: [3], male: [5], female: [1],
-      }, {
-        name: 'Computer sciences', salary: [7], male: [13], female: [2],
-      }, {
-        name: 'Engineering & technology', salary: [8], male: [14], female: [2],
-      }, {
-        name: 'Architecture, building, and planning', salary: [3], male: [3], female: [2],
-      }, {
-        name: 'Social studies', salary: [12], male: [11], female: [14],
-      }, {
-        name: 'Law', salary: [3], male: [3], female: [4],
-      }, {
-        name: 'Business & administrative studies', salary: [13], male: [16], female: [12],
-      }, {
-        name: 'Mass communications & documentation', salary: [4], male: [4], female: [4],
-      }, {
-        name: 'Languages', salary: [7], male: [5], female: [9],
-      }, {
-        name: 'Historical & philosophical studies', salary: [5], male: [6], female: [5],
-      }, {
-        name: 'Creative arts & design', salary: [3], male: [12], female: [15],
-      }, {
-        name: 'Education', salary: [3], male: [1], female: [4],
-      }, {
-        name: 'Combined Sujects', salary: [1], male: [1], female: [1],
-      },
-    ];
+    // const filters = (
+    //   <div className="row text-right">
+    //     <button type="button" className="btn btn-default hidden" ref={(element) => { this.highest = element; }} style={{ marginRight: '10px' }}>See Highest to Lowest</button>
+    //     <button type="button" className="btn btn-default" ref={(element) => { this.lowest = element; }}>See Lowest to Highest</button>
+    //     <br />
+    //     <br />
+    //   </div>
+    // );
+    let panel = null;
 
-    const react1 = data.map(element => getPercentRow(element.name, element.salary, true, true));
-
-    const react2 = data.map(element => (
-      <div key={element.name}>
-        <div className="row">
-          <div className="col-md-4 col-md-push-2">
-            <p>{element.name}</p>
-          </div>
-        </div>
-        {getPercentRow('Male', element.male, true, true)}
-        {getPercentRow('Female', element.female, true, true)}
-      </div>
-    ));
-
-    const panel = (
-      <TabbedGraphPanel
-        title="High level subject salaries"
-        globalID="subject-first-job-1"
-        content={[
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].timeToFirstJob.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].timeToFirstJobGenderSplit.length > 0) {
+        panel = (<TabbedGraphPanel
+          title="High level time taken for employment by subject"
+          globalID="subject-first-job-1"
+          content={[
           {
             title: 'Average Salary',
             active: true,
+            // preContent: filters,
             graphData: {
               type: 'react',
               width: '100%',
@@ -111,7 +98,7 @@ class Page extends React.PureComponent {
                 pinGraph: false,
               },
               data: {
-                reactData: react1,
+                reactData: this.getData('timeToFirstJob'),
               },
             },
           },
@@ -128,21 +115,58 @@ class Page extends React.PureComponent {
                 pinGraph: false,
               },
               data: {
-                reactData: react2,
+                reactData: this.getData('timeToFirstJobGenderSplit'),
               },
             },
           },
         ]}
-        seperator
-      />
-    );
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
 
     return panel;
   }
 
-  render() {
+  getData(type) {
+    let options = {};
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (type === 'timeToFirstJob' && key === type) {
+          options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(element => getPercentRow(element.subject, element.averageTimeMonths, true, true));
+        } else if (type === 'timeToFirstJobGenderSplit' && key === type) {
+          this.getAllUniqueName(this.props.reduxState_fetchDataTransaction.default.payload[0][key]);
+          options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(elem => (
+            <div key={elem.subject}>
+              <div className="row">
+                <div className="col-md-4 col-md-push-2">
+                  <p>{elem.subject}</p>
+                </div>
+              </div>
+              {elem.data.map(value => (
+              getPercentRow(value.gender, value.averageTimeMonths, true, true)
+              ))}
+            </div>
+          ));
+        }
+      });
+    }
+
+    return options;
+  }
+
+  getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="subject-first-job">
 
         <StandardFilters />
 
@@ -164,10 +188,97 @@ class Page extends React.PureComponent {
       </div>
     );
 
+    return content;
+  }
+
+  getAllUniqueName(dataArr) {
+    const uniqueKeys = [];
+
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    dataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            if (key === 'Male') element.data.splice(0, 0, { averageTimeMonths: 0, gender: key });
+            if (key === 'Female') element.data.splice(1, 0, { averageTimeMonths: 0, gender: key });
+            if (key === 'Other') element.data.splice(2, 0, { averageTimeMonths: 0, gender: key });
+          }
+        });
+      }
+    });
+
+    return dataArr;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-subjects-first-job">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/subjects/first-job"
+                  sendData={{ filterData: sendData }}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
+
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -175,13 +286,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

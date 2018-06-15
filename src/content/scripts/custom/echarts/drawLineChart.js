@@ -1,12 +1,13 @@
 const drawLineChart = (data, options, titles) => {
   // data sould be in the form [{age: [], plotted: []}]
   // options can have value (bool) and trendline (bool)
+
   const colours = ['#235175', '#62a0d0', '#2f6d9d', '#3a88c4', '#88b7dc'];
   let value = false;
   let labels = [];
   let yLabel = 90;
   let location = 'center';
-  let gap = 50;
+  let gap = 40;
   if (options.value !== false) value = true;
   if (options.yLabel) {
     yLabel = 0;
@@ -52,7 +53,7 @@ const drawLineChart = (data, options, titles) => {
     xAxis: [{
       name: options.x,
       nameLocation: 'center',
-      nameGap: 50,
+      nameGap: 40,
       type: 'category',
       axisLine: {
         lineStyle: {

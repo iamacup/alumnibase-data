@@ -7,14 +7,12 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
     barStyle.marginBottom = '0';
   }
 
-  let length = 3;
-  const string = '' + (salary * 1000);
-  let value = '£' + string.slice(0, 2) + ',' + string.slice(2);
-  if (string.length < 5) value = '£' + string.slice(0, 1) + ',' + string.slice(1, string.length);
+  let convertedNumber = salary.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
+  let width = { width: ((salary / 10000) * 5) + '%' };
 
-  if (time) {
-    value = salary + ' Months';
-    length = 5;
+  if (time === true) {
+    convertedNumber = (salary) + ' Months';
+    width = { width: (salary / 10) + '%' };
   }
 
   const obj = (
@@ -28,7 +26,7 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
         </div>
       </div>
       <div className="col-sm-8">
-        <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{value}</h6>
+        <h6 style={{ marginTop: '0', marginBottom: '4px' }}>{convertedNumber}</h6>
         <div className="progress" style={barStyle}>
           <div
             className="progress-bar"
@@ -36,7 +34,7 @@ const getSalaryRow = (title, salary, bottomMargin, time) => {
             aria-valuenow="70"
             aria-valuemin="0"
             aria-valuemax="100"
-            style={{ width: (salary * length) + '%' }}
+            style={width}
           >
             <span className="sr-only">{salary}% Complete</span>
           </div>

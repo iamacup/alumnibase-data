@@ -11,23 +11,32 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import getPercentRow from '../../../../../../content/scripts/custom/echarts/drawSalaryRow';
 import drawPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'stem-overview';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
+    const uni = this.props.location.pathname.split('/')[1];
+
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Graduate Salaries',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: '/analytics',
+          link: `/${uni}/analytics`,
         },
         {
           name: 'Salary',
-          link: '/analytics/salary',
+          link: `/${uni}/analytics/salary`,
         },
         {
           name: 'Salary Overview',
-          link: '/analytics/salary/overview',
+          link: `/${uni}/analytics/salary/overview`,
         }],
     });
 
@@ -37,205 +46,132 @@ class Page extends React.PureComponent {
     });
   }
 
-  render() {
-    const pieData1 = [
-      { name: 'STEM Subjects', value: 36 },
-      { name: 'Non-STEM Subjects', value: 6 },
-    ];
+  getData(type) {
+    let options = {};
 
-    const echartsData1 = drawPieChart(pieData1, false, 'pie', false);
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (type === key) {
+          if (key === 'STEMJobsSplit') {
+            const pieData = [{ value: 'STEM Subjects', percent: 0 }, { value: 'Non-STEM Subjects', percent: 0 }];
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+              pieData[0].percent = element[0].length;
+              pieData[1].percent = 1000 - element[0].length;
+            });
+            options = drawPieChart(pieData, false, 'pie', false);
+          } else if (key === 'STEMSalarySplit') {
+            const lineData = {
+              name: ['Average', 'Male', 'Female', 'Other', 'National Average'],
+              age: [],
+              plotted: [[], /* Male */[], /* Female */ [], /* Other */ [], /* National */[]],
+            };
 
-    const data1 = [
-      {
-        job: 'Science', salary: [21.352], male: [23], female: [21],
-      },
-      {
-        job: 'Advanced Science', salary: [25.594], male: [27], female: [23],
-      },
-      {
-        job: 'Physics', salary: [28], male: [30], female: [27],
-      },
-      {
-        job: 'Chemistry', salary: [24.806], male: [25], female: [21],
-      },
-      {
-        job: 'Biology', salary: [29.751], male: [29], female: [27],
-      },
-      {
-        job: 'Maths', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'IT', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'ICT', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Engineering', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Computing', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Further Maths', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Applied ICT', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Design and Technology(Product Design)', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Applied Science', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Computer Science', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Electronics', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Human Biology', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Pure Maths', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Statistics', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Construction and Built Environmnet', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Electrical Engineering', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Electronic Engineering', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Mechanical Engineering', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Manufacturing Engineering', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Operations and Maintenance Engineering', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Pharmaceutical Science', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Vechicle Technology', salary: [32.879], male: [37], female: [28],
-      },
-      {
-        job: 'Psychology', salary: [32.879], male: [37], female: [28],
-      },
-    ];
+            this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+              lineData.age.push(element.name);
+              lineData.plotted[0].push(element.data[0].averageSalary);
+            });
 
-    const subjectsData = data1.map(data => getPercentRow(data.job, data.salary));
+            const dataArr = this.getAllUniqueNames(this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplitGender);
 
-    const genderSubjectsData = data1.map(data => (
-      <div key={data.job}>
-        <div className="row">
-          <div className="col-md-4 col-md-push-2">
-            <p>{data.job}</p>
-          </div>
-        </div>
-        <div>
-          {getPercentRow('Male', data.male)}
-          {getPercentRow('Female', data.female)}
-        </div>
-      </div>
-    ));
+            dataArr.forEach((element) => {
+              element.data.forEach((elem) => {
+                // if (elem.STEM === 'STEM') {
+                if (elem.gender === 'Male') lineData.plotted[1].push(elem.averageSalary);
+                if (elem.gender === 'Female') lineData.plotted[2].push(elem.averageSalary);
+                if (elem.gender === 'Other') lineData.plotted[3].push(elem.averageSalary);
+              // }
+              });
+            });
 
-    const lineData = { name: ['Average STEM', 'University Average', 'National Average'], age: ['First Job', 'Year 1', '5 Years', '10 Years', '10+'], plotted: [[25000, 40000, 60000, 80000, 100000], /* UNI */[26000, 46000, 65000, 90000, 110000], /* National */[24000, 35000, 50000, 70000, 90000]] };
-    const lineChartData = drawLineChart(lineData, 'Years');
+            this.props.reduxState_fetchDataTransaction.default.payload[0].nationalAverage.forEach((element) => {
+              lineData.age.forEach((value) => {
+                if (value === element.name) lineData.plotted[4].push(element.salary);
+              });
+            });
 
-    const tabbedPanelData = [
-      {
-        title: '% of respondants working in STEM jobs',
-        globalID: 'stem-overview-1',
-        type: 'echarts',
-        drawData: { options: echartsData1 },
-      },
-    ];
+            options = drawLineChart(lineData, 'Years');
+          } else if (key === 'STEMSubjectSalaries') {
+            options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(data => getPercentRow(data.subject, data.averageSalary));
+          } else if (key === 'STEMSubjectSalariesGender') {
+            options = this.props.reduxState_fetchDataTransaction.default.payload[0][key].map(data => (
+              <div key={data.subject}>
+                <div className="row">
+                  <div className="col-md-4 col-md-push-2">
+                    <p>{data.subject}</p>
+                  </div>
+                </div>
+                <div>
+                  {data.group.map(elem => (
+                  getPercentRow(elem.gender, elem.averageSalary)
+                  ))}
+                </div>
+              </div>
+            ));
+          }
+        }
+      });
+    }
+    return options;
+  }
 
-    const content = (
-      <div id="page-content">
-        <StandardFilters />
+  getGraph(title, id, height, name, postContent) {
+    let panel = null;
+    const length = [];
 
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <h3 className="text-main text-normal text-2x mar-no">Overview of STEM Students</h3>
-            <hr className="new-section-xs" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            {tabbedPanelData.map(data => (
-              <TabbedGraphPanel
-                title={data.title}
-                globalID={data.globalID}
-                key={data.globalID}
-                content={[
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplit.forEach((elem) => {
+        if (elem.data.length > 0) length.push(true);
+      });
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].STEMJobsSplit[0].length > 0 || (length[0] && length[1] && length[2] && length[3])) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          key={id}
+          content={[
             {
               title: '',
-              // preContent: <p>This is the OPTIONAL pre content</p>,
-              // postContent: <p>This is the OPTIONAL post content</p>,
               active: true,
+              postContent,
               graphData: {
-                type: data.type,
+                type: 'echarts',
                 tools: {
                   allowDownload: true,
                   seeData: false,
                   pinGraph: true,
                 },
                 width: '100%',
-                height: '250px',
-                data: data.drawData,
+                height,
+                data: {
+                  options: this.getData(name),
+                },
               },
             },
           ]}
-                seperator
-              />
-  ))}
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
 
-            <TabbedGraphPanel
-              title="Average Salary of respondants working in STEM jobs"
-              globalID="stem-overview-2"
-              content={[
-                       {
-                         title: '',
-                         // preContent: <p>This is the OPTIONAL pre content</p>,
-                         // postContent: <p>This is the OPTIONAL post content</p>,
-                         active: true,
-                         graphData: {
-                           type: 'echarts',
-                           tools: {
-                             allowDownload: true,
-                             seeData: false,
-                             pinGraph: true,
-                           },
-                           width: '100%',
-                           height: '400px',
-                           data: {
-                             options: lineChartData,
-                           },
-                         },
-                       },
-                     ]}
-              seperator
-            />
+    return panel;
+  }
 
-            <h3 className="text-main text-normal text-2x mar-no">STEM Salaries</h3>
-            <h5 className="text-muted text-normal">Breakdown of STEM subjects and their associated salary outcomes for students in their <strong>First Job</strong>, with optional Gender Split</h5>
-            <hr className="new-section-xs" />
+  getSalaryGraph() {
+    let panel = null;
 
-            <TabbedGraphPanel
-              title="List of all STEM subjects average salaries"
-              globalID="stem-overview-3"
-              content={[
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSubjectSalaries.length > 0 && this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSubjectSalariesGender.length > 0) {
+        panel = (<TabbedGraphPanel
+          title="List of all STEM subjects average salaries"
+          globalID="stem-overview-3"
+          content={[
                 {
                   title: 'STEM subjects',
                   active: true,
@@ -249,7 +185,7 @@ class Page extends React.PureComponent {
                       pinGraph: false,
                     },
                     data: {
-                      reactData: subjectsData,
+                      reactData: this.getData('STEMSubjectSalaries'),
                     },
                   },
                 },
@@ -266,23 +202,166 @@ class Page extends React.PureComponent {
                       pinGraph: false,
                     },
                     data: {
-                      reactData: genderSubjectsData,
+                      reactData: this.getData('STEMSubjectSalariesGender'),
                     },
                   },
                 },
               ]}
-              seperator
-            />
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
+
+    return panel;
+  }
+
+  getContent() {
+    const content = (
+      <div id="page-content" key="stem-overview">
+        <StandardFilters />
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            <h3 className="text-main text-normal text-2x mar-no">Overview of STEM Students</h3>
+            <hr className="new-section-xs" />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-8 col-md-push-2">
+            {this.getGraph('% of respondants working in STEM jobs', 'stem-overview-1', '250px', 'STEMJobsSplit', '*This graph will not change when filters are applied')}
+            {this.getGraph('Average Salary of respondants working in STEM jobs', 'stem-overview-2', '400px', 'STEMSalarySplit', '')}
+            <h3 className="text-main text-normal text-2x mar-no">STEM Salaries</h3>
+            <h5 className="text-muted text-normal">Breakdown of STEM subjects and their associated salary outcomes for students in their <strong>First Job</strong>, with optional Gender Split</h5>
+            <hr className="new-section-xs" />
+
+            {this.getSalaryGraph()}
 
           </div>
         </div>
       </div>
     );
 
+    return content;
+  }
+
+  getAllUniqueNames(dataArr) {
+    const uniqueKeys = [];
+    const newDataArr = [
+      { name: '1 Year', data: [] },
+      { name: '5 Years', data: [] },
+      { name: '10 Years', data: [] },
+      { name: '15 Years', data: [] },
+    ];
+
+    dataArr.forEach((arr) => {
+      if (arr.name === '1 Year') {
+        newDataArr[0].data = arr.data.filter(elem => elem.STEM === 'STEM');
+      } else if (arr.name === '5 Years') {
+        newDataArr[1].data = arr.data.filter(elem => elem.STEM === 'STEM');
+      } else if (arr.name === '10 Years') {
+        newDataArr[2].data = arr.data.filter(elem => elem.STEM === 'STEM');
+      } else if (arr.name === '15 Years') {
+        newDataArr[3].data = arr.data.filter(elem => elem.STEM === 'STEM');
+      }
+    });
+
+    console.log(dataArr, newDataArr);
+
+    dataArr.forEach((element) => {
+      element.data.forEach((elem) => {
+        if (!uniqueKeys.includes(elem.gender)) uniqueKeys.push(elem.gender);
+      });
+    });
+
+    newDataArr.forEach((element) => {
+      if (element.data.length < uniqueKeys.length) {
+        const keysInBreakdown = element.data.map(elem => elem.gender);
+
+        uniqueKeys.forEach((key) => {
+          if (!keysInBreakdown.includes(key)) {
+            if (key === 'Male') element.data.splice(0, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
+            if (key === 'Female') element.data.splice(1, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
+            if (key === 'Other') element.data.splice(2, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
+          }
+        });
+      }
+    });
+
+    return newDataArr;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-stem">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/stem/overview"
+                  sendData={{ filterData: sendData }}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
+
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -290,13 +369,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
