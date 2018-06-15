@@ -1,4 +1,3 @@
-
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
@@ -46,8 +45,23 @@ class Wrapper extends React.PureComponent {
 
 
   render() {
-    const uniName = this.context.router.route.location.pathname.split('/')[1];
-    const finalName = uniName[0].toUpperCase() + uniName.slice(1);
+    const name = this.context.router.route.location.pathname.split('/')[1].toLowerCase();
+    let uniName = 'Aristotle University';
+
+    if (name === 'aristotle') uniName = 'Aristotle University';
+    else if (name === 'cranfield') uniName = 'Cranfield University';
+    else if (name === 'kings') uniName = 'King\'s College London';
+    else if (name === 'loughborough') uniName = 'Loughborough University';
+    else if (name === 'oxford-brookes') uniName = 'Oxford Brookes University';
+    else if (name === 'sheffield') uniName = 'University of Sheffield';
+    else if (name === 'sheffield-hallam') uniName = 'Sheffield Hallam University';
+    else if (name === 'ucl') uniName = 'University College London';
+    else if (name === 'uwe') uniName = 'University of the West of England';
+    else if (name === 'durham') uniName = 'Durham University';
+    else if (name === 'mmu') uniName = 'Manchester Metropolitan University';
+    else if (name === 'liverpool-hope') uniName = 'Liverpool Hope University';
+    else if (name === 'chester') uniName = 'University of Chester';
+    else this.context.router.history.push('/broken/page');
 
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
@@ -57,7 +71,7 @@ class Wrapper extends React.PureComponent {
           <div id="content-container">
             <div id="page-head">
               <div className="pad-all text-center" style={{ paddingBottom: '0' }}>
-                <h3 style={{ marginTop: '0' }}>{finalName} Uni</h3>
+                <h3 style={{ marginTop: '0' }}>{uniName}</h3>
                 <p>{this.props.pageData.pageTitle}</p>
               </div>
 
@@ -85,7 +99,6 @@ class Wrapper extends React.PureComponent {
     );
   }
 }
-
 
 Wrapper.contextTypes = {
   router: PropTypes.object,
