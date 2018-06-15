@@ -146,12 +146,21 @@ export function getAuthenticationHeaders(override) {
   }
 
   if (dNc(bearer)) {
+    console.log('returning a bearer');
+
+    console.log(new Error('what 1'));
+
+
     return {
       headers: {
         Authorization: 'Bearer ' + bearer,
       },
     };
   }
+
+  console.log('NOT returning a bearer');
+
+  console.log(new Error('what 2'));
 
   return {};
 }
@@ -173,6 +182,8 @@ export function getAuthenticationCookie() {
 }
 
 export function deleteAuthenticationCookie() {
+  console.log('we are deleting the auth cookie');
+
   const Cookies = require('js-cookie');
   Cookies.remove('authentication');
 }
