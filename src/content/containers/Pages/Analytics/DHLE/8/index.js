@@ -101,10 +101,10 @@ class Page extends React.PureComponent {
           seperator
         />);
       } else if (this.props.reduxState_fetchDataTransaction.default.payload[0].PGFirstJobTypeOfWorkGenderSplit.length > 0) {
-         panel = (<TabbedGraphPanel
-                  title={title}
-                  globalID={globalID}
-                  content={[
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={globalID}
+          content={[
                         {
                           title: '',
                           active: true,
@@ -124,13 +124,13 @@ class Page extends React.PureComponent {
                           },
                         },
                       ]}
-                  seperator
-                />);
+          seperator
+        />);
       } else if (this.props.reduxState_fetchDataTransaction.default.payload[0].UGFirstJobTypeOfWorkGenderSplit.length > 0) {
-         panel = (<TabbedGraphPanel
-                  title={title}
-                  globalID={globalID}
-                  content={[
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={globalID}
+          content={[
                         {
                           title: '',
                           active: true,
@@ -150,8 +150,8 @@ class Page extends React.PureComponent {
                           },
                         },
                       ]}
-                  seperator
-                />);
+          seperator
+        />);
       } else {
         panel = (<BasicPanel
           content={

@@ -155,10 +155,10 @@ class Page extends React.PureComponent {
           // pushing the greater than data into the correct arrays.
           if (lastElement.length > 0) {
             titles.push('Greater than £' + lastElement[0].salaryGroup.slice(2));
-          lastElement[0].data.forEach((value) => {
-            data.forEach((elem) => { if (value.gender === elem.name) elem.data.push(value.length); });
-          });
-        }
+            lastElement[0].data.forEach((value) => {
+              data.forEach((elem) => { if (value.gender === elem.name) elem.data.push(value.length); });
+            });
+          }
           options = drawGroupedBarChart(titles, data, obj);
         }
       });

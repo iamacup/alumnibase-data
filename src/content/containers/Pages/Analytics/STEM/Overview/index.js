@@ -116,24 +116,24 @@ class Page extends React.PureComponent {
 
   getGraph(title, id, height, name) {
     let panel = null;
-    let length = false
-    
-    let year1 = false
-    let year5 = false
-    let year10 = false
-    let year15 = false
+    let length = false;
+
+    let year1 = false;
+    let year5 = false;
+    let year10 = false;
+    let year15 = false;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplit.forEach((elem) => {
-         const data = elem.data.map(element => element.STEM === 'STEM')
-          if (elem.name === '1 Year' && data.includes(true)) year1 = true
-          if (elem.name === '5 Years' && data.includes(true)) year5 = true
-          if (elem.name === '10 Years' && data.includes(true)) year10 = true
-          if (elem.name === '15 Years' && data.includes(true)) year15 = true
+        const data = elem.data.map(element => element.STEM === 'STEM');
+        if (elem.name === '1 Year' && data.includes(true)) year1 = true;
+        if (elem.name === '5 Years' && data.includes(true)) year5 = true;
+        if (elem.name === '10 Years' && data.includes(true)) year10 = true;
+        if (elem.name === '15 Years' && data.includes(true)) year15 = true;
       });
 
 
-      if (name === 'STEMJobsSplit') length = this.props.reduxState_fetchDataTransaction.default.payload[0].STEMJobsSplit[0].length > 0
+      if (name === 'STEMJobsSplit') length = this.props.reduxState_fetchDataTransaction.default.payload[0].STEMJobsSplit[0].length > 0;
       if (name === 'STEMSalarySplit') length = (year1 && year5 && year10 && year15);
 
       if (length) {

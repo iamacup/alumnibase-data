@@ -175,7 +175,7 @@ class Page extends React.PureComponent {
   }
 
   getAllUniqueNames(dataArr) {
-    let uniqueKeys = ['Other'];
+    const uniqueKeys = ['Other'];
 
     dataArr.forEach((element) => {
       element.split.forEach((elem) => {
@@ -183,10 +183,10 @@ class Page extends React.PureComponent {
       });
     });
 
-// this makes sure that if other filters are on, and the backend is only sending back data for male and other, it will include female too.
-    if (!uniqueKeys.includes('Male')) uniqueKeys.push('Male')
-    if (!uniqueKeys.includes('Female')) uniqueKeys.push('Female')
-    if (!uniqueKeys.includes('Other')) uniqueKeys.push('Other')
+    // this makes sure that if other filters are on, and the backend is only sending back data for male and other, it will include female too.
+    if (!uniqueKeys.includes('Male')) uniqueKeys.push('Male');
+    if (!uniqueKeys.includes('Female')) uniqueKeys.push('Female');
+    if (!uniqueKeys.includes('Other')) uniqueKeys.push('Other');
 
     dataArr.forEach((element) => {
       if (element.split.length < uniqueKeys.length) {
@@ -234,7 +234,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
-    console.log()
+    console.log();
     let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
@@ -265,7 +265,7 @@ class Page extends React.PureComponent {
     const sendData = {};
     Object.keys(this.props.filterData).forEach((key) => {
       if (dNc(this.props.filterData[key])) {
-        sendData[key] = _.assign({}, this.props.filterData[key]) 
+        sendData[key] = _.assign({}, this.props.filterData[key]);
       }
     });
     // sendData.rand = Math.random();
