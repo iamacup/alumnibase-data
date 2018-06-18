@@ -33,6 +33,8 @@ export default () => {
         axiosInstance
           .post(finalLocation, data, headers)
           .then((res) => {
+            console.log('here');
+
             if (dNc(res.data.authStatus)) {
               handleAuthStatus(res.data.authStatus, dispatch);
             }

@@ -130,13 +130,14 @@ export function enableWOW() {
 }
 
 export function setAuthenticationCookie(data) {
-  console.log('setAuthenticationCookie');
+  // console.log('setAuthenticationCookie');
   const Cookies = require('js-cookie');
-  Cookies.set('authentication', data, { expires: 365 });
+  // Cookies.set('authentication', data, { expires: 365 });
+  Cookies.set('abauth', data, { expires: 365 });
 }
 
 export function getAuthenticationHeaders(override) {
-  console.log('getAuthenticationHeaders');
+  // console.log('getAuthenticationHeaders');
   const Cookies = require('js-cookie');
 
   let bearer = null;
@@ -144,15 +145,14 @@ export function getAuthenticationHeaders(override) {
   if (dNc(override)) {
     bearer = override;
   } else {
-    bearer = Cookies.get('authentication');
+    // bearer = Cookies.get('authentication');
+    bearer = Cookies.get('abauth');
   }
 
   if (dNc(bearer)) {
-    console.log('returning a bearer');
+    // console.log('returning a bearer');
 
-    //console.log(new Error('what 1'));
-
-
+    // console.log(new Error('what 1'));
     return {
       headers: {
         Authorization: 'Bearer ' + bearer,
@@ -160,17 +160,17 @@ export function getAuthenticationHeaders(override) {
     };
   }
 
-  console.log('NOT returning a bearer');
-
-  //console.log(new Error('what 2'));
+  // console.log('NOT returning a bearer');
+  // console.log(new Error('what 2'));
 
   return {};
 }
 
 export function authenticationCookieExists() {
-  console.log('authenticationCookieExists');
+  // console.log('authenticationCookieExists');
   const Cookies = require('js-cookie');
-  const bearer = Cookies.get('authentication');
+  // const bearer = Cookies.get('authentication');
+  const bearer = Cookies.get('abauth');
 
   if (dNc(bearer)) {
     return true;
@@ -180,20 +180,23 @@ export function authenticationCookieExists() {
 }
 
 export function getAuthenticationCookie() {
-  console.log('getAuthenticationCookie');
+  // console.log('getAuthenticationCookie');
   const Cookies = require('js-cookie');
-  return Cookies.get('authentication');
+  // return Cookies.get('authentication');
+  return Cookies.get('abauth');
 }
 
 export function deleteAuthenticationCookie() {
-  console.log('deleteAuthenticationCookie');
+  // console.log('deleteAuthenticationCookie');
 
   const Cookies = require('js-cookie');
-  Cookies.remove('authentication');
+  // Cookies.remove('authentication');
+  Cookies.remove('abauth');
 }
 
 // the api returns something called 'authStatus' as part of all responses - we should examine it and check that the api has not revoked access or anything every time we hit the API
 export function handleAuthStatus(authStatus, dispatch) {
+  console.log('handle auth status');
   if (authenticationCookieExists() && authStatus === 'error') {
     deleteAuthenticationCookie();
     dispatch({ type: 'LOGOUT_FINISHED' });
