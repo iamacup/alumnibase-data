@@ -52,11 +52,11 @@ export default [
     exact: true,
     component: CampaignOverviewPage,
   },
-  {
-    path: '/',
-    exact: true,
-    component: LoginPage,
-  },
+  // {
+  //   path: '/',
+  //   exact: true,
+  //   component: LoginPage,
+  // },
   {
     path: '/:university/data-control/export',
     exact: true,
