@@ -272,6 +272,8 @@ class Page extends React.PureComponent {
       }
     });
 
+    // sendData.rend = Math.random();
+
     const dataTransaction = (
       <div className="container" key="transaction-jobs">
         <div className="row" style={{ marginTop: '200px' }}>
