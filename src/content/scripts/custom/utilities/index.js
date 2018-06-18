@@ -130,11 +130,13 @@ export function enableWOW() {
 }
 
 export function setAuthenticationCookie(data) {
+  console.log('setAuthenticationCookie');
   const Cookies = require('js-cookie');
   Cookies.set('authentication', data, { expires: 365 });
 }
 
 export function getAuthenticationHeaders(override) {
+  console.log('getAuthenticationHeaders');
   const Cookies = require('js-cookie');
 
   let bearer = null;
@@ -148,7 +150,7 @@ export function getAuthenticationHeaders(override) {
   if (dNc(bearer)) {
     console.log('returning a bearer');
 
-    console.log(new Error('what 1'));
+    //console.log(new Error('what 1'));
 
 
     return {
@@ -160,12 +162,13 @@ export function getAuthenticationHeaders(override) {
 
   console.log('NOT returning a bearer');
 
-  console.log(new Error('what 2'));
+  //console.log(new Error('what 2'));
 
   return {};
 }
 
 export function authenticationCookieExists() {
+  console.log('authenticationCookieExists');
   const Cookies = require('js-cookie');
   const bearer = Cookies.get('authentication');
 
@@ -177,12 +180,13 @@ export function authenticationCookieExists() {
 }
 
 export function getAuthenticationCookie() {
+  console.log('getAuthenticationCookie');
   const Cookies = require('js-cookie');
   return Cookies.get('authentication');
 }
 
 export function deleteAuthenticationCookie() {
-  console.log('we are deleting the auth cookie');
+  console.log('deleteAuthenticationCookie');
 
   const Cookies = require('js-cookie');
   Cookies.remove('authentication');

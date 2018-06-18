@@ -45,10 +45,9 @@ class Wrapper extends React.PureComponent {
 
 
   render() {
-    const name = this.context.router.route.location.pathname.split('/')[1].toLowerCase();
     let uniName = 'Aristotle University';
 
-    if (name === 'aristotle') uniName = 'Aristotle University';
+    /*if (name === 'aristotle') uniName = 'Aristotle University';
     else if (name === 'cranfield') uniName = 'Cranfield University';
     else if (name === 'kings') uniName = 'King\'s College London';
     else if (name === 'loughborough') uniName = 'Loughborough University';
@@ -61,7 +60,7 @@ class Wrapper extends React.PureComponent {
     else if (name === 'mmu') uniName = 'Manchester Metropolitan University';
     else if (name === 'liverpool-hope') uniName = 'Liverpool Hope University';
     else if (name === 'chester') uniName = 'University of Chester';
-    else this.context.router.history.push('/broken/page');
+    else uniName = 'Aristotle University';*/
 
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
