@@ -11,14 +11,6 @@ import SideBar from '../../../../content/containers/Fragments/Template/sidebar';
 import Aside from '../../../../content/containers/Fragments/Template/aside';
 
 class Wrapper extends React.PureComponent {
-  componentDidUpdate() {
-    // console.log('logged in: ', this.props.authenticationData.loggedIn);
-
-    // if (this.props.authenticationData.loggedIn === false) {
-    //   this.context.router.history.push('/login');
-    // }
-  }
-
   getBreadcrumbs() {
     const { breadcrumbs } = this.props.pageData;
     const crumbs = [];
@@ -45,22 +37,12 @@ class Wrapper extends React.PureComponent {
 
 
   render() {
-    const uniName = 'Aristotle University';
 
-    /* if (name === 'aristotle') uniName = 'Aristotle University';
-    else if (name === 'cranfield') uniName = 'Cranfield University';
-    else if (name === 'kings') uniName = 'King\'s College London';
-    else if (name === 'loughborough') uniName = 'Loughborough University';
-    else if (name === 'oxford-brookes') uniName = 'Oxford Brookes University';
-    else if (name === 'sheffield') uniName = 'University of Sheffield';
-    else if (name === 'sheffield-hallam') uniName = 'Sheffield Hallam University';
-    else if (name === 'ucl') uniName = 'University College London';
-    else if (name === 'uwe') uniName = 'University of the West of England';
-    else if (name === 'durham') uniName = 'Durham University';
-    else if (name === 'mmu') uniName = 'Manchester Metropolitan University';
-    else if (name === 'liverpool-hope') uniName = 'Liverpool Hope University';
-    else if (name === 'chester') uniName = 'University of Chester';
-    else uniName = 'Aristotle University'; */
+    let uniName = '';
+
+    if (this.props.authenticationData.loggedIn === true) {
+      uniName = this.props.authenticationData.institution;
+    }
 
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
@@ -107,7 +89,7 @@ Wrapper.propTypes = {
   theLocation: PropTypes.object.isRequired,
   pageData: PropTypes.object,
   content: PropTypes.any.isRequired,
-  // authenticationData: PropTypes.object,
+  authenticationData: PropTypes.object,
 };
 
 Wrapper.defaultProps = {
@@ -123,16 +105,16 @@ Wrapper.defaultProps = {
         link: '/campaign/overview',
       }],
   },
-  // authenticationData: {
-  //   loggedIn: false,
-  // },
+  authenticationData: {
+    loggedIn: false,
+  },
 };
 
 // we have to bind the location to the state of this component so navigation updates work properly (i.e. so it detects a change in the location props and thus re renderds the app)
 const mapStateToProps = state => ({
   location: state.router.location,
   pageData: state.dataStoreSingle.pageData,
-  // authenticationData: state.dataStoreSingle.authenticationData,
+  authenticationData: state.dataStoreSingle.authentication,
 });
 
 const mapDispatchToProps = null;

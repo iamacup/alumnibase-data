@@ -95,9 +95,10 @@ class Login extends React.PureComponent {
     // payload contains a .token prop that is a JWT (JSON Web Token) which we need to store in a cookie
     setAuthenticationCookie(payload.token);
 
-    const { username } = this.state;
     const loggedIn = true;
-    const { fullName, profileImage, institution } = payload;
+    const {
+      fullName, profileImage, institution, username,
+    } = payload;
 
     this.props.reduxAction_doUpdate('authentication', {
       loggedIn,
@@ -106,7 +107,6 @@ class Login extends React.PureComponent {
       profileImage,
       institution,
     });
-
 
     this.context.router.history.push('/campaign/overview');
   }
@@ -189,7 +189,6 @@ class Login extends React.PureComponent {
     );
   }
 }
-
 
 Login.contextTypes = {
   router: PropTypes.object,
