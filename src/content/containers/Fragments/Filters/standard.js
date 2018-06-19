@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { dNc, debounce, initialiseNonMobileSticky } from '../../../../content/scripts/custom/utilities';
+import { dNc, debounce } from '../../../../content/scripts/custom/utilities';
 
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
 
@@ -20,7 +20,7 @@ class Graph extends React.PureComponent {
 
     this.state = ({
       countryOfBirth: null,
-      currentCountry: null, 
+      currentCountry: null,
       gender: null,
       ethnicity: null,
       ageRange: null,
@@ -30,72 +30,92 @@ class Graph extends React.PureComponent {
       degreeLevel: null,
       stem: null,
       polar: null,
-      currency: ['options/42960339872'], 
+      currency: ['options/42960339872'],
     });
   }
 
   componentDidMount() {
-
-    // THIS IS WHATS MESSING UP THE CHECKBOX REFRESH!!!
-    // it sets that state with what is currently being held in a filter, before they are changed.
-    if (dNc(this.props.filterData)) {
-      Object.keys(this.props.filterData).forEach((filter) => {
-        let data = this.props.filterData[filter];
-          this.setState({
-            [filter]: data,
-          });
-      });
-    }
+    // this.setStateWithFilterData();
 
     $(() => {
-// Select2 input boxes.
-      this.handleSelectBox('countryOfBirth', 'Filter by Country')
-      this.handleSelectBox('currentCountry', 'Filter by Country')
-      this.handleSelectBox('subject', 'Filter by Subject')
-      this.handleSelectBox('degreeLevel', 'Filter by Degree')
-// Sliders.   - must be above checkboxes and currency!! 
-//  this is because of the .attr on checkboxes and increasedzindexclass on currency, i think it needs to be read the scripts first?
-      this.handleSliders('ageRange')
-      this.handleSliders('graduationRange')
-      this.handleSliders('salaryRange')
-// Checkboxes.
-      this.handleCheckboxes('gender')
-      this.handleCheckboxes('ethnicity')
-      this.handleCheckboxes('stem')
-      this.handleCheckboxes('polar')
-// Dropdown select2.
-      this.handleCurrency('currency')
+      // need to re-initialise the framework here when pages change
+      $(document).trigger('nifty.ready');
 
-      this.initSticky();
+      // Select2 input boxes.
+      this.handleSelectBox('countryOfBirth', 'Filter by Country');
+      this.handleSelectBox('currentCountry', 'Filter by Country');
+      this.handleSelectBox('subject', 'Filter by Subject');
+      this.handleSelectBox('degreeLevel', 'Filter by Degree');
+      // Sliders.   - must be above checkboxes and currency!!
+      //  this is because of the .attr on checkboxes and increasedzindexclass on currency, i think it needs to be read the scripts first?
+      this.handleSliders('ageRange');
+      this.handleSliders('graduationRange');
+      this.handleSliders('salaryRange');
+      // Checkboxes.
+      this.handleCheckboxes('gender');
+      this.handleCheckboxes('ethnicity');
+      this.handleCheckboxes('stem');
+      this.handleCheckboxes('polar');
+      // Dropdown select2.
+      this.handleCurrency('currency');
     });
+  }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(prevProps.filterData, prevState)
+  //   console.log(this.props.filterData, this.state)
+
+  //   let data = prevProps.filterData;
+
+  //   if (prevProps.filterData !== this.props.filterData) {
+  //     Object.keys(prevProps.filterData).forEach(key => {
+  //       if (this.props.filterData[key] !== null) {
+  //         if (key === 'currency' || key === 'polar' || key === 'stem') data[key] = this.props.filterData[key]
+  //         else this.props.filterData[key].forEach(elem => data[key].push(elem))
+  //       } else data[key] = this.props.filterData[key]
+  //     })
+  //   }
+
+  //   console.log(data)
+  //   // if what is in this.props.filterData is not in the state, add it to the state.
+  //   // but you first want to make sure what was in the prevProps is included in this.props.
+  //   // this.setStateWithFilterData()    
+  //   }
+
+
+
+  setStateWithFilterData() {
+    console.log('getting here')
+    if (Object.keys(this.props.filterData).length > 0) {
+      Object.keys(this.props.filterData).forEach((filter) => {
+        const finalData = this.props.filterData[filter];
+        this.setState({
+          [filter]: finalData,
+        });
+      });
+    }
   }
 
   setStateWithValue(id, value) {
     // Setting the local state with the data, to set global state later.
-      let val = value;
-      if (value === null || value.length === 0) val = null;
+    let val = value;
+    if (value === null || value.length === 0) val = null;
 
-      this.setState({
-        [id]: val,
-      });
+    this.setState({
+      [id]: val,
+    });
   }
 
   getChecked(value) {
     if (dNc(this.props.filterData)) {
-      if (value === 'gender' || value === 'ethnicity' ) {
-        this.props.filterData[value].forEach(optionID => {
-          $(this[optionID]).attr('checked', true)
-        })
-      } else {
-        if (this.props.filterData[value] === true) {
-          $(this[value]).attr('checked', true)
-        }
+      if (value === 'gender' || value === 'ethnicity') {
+        this.props.filterData[value].forEach((optionID) => {
+          $(this[optionID]).attr('checked', true);
+        });
+      } else if (this.props.filterData[value] === true) {
+        $(this[value]).attr('checked', true);
       }
     }
-  }
-
- initSticky() {
-    initialiseNonMobileSticky(this.parentContainer, {});
   }
 
   handleSelectBox(value, placeholder) {
@@ -106,67 +126,67 @@ class Graph extends React.PureComponent {
     if (value === 'degreeLevel') reference = this.degreeLevel;
 
     // The input box settings.
-      $(reference).select2({
-        width: '100%',
-        multiple: true,
-        allowClear: true,
-        tags: true,
-        tokenSeparators: [',', ' '],
-        placeholder,
-      });
+    $(reference).select2({
+      width: '100%',
+      multiple: true,
+      allowClear: true,
+      tags: true,
+      tokenSeparators: [',', ' '],
+      placeholder,
+    });
 
     // The placeholder, setting it to have whats in state pre selected.
-      const optionIDNames = [];
-      if (dNc(this.props.filterData) && dNc(this.props.filterData[value])) {
-        this.props.filterData[value].forEach((option) => {
-          this.props.reduxState_fetchDataTransaction.default.payload[0][value].forEach((element) => {
-            if (element.optionID === option) optionIDNames.push(element.displayValue);
+    const optionIDNames = [];
+    if (dNc(this.props.filterData) && dNc(this.props.filterData[value])) {
+      this.props.filterData[value].forEach((option) => {
+        this.props.reduxState_fetchDataTransaction.default.payload[0][value].forEach((element) => {
+          if (element.optionID === option) optionIDNames.push(element.displayValue);
+        });
+      });
+    }
+    $(reference)
+      .val(optionIDNames)
+      .trigger('paste');
+
+    // Removing the empty option
+    $(reference)
+      .find('option')
+      .each((index, vertex) => {
+        if (!dNc($(vertex).text())) {
+          $(vertex).remove();
+        }
+      });
+
+    // Finding the optionID for the data submitted, and setting the local state with them.
+    $(reference).on('change', () => {
+      const data = [];
+      if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+        this.props.reduxState_fetchDataTransaction.default.payload[0][value].forEach((element) => {
+          $(reference).val().forEach((elem) => {
+            if (element.displayValue === elem) data.push(element.optionID);
           });
         });
       }
-      $(reference)
-        .val(optionIDNames)
-        .trigger('paste');
-
-    // Removing the empty option
-      $(reference)
-        .find('option')
-        .each((index, vertex) => {
-          if (!dNc($(vertex).text())) {
-            $(vertex).remove();
-          }
-        });
-
-    // Finding the optionID for the data submitted, and setting the local state with them.
-      $(reference).on('change', () => {
-        const data = [];
-        if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
-          this.props.reduxState_fetchDataTransaction.default.payload[0][value].forEach((element) => {
-            $(reference).val().forEach((elem) => {
-              if (element.displayValue === elem) data.push(element.optionID);
-            });
-          });
-        }
-        this.setStateWithValue(value, data);
-      });
+      this.setStateWithValue(value, data);
+    });
   }
 
   handleCheckboxes(value) {
-    let reference = null
+    let reference = null;
     let data = [];
 
-      if (value === 'gender') reference = this.gender;
-      if (value === 'ethnicity') reference = this.ethnicity;
-      if (value === 'stem') reference = this.stem;
-      if (value === 'polar') reference = this.polar;
+    if (value === 'gender') reference = this.gender;
+    if (value === 'ethnicity') reference = this.ethnicity;
+    if (value === 'stem') reference = this.stem;
+    if (value === 'polar') reference = this.polar;
 
-      if (dNc(this.state[value])) (data = this.state[value]);
+    if (dNc(this.state[value])) (data = this.state[value]);
 
-      if (value === 'gender' || value === 'ethnicity' ) {
+    if (value === 'gender' || value === 'ethnicity') {
       $(reference)
         .find('input')
         .on('click', (e) => {
-          let inputValue = e.target.value;
+          const inputValue = e.target.value;
 
           if (data.includes(inputValue)) {
             // Removing the optionID from the data.
@@ -184,72 +204,70 @@ class Graph extends React.PureComponent {
             this.setStateWithValue(value, data);
           }
         });
-      } else {
-        console.log(reference)
-         $(reference)
-         .find('input')
+    } else {
+      $(reference)
+        .find('input')
         .on('click', () => {
-          console.log(this.state, '****')
-            // Setting polar || stem to null if clicked off.
+          // Setting polar || stem to null if clicked off.
           if (this.state[value] === true) {
             this.setState({
-              [value]: null, 
-            })
+              [value]: null,
+            });
           } else {
             // Setting polar || stem to true if clicked on
             this.setState({
               [value]: true,
-            })
+            });
           }
         });
-      }
+    }
 
-      this.getChecked(value);
+    this.getChecked(value);
   }
 
   handleSliders(value) {
-    let reference = null
+    let reference = null;
     let data = null;
     let min = 0;
     let max = 0;
 
-      if (value === 'ageRange') {
-        reference = this.ageRange;
-        min = 18;
-        max = 100;
-        data = [18, 100];
-      } else if (value === 'graduationRange') {
-        reference = this.graduationRange;
-        min = 1920;
-        max = 2018;
-        data = [1920, 2018];
-      } else if (value === 'salaryRange') {
-        reference = this.salaryRange;
-        max = 1000000;
-        data = [0, 1000000];
-      }
+    if (value === 'ageRange') {
+      reference = this.ageRange;
+      min = 18;
+      max = 100;
+      data = [18, 100];
+    } else if (value === 'graduationRange') {
+      reference = this.graduationRange;
+      min = 1920;
+      max = 2018;
+      data = [1920, 2018];
+    } else if (value === 'salaryRange') {
+      reference = this.salaryRange;
+      max = 1000000;
+      data = [0, 1000000];
+    }
 
-      if (dNc(this.state[value])) data = this.state[value];
+    if (dNc(this.state[value])) data = this.state[value];
 
-      $(reference).slider({
-        min,
-        max,
-        step: 1,
-        value: [data[0], data[1]], 
-      });
+    $(reference).slider({
+      min,
+      max,
+      step: 1,
+      value: [data[0], data[1]],
+    });
 
-      const executeFunction = debounce(() => {
-        const valueData = $(reference).val().split(',');
-        const result = [+valueData[0], +valueData[1]];
-        this.setStateWithValue(value, result);
-      }, 250);
+    const executeFunction = debounce(() => {
+      const valueData = $(reference).val().split(',');
+      const result = [+valueData[0], +valueData[1]];
+      this.setStateWithValue(value, result);
+    }, 250);
 
-      $(reference).on('slideStop', executeFunction);
+    $(reference).on('slideStop', executeFunction);
   }
 
   handleCurrency() {
     let currencyName = { id: 1, text: "GBP - Pound Sterling (£)'" };
-  
+
     // set the placeholder to be whats selected in state
     if (dNc(this.props.filterData) && dNc(this.props.filterData.currency)) {
       this.props.filterData.currency.forEach((option) => {
@@ -280,22 +298,21 @@ class Graph extends React.PureComponent {
   }
 
   handleSubmit() {
-    console.log(this.state)
     // Setting global state with the save button.
-      this.props.reduxAction_doUpdate('filterData', {
-        countryOfBirth: this.state.countryOfBirth,
-        currentCountry: this.state.currentCountry,
-        gender: this.state.gender,
-        ethnicity: this.state.ethnicity,
-        ageRange: this.state.ageRange,
-        graduationRange: this.state.graduationRange,
-        salaryRange: this.state.salaryRange,
-        subject: this.state.subject,
-        degreeLevel: this.state.degreeLevel,
-        stem: this.state.stem,
-        polar: this.state.polar,
-        currency: this.state.currency, 
-      });
+    this.props.reduxAction_doUpdate('filterData', {
+      countryOfBirth: this.state.countryOfBirth,
+      currentCountry: this.state.currentCountry,
+      gender: this.state.gender,
+      ethnicity: this.state.ethnicity,
+      ageRange: this.state.ageRange,
+      graduationRange: this.state.graduationRange,
+      salaryRange: this.state.salaryRange,
+      subject: this.state.subject,
+      degreeLevel: this.state.degreeLevel,
+      stem: this.state.stem,
+      polar: this.state.polar,
+      currency: this.state.currency,
+    });
   }
 
   render() {
@@ -321,19 +338,21 @@ class Graph extends React.PureComponent {
     }
 
     return (
-      <div className="row" ref={(div) => { this.parentContainer = div; }}>
-          <div className="col-sm-8 col-sm-push-2">
-                  <div className="panel panel-sliips-purple sticky-effects">
-                    <div className="panel-heading">
-                      <div className="panel-control">
-                        <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
-                      </div>
-                      <h3 className="panel-title">Filters</h3>
-                    </div>
-                    <div className="collapse">
-                      <div className="panel-body">
-             
-                        <div className="row">
+      <div className="row">
+        <div className="col-sm-8 col-sm-push-2">
+
+            <div className="panel panel-sliips-purple">
+          
+              <div className="panel-heading">
+                <div className="panel-control">
+                  <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
+                </div>
+                <h3 className="panel-title">Filters</h3>
+              </div>
+          
+              <div className="collapse">
+                  <div className="panel-body">
+                      <div className="row">
                           <div className="col-sm-6">
                             <div className="form-group">
                             <label htmlFor="countryOfBirth">Country When Applying:</label>
@@ -506,16 +525,17 @@ class Graph extends React.PureComponent {
                           <button className="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
                         </div>
 
-                      </div>
-                    </div>
                   </div>
-                </div>
-              <FetchData
-                active
-                fetchURL="/api/filters/getFilters"
-              />
+              </div>
+
+            </div>
+          </div>
+        <FetchData
+          active
+          fetchURL="/api/filters/getFilters"
+        />
       </div>
-    )
+    );
   }
 }
 
