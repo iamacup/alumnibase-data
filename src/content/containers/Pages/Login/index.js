@@ -104,7 +104,7 @@ class Login extends React.PureComponent {
       username,
       fullName,
       profileImage,
-      institution
+      institution,
     });
 
 

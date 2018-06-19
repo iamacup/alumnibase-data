@@ -150,7 +150,7 @@ export function getAuthenticationHeaders(override) {
   if (dNc(bearer)) {
     console.log('returning a bearer');
 
-    //console.log(new Error('what 1'));
+    // console.log(new Error('what 1'));
 
 
     return {
@@ -162,7 +162,7 @@ export function getAuthenticationHeaders(override) {
 
   console.log('NOT returning a bearer');
 
-  //console.log(new Error('what 2'));
+  // console.log(new Error('what 2'));
 
   return {};
 }
