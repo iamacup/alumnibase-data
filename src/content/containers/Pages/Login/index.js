@@ -178,7 +178,7 @@ class Login extends React.PureComponent {
                 </div>
 
                 <div className="pad-all">
-                  <a href="pages-password-reminder.html" className="btn-link mar-rgt">Forgotten password?</a>
+                  <a href="/password/reminder" className="btn-link mar-rgt">Forgotten password?</a>
                 </div>
 
               </div>
