@@ -74,9 +74,9 @@ class Graph extends React.PureComponent {
 
   setStateWithFilterData() {
     Object.keys(this.props.filterData).forEach((key) => {
-        this.setState({
-          [key]: this.props.filterData[key],
-        });
+      this.setState({
+        [key]: this.props.filterData[key],
+      });
     });
   }
 
@@ -84,7 +84,7 @@ class Graph extends React.PureComponent {
     initialiseNonMobileSticky(this.parentContainer, {});
   }
 
-// If the id is in filter data, then the checkbox will display checked.
+  // If the id is in filter data, then the checkbox will display checked.
   checkBoxesInFilterData() {
     Object.keys(this.props.filterData).forEach((key) => {
       if ((key === 'ethnicity' || key === 'gender') && dNc(this.props.filterData[key])) {
@@ -184,7 +184,7 @@ class Graph extends React.PureComponent {
     const executeFunction = debounce(() => {
       const valueData = $(reference).val().split(',');
       const result = [+valueData[0], +valueData[1]];
-    //setting the state with the new values inputted.
+      // setting the state with the new values inputted.
       this.setStateWithValue(value, result);
     }, 250);
 
@@ -245,8 +245,8 @@ class Graph extends React.PureComponent {
   handleCheckboxes(value, id) {
     let dataArr = [];
     if (dNc(this.state[value])) {
-      const data = Object.assign({}, this.state[value])
-      dataArr = Object.values(data)
+      const data = Object.assign({}, this.state[value]);
+      dataArr = Object.values(data);
     }
 
     if (dataArr.includes(id)) {
@@ -257,15 +257,15 @@ class Graph extends React.PureComponent {
       dataArr.push(id);
     }
     // making sure an empty array doesn't go into the state - this helps the refresh thing.
-    if (dataArr.length === 0) dataArr = null; 
+    if (dataArr.length === 0) dataArr = null;
 
     // Set the state with the new dataArr.
     // However if the state is currently an array and it gets replaced by another array it doesn't refresh the page.
-      this.setStateWithValue(value, dataArr)
+    this.setStateWithValue(value, dataArr);
   }
 
   handleOther(value) {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       [value]: !prevState[value],
     }));
   }
