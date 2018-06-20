@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { dNc, debounce } from '../../../../content/scripts/custom/utilities';
+import { dNc, debounce, initialiseNonMobileSticky } from '../../../../content/scripts/custom/utilities';
 
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
 
@@ -21,8 +21,8 @@ class Graph extends React.PureComponent {
     this.state = ({
       countryOfBirth: null,
       currentCountry: null,
-      gender: [],
-      ethnicity: [],
+      gender: null,
+      ethnicity: null,
       ageRange: null,
       graduationRange: null,
       salaryRange: null,
@@ -35,8 +35,8 @@ class Graph extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.checkBoxesInFilterData()
-    this.setStateWithFilterData()
+    this.checkBoxesInFilterData();
+    this.setStateWithFilterData();
 
     $(() => {
       // need to re-initialise the framework here when pages change
@@ -47,19 +47,19 @@ class Graph extends React.PureComponent {
       this.handleSelectBox('currentCountry', 'Filter by Country');
       this.handleSelectBox('subject', 'Filter by Subject');
       this.handleSelectBox('degreeLevel', 'Filter by Degree');
-      // Sliders.   - must be above checkboxes and currency!!
-      //  this is because of the .attr on checkboxes and increasedzindexclass on currency, i think it needs to be read the slider scripts first?
+      // Sliders.
       this.handleSliders('ageRange');
       this.handleSliders('graduationRange');
       this.handleSliders('salaryRange');
       // Dropdown select2.
       this.handleCurrency('currency');
 
+      this.initSticky();
     });
   }
 
   componentDidUpdate() {
-    this.checkBoxesInFilterData()
+    this.checkBoxesInFilterData();
   }
 
   setStateWithValue(id, value) {
@@ -72,24 +72,29 @@ class Graph extends React.PureComponent {
     });
   }
 
-  setStateWithFilterData(name) {
-    Object.keys(this.props.filterData).forEach(key => {
+  setStateWithFilterData() {
+    Object.keys(this.props.filterData).forEach((key) => {
         this.setState({
           [key]: this.props.filterData[key],
-        })
-    })
+        });
+    });
   }
 
+  initSticky() {
+    initialiseNonMobileSticky(this.parentContainer, {});
+  }
+
+// If the id is in filter data, then the checkbox will display checked.
   checkBoxesInFilterData() {
-     Object.keys(this.props.filterData).forEach(key => {
-      if (key === 'ethnicity' || key === 'gender') {
-        this.props.filterData[key].forEach(element => {
+    Object.keys(this.props.filterData).forEach((key) => {
+      if ((key === 'ethnicity' || key === 'gender') && dNc(this.props.filterData[key])) {
+        this.props.filterData[key].forEach((element) => {
           $(this[element]).attr('checked', true);
-        })
+        });
       } else if (key === 'stem' || key === 'polar') {
         $(this[key]).attr('checked', this.props.filterData[key]);
       }
-    })
+    });
   }
 
   handleSelectBox(value, placeholder) {
@@ -167,18 +172,19 @@ class Graph extends React.PureComponent {
       data = [0, 1000000];
     }
 
-    if (dNc(this.state[value])) data = this.state[value];
-
+    // if the data has been set before, use this as the new data, so that the slider will be pre-set to these values, before changed.
+    if (dNc(this.state[value])) data = Object.values(Object.assign({}, this.state[value]));
+    // setting the slider values.
     $(reference).slider({
       min,
       max,
       step: 1,
       value: [data[0], data[1]],
     });
-
     const executeFunction = debounce(() => {
       const valueData = $(reference).val().split(',');
       const result = [+valueData[0], +valueData[1]];
+    //setting the state with the new values inputted.
       this.setStateWithValue(value, result);
     }, 250);
 
@@ -196,7 +202,7 @@ class Graph extends React.PureComponent {
         });
       });
     }
-
+    // setting up the select 2.
     $(this.currency).select2({
       width: '100%',
       multiple: false,
@@ -216,9 +222,8 @@ class Graph extends React.PureComponent {
       this.setStateWithValue('currency', data);
     });
   }
-  
+
   handleSubmit() {
-    console.log(this.state)
     // Setting global state with the save button.
     this.props.reduxAction_doUpdate('filterData', {
       countryOfBirth: this.state.countryOfBirth,
@@ -236,24 +241,33 @@ class Graph extends React.PureComponent {
     });
   }
 
-  
+
   handleCheckboxes(value, id) {
-    const dataArr = this.props.filterData[value];
+    let dataArr = [];
+    if (dNc(this.state[value])) {
+      const data = Object.assign({}, this.state[value])
+      dataArr = Object.values(data)
+    }
 
     if (dataArr.includes(id)) {
-      dataArr.splice(dataArr.indexOf(id), 1)
+      // if it's already in filter data, remove it from dataArr.
+      dataArr.splice(dataArr.indexOf(id), 1);
     } else {
+      // else add it to dataArr.
       dataArr.push(id);
-      this.setState({
-        [value]: dataArr,
-      })
     }
+    // making sure an empty array doesn't go into the state - this helps the refresh thing.
+    if (dataArr.length === 0) dataArr = null; 
+
+    // Set the state with the new dataArr.
+    // However if the state is currently an array and it gets replaced by another array it doesn't refresh the page.
+      this.setStateWithValue(value, dataArr)
   }
 
   handleOther(value) {
-    this.setState({
-      [value]: !this.state[value],
-    })
+    this.setState((prevState) => ({
+      [value]: !prevState[value],
+    }));
   }
 
 
@@ -283,198 +297,194 @@ class Graph extends React.PureComponent {
       <div className="row">
         <div className="col-sm-8 col-sm-push-2">
 
-            <div className="panel panel-sliips-purple">
-          
-              <div className="panel-heading">
-                <div className="panel-control">
-                  <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
-                </div>
-                <h3 className="panel-title">Filters</h3>
+          <div className="panel panel-sliips-purple">
+
+            <div className="panel-heading">
+              <div className="panel-control">
+                <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
               </div>
-          
-              <div className="collapse">
-                  <div className="panel-body">
+              <h3 className="panel-title">Filters</h3>
+            </div>
+
+            <div className="collapse">
+              <div className="panel-body">
+
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="countryOfBirth">Country When Applying:</label>
+                      <select className="form-control" name="countryOfBirth" id="countryOfBirth" ref={(div) => { this.countryOfBirth = div; }}>
+                        <option />
+                        {data.countryOfBirth.map(element => (
+                          <option key={element.optionID}>{element.displayValue}</option>
+                           ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="currentCountry">Country Currently Living In:</label>
+                      <select className="form-control" name="currentCountry" id="currentCountry" ref={(div) => { this.currentCountry = div; }}>
+                        <option />
+                        {data.currentCountry.map(element => (
+                          <option key={element.optionID}>{element.displayValue}</option>
+                           ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group">
+                      <div className="col-sm-2">
+                        <label className="control-label">Gender</label>
+                      </div>
+                      <div className="col-sm-10" ref={(div) => { this.gender = div; }}>
+                        {data.gender.map(elem => (
+                          <div key={elem.optionID}>
+                            <input onClick={() => this.handleCheckboxes('gender', elem.optionID)} id={elem.optionID} value={elem.optionID} ref={(div) => { this[elem.optionID] = div; }} className="magic-checkbox" type="checkbox" />
+                            <label htmlFor={elem.optionID}>{elem.displayValue}</label>
+                          </div>
+                                  ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group">
+                      <div className="col-sm-2">
+                        <label className="control-label">Ethnicity</label>
+                      </div>
+                      <div className="col-sm-10" ref={(div) => { this.ethnicity = div; }}>
+                        {data.ethnicity.map(elem => (
+                          <div key={elem.optionID}>
+                            <input onClick={() => this.handleCheckboxes('ethnicity', elem.optionID)} id={elem.optionID} value={elem.optionID} ref={(div) => { this[elem.optionID] = div; }} className="magic-checkbox" type="checkbox" />
+                            <label htmlFor={elem.optionID}>{elem.displayValue}</label>
+                          </div>
+                               ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pad-ver">
+                  <div className="row">
+                    <div className="col-sm-3">
+                        Age Range
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        ref={(div) => { this.ageRange = div; }}
+                      />
+                    </div>
+                  </div>
 
                   <div className="row">
-                     <div className="col-sm-6">
-                       <div className="form-group">
-                       <label htmlFor="countryOfBirth">Country When Applying:</label>
-                       <select className="form-control" name="countryOfBirth" id="countryOfBirth" ref={(div) => { this.countryOfBirth = div; }}>
-                         <option />
-                         {data.countryOfBirth.map(element => (
-                           <option>{element.displayValue}</option>
-                           ))}
-                       </select>
-                       </div>
-                     </div>
-                     <div className="col-sm-6">
-                       <div className="form-group">
-                       <label htmlFor="currentCountry">Country Currently Living In:</label>
-                       <select className="form-control" name="currentCountry" id="currentCountry" ref={(div) => { this.currentCountry = div; }}>
-                         <option />
-                         {data.currentCountry.map(element => (
-                           <option>{element.displayValue}</option>
-                           ))}
-                       </select>
-                       </div>
-                     </div>
-                   </div>
-
-                    <div className="row">
-                      <div className="col-6">
-                        <div className="form-group">
-                          <div className="col-sm-2"> 
-                          <label className="control-label">Gender</label>
-                          </div>
-                          <div className="col-sm-10" ref={div => { this.gender = div; }}>
-                            {data.gender.map(elem => {
-                                return (
-                                  <div>
-                                    <input onClick={() => this.handleCheckboxes('gender', elem.optionID)} id={elem.optionID} value={elem.optionID} ref={div => { this[elem.optionID] = div; }} className="magic-checkbox" type="checkbox" />
-                                    <label htmlFor={elem.optionID}>{elem.displayValue}</label>
-                                  </div>
-                                  )
-                              })}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                   <div className="row">
-                     <div className="col-6">
-                       <div className="form-group">
-                         <div className="col-sm-2"> 
-                         <label className="control-label">Ethnicity</label>
-                         </div>
-                         <div className="col-sm-10" ref={div => { this.ethnicity = div; }}>
-                           {data.ethnicity.map(elem => {
-                             return (
-                           <div>
-                             <input onClick={() => this.handleCheckboxes('ethnicity', elem.optionID)} id={elem.optionID} value={elem.optionID} ref={div => { this[elem.optionID] = div; }} className="magic-checkbox" type="checkbox" />
-                             <label htmlFor={elem.optionID}>{elem.displayValue}</label>
-                           </div>
-                               )
-                           })}
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-
-                    <div className="pad-ver">
-                      <div className="row">
-                        <div className="col-sm-3">
-                        Age Range
-                        </div>
-                        <div className="col-sm-9">
-                          <input
-                            style={{ width: '100%' }}
-                            type="text"
-                            value=""
-                            ref={div => { this.ageRange = div; }}
-                          />
-                        </div>
-                      </div>
-          
-                      <div className="row">
-                        <div className="col-sm-3">
+                    <div className="col-sm-3">
                         Graduation Date Range
-                        </div>
-                        <div className="col-sm-9">
-                          <input
-                            style={{ width: '100%' }}
-                            type="text"
-                            value=""
-                            ref={div => { this.graduationRange = div; }}
-                          />
-                        </div>
-                      </div>
-          
-                      <div className="row">
-                        <div className="col-sm-3">
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        ref={(div) => { this.graduationRange = div; }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-sm-3">
                         Salary Range
-                        </div>
-                        <div className="col-sm-9">
-                          <input
-                            style={{ width: '100%' }}
-                            type="text"
-                            value=""
-                            ref={div => { this.salaryRange = div; }}
-                          />
-                        </div>
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        ref={(div) => { this.salaryRange = div; }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="subject">Subject</label>
+                      <select className="form-control" name="subject" id="subject" ref={(div) => { this.subject = div; }}>
+                        <option />
+                        {data.subject.map(element => (
+                          <option key={element.optionID}>{element.displayValue}</option>
+                            ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="degreeLevel">Degree</label>
+                      <select className="form-control" name="degreeLevel" id="degreeLevel" ref={(div) => { this.degreeLevel = div; }}>
+                        <option />
+                        {data.degreeLevel.map(element => (
+                          <option key={element.optionID}>{element.displayValue}</option>
+                            ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="form-group">
+
+                    <div className="row">
+                      <div className="col-2">
+                        <label className="control-label">Other</label>
                       </div>
                     </div>
 
                     <div className="row">
                       <div className="col-sm-6">
-                        <div className="form-group">
-                        <label htmlFor="subject">Subject</label>
-                        <select className="form-control" name="subject" id="subject" ref={(div) => { this.subject = div; }}>
-                          <option />
-                          {data.subject.map(element => (
-                            <option>{element.displayValue}</option>
-                            ))}
-                        </select>
+                        <div className="col-6">
+                          <input id="polar" className="magic-checkbox" type="checkbox" ref={(div) => { this.polar = div; }} onClick={() => this.handleOther('polar')} />
+                          <label htmlFor="polar">POLAR</label>
+                        </div>
+                        <div className="col-6">
+                          <input id="stem" className="magic-checkbox" ref={(div) => { this.stem = div; }} type="checkbox" onClick={() => this.handleOther('stem')} />
+                          <label htmlFor="stem">STEM</label>
                         </div>
                       </div>
                       <div className="col-sm-6">
-                        <div className="form-group">
-                        <label htmlFor="degreeLevel">Degree</label>
-                        <select className="form-control" name="degreeLevel" id="degreeLevel" ref={(div) => { this.degreeLevel = div; }}>
-                          <option />
-                          {data.degreeLevel.map(element => (
-                            <option>{element.displayValue}</option>
-                            ))}
+                        <label htmlFor="currency">Currency</label>
+                        <select className="form-control" id="currency" ref={(div) => { this.currency = div; }}>
+                          <option hidden>{currencyName}</option>
+                          {data.currency.map(element => (
+                            <option key={element.optionID}>{element.displayValue}</option>
+                             ))}
                         </select>
-                        </div>
                       </div>
                     </div>
-
-                      <div className="row">
-                         <div className="form-group">
-
-                           <div className="row">
-                             <div className="col-2">
-                               <label className="control-label">Other</label>
-                             </div>
-                           </div>
-
-                         <div className="row">
-                           <div className="col-sm-6">
-                             <div className="col-6">
-                              <input id='polar' className="magic-checkbox" type="checkbox" ref={div => { this.polar = div; }} onClick={() => this.handleOther('polar')} />
-                              <label htmlFor='polar'>POLAR</label>
-                             </div>
-                             <div className="col-6">
-                             <input id='stem' className="magic-checkbox" ref={div => { this.stem = div; }} type="checkbox" onClick={() => this.handleOther('stem')} />
-                             <label htmlFor='stem'>STEM</label>
-                             </div>
-                           </div>
-                           <div className="col-sm-6">
-                         <label htmlFor="currency">Currency</label>
-                         <select className="form-control" id="currency" ref={(div) => { this.currency = div; }}>
-                           <option hidden>{currencyName}</option>
-                           {data.currency.map(element => (
-                             <option>{element.displayValue}</option>
-                             ))}
-                         </select>
-                         </div>
-                         </div>
-                       </div>
-                     </div>
-           
-        
-                        <div className="row">
-                          <button className="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
-                        </div>
-
                   </div>
-              </div>
+                </div>
 
+
+                <div className="row">
+                  <button className="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
+                </div>
+
+              </div>
             </div>
+
           </div>
+        </div>
         <FetchData
           active
-          fetchURL="/api/filters/getFilters"
+          fetchURL="api/filters/getFilters"
         />
       </div>
     );
