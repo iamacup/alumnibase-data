@@ -173,7 +173,7 @@ class Graph extends React.PureComponent {
     }
 
     // if the data has been set before, use this as the new data, so that the slider will be pre-set to these values, before changed.
-    if (dNc(this.state[value])) data = Object.values(Object.assign({}, this.state[value]));
+    if (dNc(this.state[value])) data = Object.assign([], this.state[value]);
     // setting the slider values.
     $(reference).slider({
       min,
@@ -245,8 +245,7 @@ class Graph extends React.PureComponent {
   handleCheckboxes(value, id) {
     let dataArr = [];
     if (dNc(this.state[value])) {
-      const data = Object.assign({}, this.state[value]);
-      dataArr = Object.values(data);
+      dataArr = Object.assign([], this.state[value]);
     }
 
     if (dataArr.includes(id)) {

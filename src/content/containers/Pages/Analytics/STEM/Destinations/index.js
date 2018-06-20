@@ -150,7 +150,7 @@ class Page extends React.PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-md-8 col-md-push-2">
+          <div className="col-md-8 col-md-push-2" >
             {this.getGraph('Stem Destinations of Graduates', 'stem-destinations-1', 'STEMDestinationsOfGraduates')}
             {this.getGraph('Ethnicity split of graduates going into soc.1-3 jobs', 'stem-destinations-2', 'STEMDestinationsOfGraduatesEthnicity')}
             {this.getGraph('Gender split of graduates going into soc.1-3 jobs', 'stem-destinations-3', 'STEMDestinationsOfGraduatesGender')}
