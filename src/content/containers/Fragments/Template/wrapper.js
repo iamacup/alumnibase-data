@@ -37,7 +37,6 @@ class Wrapper extends React.PureComponent {
 
 
   render() {
-
     let uniName = '';
 
     if (this.props.authenticationData.loggedIn === true) {

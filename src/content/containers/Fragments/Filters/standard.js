@@ -79,13 +79,12 @@ class Graph extends React.PureComponent {
   //   console.log(data)
   //   // if what is in this.props.filterData is not in the state, add it to the state.
   //   // but you first want to make sure what was in the prevProps is included in this.props.
-  //   // this.setStateWithFilterData()    
+  //   // this.setStateWithFilterData()
   //   }
 
 
-
   setStateWithFilterData() {
-    console.log('getting here')
+    console.log('getting here');
     if (Object.keys(this.props.filterData).length > 0) {
       Object.keys(this.props.filterData).forEach((filter) => {
         const finalData = this.props.filterData[filter];
@@ -341,195 +340,191 @@ class Graph extends React.PureComponent {
       <div className="row">
         <div className="col-sm-8 col-sm-push-2">
 
-            <div className="panel panel-sliips-purple">
-          
-              <div className="panel-heading">
-                <div className="panel-control">
-                  <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
-                </div>
-                <h3 className="panel-title">Filters</h3>
+          <div className="panel panel-sliips-purple">
+
+            <div className="panel-heading">
+              <div className="panel-control">
+                <button className="btn btn-default" data-panel="minmax"><i className="far fa-chevron-up" /></button>
               </div>
-          
-              <div className="collapse">
-                  <div className="panel-body">
-                      <div className="row">
-                          <div className="col-sm-6">
-                            <div className="form-group">
-                            <label htmlFor="countryOfBirth">Country When Applying:</label>
-                            <select className="form-control" name="countryOfBirth" id="countryOfBirth" ref={(div) => { this.countryOfBirth = div; }}>
-                              <option />
-                              {data.countryOfBirth.map(element => (
-                                <option>{element.displayValue}</option>
+              <h3 className="panel-title">Filters</h3>
+            </div>
+
+            <div className="collapse">
+              <div className="panel-body">
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="countryOfBirth">Country When Applying:</label>
+                      <select className="form-control" name="countryOfBirth" id="countryOfBirth" ref={(div) => { this.countryOfBirth = div; }}>
+                        <option />
+                        {data.countryOfBirth.map(element => (
+                          <option>{element.displayValue}</option>
                                 ))}
-                            </select>
-                            </div>
-                          </div>
-                          <div className="col-sm-6">
-                            <div className="form-group">
-                            <label htmlFor="currentCountry">Country Currently Living In:</label>
-                            <select className="form-control" name="currentCountry" id="currentCountry" ref={(div) => { this.currentCountry = div; }}>
-                              <option />
-                              {data.currentCountry.map(element => (
-                                <option>{element.displayValue}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="currentCountry">Country Currently Living In:</label>
+                      <select className="form-control" name="currentCountry" id="currentCountry" ref={(div) => { this.currentCountry = div; }}>
+                        <option />
+                        {data.currentCountry.map(element => (
+                          <option>{element.displayValue}</option>
                                 ))}
-                            </select>
-                            </div>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group">
+                      <div className="col-sm-2">
+                        <label className="control-label">Gender</label>
+                      </div>
+                      <div className="col-sm-10" ref={(div) => { this.gender = div; }}>
+                        {data.gender.map(elem => (
+                          <div>
+                            <input id={elem.optionID} value={elem.optionID} ref={(div) => { this[elem.optionID] = div; }} className="magic-checkbox" type="checkbox" />
+                            <label htmlFor={elem.optionID}>{elem.displayValue}</label>
                           </div>
-                        </div>
+                                  ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group">
+                      <div className="col-sm-2">
+                        <label className="control-label">Ethnicity</label>
+                      </div>
+                      <div className="col-sm-10" ref={(div) => { this.ethnicity = div; }}>
+                        {data.ethnicity.map(elem => (
+                          <div>
+                            <input id={elem.optionID} value={elem.optionID} ref={(div) => { this[elem.optionID] = div; }} className="magic-checkbox" type="checkbox" />
+                            <label htmlFor={elem.optionID}>{elem.displayValue}</label>
+                          </div>
+                               ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pad-ver">
+                  <div className="row">
+                    <div className="col-sm-3">
+                         Age Range
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        ref={(div) => { this.ageRange = div; }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-sm-3">
+                         Graduation Date Range
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        ref={(div) => { this.graduationRange = div; }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-sm-3">
+                         Salary Range
+                    </div>
+                    <div className="col-sm-9">
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        value=""
+                        ref={(div) => { this.salaryRange = div; }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="subject">Subject</label>
+                      <select className="form-control" name="subject" id="subject" ref={(div) => { this.subject = div; }}>
+                        <option />
+                        {data.subject.map(element => (
+                          <option>{element.displayValue}</option>
+                                ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="degreeLevel">Degree</label>
+                      <select className="form-control" name="degreeLevel" id="degreeLevel" ref={(div) => { this.degreeLevel = div; }}>
+                        <option />
+                        {data.degreeLevel.map(element => (
+                          <option>{element.displayValue}</option>
+                                ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className="row">
+                  <div className="form-group">
 
                     <div className="row">
-                      <div className="col-6">
-                        <div className="form-group">
-                          <div className="col-sm-2"> 
-                          <label className="control-label">Gender</label>
-                          </div>
-                          <div className="col-sm-10" ref={div => { this.gender = div; }}>
-                            {data.gender.map(elem => {
-                                return (
-                                  <div>
-                                    <input id={elem.optionID} value={elem.optionID} ref={div => { this[elem.optionID] = div; }} className="magic-checkbox" type="checkbox" />
-                                    <label htmlFor={elem.optionID}>{elem.displayValue}</label>
-                                  </div>
-                                  )
-                              })}
-                          </div>
-                        </div>
+                      <div className="col-2">
+                        <label className="control-label">Other</label>
                       </div>
                     </div>
 
-                   <div className="row">
-                     <div className="col-6">
-                       <div className="form-group">
-                         <div className="col-sm-2"> 
-                         <label className="control-label">Ethnicity</label>
-                         </div>
-                         <div className="col-sm-10" ref={div => { this.ethnicity = div; }}>
-                           {data.ethnicity.map(elem => {
-                             return (
-                           <div>
-                             <input id={elem.optionID} value={elem.optionID} ref={div => { this[elem.optionID] = div; }} className="magic-checkbox" type="checkbox" />
-                             <label htmlFor={elem.optionID}>{elem.displayValue}</label>
-                           </div>
-                               )
-                           })}
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-
-                     <div className="pad-ver">
-                       <div className="row">
-                         <div className="col-sm-3">
-                         Age Range
-                         </div>
-                         <div className="col-sm-9">
-                           <input
-                             style={{ width: '100%' }}
-                             type="text"
-                             value=""
-                             ref={div => { this.ageRange = div; }}
-                           />
-                         </div>
-                       </div>
-           
-                       <div className="row">
-                         <div className="col-sm-3">
-                         Graduation Date Range
-                         </div>
-                         <div className="col-sm-9">
-                           <input
-                             style={{ width: '100%' }}
-                             type="text"
-                             value=""
-                             ref={div => { this.graduationRange = div; }}
-                           />
-                         </div>
-                       </div>
-           
-                       <div className="row">
-                         <div className="col-sm-3">
-                         Salary Range
-                         </div>
-                         <div className="col-sm-9">
-                           <input
-                             style={{ width: '100%' }}
-                             type="text"
-                             value=""
-                             ref={div => { this.salaryRange = div; }}
-                           />
-                         </div>
-                       </div>
-                     </div>
-                   
-
-                        <div className="row">
-                          <div className="col-sm-6">
-                            <div className="form-group">
-                            <label htmlFor="subject">Subject</label>
-                            <select className="form-control" name="subject" id="subject" ref={(div) => { this.subject = div; }}>
-                              <option />
-                              {data.subject.map(element => (
-                                <option>{element.displayValue}</option>
-                                ))}
-                            </select>
-                            </div>
-                          </div>
-                          <div className="col-sm-6">
-                            <div className="form-group">
-                            <label htmlFor="degreeLevel">Degree</label>
-                            <select className="form-control" name="degreeLevel" id="degreeLevel" ref={(div) => { this.degreeLevel = div; }}>
-                              <option />
-                              {data.degreeLevel.map(element => (
-                                <option>{element.displayValue}</option>
-                                ))}
-                            </select>
-                            </div>
-                          </div>
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <div className="col-6" ref={(div) => { this.polar = div; }}>
+                          <input id="polar" className="magic-checkbox" type="checkbox" />
+                          <label htmlFor="polar">POLAR</label>
                         </div>
-
-
-                      <div className="row">
-                          <div className="form-group">
-
-                            <div className="row">
-                              <div className="col-2">
-                                <label className="control-label">Other</label>
-                              </div>
-                            </div>
-
-                          <div className="row">
-                          <div className="col-sm-6">
-                          <div className="col-6" ref={div => { this.polar = div; }}>
-                           <input id='polar' className="magic-checkbox" type="checkbox" />
-                           <label htmlFor='polar'>POLAR</label>
-                          </div>
-                          <div className="col-6">
-                          <input id='stem' className="magic-checkbox" ref={div => { this.stem = div; }} type="checkbox" />
-                          <label htmlFor='stem'>STEM</label>
-                          </div>
-                          </div>
-                          <div className="col-sm-6">
-                          <label htmlFor="currency">Currency</label>
-                          <select className="form-control" id="currency" ref={(div) => { this.currency = div; }}>
-                            <option hidden>{currencyName}</option>
-                            {data.currency.map(element => (
-                              <option>{element.displayValue}</option>
-                              ))}
-                          </select>
-                          </div>
-                          </div>
+                        <div className="col-6">
+                          <input id="stem" className="magic-checkbox" ref={(div) => { this.stem = div; }} type="checkbox" />
+                          <label htmlFor="stem">STEM</label>
                         </div>
                       </div>
-        
-                        <div className="row">
-                          <button className="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
-                        </div>
-
+                      <div className="col-sm-6">
+                        <label htmlFor="currency">Currency</label>
+                        <select className="form-control" id="currency" ref={(div) => { this.currency = div; }}>
+                          <option hidden>{currencyName}</option>
+                          {data.currency.map(element => (
+                            <option>{element.displayValue}</option>
+                              ))}
+                        </select>
+                      </div>
+                    </div>
                   </div>
-              </div>
+                </div>
 
+                <div className="row">
+                  <button className="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
+                </div>
+
+              </div>
             </div>
+
           </div>
+        </div>
         <FetchData
           active
           fetchURL="/api/filters/getFilters"
