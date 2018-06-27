@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import Wrapper from '../../../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
@@ -174,7 +175,7 @@ class Page extends React.PureComponent {
   }
 
   getAllUniqueNames(dataArr) {
-    let uniqueKeys = ['Other'];
+    const uniqueKeys = ['Other'];
 
     dataArr.forEach((element) => {
       element.split.forEach((elem) => {
@@ -182,8 +183,10 @@ class Page extends React.PureComponent {
       });
     });
 
-    // this makes sure that the unique keys match whats in the filter data, if you only want 'Male' salaries, uniqueKeys should only have 'Male'
-    if (dNc(this.props.filterData.gender)) uniqueKeys = this.props.filterData.gender;
+    // this makes sure that if other filters are on, and the backend is only sending back data for male and other, it will include female too.
+    if (!uniqueKeys.includes('Male')) uniqueKeys.push('Male');
+    if (!uniqueKeys.includes('Female')) uniqueKeys.push('Female');
+    if (!uniqueKeys.includes('Other')) uniqueKeys.push('Other');
 
     dataArr.forEach((element) => {
       if (element.split.length < uniqueKeys.length) {
@@ -231,6 +234,7 @@ class Page extends React.PureComponent {
   }
 
   render() {
+    console.log();
     let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
@@ -261,10 +265,10 @@ class Page extends React.PureComponent {
     const sendData = {};
     Object.keys(this.props.filterData).forEach((key) => {
       if (dNc(this.props.filterData[key])) {
-        sendData[key] = this.props.filterData[key];
+        sendData[key] = _.assign({}, this.props.filterData[key]);
       }
     });
-
+    // sendData.rand = Math.random();
     const dataTransaction = (
       <div className="container" key="transaction-jobs-year">
         <div className="row" style={{ marginTop: '200px' }}>

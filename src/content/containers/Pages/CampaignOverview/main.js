@@ -482,7 +482,7 @@ class Page extends React.PureComponent {
               else count += elem.percent;
             });
             data.push({ value: 'Disability declared', percent: count });
-            label = false;
+            label = true;
             alignment = false;
             title = 'Disability split';
           } else if (value.splitItem === type && type === 'religion') {
@@ -599,15 +599,18 @@ class Page extends React.PureComponent {
               </div>
 
               <div className="col-md-6">
+                {this.getPieCharts('disability')}
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-8 col-md-push-2">
                 {this.getPieCharts('ethnicity')}
               </div>
             </div>
 
             <div className="row">
-              <div className="col-md-6">
-                {this.getPieCharts('disability')}
-              </div>
-              <div className="col-md-6">
+              <div className="col-md-8 col-md-push-2">
                 {this.getPieCharts('religion')}
               </div>
             </div>

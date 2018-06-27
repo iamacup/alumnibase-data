@@ -166,7 +166,7 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGroupedBarchart('Average Full Time Earnings', 'DHLE-5-2', 'UGScienceEarnings', 'UGEverythingElseEarnings')}
+            {this.getGroupedBarchart('Average Full Time Earnings by Undergraduates', 'DHLE-5-2', 'UGScienceEarnings', 'UGEverythingElseEarnings')}
           </div>
         </div>
 

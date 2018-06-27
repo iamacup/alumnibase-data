@@ -95,18 +95,20 @@ class Login extends React.PureComponent {
     // payload contains a .token prop that is a JWT (JSON Web Token) which we need to store in a cookie
     setAuthenticationCookie(payload.token);
 
-    const { username } = this.state;
     const loggedIn = true;
-    const { fullName, profileImage } = payload;
+    const {
+      fullName, profileImage, institution, username,
+    } = payload;
 
-    this.props.reduxAction_doUpdate('authenticationData', {
+    this.props.reduxAction_doUpdate('authentication', {
       loggedIn,
       username,
       fullName,
       profileImage,
+      institution,
     });
 
-    this.context.router.history.push('/' + payload.siteURL + '/campaign/overview');
+    this.context.router.history.push('/campaign/overview');
   }
 
   render() {
@@ -128,7 +130,7 @@ class Login extends React.PureComponent {
                 <div className="panel-body">
 
                   <div className="mar-ver pad-btm">
-                    <h1 className="h3">AlumniBase Login</h1>
+                    <h1 className="h3">AlumniBase</h1>
                     <p>Sign In to your account</p>
                   </div>
 
@@ -176,8 +178,7 @@ class Login extends React.PureComponent {
                 </div>
 
                 <div className="pad-all">
-                  <a href="pages-password-reminder.html" className="btn-link mar-rgt">Forgot password ?</a>
-                  <a href="pages-register.html" className="btn-link mar-lft">Create a new account</a>
+                  <a href="pages-password-reminder.html" className="btn-link mar-rgt">Forgotten password?</a>
                 </div>
 
               </div>
@@ -188,7 +189,6 @@ class Login extends React.PureComponent {
     );
   }
 }
-
 
 Login.contextTypes = {
   router: PropTypes.object,

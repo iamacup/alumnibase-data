@@ -114,15 +114,29 @@ class Page extends React.PureComponent {
     return options;
   }
 
-  getGraph(title, id, height, name, postContent) {
+  getGraph(title, id, height, name) {
     let panel = null;
-    const length = [];
+    let length = false;
+
+    let year1 = false;
+    let year5 = false;
+    let year10 = false;
+    let year15 = false;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       this.props.reduxState_fetchDataTransaction.default.payload[0].STEMSalarySplit.forEach((elem) => {
-        if (elem.data.length > 0) length.push(true);
+        const data = elem.data.map(element => element.STEM === 'STEM');
+        if (elem.name === '1 Year' && data.includes(true)) year1 = true;
+        if (elem.name === '5 Years' && data.includes(true)) year5 = true;
+        if (elem.name === '10 Years' && data.includes(true)) year10 = true;
+        if (elem.name === '15 Years' && data.includes(true)) year15 = true;
       });
-      if (this.props.reduxState_fetchDataTransaction.default.payload[0].STEMJobsSplit[0].length > 0 || (length[0] && length[1] && length[2] && length[3])) {
+
+
+      if (name === 'STEMJobsSplit') length = this.props.reduxState_fetchDataTransaction.default.payload[0].STEMJobsSplit[0].length > 0;
+      if (name === 'STEMSalarySplit') length = (year1 && year5 && year10 && year15);
+
+      if (length) {
         panel = (<TabbedGraphPanel
           title={title}
           globalID={id}
@@ -131,7 +145,6 @@ class Page extends React.PureComponent {
             {
               title: '',
               active: true,
-              postContent,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -237,8 +250,8 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGraph('% of respondants working in STEM jobs', 'stem-overview-1', '250px', 'STEMJobsSplit', '*This graph will not change when filters are applied')}
-            {this.getGraph('Average Salary of respondants working in STEM jobs', 'stem-overview-2', '400px', 'STEMSalarySplit', '')}
+            {this.getGraph('% of respondants working in STEM jobs', 'stem-overview-1', '250px', 'STEMJobsSplit')}
+            {this.getGraph('Average Salary of respondants working in STEM jobs', 'stem-overview-2', '400px', 'STEMSalarySplit')}
             <h3 className="text-main text-normal text-2x mar-no">STEM Salaries</h3>
             <h5 className="text-muted text-normal">Breakdown of STEM subjects and their associated salary outcomes for students in their <strong>First Job</strong>, with optional Gender Split</h5>
             <hr className="new-section-xs" />
@@ -273,8 +286,6 @@ class Page extends React.PureComponent {
         newDataArr[3].data = arr.data.filter(elem => elem.STEM === 'STEM');
       }
     });
-
-    console.log(dataArr, newDataArr);
 
     dataArr.forEach((element) => {
       element.data.forEach((elem) => {
