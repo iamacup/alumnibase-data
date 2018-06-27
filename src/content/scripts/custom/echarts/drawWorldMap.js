@@ -10,7 +10,7 @@ const drawWorldMap = (mapData, type, value) => {
 
   // mapData = the spots on the map.
   // mapData should be in the form  [{code: 'AF', name: 'Afghanistan', value: 32358260, color: 'asia'}]
-  let max = 1000;
+  let max = 10;
 
   mapData.forEach((itemOpt) => {
     if (itemOpt.value > max) {
