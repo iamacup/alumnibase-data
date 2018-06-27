@@ -79,7 +79,7 @@ class Graph extends React.PureComponent {
   //   // if what is in this.props.filterData is not in the state, add it to the state.
   //   // but you first want to make sure what was in the prevProps is included in this.props.
   //   // this.setStateWithFilterData()
-    }
+  }
 
 
   // setStateWithFilterData() {
@@ -360,9 +360,9 @@ class Graph extends React.PureComponent {
                           <option key={element.optionID}>{element.displayValue}</option>
                            ))}
                       </select>
-                      </div>
-                      </div>
-                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <div className="row">
                   <div className="col-6">
@@ -377,7 +377,7 @@ class Graph extends React.PureComponent {
                             <label htmlFor={elem.optionID}>{elem.displayValue}</label>
                           </div>
                                   ))}
-                       <label className="control-label">Ethnicity</label>
+                        <label className="control-label">Ethnicity</label>
                       </div>
                       <div className="col-sm-10" ref={(div) => { this.ethnicity = div; }}>
                         {data.ethnicity.map(elem => (
@@ -517,7 +517,7 @@ class Graph extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="row">
                   <button className="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
                 </div>
