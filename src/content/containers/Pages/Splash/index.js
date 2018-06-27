@@ -288,7 +288,7 @@ class Page extends React.PureComponent {
             </div>
             {/* <!--===================================================--> */}
 
-            {/*  <!--===================================================--> */}
+            {/*  <!--===================================================--> 
             <div className="panel panel-purple panel-colorful">
               <div className="panel-heading">
                 <div className="pad-all media">
@@ -313,7 +313,7 @@ class Page extends React.PureComponent {
                 </div>
               </div>
             </div>
-            {/* <!--===================================================--> */}
+             <!--===================================================--> */}
 
           </div>
         </div>

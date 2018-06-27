@@ -89,85 +89,86 @@ class Page extends React.PureComponent {
                 {this.getGraph(`Further Study Among Graduates from ${uniName}`, 'further-study-overview-1', 'thisUniPGSplit')}
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-6">
-                <TabbedGraphPanel
-                  title={<div><p>Further Study University Destination</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
-                  globalID="further-study-overview-2"
-                  content={[
-            {
-              title: 'stay/go',
-              preContent: <p>Percentage of Graduates who Stayed at their Original<br />University to Further Study.</p>,
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options,
-                },
-              },
-            },
-          ]}
-                  seperator
-                />
-              </div>
-              <div className="col-md-6">
-                <TabbedGraphPanel
-                  title={<div><p>Further Study Relevance to Undergraduate</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
-                  globalID="further-study-overview-2"
-                  content={[
-            {
-              title: 'stay/go',
-              preContent: <p>Percentage of Graduates who went on to Study<br />Something Related to their Undergraduate.</p>,
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: true,
-                  seeData: false,
-                  pinGraph: true,
-                },
-                width: '100%',
-                height: '350px',
-                data: {
-                  options: options2,
-                },
-              },
-            },
-          ]}
-                  seperator
-                />
-              </div>
-            </div>
-            <TabbedGraphPanel
-              title={<div><p>Top 10 Destinations for Further Study to an Alternate University</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
-              globalID="subject-first-job-1"
-              content={[
-          {
-            title: 'Average Salary',
-            active: true,
-            graphData: {
-              type: 'react',
-              width: '100%',
-              height: '100%',
-              tools: {
-                allowDownload: false,
-                seeData: false,
-                pinGraph: false,
-              },
-              data: {
-                reactData: progressBarOption,
-              },
-            },
-          },
-          ]}
-            />
+       {   //   <div className="row">
+                 //     <div className="col-md-6">
+                 //       <TabbedGraphPanel
+                 //         title={<div><p>Further Study University Destination</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
+                 //         globalID="further-study-overview-2"
+                 //         content={[
+                 //   {
+                 //     title: 'stay/go',
+                 //     preContent: <p>Percentage of Graduates who Stayed at their Original<br />University to Further Study.</p>,
+                 //     active: true,
+                 //     graphData: {
+                 //       type: 'echarts',
+                 //       tools: {
+                 //         allowDownload: true,
+                 //         seeData: false,
+                 //         pinGraph: true,
+                 //       },
+                 //       width: '100%',
+                 //       height: '350px',
+                 //       data: {
+                 //         options,
+                 //       },
+                 //     },
+                 //   },
+                 // ]}
+                 //         seperator
+                 //       />
+                 //     </div>
+                 //     <div className="col-md-6">
+                 //       <TabbedGraphPanel
+                 //         title={<div><p>Further Study Relevance to Undergraduate</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
+                 //         globalID="further-study-overview-2"
+                 //         content={[
+                 //   {
+                 //     title: 'stay/go',
+                 //     preContent: <p>Percentage of Graduates who went on to Study<br />Something Related to their Undergraduate.</p>,
+                 //     active: true,
+                 //     graphData: {
+                 //       type: 'echarts',
+                 //       tools: {
+                 //         allowDownload: true,
+                 //         seeData: false,
+                 //         pinGraph: true,
+                 //       },
+                 //       width: '100%',
+                 //       height: '350px',
+                 //       data: {
+                 //         options: options2,
+                 //       },
+                 //     },
+                 //   },
+                 // ]}
+                 //         seperator
+                 //       />
+                 //     </div>
+                 //   </div>
+                 //   <TabbedGraphPanel
+                 //     title={<div><p>Top 10 Destinations for Further Study to an Alternate University</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
+                 //     globalID="subject-first-job-1"
+                 //     content={[
+                 // {
+                 //   title: 'Average Salary',
+                 //   active: true,
+                 //   graphData: {
+                 //     type: 'react',
+                 //     width: '100%',
+                 //     height: '100%',
+                 //     tools: {
+                 //       allowDownload: false,
+                 //       seeData: false,
+                 //       pinGraph: false,
+                 //     },
+                 //     data: {
+                 //       reactData: progressBarOption,
+                 //     },
+                 //   },
+                 // },
+                 // ]}
+                 //   />
+               }
           </div>
         </div>
       </div>

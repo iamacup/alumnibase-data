@@ -465,45 +465,47 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            <h3 className="text-main text-normal text-2x mar-no">Percieved Value</h3>
-            <hr className="new-section-xs" />
-          </div>
-        </div>
+{        // <div className="row">
+        //   <div className="col-md-8 col-md-push-2">
+        //     <h3 className="text-main text-normal text-2x mar-no">Percieved Value</h3>
+        //     <hr className="new-section-xs" />
+        //   </div>
+        // </div>
+      }
 
-        <div className="row">
-          <div className="col-md-8 col-md-push-2">
-            {tabData1.map(element => (
-              <TabbedGraphPanel
-                title={element.title}
-                globalID={element.globalID}
-                key={element.globalID}
-                content={[
-                    {
-                      title: '',
-                      postContent: element.text,
-                      active: true,
-                      graphData: {
-                        type: 'echarts',
-                        tools: {
-                          allowDownload: true,
-                          seeData: false,
-                          pinGraph: true,
-                        },
-                        width: '100%',
-                        height: '450px',
-                        data: {
-                          options: element.options,
-                        },
-                      },
-                    },
-                  ]}
-                seperator
-              />
-            ))}
-          </div>
-        </div>
+{        // <div className="row">
+        //   <div className="col-md-8 col-md-push-2">
+        //     {tabData1.map(element => (
+        //       <TabbedGraphPanel
+        //         title={element.title}
+        //         globalID={element.globalID}
+        //         key={element.globalID}
+        //         content={[
+        //             {
+        //               title: '',
+        //               postContent: element.text,
+        //               active: true,
+        //               graphData: {
+        //                 type: 'echarts',
+        //                 tools: {
+        //                   allowDownload: true,
+        //                   seeData: false,
+        //                   pinGraph: true,
+        //                 },
+        //                 width: '100%',
+        //                 height: '450px',
+        //                 data: {
+        //                   options: element.options,
+        //                 },
+        //               },
+        //             },
+        //           ]}
+        //         seperator
+        //       />
+        //     ))}
+        //   </div>
+        // </div>
+      }
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">

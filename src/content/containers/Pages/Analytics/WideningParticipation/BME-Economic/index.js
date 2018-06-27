@@ -12,22 +12,20 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 
 class Page extends React.PureComponent {
   componentDidMount() {
-    const uni = this.props.location.pathname.split('/')[1];
-
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'BME Economic Achievement',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: `/${uni}/analytics`,
+          link: '/analytics',
         },
         {
           name: 'Widening Participation',
-          link: `/${uni}/analytics/widening-participation`,
+          link: '/analytics/widening-participation',
         },
         {
           name: 'BME Economic Achievement',
-          link: `/${uni}/analytics/widening-participation/bme-economic-achievement`,
+          link: '/analytics/widening-participation/bme-economic-achievement',
         }],
     });
 

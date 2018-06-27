@@ -187,7 +187,7 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
-            {this.getGraph(<p style={{ color: 'red' }}>NEED TO INFER</p>, 'long-term-1', 'line', false)}
+            {/*{this.getGraph(<p style={{ color: 'red' }}>NEED TO INFER</p>, 'long-term-1', 'line', false)}*/}
             {this.getGraph('Change in Salary between 1 Year After Graduating', 'long-term-2', 'salaryChangeTime')}
           </div>
         </div>

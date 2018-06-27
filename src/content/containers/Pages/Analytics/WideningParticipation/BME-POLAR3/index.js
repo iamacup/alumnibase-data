@@ -12,22 +12,20 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 
 class Page extends React.PureComponent {
   componentDidMount() {
-    const uni = this.props.location.pathname.split('/')[1];
-
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Improving Technical Pathways of BME and POLAR3',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: `/${uni}/analytics`,
+          link: '/analytics',
         },
         {
           name: 'Widening Participation',
-          link: `/${uni}/analytics/widening-participation`,
+          link: '/analytics/widening-participation',
         },
         {
           name: 'Improving Technical Pathways of BME and POLAR3',
-          link: `/${uni}/analytics/widening-participation/improving-technical-pathways`,
+          link: '/analytics/widening-participation/improving-technical-pathways',
         }],
     });
 
