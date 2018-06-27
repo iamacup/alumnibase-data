@@ -27,7 +27,7 @@ class Wrapper extends React.PureComponent {
 
     const result = (
       <ol key="static" className="breadcrumb">
-        <li><Link href="/" to="/"><i className="far fa-home" /></Link></li>
+        <li><Link href="/campaign/overview" to="/campaign/overview"><i className="far fa-home" /></Link></li>
         {crumbs}
       </ol>
     );

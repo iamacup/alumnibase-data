@@ -244,6 +244,7 @@ class Page extends React.PureComponent {
       }
     });
 
+
     const dataTransaction = (
       <div className="container" key="transaction-ranges">
         <div className="row" style={{ marginTop: '200px' }}>

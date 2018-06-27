@@ -123,7 +123,7 @@ class Login extends React.PureComponent {
 
     return (
       <div id="container" className="cls-container">
-        <div classNameName="row">
+        <div className="row">
           <div className="col-md-8 col-md-push-2">
             <div className="cls-content" ref={(element) => { this.errorDiv = element; }}>
               <div className="cls-content-sm panel">
@@ -178,7 +178,7 @@ class Login extends React.PureComponent {
                 </div>
 
                 <div className="pad-all">
-                  <a href="pages-password-reminder.html" className="btn-link mar-rgt">Forgotten password?</a>
+                  <a href="/password/reminder" className="btn-link mar-rgt">Forgotten password?</a>
                 </div>
 
               </div>
