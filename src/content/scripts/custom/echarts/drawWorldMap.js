@@ -10,20 +10,16 @@ const drawWorldMap = (mapData, type, value) => {
 
   // mapData = the spots on the map.
   // mapData should be in the form  [{code: 'AF', name: 'Afghanistan', value: 32358260, color: 'asia'}]
-  let max = -Infinity;
-  let min = Infinity;
+  let max = 1000;
 
   mapData.forEach((itemOpt) => {
     if (itemOpt.value > max) {
       max = itemOpt.value;
     }
-    if (itemOpt.value < min) {
-      min = itemOpt.value;
-    }
   });
 
   let visualType = {
-    show: true, min: 0, max: 10000, calculable: true, color: ['#11293b', '#1c6cab', '#a4c0e5'], text: ['High', 'Low'],
+    show: true, min: 0, max: max, calculable: true, color: ['#11293b', '#1c6cab', '#a4c0e5'], text: ['High', 'Low'],
   };
 
   if (type === 'scatter') {
