@@ -23,26 +23,24 @@ const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page1b extends React.PureComponent {
   componentDidMount() {
-    const uni = this.props.location.pathname.split('/')[1];
-
     this.props.reduxAction_doUpdate('pageData', {
       pageTitle: 'Views on Education Impact',
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: `/${uni}/analytics`,
+          link: '/analytics',
         },
         {
           name: 'Views',
-          link: `/${uni}/analytics/views`,
+          link: '/analytics/views',
         },
         {
           name: 'Views on Education Impact',
-          link: `/${uni}/analytics/views/1`,
+          link: '/analytics/views/1',
         },
         {
           name: 'Views on Education',
-          link: `/${uni}/analytics/views/1/views-on-education`,
+          link: '/analytics/views/1/views-on-education',
         }],
     });
 

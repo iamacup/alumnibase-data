@@ -29,15 +29,15 @@ class Page extends React.PureComponent {
       breadcrumbs: [
         {
           name: 'Analytics',
-          link: `/${uni}/analytics`,
+          link: '/analytics',
         },
         {
           name: 'DHLE-Like',
-          link: `/${uni}/analytics/dlhe-like`,
+          link: '/analytics/dlhe-like',
         },
         {
           name: 'RQ 5 - Destination, Employment and Earnings',
-          link: `/${uni}/analytics/dlhe-like/5`,
+          link: '/analytics/dlhe-like/5',
         }],
     });
 
