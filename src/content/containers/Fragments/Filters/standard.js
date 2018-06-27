@@ -60,7 +60,39 @@ class Graph extends React.PureComponent {
 
   componentDidUpdate() {
     this.checkBoxesInFilterData();
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(prevProps.filterData, prevState)
+  //   console.log(this.props.filterData, this.state)
+
+  //   let data = prevProps.filterData;
+
+  //   if (prevProps.filterData !== this.props.filterData) {
+  //     Object.keys(prevProps.filterData).forEach(key => {
+  //       if (this.props.filterData[key] !== null) {
+  //         if (key === 'currency' || key === 'polar' || key === 'stem') data[key] = this.props.filterData[key]
+  //         else this.props.filterData[key].forEach(elem => data[key].push(elem))
+  //       } else data[key] = this.props.filterData[key]
+  //     })
+  //   }
+
+  //   console.log(data)
+  //   // if what is in this.props.filterData is not in the state, add it to the state.
+  //   // but you first want to make sure what was in the prevProps is included in this.props.
+  //   // this.setStateWithFilterData()
+    }
+
+
+  // setStateWithFilterData() {
+  //   console.log('getting here');
+  //   if (Object.keys(this.props.filterData).length > 0) {
+  //     Object.keys(this.props.filterData).forEach((filter) => {
+  //       const finalData = this.props.filterData[filter];
+  //       this.setState({
+  //         [filter]: finalData,
+  //       });
+  //     });
+  //   }
+  // }
 
   setStateWithValue(id, value) {
     // Setting the local state with the data, to set global state later.
@@ -304,7 +336,6 @@ class Graph extends React.PureComponent {
               </div>
               <h3 className="panel-title">Filters</h3>
             </div>
-
             <div className="collapse">
               <div className="panel-body">
 
@@ -329,9 +360,9 @@ class Graph extends React.PureComponent {
                           <option key={element.optionID}>{element.displayValue}</option>
                            ))}
                       </select>
-                    </div>
-                  </div>
-                </div>
+                      </div>
+                      </div>
+                      </div>
 
                 <div className="row">
                   <div className="col-6">
@@ -346,16 +377,7 @@ class Graph extends React.PureComponent {
                             <label htmlFor={elem.optionID}>{elem.displayValue}</label>
                           </div>
                                   ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-6">
-                    <div className="form-group">
-                      <div className="col-sm-2">
-                        <label className="control-label">Ethnicity</label>
+                       <label className="control-label">Ethnicity</label>
                       </div>
                       <div className="col-sm-10" ref={(div) => { this.ethnicity = div; }}>
                         {data.ethnicity.map(elem => (
@@ -365,6 +387,31 @@ class Graph extends React.PureComponent {
                           </div>
                                ))}
                       </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="subject">Subject</label>
+                      <select className="form-control" name="subject" id="subject" ref={(div) => { this.subject = div; }}>
+                        <option />
+                        {data.subject.map(element => (
+                          <option>{element.displayValue}</option>
+                                ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <label htmlFor="degreeLevel">Degree</label>
+                      <select className="form-control" name="degreeLevel" id="degreeLevel" ref={(div) => { this.degreeLevel = div; }}>
+                        <option />
+                        {data.degreeLevel.map(element => (
+                          <option>{element.displayValue}</option>
+                                ))}
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -383,7 +430,6 @@ class Graph extends React.PureComponent {
                       />
                     </div>
                   </div>
-
                   <div className="row">
                     <div className="col-sm-3">
                         Graduation Date Range
@@ -455,6 +501,7 @@ class Graph extends React.PureComponent {
                         </div>
                         <div className="col-6">
                           <input id="stem" className="magic-checkbox" ref={(div) => { this.stem = div; }} type="checkbox" onClick={() => this.handleOther('stem')} />
+
                           <label htmlFor="stem">STEM</label>
                         </div>
                       </div>
@@ -470,12 +517,10 @@ class Graph extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-
-
+                
                 <div className="row">
                   <button className="btn btn-primary" data-panel="minmax" onClick={e => this.handleSubmit(e)} style={{ width: '100%' }}>Save</button>
                 </div>
-
               </div>
             </div>
 
