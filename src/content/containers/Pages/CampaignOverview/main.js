@@ -677,7 +677,7 @@ class Page extends React.PureComponent {
 
 
   render() {
-    let content = null
+    let content = null;
 
     if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
       content = this.getContent();

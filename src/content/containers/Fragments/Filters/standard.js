@@ -93,7 +93,7 @@ class Graph extends React.PureComponent {
         });
       } else if (key === 'stem' || key === 'polar') {
         $(this[key]).attr('checked', this.props.filterData[key]);
-      } 
+      }
     });
   }
 
@@ -192,7 +192,7 @@ class Graph extends React.PureComponent {
   }
 
   handleCurrency() {
-    let currencyName = 'Choose a currency'
+    let currencyName = 'Choose a currency';
     // { id: 1, text: "GBP - Pound Sterling (£)'" };
 
     // set the placeholder to be whats selected in state
@@ -225,14 +225,13 @@ class Graph extends React.PureComponent {
   }
 
   handleSubmit() {
-    
     let currency = this.state.currency;
-    let array = [];
+    const array = [];
 
     if (this.state.currency === null) {
-      this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach(elem => {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach((elem) => {
         if (elem.displayValue.includes('GBP')) array.push(elem.optionID);
-      })
+      });
       currency = array;
     }
 
@@ -249,7 +248,7 @@ class Graph extends React.PureComponent {
       degreeLevel: this.state.degreeLevel,
       stem: this.state.stem,
       polar: this.state.polar,
-      currency: currency,
+      currency,
     });
   }
 
