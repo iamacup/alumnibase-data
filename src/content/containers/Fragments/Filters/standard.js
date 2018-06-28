@@ -30,7 +30,7 @@ class Graph extends React.PureComponent {
       degreeLevel: null,
       stem: false,
       polar: false,
-      currency: ['options/42960339872'],
+      currency: null,
     });
   }
 
@@ -192,7 +192,8 @@ class Graph extends React.PureComponent {
   }
 
   handleCurrency() {
-    let currencyName = { id: 1, text: "GBP - Pound Sterling (£)'" };
+    let currencyName = 'Choose a currency';
+    // { id: 1, text: "GBP - Pound Sterling (£)'" };
 
     // set the placeholder to be whats selected in state
     if (dNc(this.props.filterData) && dNc(this.props.filterData.currency)) {
@@ -224,6 +225,16 @@ class Graph extends React.PureComponent {
   }
 
   handleSubmit() {
+    let currency = this.state.currency;
+    const array = [];
+
+    if (this.state.currency === null) {
+      this.props.reduxState_fetchDataTransaction.default.payload[0].currency.forEach((elem) => {
+        if (elem.displayValue.includes('GBP')) array.push(elem.optionID);
+      });
+      currency = array;
+    }
+
     // Setting global state with the save button.
     this.props.reduxAction_doUpdate('filterData', {
       countryOfBirth: this.state.countryOfBirth,
@@ -237,7 +248,7 @@ class Graph extends React.PureComponent {
       degreeLevel: this.state.degreeLevel,
       stem: this.state.stem,
       polar: this.state.polar,
-      currency: this.state.currency,
+      currency,
     });
   }
 

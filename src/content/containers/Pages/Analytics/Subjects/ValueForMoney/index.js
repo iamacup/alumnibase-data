@@ -465,7 +465,7 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-{        // <div className="row">
+        { // <div className="row">
         //   <div className="col-md-8 col-md-push-2">
         //     <h3 className="text-main text-normal text-2x mar-no">Percieved Value</h3>
         //     <hr className="new-section-xs" />
@@ -473,7 +473,7 @@ class Page extends React.PureComponent {
         // </div>
       }
 
-{        // <div className="row">
+        { // <div className="row">
         //   <div className="col-md-8 col-md-push-2">
         //     {tabData1.map(element => (
         //       <TabbedGraphPanel
@@ -596,24 +596,6 @@ class Page extends React.PureComponent {
       content = this.getContent();
     } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
       console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
-      content = (
-        <div>
-          <StandardFilters />
-          <div className="row" style={{ marginTop: '200px' }}>
-            <div className="col-md-10 col-md-push-1 text-center">
-              <BasicPanel
-                content={
-                  <div>
-                    <h3><strong>There has been a problem on the backend.</strong></h3>
-                    <h4>Try refreshing the page, or changing the filters.</h4>
-                    <br />
-                  </div>
-                      }
-              />
-            </div>
-          </div>
-        </div>
-      );
     }
 
     const sendData = {};

@@ -421,13 +421,13 @@ class Page extends React.PureComponent {
   }
 
   getTotalResponsesPanel() {
-    let percentage = 37;
+    let percentage = '37%';
     let response = '45,683';
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
       this.props.reduxState_fetchDataTransaction.default.payload[0].forEach((element) => {
-        if (element.splitItem === 'responsePercentage') percentage = (element.value * 100);
-        if (element.splitItem === 'totalresponses') response = element.value;
+        if (element.splitItem === 'responsePercentage') percentage = element.value.toFixed() + '%';
+        if (element.splitItem === 'totalResponses') response = element.value;
       });
     }
 
@@ -440,7 +440,7 @@ class Page extends React.PureComponent {
               <p className="text-sm">Total responses</p>
             </div>
             <div className="col-sm-6">
-              <div className="text-lg"><p className="text-5x text-thin text-main mar-no">{percentage.toFixed() + '%'}</p></div>
+              <div className="text-lg"><p className="text-5x text-thin text-main mar-no">{percentage}</p></div>
               <p className="text-sm">Response rate</p>
             </div>
           </div>
@@ -530,8 +530,8 @@ class Page extends React.PureComponent {
     return panel;
   }
 
-  render() {
-    const content = (
+  getContent() {
+    return (
       <div id="page-content" key="overview-content">
 
         <div className="row" style={{ paddingBottom: '50px' }}>
@@ -673,6 +673,17 @@ class Page extends React.PureComponent {
 
       </div>
     );
+  }
+
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+    }
 
 
     const dataTransaction = (
