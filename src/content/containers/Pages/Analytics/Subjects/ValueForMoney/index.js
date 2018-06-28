@@ -465,7 +465,7 @@ class Page extends React.PureComponent {
 
         <StandardFilters />
 
-{        // <div className="row">
+        { // <div className="row">
         //   <div className="col-md-8 col-md-push-2">
         //     <h3 className="text-main text-normal text-2x mar-no">Percieved Value</h3>
         //     <hr className="new-section-xs" />
@@ -473,7 +473,7 @@ class Page extends React.PureComponent {
         // </div>
       }
 
-{        // <div className="row">
+        { // <div className="row">
         //   <div className="col-md-8 col-md-push-2">
         //     {tabData1.map(element => (
         //       <TabbedGraphPanel

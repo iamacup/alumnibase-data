@@ -328,7 +328,7 @@ class Sidebar extends React.PureComponent {
                     </ul>
                   </li>
 
-                  {/*  <!--Menu list item--> 
+                  {/*  <!--Menu list item-->
                   <li className={this.classNameBasedOnLocation('/analytics/widening-participation', 'active-sub')}>
                     <a href="#">
                       <i className="far fa-adjust" style={{ color: '#ab47bc' }} />
@@ -336,7 +336,7 @@ class Sidebar extends React.PureComponent {
                       <i className="arrow" />
                     </a>
 
-                    
+
                     <ul className={'collapse ' + this.classNameBasedOnLocation('/analytics/widening-participation', 'in')}>
                       <li className={this.classNameBasedOnLocation('/analytics/widening-participation/bme-economic-achievement', 'active-link')}>
                         <Link href="/analytics/widening-participation/bme-economic-achievement" to="/analytics/widening-participation/bme-economic-achievement">BME Economic Achievement</Link>
@@ -345,7 +345,7 @@ class Sidebar extends React.PureComponent {
                         <Link href="/analytics/widening-participation/improving-technical-pathways" to="/analytics/widening-participation/improving-technical-pathways">Improving Technical Pathways of BME and POLAR3</Link>
                       </li>
                     </ul>
-                  </li>*/}
+                  </li> */}
 
 
                   <li className="list-divider" />
