@@ -40,6 +40,13 @@ class Page extends React.PureComponent {
     return empty;
   }
 
+  handleLogout() {
+    const Cookies = require('js-cookie');
+    Cookies.remove('authentication');
+
+    this.context.router.history.push('/');
+  }
+
   render() {
     return (
       <header id="navbar">
@@ -179,7 +186,7 @@ class Page extends React.PureComponent {
                       <Link href="/help" to="/help" className="list-group-item"><i className="far fa-question" style={{ marginRight: '8px' }} /> Help</Link>
                     </li>
                     <li>
-                      <a href="#" className="list-group-item"> <i className="far fa-sign-out" style={{ marginRight: '8px' }} /> Logout</a>
+                      <a href="#" className="list-group-item" onClick={() => this.handleLogout()}> <i className="far fa-sign-out" style={{ marginRight: '8px' }} /> Logout</a>
                     </li>
                   </ul>
                 </div>
@@ -202,6 +209,10 @@ class Page extends React.PureComponent {
     );
   }
 }
+
+Page.contextTypes = {
+  router: PropTypes.object,
+};
 
 Page.propTypes = {
   reduxState_historyData: PropTypes.object,

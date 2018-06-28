@@ -12,8 +12,15 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 
 import drawWorldMap from '../../../../../../content/scripts/custom/echarts/drawWorldMap';
-import worldMapData from '../../../../../../content/scripts/custom/echarts/worldMapData';
 import drawNewPieChart from '../../../../../../content/scripts/custom/echarts/drawPieChart';
+import latlong from '../../../../../../content/scripts/custom/echarts/latitudes';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
+
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'global';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -43,21 +50,19 @@ class Page extends React.PureComponent {
       $(document).trigger('nifty.ready');
     });
   }
-  getOriginGraph() {
-    const data = [
-      { name: 'EU', value: 40 },
-      { name: 'Non-EU', value: 30 },
-      { name: 'UK', value: 30 },
-    ];
 
-    const options = drawNewPieChart(data, false, 'pie', false);
+  getPieChart(title, id, name) {
+    let panel = null;
+    let pieDataLength = false;
 
-    // the actual panel stuff
-    const panel = (
-      <TabbedGraphPanel
-        title="Domicile of Origin"
-        globalID="overview-2"
-        content={[
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0][name].length > 0) pieDataLength = true;
+
+      if (pieDataLength) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          content={[
             {
               title: '',
               active: true,
@@ -71,81 +76,99 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '250px',
                 data: {
-                  options,
+                  options: this.getData(name).options,
                 },
               },
             },
           ]}
-        seperator
-      />
-    );
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
+
     return panel;
   }
 
-  getResidenceGraph() {
-    const data = [
-      { name: 'EU', value: 20 },
-      { name: 'Non-EU', value: 30 },
-      { name: 'UK', value: 50 },
-    ];
 
-    const options = drawNewPieChart(data, true, 'doughnut', true);
+  getData(type) {
+    let options = {};
+    const data = [];
+    const tableData = [];
 
-    // the actual panel stuff
-    const panel = (
-      <TabbedGraphPanel
-        title="Current Domicile"
-        globalID="overview-2"
-        content={[
-            {
-              title: '',
-              active: true,
-              graphData: {
-                type: 'echarts',
-                tools: {
-                  allowDownload: false,
-                  seeData: false,
-                  pinGraph: false,
-                },
-                width: '100%',
-                height: '250px',
-                data: {
-                  options,
-                },
-              },
-            },
-          ]}
-        seperator
-      />
-    );
-    return panel;
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0]).forEach((key) => {
+        if (key === type && key === 'countriesOfOrigin') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            if (dNc(latlong[element.data.metaData.code2])) {
+              data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric });
+            } else tableData.push(`${element.data.name} - ${element.data.metaData.numeric} People`);
+            // setting tableData so that the backend data that the frontEnd doesn't have coordinates for gets collected.
+          });
+          options = drawWorldMap(data, 'map', 'People');
+        } else if (key === type && key === 'countriesOfResidence') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            if (dNc(latlong[element.data.metaData.code2])) {
+              data.push({ code: element.data.metaData.code2, name: element.data.name, value: element.data.metaData.numeric });
+            } else tableData.push(`${element.data.name} - ${element.data.metaData.numeric} People`);
+          });
+          options = drawWorldMap(data, 'map', 'People');
+        } else if (key === type && key === 'countriesOfOriginSplit') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            data.push({ value: element.uLocation, percent: element.length });
+          });
+          options = drawNewPieChart(data, false, 'pie', false);
+        } else if (key === type && key === 'countriesOfResidenceSplit') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
+            data.push({ value: element.uLocation, percent: element.length });
+          });
+          options = drawNewPieChart(data, true, 'doughnut', true);
+        }
+      });
+    }
+
+    let table = null;
+    if (tableData.length > 0) {
+      table = (
+        <div style={{ marginTop: '10px' }}>
+          <p>Places that are too small to display on the map:</p>
+          {tableData.map(element => (
+            <p key={element}>{element}</p>
+                ))}
+        </div>
+      );
+    }
+
+    return { options, table };
   }
 
   getMap() {
-    // area chart stuff
-    const propsDataOne = [{ name: 'United States of America', value: 60000 }, { name: 'United Kingdom', value: 60000 }, { name: 'Zimbabwe', value: 20 }, { name: 'South Africa', value: 50 }, { name: 'India', value: 8000 }, { name: 'Italy', value: 109550 }, { name: 'Germany', value: 900 }, { name: 'Canada', value: 679 }, { name: 'France', value: 67468 }, { name: 'Spain', value: 674 }, { name: 'China', value: 67468 }, { name: 'Australia', value: 679 }];
-    const propsDataTwo = [{ name: 'United States of America', value: 10 }, { name: 'United Kingdom', value: 60000 }, { name: 'India', value: 4000 }, { name: 'Italy', value: 2000 }, { name: 'Germany', value: 3000 }, { name: 'Canada', value: 8000 }, { name: 'France', value: 7000 }, { name: 'Spain', value: 3050 }, { name: 'China', value: 3000 }, { name: 'Australia', value: 6000 }];
+    let panel = null;
+    let origin = false;
+    let residence = false;
 
-    const data1 = propsDataOne.map(element => ({
-      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
-    }));
 
-    const data2 = propsDataTwo.map(element => ({
-      code: worldMapData[element.name].code, name: element.name, value: element.value, color: worldMapData[element.name].color,
-    }));
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].countriesOfOrigin.length > 0) origin = true;
+      if (this.props.reduxState_fetchDataTransaction.default.payload[0].countriesOfResidence.length > 0) residence = true;
 
-    const options1 = drawWorldMap(data1, 'map', 'People');
-    const options2 = drawWorldMap(data2, 'map', 'People');
-
-    // the actual panel stuff
-    const panel = (
-      <TabbedGraphPanel
-        title="Detailed Country Breakdown for Graduate Origins and Destinations"
-        globalID="salary-geo-2a-1"
-        content={[
+      if (origin && residence) {
+        panel = (
+          <TabbedGraphPanel
+            title="Detailed Country Breakdown for Graduate Origins and Destinations"
+            globalID="salary-geo-2a-1"
+            content={[
             {
               title: 'Country of Origin',
               active: true,
+              postContent: this.getData('countriesOfOrigin').table,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -156,13 +179,14 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '400px',
                 data: {
-                  options: options1,
+                  options: this.getData('countriesOfOrigin').options,
                 },
               },
             },
             {
               title: 'Current Country of Residence',
               active: false,
+              postContent: this.getData('countriesOfResidence').table,
               graphData: {
                 type: 'echarts',
                 tools: {
@@ -173,21 +197,32 @@ class Page extends React.PureComponent {
                 width: '100%',
                 height: '400px',
                 data: {
-                  options: options2,
+                  options: this.getData('countriesOfResidence').options,
                 },
               },
             },
           ]}
-        seperator
-      />
-    );
+            seperator
+          />
+        );
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
+
 
     return panel;
   }
 
-  render() {
+  getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="geo-global">
 
         <StandardFilters />
 
@@ -201,11 +236,11 @@ class Page extends React.PureComponent {
 
         <div className="row">
           <div className="col-md-4 col-md-push-2">
-            {this.getOriginGraph()}
+            {this.getPieChart('Domicile of Origin', 'overview-2', 'countriesOfOriginSplit')}
           </div>
 
           <div className="col-md-4 col-md-push-2">
-            {this.getResidenceGraph()}
+            {this.getPieChart('Current Domicile', 'overview-1', 'countriesOfResidenceSplit')}
           </div>
         </div>
 
@@ -218,10 +253,71 @@ class Page extends React.PureComponent {
       </div>
     );
 
+    return content;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-geo-global">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/destination/global"
+                  sendData={{ filterData: sendData }}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
+
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -229,13 +325,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

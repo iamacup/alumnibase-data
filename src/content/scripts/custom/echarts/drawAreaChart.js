@@ -1,7 +1,7 @@
 const drawAreaChart = (areaData, axis) => {
   // areaData sould be in the form [{name: '', data: []}];
   let xlabel = [];
-  let value = '';
+  const value = '';
   // console.log(axis);
   if (!axis) {
     for (let i = 20; i < 51; i++) {
@@ -9,7 +9,6 @@ const drawAreaChart = (areaData, axis) => {
     }
   } else {
     xlabel = axis;
-    value = 'years';
   }
 
   const areaColours = ['#2b577e', '#d7d4c5', '#e8912c', '#6f6b51', '#6ca7da', '#e7b93a', '#0e1422'];
@@ -49,10 +48,10 @@ const drawAreaChart = (areaData, axis) => {
     return seriesData;
   }
 
-
   const option = {
     legend: {
       data: areaData.map(obj => obj.name),
+      top: -5,
     },
     tooltip: {
       trigger: 'axis',

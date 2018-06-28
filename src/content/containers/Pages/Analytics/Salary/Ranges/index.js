@@ -8,18 +8,25 @@ import * as storeAction from '../../../../../../foundation/redux/globals/DataSto
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import drawBoxplotChart from '../../../../../../content/scripts/custom/echarts/drawBoxPlotChart';
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 
 import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPanel';
 import BasicPanel from '../../../../../../content/components/BasicPanel';
 
-class Page extends React.PureComponent {
-  constructor(props) {
-    super(props);
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
 
-    this.state = {
-      showNationalAverage: false,
-    };
-  }
+
+const dataStoreID = 'salary-ranges';
+const FetchData = fetchDataBuilder(dataStoreID);
+
+class Page extends React.PureComponent {
+  // constructor(props) {
+  //   super(props);
+
+  //   this.state = {
+  //     showNationalAverage: false,
+  //   };
+  // }
 
   componentDidMount() {
     this.props.reduxAction_doUpdate('pageData', {
@@ -44,24 +51,31 @@ class Page extends React.PureComponent {
       $(document).trigger('nifty.ready');
 
       // make the checkbox look nice with switchery
-      const elem = document.querySelector('#switchery-switch');
+      // const elem = document.querySelector('#switchery-switch');
 
       // eslint-disable-next-line no-undef, no-unused-vars
-      const init = new Switchery(elem);
+      // const init = new Switchery(elem);
 
-      elem.onchange = () => {
-        this.clickShowNationalAverage();
-      };
+      // elem.onchange = () => {
+      //   this.clickShowNationalAverage();
+      // };
     });
   }
 
-  getBoxPlot(input, title, id) {
-    const options = drawBoxplotChart(input.values, input.categories, 40000);
-    const panel = (
-      <TabbedGraphPanel
-        title={title}
-        globalID={id}
-        content={[
+  getBoxPlot(name, title, id, height) {
+    let panel = null;
+    let length;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
+        if (element.splitItem === name && element.split.length > 0) length = true;
+      });
+
+      if (length === true) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          content={[
             {
               title: '',
               active: true,
@@ -74,73 +88,64 @@ class Page extends React.PureComponent {
                   pinGraph: true,
                 },
                 width: '100%',
-                height: '350px',
+                height,
                 data: {
-                  options,
+                  options: this.getData(name),
                 },
               },
             },
           ]}
-        seperator
-      />
-    );
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
+
     return panel;
   }
 
-  clickShowNationalAverage() {
-    this.setState({ showNationalAverage: !this.state.showNationalAverage });
-  }
-
-  render() {
-    const genderData = {
-      categories: ['Female', 'Male'],
-      values: [
-        [19200, 64000, 200000],
-        [23000, 80000, 250000],
-      ],
-    };
-
-    const ethnicityData = {
-      categories: ['White', 'Mixed', 'Other', 'Asian', 'Black / African / Caribbean'],
-      values: [
-        [18000, 35000, 70000, 150000, 300000],
-        [17000, 34000, 68000, 150000, 280000],
-        [15000, 35000, 63000, 150000, 270000],
-        [16000, 35000, 66000, 150000, 260000],
-        [14000, 25000, 60000, 100000, 250000],
-      ],
-    };
-
-    const religionData = {
-      categories: ['No Religion', 'Chrstian', 'Other', 'Jewish', 'Buddhist', 'Hindu', 'Sikh', 'Muslim'],
-      values: [
-        [18000, 35000, 70000, 150000, 300000],
-        [18000, 35000, 65000, 150000, 295000],
-        [17000, 32000, 60000, 135000, 275000],
-        [18000, 34000, 60000, 140000, 270000],
-        [18000, 33000, 59000, 137000, 265000],
-
-        [17000, 30000, 50000, 120000, 250000],
-        [16000, 28000, 47000, 120000, 250000],
-        [16000, 28000, 45000, 120000, 240000],
-      ],
-    };
-
-    if (this.state.showNationalAverage === true) {
-      const nationalAverageSalaryData = [23000, 240000];
-
-      genderData.categories.push('National Average');
-      genderData.values.push(nationalAverageSalaryData);
-
-      ethnicityData.categories.push('National Average');
-      ethnicityData.values.push(nationalAverageSalaryData);
-
-      religionData.categories.push('National Average');
-      religionData.values.push(nationalAverageSalaryData);
+  getData(name) {
+    const data = { categories: [], values: [] };
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.forEach((element) => {
+        if (name === element.splitItem) {
+          element.split.forEach((value) => {
+            data.categories.push(value.value);
+            data.values.push(value.salaries);
+          });
+        }
+      });
     }
 
+    const options = drawBoxplotChart(data.values, data.categories, 40000);
+
+    // get national average to work.
+
+    // if (this.state.showNationalAverage === true) {
+    //   const nationalAverageSalaryData = [23000, 240000];
+
+    //   genderData.categories.push('National Average');
+    //   genderData.values.push(nationalAverageSalaryData);
+
+    //   ethnicityData.categories.push('National Average');
+    //   ethnicityData.values.push(nationalAverageSalaryData);
+
+    //   religionData.categories.push('National Average');
+    //   religionData.values.push(nationalAverageSalaryData);
+    // }
+    return options;
+  }
+
+  getContent() {
     const content = (
-      <div id="page-content">
+      <div className="ranges" id="page-content" key="ranges-content">
 
         <StandardFilters />
 
@@ -176,29 +181,94 @@ class Page extends React.PureComponent {
         </div>
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(genderData, 'Average pay, split by gender', 'salary-ranges-1')}
+            {this.getBoxPlot('gender', 'Average pay, split by gender', 'salary-ranges-1', '350px')}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-10 col-md-push-1" id="ranges-ethnicity">
+            {this.getBoxPlot('ethnicity', 'Average pay, split by ethnicity', 'salary-ranges-2', '500px')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(ethnicityData, 'Average pay, split by ethnicity', 'salary-ranges-2')}
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            {this.getBoxPlot(religionData, 'Average pay, split by religion', 'salary-ranges-3')}
+            {this.getBoxPlot('religion', 'Average pay, split by religion', 'salary-ranges-3', '700px')}
           </div>
         </div>
 
       </div>
     );
 
+
+    return content;
+  }
+
+  // clickShowNationalAverage() {
+  //   this.setState({ showNationalAverage: !this.state.showNationalAverage });
+  // }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+
+    const dataTransaction = (
+      <div className="container" key="transaction-ranges">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/salary/ranges"
+                  sendData={{ filterData: sendData }}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
+
+    const output = [
+      content,
+      dataTransaction,
+    ];
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
@@ -206,13 +276,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

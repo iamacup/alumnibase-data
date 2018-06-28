@@ -1,4 +1,3 @@
-
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
@@ -28,7 +27,7 @@ class Wrapper extends React.PureComponent {
 
     const result = (
       <ol key="static" className="breadcrumb">
-        <li><Link href="/" to="/"><i className="far fa-home" /></Link></li>
+        <li><Link href="/campaign/overview" to="/campaign/overview"><i className="far fa-home" /></Link></li>
         {crumbs}
       </ol>
     );
@@ -36,7 +35,14 @@ class Wrapper extends React.PureComponent {
     return result;
   }
 
+
   render() {
+    let uniName = '';
+
+    if (this.props.authenticationData.loggedIn === true) {
+      uniName = this.props.authenticationData.institution;
+    }
+
     return (
       <div id="container" className="effect aside-float aside-fixed aside-bright mainnav-lg">
         <NavBar />
@@ -45,7 +51,7 @@ class Wrapper extends React.PureComponent {
           <div id="content-container">
             <div id="page-head">
               <div className="pad-all text-center" style={{ paddingBottom: '0' }}>
-                <h3 style={{ marginTop: '0' }}>Aristotle Uni</h3>
+                <h3 style={{ marginTop: '0' }}>{uniName}</h3>
                 <p>{this.props.pageData.pageTitle}</p>
               </div>
 
@@ -74,10 +80,15 @@ class Wrapper extends React.PureComponent {
   }
 }
 
+Wrapper.contextTypes = {
+  router: PropTypes.object,
+};
+
 Wrapper.propTypes = {
   theLocation: PropTypes.object.isRequired,
   pageData: PropTypes.object,
-  content: PropTypes.object.isRequired,
+  content: PropTypes.any.isRequired,
+  authenticationData: PropTypes.object,
 };
 
 Wrapper.defaultProps = {
@@ -93,12 +104,16 @@ Wrapper.defaultProps = {
         link: '/campaign/overview',
       }],
   },
+  authenticationData: {
+    loggedIn: false,
+  },
 };
 
 // we have to bind the location to the state of this component so navigation updates work properly (i.e. so it detects a change in the location props and thus re renderds the app)
 const mapStateToProps = state => ({
   location: state.router.location,
   pageData: state.dataStoreSingle.pageData,
+  authenticationData: state.dataStoreSingle.authentication,
 });
 
 const mapDispatchToProps = null;

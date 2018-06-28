@@ -42,6 +42,7 @@ import WPBMEEPage from '../../content/containers/Pages/Analytics/WideningPartici
 import WPBMEPOLARPage from '../../content/containers/Pages/Analytics/WideningParticipation/BME-POLAR3';
 
 import DataExportPage from '../../content/containers/Pages/DataControl/Export';
+import ToBeCompletedPage from '../../content/containers/Pages/NotFound/ToBeCompleted';
 
 import TestsPage from '../../content/containers/Pages/Tests';
 
@@ -49,17 +50,27 @@ export default [
   {
     path: '/',
     exact: true,
-    component: CampaignOverviewPage,
-  },
-  {
-    path: '/login',
-    exact: true,
     component: LoginPage,
   },
   {
     path: '/data-control/export',
     exact: true,
     component: DataExportPage,
+  },
+  {
+    path: '/help',
+    exact: true,
+    component: ToBeCompletedPage,
+  },
+  {
+    path: '/profile/settings',
+    exact: true,
+    component: ToBeCompletedPage,
+  },
+  {
+    path: '/password/reminder',
+    exact: true,
+    component: ToBeCompletedPage,
   },
   {
     path: '/splash',
@@ -231,4 +242,3 @@ export default [
     component: NotFoundPage,
   },
 ];
-

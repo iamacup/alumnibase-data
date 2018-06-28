@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import echarts from 'echarts';
 
-import { dNc, fireDebouncedResizeEvents } from '../../../content/scripts/custom/utilities';
+import { dNc, fireDebouncedResizeEvents, getAuthenticationCookie } from '../../../content/scripts/custom/utilities';
 
 import * as storeAction from '../../../foundation/redux/globals/DataStoreSingle/actions';
 
@@ -23,12 +23,25 @@ import '../../../../src/includes/fontawesome-pro-5.0.4/web-fonts-with-css/css/fo
 // our custom styles
 import '../../../content/theme/custom/scss/application.scss';
 
-// TODO used?
+// form validation for email login.
 import '../../../content/theme/vendor/formValidation-0.7.1.min.css';
+
+import fetchDataBuilder from '../../../foundation/redux/Factories/FetchData';
+
+const dataStoreID = 'global-state-fetcher';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 const listenersList = {};
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fetchSessionData: false,
+    };
+  }
+
   componentDidMount() {
     // include the bootstrap javascript
     require('../../../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js');
@@ -51,6 +64,17 @@ class App extends React.Component {
         // we resize the current graph on screen
         this.handleResizeGraphs();
       });
+
+      // here we need to do something for the case that there is no user session data but there is an authentication cookie
+      // we do this here to make sure that the cookies and all the cookie libraries are all loaded (otherwise we could run this login in render)
+      if (this.props.authenticationData.loggedIn === false && dNc(getAuthenticationCookie()) === true) {
+        this.setState({ fetchSessionData: true });
+      }
+
+      // here we check to see if we need to redirect to the login page
+      if (this.props.authenticationData.loggedIn === false && !dNc(getAuthenticationCookie()) === true) {
+        this.context.router.history.push('/');
+      }
     });
   }
 
@@ -63,9 +87,6 @@ class App extends React.Component {
       }
 
       paths.push(this.props.location.pathname);
-
-      // this breaks navigation when enabled - need to work out why!!!
-      // this.props.reduxAction_doUpdate('historyData', { paths });
     }
   }
 
@@ -79,7 +100,44 @@ class App extends React.Component {
     });
   }
 
+  successHandler(payload) {
+    const loggedIn = true;
+    const {
+      fullName, profileImage, institution, username,
+    } = payload;
+
+    this.props.reduxAction_doUpdate('authentication', {
+      loggedIn,
+      username,
+      fullName,
+      profileImage,
+      institution,
+    });
+  }
+
+  errorHandler(message) {
+    // todo
+    console.log('we do not handle an error in the session fetch data at this time!');
+    console.log(message);
+  }
+
   render() {
+    let fetchData = null;
+
+    if (this.state.fetchSessionData === true) {
+      fetchData = (
+        <FetchData
+          key="fetch"
+          active
+          fetchURL="api/authentication/ABdata/sessionData"
+          sendData={{}}
+          successCallback={(payload) => { this.successHandler(payload); }}
+          errorCallback={(payLoad) => { this.errorHandler(payLoad); }}
+          fatalCallback={() => { this.errorHandler('The backend did not respond properly.'); }}
+        />
+      );
+    }
+
     let path = 'https://data.alumnibaseapp.com/';
 
     // todo this won't work because this component does not have access to the path at server render time, only things instantiated within the route <i.e. components that are made by the router> have access at render time
@@ -87,33 +145,46 @@ class App extends React.Component {
       path = 'https://data.alumnibaseapp.com' + this.props.location.pathname;
     }
 
-    return (
+    return [
       <Helmet
+        key="helmet"
         meta={[
               {
                 property: 'og:url',
                 content: path,
               },
             ]}
-      />
-    );
+      />,
+      fetchData,
+    ];
   }
 }
+
+App.contextTypes = {
+  router: PropTypes.object,
+};
 
 App.propTypes = {
   location: PropTypes.object,
   reduxState_historyData: PropTypes.object,
+  authenticationData: PropTypes.object,
+  reduxAction_doUpdate: PropTypes.func,
 };
 
 App.defaultProps = {
   location: {},
   reduxState_historyData: {},
+  authenticationData: {
+    loggedIn: false,
+  },
+  reduxAction_doUpdate: () => {},
 };
 
 // we have to bind the location to the state of this component so navigation updates work properly (i.e. so it detects a change in the location props and thus re renderds the app)
 const mapStateToProps = state => ({
   location: state.router.location,
   reduxState_historyData: state.dataStoreSingle.historyData,
+  authenticationData: state.dataStoreSingle.authentication,
 });
 
 const mapDispatchToProps = dispatch => ({

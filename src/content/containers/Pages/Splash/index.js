@@ -282,13 +282,13 @@ class Page extends React.PureComponent {
                   <a href="/analytics/dlhe-like/7" className="btn btn-pink" style={{ marginRight: '8px' }}>UK Domicilied Graduates</a>
                   <a href="/analytics/dlhe-like/8" className="btn btn-pink" style={{ marginRight: '8px' }}>Graduates in Employment</a>
                   <a href="/analytics/dlhe-like/9" className="btn btn-pink" style={{ marginRight: '8px' }}>Geographical Destinations of Employment</a>
-                  <a href="/analytics/dlhe-like/11" className="btn btn-pink">First Time Graduates in Full Time Work</a>
+                  <a href="/analytics/dlhe-like/11" className="btn btn-pink">Undergraduates in Full Time Work</a>
                 </div>
               </div>
             </div>
             {/* <!--===================================================--> */}
 
-            {/*  <!--===================================================--> */}
+            {/*  <!--===================================================--> 
             <div className="panel panel-purple panel-colorful">
               <div className="panel-heading">
                 <div className="pad-all media">
@@ -313,7 +313,7 @@ class Page extends React.PureComponent {
                 </div>
               </div>
             </div>
-            {/* <!--===================================================--> */}
+             <!--===================================================--> */}
 
           </div>
         </div>

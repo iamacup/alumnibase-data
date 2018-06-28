@@ -18,6 +18,10 @@ class Page extends React.PureComponent {
   }
 }
 
+Page.contextTypes = {
+  router: PropTypes.object,
+};
+
 Page.propTypes = {
   active: PropTypes.string.isRequired,
 };

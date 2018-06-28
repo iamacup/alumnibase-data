@@ -130,11 +130,14 @@ export function enableWOW() {
 }
 
 export function setAuthenticationCookie(data) {
+  // console.log('setAuthenticationCookie');
   const Cookies = require('js-cookie');
+  // Cookies.set('authentication', data, { expires: 365 });
   Cookies.set('authentication', data, { expires: 365 });
 }
 
 export function getAuthenticationHeaders(override) {
+  // console.log('getAuthenticationHeaders');
   const Cookies = require('js-cookie');
 
   let bearer = null;
@@ -142,10 +145,14 @@ export function getAuthenticationHeaders(override) {
   if (dNc(override)) {
     bearer = override;
   } else {
+    // bearer = Cookies.get('authentication');
     bearer = Cookies.get('authentication');
   }
 
   if (dNc(bearer)) {
+    // console.log('returning a bearer');
+
+    // console.log(new Error('what 1'));
     return {
       headers: {
         Authorization: 'Bearer ' + bearer,
@@ -153,36 +160,18 @@ export function getAuthenticationHeaders(override) {
     };
   }
 
+
+  // console.log('NOT returning a bearer');
+  // console.log(new Error('what 2'));
+
   return {};
 }
 
-export function authenticationCookieExists() {
-  const Cookies = require('js-cookie');
-  const bearer = Cookies.get('authentication');
-
-  if (dNc(bearer)) {
-    return true;
-  }
-
-  return false;
-}
-
 export function getAuthenticationCookie() {
+  // console.log('getAuthenticationCookie');
   const Cookies = require('js-cookie');
+  // return Cookies.get('authentication');
   return Cookies.get('authentication');
-}
-
-export function deleteAuthenticationCookie() {
-  const Cookies = require('js-cookie');
-  Cookies.remove('authentication');
-}
-
-// the api returns something called 'authStatus' as part of all responses - we should examine it and check that the api has not revoked access or anything every time we hit the API
-export function handleAuthStatus(authStatus, dispatch) {
-  if (authenticationCookieExists() && authStatus === 'error') {
-    deleteAuthenticationCookie();
-    dispatch({ type: 'LOGOUT_FINISHED' });
-  }
 }
 
 export function showCookieMessage() {

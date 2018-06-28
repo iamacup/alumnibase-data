@@ -13,8 +13,13 @@ import StandardFilters from '../../../../../../content/containers/Fragments/Filt
 import drawNewBarChart from '../../../../../../content/scripts/custom/echarts/drawStackedBarChart';
 import drawLineChart from '../../../../../../content/scripts/custom/echarts/drawLineChart';
 import drawPercentRow from '../../../../../../content/scripts/custom/echarts/drawPercentRow';
-
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
 import SubNav from './subNav';
+
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'views';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -45,95 +50,21 @@ class Page extends React.PureComponent {
     });
   }
 
-  getOptions1() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'Strongly agree', data: [25, 16, 14, 12, 10] },
-      { name: 'Agree', data: [30, 16, 14, 12, 10] },
-      { name: 'Neither agree or disagree', data: [15, 44, 44, 44, 40] },
-      { name: 'Disagree', data: [10, 12, 14, 16, 20] },
-      { name: 'Strongly disagree', data: [20, 12, 14, 16, 20] },
-    ];
+  getTabbed(title, id, collapse, trends, data) {
+    let panel = null;
+    let allData = false;
+    let timeSeriesData = false;
 
-    const options = drawNewBarChart(axisData, dataSeries);
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload)) {
+      if (this.props.reduxState_fetchDataTransaction.default.payload.allData.length > 0) allData = true;
+      if (this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.length > 0) timeSeriesData = true;
 
-    return options;
-  }
-
-  getOptions2() {
-    const optionsA = {
-      x: 'Age',
-      y: 'Average Response',
-    };
-
-    const age = [];
-    const first = [];
-    const plotted = [];
-
-    const start = 9.1;
-    const end = 5.6;
-
-    const firstAge = 21;
-    const lastAge = 61;
-
-    let current = start;
-    const increment = (start - end) / (lastAge - firstAge);
-    for (let a = firstAge; a < lastAge; a++) {
-      age.push(a);
-      first.push(Number(current.toPrecision(2)));
-      current -= increment;
-    }
-
-    plotted.push(first);
-
-    const data = {
-      age,
-      name: ['test'],
-      plotted,
-    };
-
-    const options = drawLineChart(data, optionsA);
-
-    return options;
-  }
-
-
-  getOptions3(colours) {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'Very Likely', data: [20, 16, 14, 12, 10] },
-      { name: 'Likely', data: [20, 16, 14, 12, 10] },
-      { name: 'Not very likely', data: [40, 44, 44, 44, 40] },
-      { name: 'Not likely at all', data: [10, 12, 14, 16, 20] },
-      { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries, colours);
-
-    return options;
-  }
-
-  getOptions4() {
-    const axisData = { y: ['1970+', '1980-89', '1990-99', '2000-09', '2010-18'].reverse(), x: '%' };
-    const dataSeries = [
-      { name: 'A great extent', data: [20, 16, 14, 12, 10] },
-      { name: 'Some extent', data: [20, 16, 14, 12, 10] },
-      { name: 'Not at all', data: [40, 44, 44, 44, 40] },
-      { name: 'Don\'t know', data: [10, 12, 14, 16, 20] },
-      { name: 'Have not worked since finishing course', data: [10, 12, 14, 16, 20] },
-    ];
-
-    const options = drawNewBarChart(axisData, dataSeries);
-
-    return options;
-  }
-
-  getTabbed(title, id, options, arr, collapsed, data) {
-    const panel = (<TabbedGraphPanel
-      title={title}
-      globalID={id}
-      collapsed={collapsed}
-      content={[
+      if (allData && timeSeriesData) {
+        panel = (<TabbedGraphPanel
+          title={title}
+          globalID={id}
+          collapsed={collapse}
+          content={[
             {
               title: 'Overall',
               postContent: <div className="pull-right"><p>Data shown for all respondants</p></div>,
@@ -148,7 +79,7 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 data: {
-                  reactData: data.map((element, i) => drawPercentRow(arr[i], element, true)), // this.getPercentageBlock(arr), //map over data and use i for arr[i] -- see how it's done on another page!
+                  reactData: this.getData(data[0], data[1], data[2]), // this.getPercentageBlock(arr), //map over data and use i for arr[i] -- see how it's done on another page!
                 },
               },
             },
@@ -164,29 +95,124 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 width: '100%',
-                height: '300px',
+                height: '350px',
                 data: {
-                  options,
+                  options: this.getTrends(trends[0], trends[1], trends[2], trends[3]),
                 },
               },
             },
           ]}
-      seperator
-    />);
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
 
     return panel;
   }
 
-  render() {
+  getData(item, collapsed, type) {
+    const titles = [];
+    const data = [];
+    const agree = ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'];
+    const extent = ['A great extent', 'Some extent', "Don't know", 'Not at all', 'Have not worked since finishing course'];
+    const likely = ['Very likely', 'Likely', "Don't know", 'Not very likely', 'Not likely at all'];
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.allData)) {
+      this.props.reduxState_fetchDataTransaction.default.payload.allData.forEach((element) => {
+        if (item === element.item) {
+          element.data.forEach((value) => {
+            let index = null;
+            if (type === 'agree') index = agree.indexOf(value.value);
+            if (type === 'extent') index = extent.indexOf(value.value);
+            if (type === 'likely') index = likely.indexOf(value.value);
+            if (type === 'number') index = +value.value;
+
+            titles[index] = value.value;
+            data[index] = value.percentage;
+          });
+        }
+      });
+    }
+
+    return data.map((element, i) => drawPercentRow(titles[i], element, true));
+  }
+
+  getTrends(item, chart, type, colours) {
+    let options = null;
+
+    if (chart === 'bar') {
+      const axisData = { y: [], x: '%' };
+      let dataSeries = [{ name: 'Strongly agree', data: [] }, { name: 'Agree', data: [] }, { name: 'Neither agree or disagree', data: [] }, { name: 'Disagree', data: [] }, { name: 'Strongly disagree', data: [] }];
+      if (type === 'extent') dataSeries = [{ name: 'A great extent', data: [] }, { name: 'Some extent', data: [] }, { name: "Don't know", data: [] }, { name: 'Not at all', data: [] }, { name: 'Have not worked since finishing course', data: [] }];
+      if (type === 'likely') dataSeries = [{ name: 'Very likely', data: [] }, { name: 'Likely', data: [] }, { name: 'Not very likely', data: [] }, { name: 'Not likely at all', data: [] }, { name: "Don't know", data: [] }];
+
+      if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+        this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+          if (item === element.item) {
+            this.dividePercentOverElements(element.data);
+            element.data.forEach((elem) => {
+              // setting axis data;
+              const str = elem.yearGroupEnd + '';
+              axisData.y.push(elem.yearGroupStart + '-' + str.slice(2));
+
+              elem.data.data.forEach((value) => {
+                // setting the dataSeries data with all the correct numbers for it's name.
+                dataSeries.forEach((val) => {
+                  if (value.value === val.name) {
+                    val.data.push(value.percentage);
+                  }
+                });
+              });
+            });
+          }
+        });
+      }
+      options = drawNewBarChart(axisData, dataSeries, colours);
+    } else if (chart === 'line') {
+      const optionsObj = { x: 'Scale', y: 'Average Response' };
+      const data = {
+        age: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        name: [],
+        plotted: [],
+      };
+
+      if (dNc(this.props.reduxState_fetchDataTransaction.default) && dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData)) {
+        this.props.reduxState_fetchDataTransaction.default.payload.timeSeriesData.forEach((element) => {
+          if (item === element.item) {
+            element.data.forEach((elem) => {
+              const str = elem.yearGroupEnd + '';
+              data.name.push(elem.yearGroupStart + '-' + str.slice(2));
+
+              const arr = [];
+              elem.data.data.forEach((value) => {
+                arr[+value.value] = value.percentage;
+              });
+              data.plotted.push(arr);
+            });
+          }
+        });
+      }
+      options = drawLineChart(data, optionsObj);
+    }
+
+    return options;
+  }
+
+  getContent() {
     const content = (
-      <div id="page-content">
-
+      <div id="page-content" key="content">
         <StandardFilters />
-
         <SubNav
           active="1"
         />
-
         <div className="row">
           <div className="col-md-6 col-md-push-3">
             <BasicPanel
@@ -205,10 +231,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the knowledge from my degree(s) to my work often',
               'view-1-1',
-              this.getOptions1(),
-              ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
               false,
-              [25, 30, 15, 10, 20])}
+              ['applyDegreeToWork', 'bar'],
+              ['applyDegreeToWork', false, 'agree'])}
           </div>
         </div>
 
@@ -216,19 +241,19 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the skills, methods or techniques I learnt from undertaking my degree to my work often',
               'view-1-2',
-              this.getOptions1(),
-              ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false, [30, 40, 5, 15, 10])}
+              false,
+              ['applySkillsToWork', 'bar'],
+             ['applySkillsToWork', false, 'agree'])}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('I apply the things I learnt from extra-curricular activities to my work often',
-              'view-1-3',
-              this.getOptions1(),
-              ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false, [35, 45, 10, 8, 2])}
+               'view-1-3',
+               false,
+              ['applyExtraCurricularToWork', 'bar'],
+              ['applyExtraCurricularToWork', false, 'agree'])}
           </div>
         </div>
 
@@ -236,9 +261,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Overall, all the things I did or learnt have contributed meaningfully to my life today',
               'view-1-4',
-              this.getOptions1(),
-              ['Strongly agree', 'Agree', 'Neither agree or disagree', 'Disagree', 'Strongly disagree'],
-              false, [35, 20, 2, 32, 11])}
+              false,
+              ['contributeMeaningfullyToLife', 'bar'],
+              ['contributeMeaningfullyToLife', false, 'agree'])}
           </div>
         </div>
 
@@ -247,9 +272,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('How likely are you to recommend your HE provider to a friend or a colleague',
               'view-1-5',
-              this.getOptions2(),
-              ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
-              false, [18, 12, 8, 5, 13, 15, 7, 5, 10, 8])}
+              false,
+              ['recommendToFriendOrColleague', 'line'],
+              ['recommendToFriendOrColleague', false, 'number'])}
           </div>
         </div>
 
@@ -265,9 +290,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Do a different subject',
               'view-1-6',
-              this.getOptions3(),
-              ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
-              true, [10, 7, 14, 39, 30])}
+              true,
+              ['viewsOnCourseDifferentSubject', 'bar', 'likely'],
+              ['viewsOnCourseDifferentSubject', true, 'likely'])}
           </div>
         </div>
 
@@ -275,9 +300,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Study at a different institution',
               'view-1-7',
-              this.getOptions3(),
-              ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
-              true, [4, 8, 21, 37, 30])}
+              true,
+              ['viewsOnCourseDifferentInstitution', 'bar', 'likely'],
+              ['viewsOnCourseDifferentInstitution', true, 'likely'])}
           </div>
         </div>
 
@@ -285,9 +310,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Work towards a different type of qualification',
               'view-1-8',
-              this.getOptions3(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-              ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
-              true, [11, 18, 21, 28, 22])}
+              true,
+              ['viewsOnCourseDifferentQualification', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']],
+              ['viewsOnCourseDifferentQualification', true, 'likely'])}
           </div>
         </div>
 
@@ -295,9 +320,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Decide to do something completely different',
               'view-1-9',
-              this.getOptions3(['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']),
-              ['Very Likely', 'Likely', 'Not very likely', 'Not likely at all', 'Don\'t know'],
-              true, [10, 15, 25, 30, 20])}
+              true,
+              ['viewsOnCourseTotallyDifferent', 'bar', 'likely', ['#d02224', '#ffbb7d', '#ff7311', '#a4c0e5', '#1c6cab', '#ff8d8b', '#11293b']],
+              ['viewsOnCourseTotallyDifferent', true, 'likely'])}
           </div>
         </div>
 
@@ -313,9 +338,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Be innovative in the workplace',
               'view-1-10',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true, [32, 39, 14, 16, 4])}
+              true,
+              ['viewsOnHEInnovative', 'bar', 'extent'],
+              ['viewsOnHEInnovative', true, 'extent'])}
           </div>
         </div>
 
@@ -323,9 +348,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Make a difference in the workplace',
               'view-1-11',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true, [26, 35, 20, 15, 4])}
+              true,
+              ['viewsOnHEDifferenceInWorkplace', 'bar', 'extent'],
+              ['viewsOnHEDifferenceInWorkplace', true, 'extent'])}
           </div>
         </div>
 
@@ -333,9 +358,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Change organisational culture and/or working practices',
               'view-1-12',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true, [16, 35, 25, 10, 4])}
+              true,
+              ['viewsOnHEChangeOrganisation', 'bar', 'extent'],
+              ['viewsOnHEChangeOrganisation', true, 'extent'])}
           </div>
         </div>
 
@@ -343,9 +368,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Influence the work of others in the workplace',
               'view-1-13',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true, [20, 31, 15, 30, 4])}
+              true,
+              ['viewsOnHEInfluenceWork', 'bar', 'extent'],
+              ['viewsOnHEInfluenceWork', true, 'extent'])}
           </div>
         </div>
 
@@ -353,9 +378,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Access immediate or short-term job opportunities in your chosen career',
               'view-1-14',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true, [28, 31, 27, 10, 4])}
+              true,
+              ['viewsOnHEAccessJobOppts', 'bar', 'extent'],
+              ['viewsOnHEAccessJobOppts', true, 'extent'])}
           </div>
         </div>
 
@@ -363,9 +388,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance your credibility or standing in the workplace',
               'view-1-15',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true, [21, 25, 23, 26, 4])}
+              true,
+              ['viewsOnHEEnhanceCredibility', 'bar', 'extent'],
+              ['viewsOnHEEnhanceCredibility', true, 'extent'])}
           </div>
         </div>
 
@@ -373,9 +398,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Progress towards your long term career aspirations',
               'view-1-16',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know', 'Have not worked since finishing course'],
-              true, [19, 35, 33, 9, 4])}
+              true,
+              ['viewsOnHEProgressLongTerm', 'bar', 'extent'],
+              ['viewsOnHEProgressLongTerm', true, 'extent'])}
           </div>
         </div>
 
@@ -383,9 +408,9 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance your social and intellectual capabilities beyond employment',
               'view-1-17',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know'],
-              true, [26, 35, 22, 17])}
+              true,
+              ['viewsOnHEEnhanceSocialCapeabilities', 'bar', 'extent'],
+              ['viewsOnHEEnhanceSocialCapeabilities', true, 'extent'])}
           </div>
         </div>
 
@@ -393,20 +418,104 @@ class Page extends React.PureComponent {
           <div className="col-md-8 col-md-push-2">
             {this.getTabbed('Enhance the quality of your life generally',
               'view-1-18',
-              this.getOptions4(),
-              ['A great extent', 'Some extent', 'Not at all', 'Don\'t know'],
-              true, [33, 39, 11, 17])}
+              true,
+              ['viewsOnHEEnhanceQualityOfLife', 'bar', 'extent'],
+              ['viewsOnHEEnhanceQualityOfLife', true, 'extent'])}
           </div>
         </div>
-
-
       </div>
     );
 
-    const { location } = this.props;
+    return content;
+  }
 
+  dividePercentOverElements(dataArr) {
+    let remainder;
+
+    dataArr.forEach((element) => {
+      let count = 0;
+      element.data.data.forEach((elem) => {
+        count += elem.percentage;
+      });
+
+      if (count > 100) {
+        remainder = count - 100;
+        element.data.data.forEach((elem) => {
+          elem.percentage -= (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      } else if (count < 100) {
+        remainder = 100 - count;
+        element.data.data.forEach((elem) => {
+          elem.percentage += (elem.percentage / 100) * remainder; // eslint-disable-line no-param-reassign
+        });
+      }
+    });
+
+    return dataArr;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-1a">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/views"
+                  sendData={{ filterData: sendData }}
+                />
+                }
+            />
+          </div>
+        </div>
+      </div>
+    );
+
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
+    const { location } = this.props;
     return (
-      <Wrapper content={content} theLocation={location} />
+      <div>
+        <Wrapper content={output} theLocation={location} />
+      </div>
     );
   }
 }
@@ -414,13 +523,20 @@ class Page extends React.PureComponent {
 Page.propTypes = {
   location: PropTypes.object.isRequired,
   reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),

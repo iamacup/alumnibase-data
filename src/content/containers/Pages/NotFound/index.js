@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Wrapper from '../../../../content/containers/Fragments/Template/wrapper';
 import * as storeAction from '../../../../foundation/redux/globals/DataStoreSingle/actions';
 
 class Page extends React.PureComponent {
@@ -21,31 +20,27 @@ class Page extends React.PureComponent {
   }
 
   render() {
-    const content = (
-      <div id="page-content">
-        <div className="row">
-          <div className="col-lg-12">
-
-            <div className="panel">
-              <div className="panel-body">
-                <div className="pad-all text-center">
-                  <h2>We are still working on that page!</h2>
-                  <i className="far fa-exclamation fa-8x" style={{ marginTop: '30px', marginBottom: '26px' }} />
-                  <h4>It will be ready soon...</h4>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    );
-
     const { location } = this.props;
+    let direct;
+
+    const uniName = location.pathname.split('/')[1].toLowerCase();
+
+    if (uniName === 'aristotle' || uniName === 'durham' || uniName === 'uwe' || uniName === 'ucl' || uniName === 'sheffield-hallam' || uniName === 'sheffield' || uniName === 'oxford-brookes' || uniName === 'loughborough' || uniName === 'kings' || uniName === 'cranfield' || uniName === 'mmu' || uniName === 'liverpool-hope' || uniName === 'chester') {
+      direct = '/' + uniName + '/campaign/overview';
+    } else direct = 'http://www.alumnibaseapp.com/';
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <div id="container" className="cls-container">
+        <div className="cls-content">
+          <h1 className="error-code text-info">404</h1>
+          <p className="h4 text-uppercase text-bold">Page Not Found!</p>
+          <div className="pad-btm">
+                Sorry, but the page you are looking for has not been found on our server.
+          </div>
+          <hr className="new-section-sm bord-no" />
+          <div className="pad-top"><a className="btn btn-primary" href={direct}>Return</a></div>
+        </div>
+      </div>
     );
   }
 }

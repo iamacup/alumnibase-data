@@ -11,8 +11,15 @@ import TabbedGraphPanel from '../../../../../../content/components/TabbedGraphPa
 import StandardFilters from '../../../../../../content/containers/Fragments/Filters/standard';
 
 import drawSankeyChart from '../../../../../../content/scripts/custom/googlecharts/sankey';
+import BasicPanel from '../../../../../../content/components/BasicPanel';
 
 import * as storeAction from '../../../../../../foundation/redux/globals/DataStoreSingle/actions';
+
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+import { dNc } from '../../../../../../content/scripts/custom/utilities';
+
+const dataStoreID = 'polar';
+const FetchData = fetchDataBuilder(dataStoreID);
 
 class Page extends React.PureComponent {
   componentDidMount() {
@@ -35,80 +42,43 @@ class Page extends React.PureComponent {
     });
   }
 
-  getPOLAROutcomes() {
+  getData() {
     const columns = [['string', 'From'], ['string', 'To'], ['number', 'Weight']];
-    const rows = [
-      ['POLAR3 area', 'Engineering', 1],
-      ['POLAR3 area', 'Business and Legal', 1],
-      ['POLAR3 area', 'Computer science', 1],
-      ['POLAR3 area', 'English', 1],
-      ['POLAR3 area', 'Medicine', 1],
-      ['POLAR3 area', 'Politics, philosophy & theology', 1],
-      ['POLAR3 area', 'Psychology and sociology', 2],
-      ['POLAR3 area', 'Sciences', 1],
-      ['non-POLAR3 area', 'Architecture', 11],
-      ['non-POLAR3 area', 'Engineering', 8],
-      ['non-POLAR3 area', 'Business and Legal', 9],
-      ['non-POLAR3 area', 'Computer science', 5],
-      ['non-POLAR3 area', 'Creative arts', 5],
-      ['non-POLAR3 area', 'English', 4],
-      ['non-POLAR3 area', 'History', 5],
-      ['non-POLAR3 area', 'Medicine', 7],
-      ['non-POLAR3 area', 'Politics, philosophy & theology', 8],
-      ['non-POLAR3 area', 'Psychology and sociology', 6],
-      ['non-POLAR3 area', 'Sciences', 9],
-      ['non-POLAR3 area', 'Agriculture', 8],
-      ['Architecture', '£50+', 2],
-      ['Engineering', '£50+', 1],
-      ['Business and Legal', '£50+', 1],
-      ['Medicine', '£50+', 1],
-      ['Sciences', '£50+', 1],
-      ['Agriculture', '£40-50,000', 1],
-      ['Architecture', '£40-50,000', 3],
-      ['Engineering', '£40-50,000', 1],
-      ['Sciences', '£40-50,000', 2],
-      ['Medicine', '£40-50,000', 2],
-      ['Psychology and sociology', '£40-50,000', 1],
-      ['Business and Legal', '£40-50,000', 1],
-      ['Engineering', '£30-40,000', 4],
-      ['Architecture', '£30-40,000', 3],
-      ['Computer science', '£30-40,000', 3],
-      ['Business and Legal', '£30-40,000', 4],
-      ['Psychology and sociology', '£30-40,000', 2],
-      ['Medicine', '£30-40,000', 3],
-      ['Politics, philosophy & theology', '£30-40,000', 3],
-      ['Sciences', '£30-40,000', 3],
-      ['Agriculture', '£30-40,000', 3],
-      ['History', '£30-40,000', 1],
-      ['English', '£30-40,000', 1],
-      ['Architecture', '£20-30,000', 3],
-      ['Engineering', '£20-30,000', 3],
-      ['Business and Legal', '£20-30,000', 4],
-      ['Computer science', '£20-30,000', 3],
-      ['Creative arts', '£20-30,000', 3],
-      ['English', '£20-30,000', 2],
-      ['History', '£20-30,000', 2],
-      ['Medicine', '£20-30,000', 2],
-      ['Politics, philosophy & theology', '£20-30,000', 4],
-      ['Sciences', '£20-30,000', 3],
-      ['Psychology and sociology', '£20-30,000', 4],
-      ['Agriculture', '£20-30,000', 3],
-      ['Psychology and sociology', 'under £20,000', 1],
-      ['English', 'under £20,000', 2],
-      ['Politics, philosophy & theology', 'under £20,000', 2],
-      ['History', 'under £20,000', 2],
-      ['Agriculture', 'under £20,000', 1],
-      ['Creative arts', 'under £20,000', 2],
-    ];
+    const rows = [];
 
-    const googleData = drawSankeyChart(columns, rows);
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0]).forEach((key) => {
+        if (key === 'stage1') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].forEach((element) => {
+            rows.push([element.col1, element.col2, element.weight]);
+          });
+        } else if (key === 'stage2') {
+          this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].sort((a, b) => a.rangeStart - b.rangeStart).forEach((element) => {
+            const label = element.rangeStart.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }) + ' - ' + element.rangeEnd.toLocaleString('en-US', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
+            // sort columns
+            rows.push([element.col1, label, element.weight]);
+          });
+        }
+      });
+    }
 
-    // the actual panel stuff
-    const panel = (
-      <TabbedGraphPanel
-        title="Subject Areas and Salary of Current Graduates, Based on the their pre-university location"
-        globalID="polar-overview-1"
-        content={[
+    return drawSankeyChart(columns, rows);
+  }
+
+  getGraph() {
+    let panel = null;
+    let length = false;
+
+    if (dNc(this.props.reduxState_fetchDataTransaction.default.payload) && dNc(this.props.reduxState_fetchDataTransaction.default.payload[0])) {
+      Object.keys(this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0]).forEach((key) => {
+        if (this.props.reduxState_fetchDataTransaction.default.payload[0].polarSubjectSalarySankey[0][key].length > 0) length = true;
+      });
+
+      if (length) {
+        panel = (<TabbedGraphPanel
+          title="Subject Areas and Salary of Current Graduates, Based on the their pre-university location"
+          globalID="polar-overview-1"
+          content={[
             {
               title: '',
               active: true,
@@ -120,21 +90,30 @@ class Page extends React.PureComponent {
                   pinGraph: false,
                 },
                 width: '100%',
-                height: '450px',
-                data: googleData,
+                height: '4500px',
+                data: this.getData(),
               },
             },
           ]}
-        seperator
-      />
-    );
+          seperator
+        />);
+      } else {
+        panel = (<BasicPanel
+          content={
+            <div className="text-center">
+              <h5>There is no data for this graph<br />Please adjust the filters.</h5>
+            </div>
+          }
+        />);
+      }
+    }
 
     return panel;
   }
 
-  render() {
+  getContent() {
     const content = (
-      <div id="page-content">
+      <div id="page-content" key="polar-overview">
 
         <StandardFilters />
 
@@ -147,7 +126,7 @@ class Page extends React.PureComponent {
 
             <div className="row">
               <div className="col-md-12">
-                {this.getPOLAROutcomes()}
+                {this.getGraph()}
               </div>
             </div>
 
@@ -156,24 +135,92 @@ class Page extends React.PureComponent {
       </div>
     );
 
+    return content;
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.reduxState_fetchDataTransaction.default.finished === true && this.props.reduxState_fetchDataTransaction.default.generalStatus === 'success') {
+      content = this.getContent();
+    } else if (this.props.reduxState_fetchDataTransaction.default.generalStatus === 'error' || this.props.reduxState_fetchDataTransaction.default.generalStatus === 'fatal') {
+      console.log(this.props.reduxState_fetchDataTransaction.default.generalStatus.toUpperCase(), this.props.reduxState_fetchDataTransaction.default.payload);
+      content = (
+        <div>
+          <StandardFilters />
+          <div className="row" style={{ marginTop: '200px' }}>
+            <div className="col-md-10 col-md-push-1 text-center">
+              <BasicPanel
+                content={
+                  <div>
+                    <h3><strong>There has been a problem on the backend.</strong></h3>
+                    <h4>Try refreshing the page, or changing the filters.</h4>
+                    <br />
+                  </div>
+                      }
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const sendData = {};
+    Object.keys(this.props.filterData).forEach((key) => {
+      if (dNc(this.props.filterData[key])) {
+        sendData[key] = this.props.filterData[key];
+      }
+    });
+
+    const dataTransaction = (
+      <div className="container" key="transaction-polar">
+        <div className="row" style={{ marginTop: '200px' }}>
+          <div className="col-1">
+            <BasicPanel
+              content={
+                <FetchData
+                  active
+                  fetchURL="api/analytics/polar"
+                  sendData={{ filterData: sendData }}
+                />
+              }
+            />
+          </div>
+        </div>
+      </div>
+    );
+
+    const output = [
+      content,
+      dataTransaction,
+    ];
+
+
     const { location } = this.props;
 
     return (
-      <Wrapper content={content} theLocation={location} />
+      <Wrapper content={output} theLocation={location} />
     );
   }
 }
 
 Page.propTypes = {
-  reduxAction_doUpdate: PropTypes.func,
   location: PropTypes.object.isRequired,
+  reduxAction_doUpdate: PropTypes.func,
+  reduxState_fetchDataTransaction: PropTypes.object,
+  filterData: PropTypes.object,
 };
 
 Page.defaultProps = {
   reduxAction_doUpdate: () => {},
+  reduxState_fetchDataTransaction: { default: {} },
+  filterData: {},
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
+  filterData: state.dataStoreSingle.filterData,
+});
 
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: (storeID, data) => dispatch(storeAction.doUpdate(storeID, data)),
