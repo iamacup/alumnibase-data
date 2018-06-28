@@ -296,9 +296,9 @@ class Page extends React.PureComponent {
 
         uniqueKeys.forEach((key) => {
           if (!keysInBreakdown.includes(key)) {
-            if (key === 'Male') element.data.splice(0, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
-            if (key === 'Female') element.data.splice(1, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
-            if (key === 'Other') element.data.splice(2, 0, { STEM: 'STEM', averageSalary: 0, gender: key });
+            if (key === 'Male') element.data.splice(0, 0, { STEM: 'STEM', averageSalary: null, gender: key });
+            if (key === 'Female') element.data.splice(1, 0, { STEM: 'STEM', averageSalary: null, gender: key });
+            if (key === 'Other') element.data.splice(2, 0, { STEM: 'STEM', averageSalary: null, gender: key });
           }
         });
       }
