@@ -51,6 +51,13 @@ class App extends React.Component {
     window.ourGraphResizeEventList = listenersList;
 
     $(() => {
+      // we force SSL
+      if (!window.location.href.includes('localhost:3000')) {
+        if (window.location.protocol !== 'https:') {
+          window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+      }
+
       // we do this to make sure that when start things, the nifty things execute
       // i thought we would need to do this but apparently not - calling htis actually seems to break things...
       // $(document).trigger('nifty.ready');
