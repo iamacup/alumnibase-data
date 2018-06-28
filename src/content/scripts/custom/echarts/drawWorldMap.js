@@ -19,7 +19,7 @@ const drawWorldMap = (mapData, type, value) => {
   });
 
   let visualType = {
-    show: true, min: 0, max: max, calculable: true, color: ['#11293b', '#1c6cab', '#a4c0e5'], text: ['High', 'Low'],
+    show: true, min: 0, max, calculable: true, color: ['#11293b', '#1c6cab', '#a4c0e5'], text: ['High', 'Low'],
   };
 
   if (type === 'scatter') {

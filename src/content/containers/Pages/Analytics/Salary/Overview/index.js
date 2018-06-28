@@ -463,7 +463,7 @@ class Page extends React.PureComponent {
                 })}
               </div>
               <div className="text-center">
-                <Link href="#" to={'/analytics/subjects/first-year'} className="btn btn-primary">Detailed Breakdown</Link>
+                <Link href="#" to="/analytics/subjects/first-year" className="btn btn-primary">Detailed Breakdown</Link>
               </div>
             </div>
           );
@@ -481,7 +481,7 @@ class Page extends React.PureComponent {
       <div id="page-content" key="salary-overview">
         <StandardFilters />
 
-{        // <div className="row">
+        { // <div className="row">
         //   <div className="col-md-8 col-md-push-2">
         //     <h3 className="text-main text-normal text-2x mar-no">High level stats</h3>
         //     <hr className="new-section-xs" />

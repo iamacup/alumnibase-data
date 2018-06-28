@@ -89,7 +89,7 @@ class Page extends React.PureComponent {
                 {this.getGraph(`Further Study Among Graduates from ${uniName}`, 'further-study-overview-1', 'thisUniPGSplit')}
               </div>
             </div>
-       {   //   <div className="row">
+            { //   <div className="row">
                  //     <div className="col-md-6">
                  //       <TabbedGraphPanel
                  //         title={<div><p>Further Study University Destination</p><h4 style={{ color: 'red' }}>NO DATA</h4></div>}
