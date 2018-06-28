@@ -74,7 +74,7 @@ class Page extends React.PureComponent {
           const optionsObj = {
             x: 'Years Since Graduation', y: 'Salary', yLabel: 'horizontal', value: false,
           };
-          const data = { name: ['Plan 2 - Remaining Loan', 'Plan 2 - Amount Paid', 'Plan 3 - Remaining Loan', 'Plan 3 - Amount Paid'], plotted: [[], [], [], []], age: [] };
+          const data = { name: ['Plan 1 - Remaining Loan', 'Plan 1 - Amount Paid', 'Plan 2 - Remaining Loan', 'Plan 2 - Amount Paid'], plotted: [[], [], [], []], age: [] };
 
           this.props.reduxState_fetchDataTransaction.default.payload[0][key].forEach((element) => {
             if (element.courseLengthYears === num) {
